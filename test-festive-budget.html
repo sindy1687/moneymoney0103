@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>節日慶典主題 - 預算設定測試</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .theme-switcher {
+            margin-bottom: 20px;
+        }
+        .theme-switcher button {
+            margin: 5px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+        }
+        .theme-switcher button:hover {
+            background: #0056b3;
+        }
+        .theme-switcher button.active {
+            background: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🎊 節日慶典主題 - 預算設定測試</h1>
+        
+        <div class="theme-switcher">
+            <button onclick="switchTheme('pink')">粉色主題</button>
+            <button onclick="switchTheme('blue')">藍色主題</button>
+            <button onclick="switchTheme('festive')" class="active">節日慶典主題</button>
+        </div>
+
+        <div class="test-section">
+            <h2>預算設定頁面測試</h2>
+            <div class="page-budget" id="pageBudget">
+                <div class="budget-header">
+                    <button class="back-btn" id="budgetBackBtn">←</button>
+                    <h2 class="budget-title">預算設定</h2>
+                </div>
+
+                <div class="budget-summary">
+                    <div class="budget-summary-item">
+                        <span class="budget-summary-label">總預算</span>
+                        <span class="budget-summary-value budget-total" id="totalBudgetAmount">NT$50,000</span>
+                    </div>
+                    <div class="budget-summary-item">
+                        <span class="budget-summary-label">已使用</span>
+                        <span class="budget-summary-value budget-used" id="totalBudgetUsed">NT$15,000</span>
+                    </div>
+                    <div class="budget-summary-item">
+                        <span class="budget-summary-label">剩餘</span>
+                        <span class="budget-summary-value budget-remaining" id="totalBudgetRemaining">NT$35,000</span>
+                    </div>
+                </div>
+
+                <div class="budget-list" id="budgetList">
+                    <div class="budget-item">
+                        <div class="budget-category">🍔 餐飲</div>
+                        <div class="budget-amount">NT$5,000</div>
+                        <div class="budget-progress">
+                            <div class="progress-bar" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <div class="budget-item">
+                        <div class="budget-category">🚗 交通</div>
+                        <div class="budget-amount">NT$3,000</div>
+                        <div class="budget-progress">
+                            <div class="progress-bar" style="width: 40%"></div>
+                        </div>
+                    </div>
+                    <div class="budget-item">
+                        <div class="budget-category">🛍️ 購物</div>
+                        <div class="budget-amount">NT$7,000</div>
+                        <div class="budget-progress">
+                            <div class="progress-bar" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>錢包預算設定卡片測試</h2>
+            <div class="wallet-budget-card">
+                <h3>錢包預算設定</h3>
+                <p>這是一個測試卡片，用於驗證背景圖片是否正確顯示</p>
+                <div class="card-content">
+                    <div class="budget-info">
+                        <span class="label">月度預算：</span>
+                        <span class="amount">NT$50,000</span>
+                    </div>
+                    <div class="budget-info">
+                        <span class="label">已使用：</span>
+                        <span class="amount">NT$15,000</span>
+                    </div>
+                    <div class="budget-info">
+                        <span class="label">剩餘：</span>
+                        <span class="amount">NT$35,000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>調試信息</h2>
+            <div id="debug-info">
+                <p>當前主題：<span id="current-theme">festive</span></p>
+                <p>背景圖片URL：<span id="bg-url">https://i.pinimg.com/736x/6f/49/9a/6f499af434927a2eff91221a60393ae5.jpg</span></p>
+                <p>CSS變數檢查：</p>
+                <ul>
+                    <li>--color-primary: <span id="color-primary"></span></li>
+                    <li>--bg-card: <span id="bg-card"></span></li>
+                    <li>--border-primary: <span id="border-primary"></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTheme(themeId) {
+            const root = document.documentElement;
+            root.setAttribute('data-theme', themeId);
+            
+            // 更新按鈕狀態
+            document.querySelectorAll('.theme-switcher button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 更新調試信息
+            updateDebugInfo(themeId);
+        }
+
+        function updateDebugInfo(themeId) {
+            document.getElementById('current-theme').textContent = themeId;
+            
+            // 獲取CSS變數值
+            const root = document.documentElement;
+            const style = getComputedStyle(root);
+            
+            document.getElementById('color-primary').textContent = style.getPropertyValue('--color-primary');
+            document.getElementById('bg-card').textContent = style.getPropertyValue('--bg-card');
+            document.getElementById('border-primary').textContent = style.getPropertyValue('--border-primary');
+            
+            // 檢查背景圖片
+            const pageBudget = document.querySelector('.page-budget');
+            const computedStyle = getComputedStyle(pageBudget);
+            const backgroundImage = computedStyle.backgroundImage;
+            
+            console.log('當前主題:', themeId);
+            console.log('背景圖片:', backgroundImage);
+            console.log('CSS變數:', {
+                colorPrimary: style.getPropertyValue('--color-primary'),
+                bgCard: style.getPropertyValue('--bg-card'),
+                borderPrimary: style.getPropertyValue('--border-primary')
+            });
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDebugInfo('festive');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>恭喜發財主題 FAB 測試</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="flame-theme.css">
+    <style>
+        body {
+            padding: 20px;
+            font-family: 'Microsoft JhengHei', sans-serif;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .theme-info {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .current-theme {
+            font-size: 18px;
+            font-weight: bold;
+            color: #D42C2C;
+        }
+        .instructions {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #FFD700;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body data-theme="getrich">
+    <div class="test-container">
+        <div class="theme-info">
+            <h1>🧧 恭喜發財主題 FAB 按鈕測試</h1>
+            <p class="current-theme">當前主題: getrich (恭喜發財)</p>
+            <p>FAB 按鈕應該顯示為 🧧 (紅包) 圖標</p>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 測試說明:</h3>
+            <ul>
+                <li>右下角應該有一個浮動的 FAB 按鈕</li>
+                <li>FAB 按鈕應該顯示 🧧 (紅包) 圖標</li>
+                <li>按鈕應該有金色漸變背景和紅色主題配色</li>
+                <li>點擊按鈕應該有正常的點擊效果</li>
+            </ul>
+        </div>
+        
+        <div class="demo-content">
+            <h2>🎊 主題特色:</h2>
+            <div style="background: rgba(253, 245, 230, 0.9); padding: 20px; border-radius: 12px;">
+                <p>✨ 紅色和金色的配色方案</p>
+                <p>🧧 中國新年風格設計</p>
+                <p>💰 財富和繁榮的主題元素</p>
+                <p>🎊 慶祝和喜慶的視覺效果</p>
+            </div>
+        </div>
+        
+        <div style="margin-top: 40px; text-align: center;">
+            <button onclick="testThemeSwitch()" style="padding: 12px 24px; background: #D42C2C; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                🔄 測試主題切換
+            </button>
+        </div>
+    </div>
+    
+    <!-- FAB 按鈕 -->
+    <button class="fab-btn" id="fabBtn">💰</button>
+    
+    <!-- 引入 JavaScript -->
+    <script src="js/theme-icons.js"></script>
+    <script src="js/theme-core.js"></script>
+    
+    <script>
+        // 測試主題切換
+        function testThemeSwitch() {
+            const themes = ['getrich', 'pink', 'blue', 'green'];
+            const currentTheme = document.body.getAttribute('data-theme') || 'pink';
+            const currentIndex = themes.indexOf(currentTheme);
+            const nextIndex = (currentIndex + 1) % themes.length;
+            const nextTheme = themes[nextIndex];
+            
+            document.body.setAttribute('data-theme', nextTheme);
+            
+            // 更新 FAB 按鈕
+            if (window.ThemeIcons && window.updateThemeButtons) {
+                window.updateThemeButtons(nextTheme);
+            }
+            
+            // 更新顯示
+            document.querySelector('.current-theme').textContent = `當前主題: ${nextTheme}`;
+            
+            console.log(`切換到主題: ${nextTheme}`);
+        }
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('頁面載入完成，初始化主題...');
+            
+            // 確保 ThemeIcons 已載入
+            if (window.ThemeIcons) {
+                console.log('ThemeIcons 已載入:', window.ThemeIcons);
+                
+                // 初始化主題按鈕
+                if (window.updateThemeButtons) {
+                    window.updateThemeButtons('getrich');
+                    console.log('已更新 getrich 主題按鈕');
+                }
+            } else {
+                console.error('ThemeIcons 未載入');
+            }
+            
+            // FAB 按鈕點擊測試
+            const fabBtn = document.getElementById('fabBtn');
+            if (fabBtn) {
+                fabBtn.addEventListener('click', function() {
+                    alert('🧧 FAB 按鈕點擊成功！恭喜發財主題運作正常！');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>預算卡片背景圖片調試</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        .debug-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .debug-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+        }
+        .theme-switcher {
+            margin-bottom: 20px;
+        }
+        .theme-switcher button {
+            margin: 5px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+        }
+        .theme-switcher button:hover {
+            background: #0056b3;
+        }
+        .theme-switcher button.active {
+            background: #28a745;
+        }
+        .debug-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 12px;
+            border: 1px solid #dee2e6;
+        }
+        .test-card {
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <h1>🔍 預算卡片背景圖片調試</h1>
+        
+        <div class="theme-switcher">
+            <button onclick="switchTheme('pink')">粉色主題</button>
+            <button onclick="switchTheme('blue')">藍色主題</button>
+            <button onclick="switchTheme('festive')" class="active">節日慶典主題</button>
+        </div>
+
+        <div class="debug-section">
+            <h2>1. 預算摘要卡片測試</h2>
+            <div class="budget-summary" id="budgetSummary">
+                <div class="budget-summary-item">
+                    <span class="budget-summary-label">總預算</span>
+                    <span class="budget-summary-value budget-total">NT$50,000</span>
+                </div>
+                <div class="budget-summary-item">
+                    <span class="budget-summary-label">已使用</span>
+                    <span class="budget-summary-value budget-used">NT$15,000</span>
+                </div>
+                <div class="budget-summary-item">
+                    <span class="budget-summary-label">剩餘</span>
+                    <span class="budget-summary-value budget-remaining">NT$35,000</span>
+                </div>
+            </div>
+            
+            <div class="debug-info" id="summaryDebug">
+                <div>當前主題: <span id="currentThemeSummary">檢查中...</span></div>
+                <div>背景圖片: <span id="summaryBgImage">檢查中...</span></div>
+                <div>背景顏色: <span id="summaryBgColor">檢查中...</span></div>
+                <div>邊框顏色: <span id="summaryBorderColor">檢查中...</span></div>
+            </div>
+        </div>
+
+        <div class="debug-section">
+            <h2>2. 預算項目卡片測試</h2>
+            <div class="budget-list" id="budgetList">
+                <div class="budget-item">
+                    <div class="budget-category">🍔 餐飲</div>
+                    <div class="budget-amount">NT$5,000</div>
+                    <div class="budget-progress">
+                        <div class="progress-bar" style="width: 60%"></div>
+                    </div>
+                </div>
+                <div class="budget-item">
+                    <div class="budget-category">🚗 交通</div>
+                    <div class="budget-amount">NT$3,000</div>
+                    <div class="budget-progress">
+                        <div class="progress-bar" style="width: 40%"></div>
+                    </div>
+                </div>
+                <div class="budget-item">
+                    <div class="budget-category">🛍️ 購物</div>
+                    <div class="budget-amount">NT$7,000</div>
+                    <div class="budget-progress">
+                        <div class="progress-bar" style="width: 80%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="debug-info" id="itemDebug">
+                <div>當前主題: <span id="currentThemeItem">檢查中...</span></div>
+                <div>背景圖片: <span id="itemBgImage">檢查中...</span></div>
+                <div>背景顏色: <span id="itemBgColor">檢查中...</span></div>
+                <div>邊框顏色: <span id="itemBorderColor">檢查中...</span></div>
+            </div>
+        </div>
+
+        <div class="debug-section">
+            <h2>3. 錢包預算卡片測試</h2>
+            <div class="wallet-budget-card" id="walletBudgetCard">
+                <h3>錢包預算設定</h3>
+                <p>這是一個測試卡片，用於驗證背景圖片是否正確顯示</p>
+                <div class="card-content">
+                    <div class="budget-info">
+                        <span class="label">月度預算：</span>
+                        <span class="amount">NT$50,000</span>
+                    </div>
+                    <div class="budget-info">
+                        <span class="label">已使用：</span>
+                        <span class="amount">NT$15,000</span>
+                    </div>
+                    <div class="budget-info">
+                        <span class="label">剩餘：</span>
+                        <span class="amount">NT$35,000</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="debug-info" id="walletDebug">
+                <div>當前主題: <span id="currentThemeWallet">檢查中...</span></div>
+                <div>背景圖片: <span id="walletBgImage">檢查中...</span></div>
+                <div>背景顏色: <span id="walletBgColor">檢查中...</span></div>
+                <div>邊框顏色: <span id="walletBorderColor">檢查中...</span></div>
+            </div>
+        </div>
+
+        <div class="debug-section">
+            <h2>4. CSS規則檢查</h2>
+            <div class="debug-info" id="cssRules">
+                <div>檢查中...</div>
+            </div>
+        </div>
+
+        <div class="debug-section">
+            <h2>5. 圖片載入測試</h2>
+            <div class="debug-info" id="imageLoadTest">
+                <div>檢查中...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTheme(themeId) {
+            const root = document.documentElement;
+            root.setAttribute('data-theme', themeId);
+            
+            // 更新按鈕狀態
+            document.querySelectorAll('.theme-switcher button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 更新調試信息
+            updateDebugInfo();
+        }
+        
+        function updateDebugInfo() {
+            // 檢查預算摘要卡片
+            const budgetSummary = document.querySelector('.budget-summary');
+            if (budgetSummary) {
+                const summaryStyle = getComputedStyle(budgetSummary);
+                document.getElementById('currentThemeSummary').textContent = 
+                    document.documentElement.getAttribute('data-theme');
+                document.getElementById('summaryBgImage').textContent = 
+                    summaryStyle.backgroundImage.substring(0, 100) + '...';
+                document.getElementById('summaryBgColor').textContent = 
+                    summaryStyle.backgroundColor;
+                document.getElementById('summaryBorderColor').textContent = 
+                    summaryStyle.borderColor;
+            }
+            
+            // 檢查預算項目卡片
+            const budgetItem = document.querySelector('.budget-item');
+            if (budgetItem) {
+                const itemStyle = getComputedStyle(budgetItem);
+                document.getElementById('currentThemeItem').textContent = 
+                    document.documentElement.getAttribute('data-theme');
+                document.getElementById('itemBgImage').textContent = 
+                    itemStyle.backgroundImage.substring(0, 100) + '...';
+                document.getElementById('itemBgColor').textContent = 
+                    itemStyle.backgroundColor;
+                document.getElementById('itemBorderColor').textContent = 
+                    itemStyle.borderColor;
+            }
+            
+            // 檢查錢包預算卡片
+            const walletBudgetCard = document.querySelector('.wallet-budget-card');
+            if (walletBudgetCard) {
+                const walletStyle = getComputedStyle(walletBudgetCard);
+                document.getElementById('currentThemeWallet').textContent = 
+                    document.documentElement.getAttribute('data-theme');
+                document.getElementById('walletBgImage').textContent = 
+                    walletStyle.backgroundImage.substring(0, 100) + '...';
+                document.getElementById('walletBgColor').textContent = 
+                    walletStyle.backgroundColor;
+                document.getElementById('walletBorderColor').textContent = 
+                    walletStyle.borderColor;
+            }
+            
+            // 檢查CSS規則
+            checkCSSRules();
+            
+            // 檢查圖片載入
+            checkImageLoad();
+        }
+        
+        function checkCSSRules() {
+            const cssRulesDiv = document.getElementById('cssRules');
+            let rules = [];
+            
+            // 獲取所有CSS規則
+            const styleSheets = document.styleSheets;
+            for (let i = 0; i < styleSheets.length; i++) {
+                try {
+                    const sheet = styleSheets[i];
+                    const rules = sheet.cssRules || sheet.rules;
+                    for (let j = 0; j < rules.length; j++) {
+                        const rule = rules[j];
+                        if (rule.selectorText && 
+                            (rule.selectorText.includes('festive') && 
+                             (rule.selectorText.includes('budget-summary') || 
+                              rule.selectorText.includes('budget-item') || 
+                              rule.selectorText.includes('wallet-budget-card')))) {
+                            rules.push({
+                                selector: rule.selectorText,
+                                style: rule.style.cssText
+                            });
+                        }
+                    }
+                } catch (e) {
+                    console.warn('無法讀取樣式表', i, e);
+                }
+            }
+            
+            let html = '<div>找到的節日慶典主題預算卡片規則: ' + rules.length + ' 個</div>';
+            rules.forEach((rule, index) => {
+                html += `<div style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 4px;">`;
+                html += `<div><strong>規則 ${index + 1}:</strong> ${rule.selector}</div>`;
+                html += `<div style="font-size: 11px; color: #666; margin-top: 5px;">${rule.style}</div>`;
+                html += `</div>`;
+            });
+            
+            cssRulesDiv.innerHTML = html;
+        }
+        
+        function checkImageLoad() {
+            const imageUrl = 'https://i.pinimg.com/736x/6f/49/9a/6f499af434927a2eff91221a60393ae5.jpg';
+            const imageDiv = document.getElementById('imageLoadTest');
+            
+            let html = `<div>測試圖片載入: ${imageUrl}</div>`;
+            
+            const img = new Image();
+            img.onload = function() {
+                html += `<div style="color: green;">✅ 圖片載入成功</div>`;
+                html += `<div>尺寸: ${this.naturalWidth} x ${this.naturalHeight}</div>`;
+                imageDiv.innerHTML = html;
+            };
+            
+            img.onerror = function() {
+                html += `<div style="color: red;">❌ 圖片載入失敗</div>`;
+                html += `<div>可能原因: CORS限制或圖片不存在</div>`;
+                imageDiv.innerHTML = html;
+            };
+            
+            img.src = imageUrl;
+        }
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(updateDebugInfo, 100);
+        });
+    </script>
+</body>
+</html>

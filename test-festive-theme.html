@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>節日慶典主題測試</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="festive-theme.css">
+    <style>
+        body {
+            data-theme: "festive";
+        }
+        .test-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .theme-demo {
+            background: var(--bg-card);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin: var(--spacing-md) 0;
+            box-shadow: var(--shadow-primary);
+        }
+        .btn-demo {
+            background: var(--bg-gradient);
+            color: var(--text-white);
+            border: 2px solid var(--color-primary);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-sm) var(--spacing-md);
+            margin: var(--spacing-xs);
+            font-family: var(--font-primary);
+            font-weight: var(--font-weight-bold);
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+        .btn-demo:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-primary-lg);
+        }
+        .input-demo {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-sm);
+            color: var(--text-primary);
+            font-family: var(--font-primary);
+            margin: var(--spacing-xs);
+        }
+        .input-demo:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-rgba-20);
+            background: var(--bg-white);
+            transform: scale(1.02);
+        }
+        h1, h2, h3 {
+            font-family: var(--font-primary);
+            font-weight: var(--font-weight-black);
+            color: var(--text-primary);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .gradient-text {
+            background: var(--bg-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body data-theme="festive">
+    <div class="test-container">
+        <h1 class="gradient-text">🎊 節日慶典主題測試 🎉</h1>
+        
+        <div class="theme-demo">
+            <h2>📋 卡片樣式測試</h2>
+            <p>這是一個卡片樣式，使用主題的背景、邊框和陰影效果。</p>
+            <p>文字顏色：<span class="text-primary">主要文字</span> | 
+               <span class="text-secondary">次要文字</span> | 
+               <span class="text-muted">靜音文字</span></p>
+        </div>
+
+        <div class="theme-demo">
+            <h2>🎨 按鈕樣式測試</h2>
+            <button class="btn-demo">🎉 主要按鈕</button>
+            <button class="btn-demo" style="background: var(--color-secondary-rgba-20); border-color: var(--color-secondary); color: var(--color-secondary);">🎈 次要按鈕</button>
+            <button class="btn-demo" style="background: var(--color-accent-rgba-20); border-color: var(--color-accent); color: var(--color-accent);">🎆 強調按鈕</button>
+        </div>
+
+        <div class="theme-demo">
+            <h2>📝 輸入框樣式測試</h2>
+            <input type="text" class="input-demo" placeholder="輸入文字測試...">
+            <input type="number" class="input-demo" placeholder="數字輸入測試...">
+            <select class="input-demo">
+                <option>選項測試</option>
+                <option>選項 1</option>
+                <option>選項 2</option>
+            </select>
+        </div>
+
+        <div class="theme-demo">
+            <h2>💰 金錢相關樣式</h2>
+            <p class="income">收入：+$10,000</p>
+            <p class="expense">支出：-$5,000</p>
+            <p class="balance">餘額：$5,000</p>
+        </div>
+
+        <div class="theme-demo">
+            <h2>🎯 各功能區域測試</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-md);">
+                <div class="budget-card" style="background: url('https://i.pinimg.com/1200x/d6/5c/52/d65c524f0242553079b9114e7a25dd0e.jpg') center/cover, linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 215, 0, 0.1) 50%, rgba(255, 255, 255, 0.9) 100%); background-blend-mode: overlay; border: 2px solid var(--color-accent); position: relative; padding: var(--spacing-md); border-radius: var(--radius-lg);">
+                    <div style="position: relative; z-index: 2;">
+                        <h3 style="color: var(--text-primary); text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">預算設定</h3>
+                        <p style="color: var(--text-primary); text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">月度預算管理</p>
+                    </div>
+                    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255, 255, 255, 0.2); border-radius: inherit; z-index: 1;"></div>
+                </div>
+                <div class="wallet-card">
+                    <h3>錢包</h3>
+                    <p>帳戶餘額查看</p>
+                </div>
+                <div class="investment-card">
+                    <h3>投資專區</h3>
+                    <p>股票投資管理</p>
+                </div>
+                <div class="dca-card">
+                    <h3>定期定額</h3>
+                    <p>定期投資計畫</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="theme-demo">
+            <h2>🎨 漸層效果測試</h2>
+            <div style="height: 50px; background: var(--bg-gradient); border-radius: var(--radius-md); margin: var(--spacing-sm) 0;"></div>
+            <div style="height: 50px; background: var(--bg-gradient-reverse); border-radius: var(--radius-md); margin: var(--spacing-sm) 0;"></div>
+            <div style="height: 50px; background: var(--bg-light-gradient); border-radius: var(--radius-md); margin: var(--spacing-sm) 0;"></div>
+        </div>
+
+        <div class="theme-demo">
+            <h2>📊 圖表區域樣式</h2>
+            <div class="chart-container" style="height: 200px; display: flex; align-items: center; justify-content: center; background: var(--bg-card); border: 2px solid var(--border-light); border-radius: var(--radius-lg);">
+                <p>圖表顯示區域</p>
+            </div>
+        </div>
+
+        <div class="theme-demo">
+            <h2>⚙️ 設定頁面樣式</h2>
+            <div class="settings-item">
+                <p>設定項目 1</p>
+            </div>
+            <div class="settings-item">
+                <p>設定項目 2</p>
+            </div>
+            <div class="settings-item">
+                <p>設定項目 3</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 設置主題
+        document.documentElement.setAttribute('data-theme', 'festive');
+        
+        // 測試按鈕交互
+        document.querySelectorAll('.btn-demo').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // 測試輸入框交互
+        document.querySelectorAll('.input-demo').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+            input.addEventListener('blur', function() {
+                this.style.transform = '';
+            });
+        });
+
+        console.log('🎊 節日慶典主題已載入！');
+        console.log('背景圖片：https://i.pinimg.com/736x/c8/57/a1/c857a19b3f5bd274ba864e54dc27f550.jpg');
+    </script>
+</body>
+</html>

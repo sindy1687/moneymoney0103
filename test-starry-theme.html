@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星河幻境主題測試</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            background: url("https://i.pinimg.com/736x/8a/1b/4c/8a1b4c3d2e5f6a7b8c9d0e1f2a3b4c5d.jpg") center/cover fixed;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .theme-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .test-card {
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .test-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .test-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .test-form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 40px;
+        }
+        
+        .test-form input,
+        .test-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid rgba(107, 70, 193, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+        
+        .test-form input::placeholder,
+        .test-form textarea::placeholder {
+            color: rgba(148, 163, 184, 0.7);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-item {
+            padding: 15px;
+            text-align: center;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal-test {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(15, 23, 42, 0.95);
+            border: 2px solid rgba(107, 70, 193, 0.5);
+            border-radius: 25px;
+            padding: 30px;
+            backdrop-filter: blur(25px);
+            box-shadow: 0 25px 50px rgba(107, 70, 193, 0.4);
+            display: none;
+            z-index: 1000;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 999;
+        }
+        
+        .theme-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(15, 23, 42, 0.9);
+            padding: 15px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        
+        .theme-switcher button {
+            margin: 5px;
+            padding: 8px 16px;
+            border: 1px solid rgba(107, 70, 193, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-switcher button:hover {
+            background: rgba(107, 70, 193, 0.2);
+        }
+        
+        .theme-switcher button.active {
+            background: rgba(107, 70, 193, 0.4);
+            border-color: rgba(236, 72, 153, 0.5);
+        }
+        
+        .scroll-test {
+            height: 200px;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .scroll-content {
+            height: 500px;
+            background: linear-gradient(135deg, rgba(107, 70, 193, 0.1), rgba(236, 72, 153, 0.1));
+            border-radius: 10px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body data-theme="starry">
+    <div class="theme-switcher">
+        <h4 style="color: white; margin: 0 0 10px 0;">主題切換</h4>
+        <button onclick="setTheme('starry')" class="active">星河幻境</button>
+        <button onclick="setTheme('dreamy')">夢幻境域</button>
+        <button onclick="setTheme('meow')">喵喵喵</button>
+        <button onclick="setTheme('fruit')">水果清爽</button>
+        <button onclick="setTheme('neon')">霓虹波動</button>
+    </div>
+
+    <div class="test-container">
+        <div class="theme-header">
+            <h1>🌌 星河幻境主題測試</h1>
+            <p>一個充滿神秘與優雅的深色主題</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>今天花多少</h3>
+                <p style="font-size: 24px; font-weight: bold;">NT$1,234</p>
+            </div>
+            <div class="stat-item">
+                <h3>月預算</h3>
+                <p style="font-size: 24px; font-weight: bold;">NT$30,000</p>
+            </div>
+            <div class="stat-item">
+                <h3>本月收入</h3>
+                <p style="font-size: 24px; font-weight: bold;">NT$45,000</p>
+            </div>
+            <div class="stat-item">
+                <h3>本月支出</h3>
+                <p style="font-size: 24px; font-weight: bold;">NT$18,500</p>
+            </div>
+        </div>
+
+        <div class="test-buttons">
+            <button class="test-btn">主要按鈕</button>
+            <button class="test-btn">次要按鈕</button>
+            <button class="test-btn">強調按鈕</button>
+            <button class="test-btn" onclick="showModal()">顯示模態框</button>
+            <button class="test-btn" onclick="testAnimation()">測試動畫</button>
+            <button class="test-btn" onclick="testSpecialEffects()">特殊效果</button>
+        </div>
+
+        <div style="margin-bottom: 40px;">
+            <h3 style="color: white; text-align: center; margin-bottom: 20px;">標籤和徽章效果</h3>
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <span class="tag">🌟 星河</span>
+                <span class="tag">✨ 幻境</span>
+                <span class="tag">🌌 宇宙</span>
+                <span class="badge">新功能</span>
+                <span class="badge">熱門</span>
+                <span class="badge">推薦</span>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 40px;">
+            <h3 style="color: white; text-align: center; margin-bottom: 20px;">進度條效果</h3>
+            <div style="max-width: 400px; margin: 0 auto;">
+                <div style="margin-bottom: 15px;">
+                    <div style="color: var(--text-secondary); margin-bottom: 5px;">預算使用率</div>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" style="width: 65%;"></div>
+                    </div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div style="color: var(--text-secondary); margin-bottom: 5px;">投資收益</div>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" style="width: 82%;"></div>
+                    </div>
+                </div>
+                <div>
+                    <div style="color: var(--text-secondary); margin-bottom: 5px;">目標完成度</div>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" style="width: 45%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 40px;">
+            <h3 style="color: white; text-align: center; margin-bottom: 20px;">加載動畫效果</h3>
+            <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
+                <div class="loading"></div>
+                <span style="color: var(--text-secondary);">載入中...</span>
+                <button class="test-btn" onclick="testLoading()">測試載入</button>
+            </div>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card card">
+                <h3>投資卡片</h3>
+                <p>這是一個投資管理卡片，展示您的投資組合和收益情況。</p>
+                <div style="margin-top: 15px;">
+                    <span style="color: var(--color-secondary);">總投資: </span>
+                    <span style="font-weight: bold;">NT$100,000</span>
+                </div>
+            </div>
+            
+            <div class="test-card record-card">
+                <h3>記帳記錄</h3>
+                <p>01-20 星期一 🍱 生活費 SindySindy 🍽️ 午餐 -NT$150</p>
+                <p class="secondary-text">備註: 公司樓下餐廳</p>
+                <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.2);">
+                    <span class="highlight">分類: 生活費</span> | 
+                    <span class="secondary-text">帳戶: 錢包</span>
+                </div>
+            </div>
+            
+            <div class="test-card record-card">
+                <h3>收入記錄</h3>
+                <p>01-19 星期日 💰 工資 公司 💼 月薪 +NT$45,000</p>
+                <p class="secondary-text">備註: 一月份薪資發放</p>
+                <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.2);">
+                    <span class="highlight">分類: 工資收入</span> | 
+                    <span class="secondary-text">帳戶: 銀行帳戶</span>
+                </div>
+            </div>
+            
+            <div class="test-card budget-card">
+                <h3>預算管理</h3>
+                <p>本月預算使用率: 62%</p>
+                <div style="background: rgba(255,255,255,0.2); height: 8px; border-radius: 4px; margin-top: 10px;">
+                    <div style="background: var(--color-secondary); height: 100%; width: 62%; border-radius: 4px;"></div>
+                </div>
+            </div>
+            
+            <div class="test-card holding-card">
+                <h3>持股資訊</h3>
+                <p><strong>台積電</strong> (2330)</p>
+                <p>價格: NT$650 <span style="color: #f44336;">▲ +2.5%</span></p>
+            </div>
+            
+            <div class="test-card dividend-card">
+                <h3>股息收益</h3>
+                <p>本年度股息收入</p>
+                <p style="font-size: 20px; font-weight: bold; color: var(--color-accent);">NT$3,200</p>
+            </div>
+            
+            <div class="test-card">
+                <h3>統計數據</h3>
+                <p>各種統計信息和數據分析</p>
+                <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+                    <span>收入: <strong style="color: var(--color-accent);">+45K</strong></span>
+                    <span>支出: <strong style="color: var(--color-secondary);">-18.5K</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-form">
+            <h3>表單測試</h3>
+            <input type="text" placeholder="輸入標題...">
+            <textarea placeholder="輸入描述..." rows="3"></textarea>
+            <select style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid rgba(107, 70, 193, 0.3); border-radius: 8px; background: rgba(255, 255, 255, 0.08); color: white;">
+                <option value="">選擇分類</option>
+                <option value="food">🍱 生活費</option>
+                <option value="transport">🚗 交通</option>
+                <option value="entertainment">🎮 娛樂</option>
+            </select>
+        </div>
+
+        <div class="scroll-test">
+            <div class="scroll-content">
+                <h3>滾動條測試</h3>
+                <p>這是一個測試區域，用來驗證自定義滾動條的樣式。</p>
+                <p>星河幻境主題的滾動條應該顯示為紫色到粉色的漸層。</p>
+                <p>請滾動此區域來查看效果。</p>
+                <br><br><br><br>
+                <p>更多內容...</p>
+                <p>滾動測試內容</p>
+                <p>驗證滾動條樣式</p>
+                <br><br><br><br>
+                <p>底部內容</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" onclick="hideModal()"></div>
+    <div class="modal-test">
+        <h2 style="color: var(--color-primary-light);">模態框測試</h2>
+        <p style="color: var(--text-primary);">這是一個測試模態框，展示星河幻境主題的模態框樣式。</p>
+        <button class="test-btn" onclick="hideModal()">關閉</button>
+    </div>
+
+    <script>
+        function setTheme(themeName) {
+            document.body.setAttribute('data-theme', themeName);
+            
+            // 更新按鈕狀態
+            document.querySelectorAll('.theme-switcher button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 更新背景圖片
+            const backgrounds = {
+                'starry': 'https://i.pinimg.com/736x/8a/1b/4c/8a1b4c3d2e5f6a7b8c9d0e1f2a3b4c5d.jpg',
+                'dreamy': 'https://i.pinimg.com/736x/21/4d/cc/214dccff6dac6b30bebd621afc60669d.jpg',
+                'meow': 'https://i.pinimg.com/736x/9b/c1/cd/9bc1cd5e89c11cd36a290ef3cf707919.jpg',
+                'fruit': 'https://i.pinimg.com/736x/3a/57/69/3a576934dcdf3bb2ba06b3d2964ab296.jpg',
+                'neon': 'linear-gradient(135deg, #0b1020 0%, #1f1147 50%, #00d4ff 100%)'
+            };
+            
+            if (backgrounds[themeName]) {
+                document.body.style.background = backgrounds[themeName] + ' center/cover fixed';
+            }
+        }
+        
+        function showModal() {
+            document.querySelector('.modal-overlay').style.display = 'block';
+            document.querySelector('.modal-test').style.display = 'block';
+        }
+        
+        function hideModal() {
+            document.querySelector('.modal-overlay').style.display = 'none';
+            document.querySelector('.modal-test').style.display = 'none';
+        }
+        
+        function testAnimation() {
+            const cards = document.querySelectorAll('.test-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.transform = 'scale(1.05) rotate(2deg)';
+                    setTimeout(() => {
+                        card.style.transform = 'scale(1) rotate(0deg)';
+                    }, 300);
+                }, index * 100);
+            });
+        }
+        
+        function testSpecialEffects() {
+            // 測試按鈕波紋效果
+            const buttons = document.querySelectorAll('.test-btn');
+            buttons.forEach(btn => {
+                btn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    btn.style.transform = 'scale(1)';
+                }, 200);
+            });
+            
+            // 測試標籤效果
+            const tags = document.querySelectorAll('.tag, .badge');
+            tags.forEach((tag, index) => {
+                setTimeout(() => {
+                    tag.style.transform = 'scale(1.2) rotate(5deg)';
+                    setTimeout(() => {
+                        tag.style.transform = 'scale(1) rotate(0deg)';
+                    }, 300);
+                }, index * 100);
+            });
+            
+            // 測試進度條動畫
+            const progressBars = document.querySelectorAll('.progress-bar-fill');
+            progressBars.forEach(bar => {
+                const originalWidth = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = originalWidth;
+                }, 500);
+            });
+        }
+        
+        function testLoading() {
+            const loadingElement = document.querySelector('.loading');
+            loadingElement.style.display = loadingElement.style.display === 'none' ? 'inline-block' : 'none';
+            
+            if (loadingElement.style.display !== 'none') {
+                setTimeout(() => {
+                    loadingElement.style.display = 'none';
+                }, 3000);
+            }
+        }
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 設置初始背景
+            document.body.style.background = 'https://i.pinimg.com/736x/8a/1b/4c/8a1b4c3d2e5f6a7b8c9d0e1f2a3b4c5d.jpg center/cover fixed';
+        });
+    </script>
+</body>
+</html>

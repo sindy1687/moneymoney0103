@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAB 按鈕調試</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="flame-theme.css">
+    <style>
+        body {
+            padding: 20px;
+            font-family: 'Microsoft JhengHei', sans-serif;
+            background: #FDF5E6;
+        }
+        .debug-info {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .fab-status {
+            background: rgba(212, 44, 44, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #D42C2C;
+            margin: 10px 0;
+        }
+        .test-button {
+            background: #D42C2C;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body data-theme="getrich">
+    <div class="debug-info">
+        <h1>🔍 FAB 按鈕調試工具</h1>
+        <div id="debugOutput"></div>
+        
+        <div class="fab-status">
+            <h3>FAB 按鈕狀態檢查:</h3>
+            <button class="test-button" onclick="checkFABStatus()">檢查 FAB 狀態</button>
+            <button class="test-button" onclick="forceShowFAB()">強制顯示 FAB</button>
+            <button class="test-button" onclick="updateFABIcon()">更新 FAB 圖標</button>
+            <button class="test-button" onclick="togglePageState()">切換頁面狀態</button>
+        </div>
+        
+        <div id="pageInfo">
+            <p>當前頁面狀態: <span id="pageState">page-ledger</span></p>
+        </div>
+    </div>
+    
+    <!-- 模擬頁面結構 -->
+    <div class="page-ledger" id="pageLedger">
+        <div class="ledger-header">
+            <h2>默認帳本</h2>
+        </div>
+        <div class="ledger-list">
+            <p>模擬帳本內容...</p>
+        </div>
+        
+        <!-- FAB 按鈕 -->
+        <button class="fab-btn" id="fabBtn">💰</button>
+    </div>
+    
+    <div class="page-input" id="pageInput" style="display: none;">
+        <div class="input-page-header">
+            <button class="back-btn">←</button>
+        </div>
+        <div class="category-section">
+            <p>輸入頁面內容...</p>
+        </div>
+    </div>
+    
+    <script src="js/theme-icons.js"></script>
+    <script src="js/theme.js"></script>
+    
+    <script>
+        let currentPage = 'ledger';
+        
+        function checkFABStatus() {
+            const fabBtn = document.getElementById('fabBtn');
+            const debugOutput = document.getElementById('debugOutput');
+            
+            let status = '<h3>🔍 FAB 按鈕詳細狀態:</h3>';
+            
+            if (fabBtn) {
+                status += '<p>✅ FAB 按鈕存在</p>';
+                status += `<p>📍 位置: ${getComputedStyle(fabBtn).position}</p>`;
+                status += `<p>📏 尺寸: ${getComputedStyle(fabBtn).width} x ${getComputedStyle(fabBtn).height}</p>`;
+                status += `<p>🎨 顯示: ${getComputedStyle(fabBtn).display}</p>`;
+                status += `<p>🔢 z-index: ${getComputedStyle(fabBtn).zIndex}</p>`;
+                status += `<p>📍 bottom: ${getComputedStyle(fabBtn).bottom}</p>`;
+                status += `<p>📍 right: ${getComputedStyle(fabBtn).right}</p>`;
+                status += `<p>🎭 內容: "${fabBtn.textContent}"</p>`;
+                status += `<p>🎨 背景: ${getComputedStyle(fabBtn).background}</p>`;
+                status += `<p>👁️ 可見性: ${getComputedStyle(fabBtn).visibility}</p>`;
+                
+                // 檢查是否被其他元素覆蓋
+                const rect = fabBtn.getBoundingClientRect();
+                status += `<p>📐 實際位置: x=${rect.x}, y=${rect.y}, width=${rect.width}, height=${rect.height}</p>`;
+                
+                // 檢查父元素
+                const parent = fabBtn.parentElement;
+                if (parent) {
+                    status += `<p>👨‍👩‍👧‍👦 父元素: ${parent.className}</p>`;
+                    status += `<p>🎨 父元素顯示: ${getComputedStyle(parent).display}</p>`;
+                }
+            } else {
+                status += '<p>❌ FAB 按鈕不存在</p>';
+            }
+            
+            debugOutput.innerHTML = status;
+        }
+        
+        function forceShowFAB() {
+            const fabBtn = document.getElementById('fabBtn');
+            if (fabBtn) {
+                fabBtn.style.display = 'flex !important';
+                fabBtn.style.visibility = 'visible !important';
+                fabBtn.style.opacity = '1 !important';
+                fabBtn.style.zIndex = '9999 !important';
+                alert('已強制顯示 FAB 按鈕');
+            }
+        }
+        
+        function updateFABIcon() {
+            if (window.ThemeIcons && window.updateThemeButtons) {
+                window.updateThemeButtons('getrich');
+                alert('已更新 FAB 按鈕圖標為 🧧');
+            } else if (typeof updateThemeButtons === 'function') {
+                updateThemeButtons('getrich');
+                alert('已更新 FAB 按鈕圖標為 🧧');
+            } else {
+                const fabBtn = document.getElementById('fabBtn');
+                if (fabBtn) {
+                    fabBtn.textContent = '🧧';
+                    alert('直接設置 FAB 按鈕圖標為 🧧');
+                }
+            }
+        }
+        
+        function togglePageState() {
+            const pageLedger = document.getElementById('pageLedger');
+            const pageInput = document.getElementById('pageInput');
+            const pageStateSpan = document.getElementById('pageState');
+            
+            if (currentPage === 'ledger') {
+                pageLedger.style.display = 'none';
+                pageInput.style.display = 'block';
+                currentPage = 'input';
+                pageStateSpan.textContent = 'page-input';
+            } else {
+                pageLedger.style.display = 'block';
+                pageInput.style.display = 'none';
+                currentPage = 'ledger';
+                pageStateSpan.textContent = 'page-ledger';
+            }
+        }
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('調試頁面載入完成');
+            
+            // 等待主題初始化
+            setTimeout(() => {
+                checkFABStatus();
+            }, 500);
+        });
+    </script>
+</body>
+</html>

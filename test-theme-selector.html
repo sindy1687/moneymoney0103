@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主題選擇器測試</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>主題選擇器測試</h1>
+    <p>點擊下面的按鈕測試主題選擇器功能</p>
+    
+    <button class="test-button" onclick="testThemeSelector()">測試主題選擇器</button>
+    <button class="test-button" onclick="testThemeCategories()">測試主題分類</button>
+    <button class="test-button" onclick="testThemeCount()">測試主題數量</button>
+    
+    <div id="test-results"></div>
+
+    <script src="js/theme.js"></script>
+    <script>
+        function testThemeSelector() {
+            try {
+                console.log('測試主題選擇器...');
+                showThemeSelector();
+                document.getElementById('test-results').innerHTML = '<p style="color: green;">✓ 主題選擇器測試成功</p>';
+            } catch (error) {
+                console.error('主題選擇器測試失敗:', error);
+                document.getElementById('test-results').innerHTML = `<p style="color: red;">✗ 主題選擇器測試失敗: ${error.message}</p>`;
+            }
+        }
+        
+        function testThemeCategories() {
+            try {
+                console.log('測試主題分類...');
+                console.log('主題分類:', themeCategories);
+                const categoryCount = Object.keys(themeCategories).length;
+                document.getElementById('test-results').innerHTML = `<p style="color: green;">✓ 主題分類測試成功，共有 ${categoryCount} 個分類</p>`;
+            } catch (error) {
+                console.error('主題分類測試失敗:', error);
+                document.getElementById('test-results').innerHTML = `<p style="color: red;">✗ 主題分類測試失敗: ${error.message}</p>`;
+            }
+        }
+        
+        function testThemeCount() {
+            try {
+                console.log('測試主題數量...');
+                console.log('主題數量:', themes.length);
+                document.getElementById('test-results').innerHTML = `<p style="color: green;">✓ 主題數量測試成功，共有 ${themes.length} 個主題</p>`;
+            } catch (error) {
+                console.error('主題數量測試失敗:', error);
+                document.getElementById('test-results').innerHTML = `<p style="color: red;">✗ 主題數量測試失敗: ${error.message}</p>`;
+            }
+        }
+        
+        // 頁面載入完成後初始化主題
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('頁面載入完成，初始化主題...');
+            initTheme();
+        });
+    </script>
+</body>
+</html>

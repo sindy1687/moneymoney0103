@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主題診斷</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .theme-switcher {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .theme-switcher button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .theme-switcher button:hover {
+            background: #0056b3;
+        }
+        
+        .theme-switcher button.active {
+            background: #28a745;
+        }
+        
+        .summary-card {
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            background: #ccc;
+            border: 2px solid #999;
+        }
+        
+        /* 最簡單的節日慶典CSS */
+        [data-theme="festive"] .summary-card {
+            background: red !important;
+            border: 5px solid blue !important;
+        }
+        
+        .debug-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 12px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .test-box {
+            width: 100px;
+            height: 100px;
+            background: #ccc;
+            margin: 10px 0;
+            border: 2px solid #999;
+        }
+        
+        /* 測試簡單CSS規則 */
+        [data-theme="festive"] .test-box {
+            background: yellow !important;
+            border: 5px solid green !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🔍 主題診斷測試</h1>
+        
+        <div class="theme-switcher">
+            <button onclick="switchTheme('blue')">藍色主題</button>
+            <button onclick="switchTheme('pink')">粉色主題</button>
+            <button onclick="switchTheme('festive')" class="active">節日慶典主題</button>
+        </div>
+
+        <div class="summary-card">
+            測試卡片 - 節日慶典主題應該是紅色背景藍色邊框
+        </div>
+        
+        <div class="test-box">
+            測試方塊 - 節日慶典主題應該是黃色背景綠色邊框
+        </div>
+        
+        <div class="debug-info">
+            <div>HTML根元素屬性: <span id="htmlAttribute">檢查中...</span></div>
+            <div>當前主題: <span id="currentTheme">檢查中...</span></div>
+            <div>卡片背景色: <span id="cardBg">檢查中...</span></div>
+            <div>卡片邊框色: <span id="cardBorder">檢查中...</span></div>
+            <div>方塊背景色: <span id="boxBg">檢查中...</span></div>
+            <div>方塊邊框色: <span id="boxBorder">檢查中...</span></div>
+            <div>測試結果: <span id="testResult">檢查中...</span></div>
+        </div>
+        
+        <div style="margin: 20px 0;">
+            <button onclick="runDiagnostics()">運行診斷</button>
+            <button onclick="forceTheme()">強制設置主題</button>
+        </div>
+    </div>
+
+    <script>
+        function switchTheme(themeId) {
+            console.log('切換主題到:', themeId);
+            const root = document.documentElement;
+            root.setAttribute('data-theme', themeId);
+            
+            // 更新按鈕狀態
+            document.querySelectorAll('.theme-switcher button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 更新調試信息
+            updateDebugInfo();
+        }
+        
+        function forceTheme() {
+            console.log('強制設置節日慶典主題');
+            const root = document.documentElement;
+            root.setAttribute('data-theme', 'festive');
+            
+            // 強制重新計算樣式
+            const card = document.querySelector('.summary-card');
+            const box = document.querySelector('.test-box');
+            
+            card.style.display = 'none';
+            box.style.display = 'none';
+            
+            setTimeout(() => {
+                card.style.display = 'block';
+                box.style.display = 'block';
+                updateDebugInfo();
+            }, 10);
+        }
+        
+        function runDiagnostics() {
+            console.log('=== 開始診斷 ===');
+            
+            const root = document.documentElement;
+            console.log('根元素:', root);
+            console.log('根元素屬性:', root.attributes);
+            console.log('data-theme屬性:', root.getAttribute('data-theme'));
+            
+            const card = document.querySelector('.summary-card');
+            const box = document.querySelector('.test-box');
+            
+            if (card) {
+                const cardStyle = getComputedStyle(card);
+                console.log('卡片樣式:', {
+                    background: cardStyle.background,
+                    backgroundColor: cardStyle.backgroundColor,
+                    border: cardStyle.border,
+                    borderColor: cardStyle.borderColor
+                });
+            }
+            
+            if (box) {
+                const boxStyle = getComputedStyle(box);
+                console.log('方塊樣式:', {
+                    background: boxStyle.background,
+                    backgroundColor: boxStyle.backgroundColor,
+                    border: boxStyle.border,
+                    borderColor: boxStyle.borderColor
+                });
+            }
+            
+            // 檢查CSS規則
+            const styleSheets = document.styleSheets;
+            console.log('樣式表數量:', styleSheets.length);
+            
+            for (let i = 0; i < styleSheets.length; i++) {
+                try {
+                    const sheet = styleSheets[i];
+                    const rules = sheet.cssRules || sheet.rules;
+                    console.log(`樣式表 ${i}: ${rules.length} 條規則`);
+                    
+                    for (let j = 0; j < rules.length; j++) {
+                        const rule = rules[j];
+                        if (rule.selectorText && rule.selectorText.includes('festive')) {
+                            console.log(`找到節日慶典規則: ${rule.selectorText}`);
+                        }
+                    }
+                } catch (e) {
+                    console.warn(`無法讀取樣式表 ${i}:`, e);
+                }
+            }
+            
+            console.log('=== 診斷完成 ===');
+            updateDebugInfo();
+        }
+        
+        function updateDebugInfo() {
+            const root = document.documentElement;
+            const currentTheme = root.getAttribute('data-theme');
+            
+            document.getElementById('htmlAttribute').textContent = root.outerHTML.substring(0, 100) + '...';
+            document.getElementById('currentTheme').textContent = currentTheme;
+            
+            const card = document.querySelector('.summary-card');
+            const box = document.querySelector('.test-box');
+            
+            if (card) {
+                const cardStyle = getComputedStyle(card);
+                document.getElementById('cardBg').textContent = cardStyle.backgroundColor;
+                document.getElementById('cardBorder').textContent = cardStyle.borderColor;
+            }
+            
+            if (box) {
+                const boxStyle = getComputedStyle(box);
+                document.getElementById('boxBg').textContent = boxStyle.backgroundColor;
+                document.getElementById('boxBorder').textContent = boxStyle.borderColor;
+            }
+            
+            // 測試結果
+            const cardIsRed = card && getComputedStyle(card).backgroundColor.includes('255, 0, 0');
+            const cardBorderIsBlue = card && getComputedStyle(card).borderColor.includes('0, 0, 255');
+            const boxIsYellow = box && getComputedStyle(box).backgroundColor.includes('255, 255, 0');
+            const boxBorderIsGreen = box && getComputedStyle(box).borderColor.includes('0, 128, 0');
+            
+            if (currentTheme === 'festive' && cardIsRed && cardBorderIsBlue && boxIsYellow && boxBorderIsGreen) {
+                document.getElementById('testResult').innerHTML = '<span style="color: green;">✅ 主題CSS正常工作</span>';
+            } else {
+                let result = '<span style="color: red;">❌ 主題CSS有問題</span><br>';
+                result += `主題正確: ${currentTheme === 'festive' ? '✅' : '❌'}<br>`;
+                result += `卡片紅色: ${cardIsRed ? '✅' : '❌'}<br>`;
+                result += `卡片藍邊: ${cardBorderIsBlue ? '✅' : '❌'}<br>`;
+                result += `方塊黃色: ${boxIsYellow ? '✅' : '❌'}<br>`;
+                result += `方塊綠邊: ${boxBorderIsGreen ? '✅' : '❌'}`;
+                document.getElementById('testResult').innerHTML = result;
+            }
+        }
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                updateDebugInfo();
+                runDiagnostics();
+            }, 100);
+        });
+    </script>
+</body>
+</html>

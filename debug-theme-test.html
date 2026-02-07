@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主題系統調試測試</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background: #e8f5e8;
+            border: 1px solid #c8e6c9;
+        }
+        .error {
+            background: #ffebee;
+            border-color: #ffcdd2;
+            color: #c62828;
+        }
+        .success {
+            background: #e8f5e8;
+            border-color: #c8e6c9;
+            color: #2e7d32;
+        }
+        .button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .button:hover {
+            background: #357abd;
+        }
+        .console-log {
+            background: #1e1e1e;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 主題系統調試測試</h1>
+        <p>這個頁面使用調試載入器，請查看瀏覽器控制台獲取詳細信息。</p>
+        
+        <div class="status" id="status">
+            正在使用調試載入器載入主題模組...
+        </div>
+
+        <div class="console-log" id="console-output">
+            <div>📋 控制台輸出將顯示在這裡...</div>
+        </div>
+
+        <button class="button" onclick="checkModules()">檢查模組狀態</button>
+        <button class="button" onclick="testThemeFunction()">測試主題功能</button>
+        <button class="button" onclick="applyTestTheme()">應用測試主題</button>
+        <button class="button" onclick="clearConsole()">清空輸出</button>
+
+        <div id="results"></div>
+    </div>
+
+    <!-- 使用調試載入器 -->
+    <script src="js/theme-debug.js"></script>
+
+    <script>
+        // 攔截控制台輸出
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        const consoleOutput = document.getElementById('console-output');
+
+        function addToConsole(message, type = 'log') {
+            const div = document.createElement('div');
+            div.style.color = type === 'error' ? '#ff6b6b' : type === 'warn' ? '#ffa726' : '#4fc3f7';
+            div.textContent = message;
+            consoleOutput.appendChild(div);
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            addToConsole(args.join(' '), 'log');
+        };
+
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            addToConsole(args.join(' '), 'error');
+        };
+
+        console.warn = function(...args) {
+            originalWarn.apply(console, args);
+            addToConsole(args.join(' '), 'warn');
+        };
+
+        function updateStatus(message, type = 'success') {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = 'status ' + type;
+        }
+
+        function addResult(message, type = 'success') {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = 'status ' + type;
+            div.textContent = message;
+            results.appendChild(div);
+        }
+
+        function checkModules() {
+            const modules = [
+                { name: 'ThemeData', obj: window.ThemeData },
+                { name: 'ThemeIcons', obj: window.ThemeIcons },
+                { name: 'ThemeCore', obj: window.ThemeCore },
+                { name: 'ThemeUI', obj: window.ThemeUI }
+            ];
+
+            modules.forEach(module => {
+                const loaded = module.obj !== undefined;
+                addResult(`${module.name}: ${loaded ? '✅ 已載入' : '❌ 未載入'}`, loaded ? 'success' : 'error');
+                
+                if (loaded && module.name === 'ThemeData') {
+                    const themeCount = module.obj.themes ? module.obj.themes.length : 0;
+                    addResult(`主題數量: ${themeCount}`, 'success');
+                    
+                    const dreamyTheme = module.obj.themes.find(t => t.id === 'dreamyBlue');
+                    addResult(`夢幻藍夜主題: ${dreamyTheme ? '✅ 存在' : '❌ 不存在'}`, dreamyTheme ? 'success' : 'error');
+                }
+            });
+        }
+
+        function testThemeFunction() {
+            if (!window.ThemeCore) {
+                addResult('ThemeCore 模組未載入', 'error');
+                return;
+            }
+
+            try {
+                const currentTheme = window.ThemeCore.getCurrentTheme();
+                addResult(`當前主題: ${currentTheme}`, 'success');
+                
+                if (window.ThemeData && window.ThemeData.themes) {
+                    const theme = window.ThemeData.themes.find(t => t.id === currentTheme);
+                    addResult(`主題名稱: ${theme ? theme.name : '未知'}`, theme ? 'success' : 'error');
+                }
+            } catch (error) {
+                addResult('測試主題功能失敗: ' + error.message, 'error');
+            }
+        }
+
+        function applyTestTheme() {
+            if (!window.ThemeCore) {
+                addResult('ThemeCore 模組未載入', 'error');
+                return;
+            }
+
+            try {
+                window.ThemeCore.applyTheme('dreamyBlue');
+                addResult('已應用夢幻藍夜主題', 'success');
+                
+                setTimeout(() => {
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    addResult(`驗證主題: ${currentTheme}`, currentTheme === 'dreamyBlue' ? 'success' : 'error');
+                }, 100);
+            } catch (error) {
+                addResult('應用主題失敗: ' + error.message, 'error');
+            }
+        }
+
+        function clearConsole() {
+            consoleOutput.innerHTML = '<div>📋 控制台輸出將顯示在這裡...</div>';
+        }
+
+        // 等待載入完成
+        setTimeout(() => {
+            checkModules();
+        }, 5000);
+    </script>
+</body>
+</html>

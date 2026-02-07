@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>夢幻星河主題測試</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dreamy-galaxy-theme.css" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .test-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body data-theme="dreamyGalaxy">
+    <div class="container">
+        <h1 class="text-center mb-4">🌌 夢幻星河主題測試 🌌</h1>
+        
+        <!-- 導航測試 -->
+        <nav class="navbar navbar-expand-lg mb-4">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">夢幻星河</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">📊 投資專區</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">💳 錢包</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">📝 記帳</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">⚙️ 設定</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 按鈕測試 -->
+        <div class="test-section">
+            <h2>按鈕樣式</h2>
+            <div class="d-flex gap-3 flex-wrap">
+                <button class="btn btn-primary">主要按鈕</button>
+                <button class="btn btn-secondary">次要按鈕</button>
+                <button class="btn btn-accent">強調按鈕</button>
+                <button class="btn btn-outline-primary">邊框按鈕</button>
+            </div>
+        </div>
+
+        <!-- 卡片測試 -->
+        <div class="test-section">
+            <h2>卡片樣式</h2>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="card investment-card">
+                        <div class="card-body">
+                            <h5 class="card-title">📈 投資專區</h5>
+                            <p class="card-text">定期定額投資規劃，讓您的財富穩健成長。</p>
+                            <button class="btn btn-primary">查看詳情</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card wallet-card">
+                        <div class="card-body">
+                            <h5 class="card-title">💳 錢包管理</h5>
+                            <p class="card-text">統一管理您的所有金融資產，一目了然。</p>
+                            <button class="btn btn-secondary">進入錢包</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card budget-card">
+                        <div class="card-body">
+                            <h5 class="card-title">📊 預算設定</h5>
+                            <p class="card-text">制定合理的預算計劃，控制支出，實現財務目標。</p>
+                            <button class="btn btn-accent">設定預算</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 表單測試 -->
+        <div class="test-section">
+            <h2>表單樣式</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">金額</label>
+                            <input type="number" class="form-control" placeholder="請輸入金額">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">分類</label>
+                            <select class="form-control">
+                                <option>請選擇分類</option>
+                                <option>食物</option>
+                                <option>交通</option>
+                                <option>娛樂</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">備註</label>
+                            <textarea class="form-control" rows="3" placeholder="請輸入備註"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">提交</button>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">進度條</label>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">滑块</label>
+                        <input type="range" class="form-range" min="0" max="100" value="50">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">徽章</label>
+                        <div>
+                            <span class="badge badge-primary me-2">主要</span>
+                            <span class="badge badge-secondary me-2">次要</span>
+                            <span class="badge badge-accent">強調</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 模態框測試 -->
+        <div class="test-section">
+            <h2>模態框測試</h2>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#testModal">
+                開啟模態框
+            </button>
+        </div>
+
+        <!-- 表格測試 -->
+        <div class="test-section">
+            <h2>表格樣式</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>分類</th>
+                            <th>描述</th>
+                            <th>金額</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024-01-15</td>
+                            <td><span class="badge badge-primary">食物</span></td>
+                            <td>午餐</td>
+                            <td>NT$ 120</td>
+                            <td><button class="btn btn-sm btn-secondary">編輯</button></td>
+                        </tr>
+                        <tr>
+                            <td>2024-01-14</td>
+                            <td><span class="badge badge-secondary">交通</span></td>
+                            <td>捷運</td>
+                            <td>NT$ 60</td>
+                            <td><button class="btn btn-sm btn-secondary">編輯</button></td>
+                        </tr>
+                        <tr>
+                            <td>2024-01-13</td>
+                            <td><span class="badge badge-accent">娛樂</span></td>
+                            <td>電影票</td>
+                            <td>NT$ 280</td>
+                            <td><button class="btn btn-sm btn-secondary">編輯</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 標籤頁測試 -->
+        <div class="test-section">
+            <h2>標籤頁樣式</h2>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button">定期定額</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button">投資專區</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button">預算設定</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel">
+                    <div class="p-3">
+                        <h4>定期定額投資</h4>
+                        <p>設定定期定額投資計劃，讓投資更加規律化。</p>
+                        <div class="alert alert-info">
+                            💡 建議每月投資金額為收入的10-20%
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel">
+                    <div class="p-3">
+                        <h4>投資專區</h4>
+                        <p>查看您的投資組合和市場動態。</p>
+                        <div class="alert alert-success">
+                            📈 您的投資組合表現優於市場平均
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel">
+                    <div class="p-3">
+                        <h4>預算設定</h4>
+                        <p>制定和追蹤您的月度預算。</p>
+                        <div class="alert alert-warning">
+                            ⚠️ 本月娛樂支出已超預算20%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 浮動操作按鈕 -->
+        <div class="fab position-fixed bottom-0 end-0 m-4 d-flex align-items-center justify-content-center">
+            <span style="font-size: 24px;">✨</span>
+        </div>
+    </div>
+
+    <!-- 模態框 -->
+    <div class="modal fade" id="testModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">🌌 夢幻星河模態框</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>這是一個測試模態框，展示夢幻星河主題的樣式效果。</p>
+                    <div class="alert alert-info">
+                        ✨ 所有UI元素都採用了柔和的漸層色彩和美化文字效果
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-primary">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 添加動畫效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('dreamy-animation');
+            });
+        });
+    </script>
+</body>
+</html>

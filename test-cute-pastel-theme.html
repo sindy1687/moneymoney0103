@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可愛粉彩主題測試</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="cute-pastel-theme.css">
+    <style>
+        body {
+            margin: 20px;
+            font-family: 'Inter', sans-serif;
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: var(--bg-white);
+            border-radius: 16px;
+            box-shadow: var(--shadow-primary);
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .btn-grid {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .modal-demo {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            min-width: 400px;
+            display: none;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+        .theme-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body data-theme="cutePastel">
+    <div class="theme-switcher">
+        <button class="btn btn-primary" onclick="switchTheme('cutePastel')">可愛粉彩</button>
+        <button class="btn btn-secondary" onclick="switchTheme('blue')">藍色主題</button>
+        <button class="btn btn-secondary" onclick="switchTheme('pink')">粉色主題</button>
+    </div>
+
+    <div class="test-container">
+        <h1>可愛粉彩主題測試頁面</h1>
+        <p>這是一個測試頁面，用於驗證可愛粉彩主題的各種UI組件效果。</p>
+
+        <!-- 卡片測試 -->
+        <div class="test-section">
+            <h2>卡片組件測試</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>定期定額</h3>
+                    <p>這是定期定額功能的卡片，使用可愛粉彩主題設計。</p>
+                    <button class="btn btn-primary">立即設定</button>
+                </div>
+                <div class="investment-card">
+                    <h3>投資專區</h3>
+                    <p>投資專區卡片，展示投資相關功能。</p>
+                    <button class="btn btn-success">查看詳情</button>
+                </div>
+                <div class="accounting-card">
+                    <h3>預算設定</h3>
+                    <p>預算設定卡片，管理您的月度預算。</p>
+                    <button class="btn btn-warning">編輯預算</button>
+                </div>
+                <div class="wallet-budget-card">
+                    <h3>錢包</h3>
+                    <p>錢包功能卡片，查看您的資產狀況。</p>
+                    <button class="btn btn-info">打開錢包</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 按鈕測試 -->
+        <div class="test-section">
+            <h2>按鈕組件測試</h2>
+            <div class="btn-grid">
+                <button class="btn btn-primary">主要按鈕</button>
+                <button class="btn btn-secondary">次要按鈕</button>
+                <button class="btn btn-success">成功按鈕</button>
+                <button class="btn btn-danger">危險按鈕</button>
+                <button class="btn btn-warning">警告按鈕</button>
+                <button class="btn btn-info">信息按鈕</button>
+            </div>
+        </div>
+
+        <!-- 表格測試 -->
+        <div class="test-section">
+            <h2>表格組件測試</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th>類別</th>
+                        <th>金額</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>午餐</td>
+                        <td>飲食</td>
+                        <td>$120</td>
+                        <td><button class="btn btn-sm btn-info">編輯</button></td>
+                    </tr>
+                    <tr>
+                        <td>交通</td>
+                        <td>交通</td>
+                        <td>$50</td>
+                        <td><button class="btn btn-sm btn-info">編輯</button></td>
+                    </tr>
+                    <tr>
+                        <td>購物</td>
+                        <td>娛樂</td>
+                        <td>$300</td>
+                        <td><button class="btn btn-sm btn-info">編輯</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 表單測試 -->
+        <div class="test-section">
+            <h2>表單組件測試</h2>
+            <form style="max-width: 500px;">
+                <div style="margin-bottom: 15px;">
+                    <label for="amount">金額：</label>
+                    <input type="number" id="amount" placeholder="請輸入金額" style="width: 100%; padding: 10px;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label for="category">類別：</label>
+                    <select id="category" style="width: 100%; padding: 10px;">
+                        <option>請選擇類別</option>
+                        <option>飲食</option>
+                        <option>交通</option>
+                        <option>娛樂</option>
+                        <option>購物</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label for="note">備註：</label>
+                    <textarea id="note" placeholder="請輸入備註" style="width: 100%; padding: 10px; height: 80px;"></textarea>
+                </div>
+                <div class="btn-grid">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                    <button type="reset" class="btn btn-secondary">重置</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 支出模式分析測試 -->
+        <div class="test-section">
+            <h2>支出模式分析測試</h2>
+            <div class="spending-analysis-container">
+                <h3>本月支出分析</h3>
+                <div class="spending-chart">
+                    <p>📊 圖表區域 - 這裡會顯示支出分析圖表</p>
+                </div>
+                <div class="spending-category-card">
+                    <h4>飲食支出</h4>
+                    <p>本月飲食支出：$3,500 (35%)</p>
+                </div>
+                <div class="spending-category-card">
+                    <h4>交通支出</h4>
+                    <p>本月交通支出：$1,200 (12%)</p>
+                </div>
+                <div class="spending-category-card">
+                    <h4>娛樂支出</h4>
+                    <p>本月娛樂支出：$2,300 (23%)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 彈窗測試 -->
+        <div class="test-section">
+            <h2>彈窗組件測試</h2>
+            <button class="btn btn-primary" onclick="showModal()">顯示彈窗</button>
+        </div>
+    </div>
+
+    <!-- 彈窗 -->
+    <div class="modal-overlay" id="modalOverlay" onclick="hideModal()"></div>
+    <div class="modal modal-demo" id="modalDemo">
+        <div class="modal-header">
+            <h3>測試彈窗</h3>
+        </div>
+        <div class="modal-body" style="padding: 20px;">
+            <p>這是一個測試彈窗，展示可愛粉彩主題的彈窗效果。</p>
+            <p>背景使用了半透明效果，邊框使用了圓角設計。</p>
+        </div>
+        <div class="modal-footer" style="padding: 20px; text-align: right;">
+            <button class="btn btn-secondary" onclick="hideModal()">關閉</button>
+            <button class="btn btn-primary">確認</button>
+        </div>
+    </div>
+
+    <script>
+        function switchTheme(themeId) {
+            document.body.setAttribute('data-theme', themeId);
+        }
+
+        function showModal() {
+            document.getElementById('modalOverlay').style.display = 'block';
+            document.getElementById('modalDemo').style.display = 'block';
+        }
+
+        function hideModal() {
+            document.getElementById('modalOverlay').style.display = 'none';
+            document.getElementById('modalDemo').style.display = 'none';
+        }
+
+        // 設定初始主題
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.setAttribute('data-theme', 'cutePastel');
+        });
+    </script>
+</body>
+</html>
