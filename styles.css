@@ -547,6 +547,495 @@
     border: 2px solid rgba(90, 134, 200, 0.22) !important;
 }
 
+ :root[data-theme="mintBlossomGarden"] {
+     --color-primary: #5fb8a8;
+     --color-primary-light: #8ad6c7;
+     --color-primary-lighter: #d9f5ee;
+     --color-primary-dark: #2f7f74;
+
+     --color-secondary: #3d8f83;
+     --color-secondary-light: #a6d7cf;
+     --color-secondary-dark: #20675e;
+
+     --color-accent: #f3e9d2;
+     --color-accent-light: #fbf6ea;
+     --color-accent-dark: #d5c39a;
+
+     --bg-primary: linear-gradient(135deg, rgba(214, 244, 234, 0.92) 0%, rgba(178, 233, 220, 0.86) 45%, rgba(248, 246, 236, 0.82) 100%);
+     --bg-body: rgba(214, 244, 234, 0.9);
+     --bg-body-strong: rgba(214, 244, 234, 0.94);
+     --bg-gradient: linear-gradient(135deg, rgba(178, 233, 220, 0.78) 0%, rgba(214, 244, 234, 0.7) 55%, rgba(248, 246, 236, 0.62) 100%);
+     --bg-gradient-light: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(214, 244, 234, 0.62) 60%, rgba(248, 246, 236, 0.52) 100%);
+     --bg-light-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(214, 244, 234, 0.72) 58%, rgba(248, 246, 236, 0.6) 100%);
+     --bg-light-gradient-reverse: linear-gradient(180deg, rgba(248, 246, 236, 0.6) 0%, rgba(255, 255, 255, 0.94) 100%);
+
+     --bg-white: rgba(255, 255, 255, 0.92);
+     --bg-card: rgba(255, 255, 255, 0.92);
+     --bg-light: rgba(217, 245, 238, 0.5);
+     --bg-lighter: rgba(178, 233, 220, 0.32);
+     --bg-soft: rgba(95, 184, 168, 0.12);
+     --bg-soft-strong: rgba(95, 184, 168, 0.18);
+
+     --text-primary: rgba(18, 48, 42, 0.96);
+     --text-secondary: rgba(18, 48, 42, 0.76);
+     --text-tertiary: rgba(18, 48, 42, 0.6);
+     --text-strong: rgba(18, 48, 42, 0.98);
+     --text-white: rgba(255, 255, 255, 0.98);
+
+     --border-primary: rgba(95, 184, 168, 0.58);
+     --border-light: rgba(47, 127, 116, 0.16);
+     --border-medium: rgba(95, 184, 168, 0.28);
+     --card-border-color: rgba(95, 184, 168, 0.26);
+     --control-border-color: rgba(47, 127, 116, 0.2);
+     --table-border-color: rgba(47, 127, 116, 0.16);
+
+     --shadow-primary: 0 18px 54px rgba(32, 103, 94, 0.14);
+     --shadow-primary-lg: 0 28px 78px rgba(32, 103, 94, 0.12);
+
+     --color-primary-rgba-08: rgba(95, 184, 168, 0.08);
+     --color-primary-rgba-10: rgba(95, 184, 168, 0.1);
+     --color-primary-rgba-12: rgba(95, 184, 168, 0.12);
+     --color-primary-rgba-15: rgba(95, 184, 168, 0.15);
+     --color-primary-rgba-18: rgba(95, 184, 168, 0.18);
+     --color-primary-rgba-20: rgba(95, 184, 168, 0.2);
+     --color-primary-rgba-25: rgba(95, 184, 168, 0.25);
+     --color-primary-rgba-30: rgba(95, 184, 168, 0.3);
+     --color-primary-rgba-35: rgba(95, 184, 168, 0.35);
+     --color-primary-rgba-40: rgba(95, 184, 168, 0.4);
+
+     --action-buy-bg: linear-gradient(135deg,
+         color-mix(in srgb, var(--color-primary) 86%, white) 0%,
+         color-mix(in srgb, var(--color-primary-dark) 86%, var(--color-secondary-dark)) 100%);
+     --action-buy-bg-hover: linear-gradient(135deg,
+         color-mix(in srgb, var(--color-primary) 90%, white) 0%,
+         color-mix(in srgb, var(--color-primary-dark) 92%, black) 100%);
+     --action-buy-text: var(--text-white);
+
+     --action-dca-bg: linear-gradient(135deg,
+         color-mix(in srgb, var(--color-accent-light) 80%, white) 0%,
+         color-mix(in srgb, var(--color-secondary) 70%, var(--color-accent-dark)) 100%);
+     --action-dca-bg-hover: linear-gradient(135deg,
+         color-mix(in srgb, var(--color-accent) 78%, white) 0%,
+         color-mix(in srgb, var(--color-secondary-dark) 80%, var(--color-accent-dark)) 100%);
+     --action-dca-text: rgba(18, 48, 42, 0.96);
+
+     --action-side-bg: color-mix(in srgb, rgba(255, 255, 255, 0.92) 74%, rgba(95, 184, 168, 0.12));
+     --action-side-bg-hover: color-mix(in srgb, rgba(255, 255, 255, 0.92) 62%, rgba(95, 184, 168, 0.22));
+     --action-side-text: rgba(18, 48, 42, 0.96);
+ }
+
+ :root[data-theme="mintBlossomGarden"] body {
+     background: url("https://i.pinimg.com/736x/d2/7b/08/d27b08c045e17c2c73427e866c5ff5e9.jpg") center/cover no-repeat fixed;
+     background-color: var(--bg-primary);
+     color: var(--text-primary);
+ }
+
+ :root[data-theme="mintBlossomGarden"] body::before {
+     content: '';
+     position: fixed;
+     inset: 0;
+     background:
+         radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.55), transparent 55%),
+         radial-gradient(circle at 80% 26%, rgba(178, 233, 220, 0.34), transparent 62%),
+         linear-gradient(135deg, rgba(214, 244, 234, 0.62) 0%, rgba(178, 233, 220, 0.42) 55%, rgba(248, 246, 236, 0.28) 100%);
+     opacity: 0.9;
+     pointer-events: none;
+     z-index: -1;
+ }
+
+ :root[data-theme="mintBlossomGarden"] .page-ledger,
+ :root[data-theme="mintBlossomGarden"] .page-input,
+ :root[data-theme="mintBlossomGarden"] .page-chart,
+ :root[data-theme="mintBlossomGarden"] .page-budget,
+ :root[data-theme="mintBlossomGarden"] .page-monthly-planner,
+ :root[data-theme="mintBlossomGarden"] .page-daily-budget,
+ :root[data-theme="mintBlossomGarden"] .page-settings,
+ :root[data-theme="mintBlossomGarden"] .page-category-manage,
+ :root[data-theme="mintBlossomGarden"] .page-investment,
+ :root[data-theme="mintBlossomGarden"] .page-wallet,
+ :root[data-theme="mintBlossomGarden"] .page-history,
+ :root[data-theme="mintBlossomGarden"] .page-planner,
+ :root[data-theme="mintBlossomGarden"] .page-manage-investment,
+ :root[data-theme="mintBlossomGarden"] .page-annual-report,
+ :root[data-theme="mintBlossomGarden"] .page-diary,
+ :root[data-theme="mintBlossomGarden"] .page-installment,
+ :root[data-theme="mintBlossomGarden"] .installment-page,
+ :root[data-theme="mintBlossomGarden"] .dca-page,
+ :root[data-theme="mintBlossomGarden"] .fixed-deposit-page {
+     background: transparent !important;
+     backdrop-filter: none !important;
+     box-shadow: none !important;
+ }
+
+ :root[data-theme="mintBlossomGarden"] .card,
+ :root[data-theme="mintBlossomGarden"] .record-card,
+ :root[data-theme="mintBlossomGarden"] .ledger-card,
+ :root[data-theme="mintBlossomGarden"] .summary-card,
+ :root[data-theme="mintBlossomGarden"] .budget-card,
+ :root[data-theme="mintBlossomGarden"] .wallet-card,
+ :root[data-theme="mintBlossomGarden"] .chart-card,
+ :root[data-theme="mintBlossomGarden"] .investment-card,
+ :root[data-theme="mintBlossomGarden"] .manage-investment-card,
+ :root[data-theme="mintBlossomGarden"] .annual-report-card,
+ :root[data-theme="mintBlossomGarden"] .diary-card,
+ :root[data-theme="mintBlossomGarden"] .monthly-planning-card,
+ :root[data-theme="mintBlossomGarden"] .investment-settings-card,
+ :root[data-theme="mintBlossomGarden"] .wallet-budget-card,
+ :root[data-theme="mintBlossomGarden"] .holding-card,
+ :root[data-theme="mintBlossomGarden"] .buying-card,
+ :root[data-theme="mintBlossomGarden"] .selling-card,
+ :root[data-theme="mintBlossomGarden"] .dividend-card,
+ :root[data-theme="mintBlossomGarden"] .regular-investment-card,
+ :root[data-theme="mintBlossomGarden"] .investment-management-card,
+ :root[data-theme="mintBlossomGarden"] .dca-card,
+ :root[data-theme="mintBlossomGarden"] .installment-card,
+ :root[data-theme="mintBlossomGarden"] .fixed-deposit-card {
+     background: var(--bg-white) !important;
+     border: 2px solid var(--card-border-color) !important;
+     border-radius: 20px !important;
+     color: var(--text-primary) !important;
+     box-shadow: 0 14px 34px rgba(32, 103, 94, 0.13) !important;
+ }
+
+ :root[data-theme="mintBlossomGarden"] .modal-content,
+ :root[data-theme="mintBlossomGarden"] .modal-content-standard,
+ :root[data-theme="mintBlossomGarden"] .budget-category-modal-content,
+ :root[data-theme="mintBlossomGarden"] .budget-setting-modal-content,
+ :root[data-theme="mintBlossomGarden"] .category-modal-content,
+ :root[data-theme="mintBlossomGarden"] .dca-execute-modal .modal-content,
+ :root[data-theme="mintBlossomGarden"] .account-modal-content,
+ :root[data-theme="mintBlossomGarden"] .emoji-modal-content,
+ :root[data-theme="mintBlossomGarden"] .history-modal-content,
+ :root[data-theme="mintBlossomGarden"] .crop-modal-content,
+ :root[data-theme="mintBlossomGarden"] .dialog-container,
+ :root[data-theme="mintBlossomGarden"] .xiaosen-dialog,
+ :root[data-theme="mintBlossomGarden"] .komori-dialog,
+ :root[data-theme="mintBlossomGarden"] .theme-modal-content,
+ :root[data-theme="mintBlossomGarden"] .theme-modal-container {
+     background: rgba(255, 255, 255, 0.92) !important;
+     border: 1px solid var(--border-medium) !important;
+     box-shadow: 0 22px 60px rgba(32, 103, 94, 0.17) !important;
+ }
+
+ :root[data-theme="mintBlossomGarden"] .theme-modal-overlay,
+ :root[data-theme="mintBlossomGarden"] .modal-overlay {
+     background: color-mix(in srgb, rgba(18, 48, 42, 0.55) 75%, transparent) !important;
+     backdrop-filter: blur(8px);
+ }
+
+ :root[data-theme="mintBlossomGarden"] .btn,
+ :root[data-theme="mintBlossomGarden"] .buy-action-btn-large {
+     background: var(--action-buy-bg) !important;
+     color: var(--action-buy-text) !important;
+     border: 2px solid color-mix(in srgb, var(--color-primary) 55%, white) !important;
+ }
+
+ :root[data-theme="mintBlossomGarden"] .btn:hover,
+ :root[data-theme="mintBlossomGarden"] .buy-action-btn-large:hover {
+     background: var(--action-buy-bg-hover) !important;
+ }
+
+ :root[data-theme="mintBlossomGarden"] .dca-action-btn-large {
+     background: var(--action-dca-bg) !important;
+     color: var(--action-dca-text) !important;
+     border: 2px solid color-mix(in srgb, var(--color-secondary) 40%, white) !important;
+ }
+
+ :root[data-theme="mintBlossomGarden"] .dca-action-btn-large:hover {
+     background: var(--action-dca-bg-hover) !important;
+ }
+
+ :root[data-theme="mintBlossomGarden"] .back-btn,
+ :root[data-theme="mintBlossomGarden"] .return-btn,
+ :root[data-theme="mintBlossomGarden"] .input-back-btn,
+ :root[data-theme="mintBlossomGarden"] .modal-back-btn,
+ :root[data-theme="mintBlossomGarden"] .dca-back-btn,
+ :root[data-theme="mintBlossomGarden"] .dca-setup-back-btn {
+     background: linear-gradient(135deg,
+         color-mix(in srgb, var(--color-primary) 82%, white) 0%,
+         color-mix(in srgb, var(--color-secondary) 70%, var(--color-primary-dark)) 100%) !important;
+     border: 2px solid rgba(95, 184, 168, 0.34) !important;
+     color: var(--text-white) !important;
+ }
+
+ :root[data-theme="mintBlossomGarden"] .smart-analysis-btn,
+ :root[data-theme="mintBlossomGarden"] .smart-reminders-btn,
+ :root[data-theme="mintBlossomGarden"] .smart-suggestion-btn {
+     background: linear-gradient(135deg,
+         color-mix(in srgb, var(--color-primary) 78%, white) 0%,
+         color-mix(in srgb, var(--color-secondary) 70%, var(--color-accent)) 100%) !important;
+     color: rgba(18, 48, 42, 0.96) !important;
+     border: 2px solid rgba(95, 184, 168, 0.22) !important;
+ }
+
+ :root[data-theme="mintRoseFairy"] {
+     --color-primary: #53c8c1;
+     --color-primary-light: #8fe0db;
+     --color-primary-lighter: #d9f7f4;
+     --color-primary-dark: #2d8f8a;
+
+     --color-secondary: #ff78a7;
+     --color-secondary-light: #ffd0e0;
+     --color-secondary-dark: #d84f85;
+
+     --color-accent: #eef6f4;
+     --color-accent-light: #fbfffe;
+     --color-accent-dark: #cfe5df;
+
+     --bg-primary: linear-gradient(135deg, rgba(83, 200, 193, 0.22) 0%, rgba(243, 255, 251, 0.22) 45%, rgba(255, 120, 167, 0.18) 100%);
+     --bg-body: rgba(255, 255, 255, 0.36);
+     --bg-body-strong: rgba(255, 255, 255, 0.56);
+     --bg-gradient: linear-gradient(135deg, rgba(83, 200, 193, 0.28) 0%, rgba(243, 255, 251, 0.24) 45%, rgba(255, 120, 167, 0.2) 100%);
+     --bg-gradient-light: linear-gradient(135deg, rgba(83, 200, 193, 0.12) 0%, rgba(243, 255, 251, 0.1) 45%, rgba(255, 120, 167, 0.08) 100%);
+     --bg-light-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(217, 247, 244, 0.7) 58%, rgba(255, 208, 224, 0.62) 100%);
+     --bg-light-gradient-reverse: linear-gradient(180deg, rgba(255, 208, 224, 0.62) 0%, rgba(255, 255, 255, 0.94) 100%);
+
+     --bg-white: rgba(255, 255, 255, 0.92);
+     --bg-card: rgba(255, 255, 255, 0.9);
+     --bg-light: rgba(217, 247, 244, 0.52);
+     --bg-lighter: rgba(255, 208, 224, 0.38);
+     --bg-soft: rgba(83, 200, 193, 0.12);
+     --bg-soft-strong: rgba(255, 120, 167, 0.12);
+
+     --text-primary: rgba(18, 46, 44, 0.96);
+     --text-secondary: rgba(18, 46, 44, 0.76);
+     --text-tertiary: rgba(18, 46, 44, 0.6);
+     --text-strong: rgba(12, 32, 30, 0.98);
+     --text-white: rgba(255, 255, 255, 0.98);
+
+     --border-primary: rgba(83, 200, 193, 0.58);
+     --border-light: rgba(45, 143, 138, 0.16);
+     --border-medium: rgba(255, 120, 167, 0.26);
+     --card-border-color: rgba(83, 200, 193, 0.24);
+     --control-border-color: rgba(45, 143, 138, 0.2);
+     --table-border-color: rgba(45, 143, 138, 0.16);
+
+     --shadow-primary: 0 18px 54px rgba(18, 46, 44, 0.16);
+     --shadow-primary-lg: 0 28px 78px rgba(18, 46, 44, 0.14);
+
+     --color-primary-rgba-08: rgba(83, 200, 193, 0.08);
+     --color-primary-rgba-10: rgba(83, 200, 193, 0.1);
+     --color-primary-rgba-12: rgba(83, 200, 193, 0.12);
+     --color-primary-rgba-15: rgba(83, 200, 193, 0.15);
+     --color-primary-rgba-18: rgba(83, 200, 193, 0.18);
+     --color-primary-rgba-20: rgba(83, 200, 193, 0.2);
+     --color-primary-rgba-25: rgba(83, 200, 193, 0.25);
+     --color-primary-rgba-30: rgba(83, 200, 193, 0.3);
+     --color-primary-rgba-35: rgba(83, 200, 193, 0.35);
+     --color-primary-rgba-40: rgba(83, 200, 193, 0.4);
+
+     --action-buy-bg: linear-gradient(135deg,
+         color-mix(in srgb, var(--color-primary) 86%, white) 0%,
+         color-mix(in srgb, var(--color-secondary) 78%, var(--color-primary-dark)) 100%);
+     --action-buy-bg-hover: linear-gradient(135deg,
+         color-mix(in srgb, var(--color-primary) 92%, white) 0%,
+         color-mix(in srgb, var(--color-secondary-dark) 84%, var(--color-primary-dark)) 100%);
+     --action-buy-text: var(--text-white);
+
+     --action-dca-bg: linear-gradient(135deg,
+         color-mix(in srgb, var(--color-accent-light) 80%, white) 0%,
+         color-mix(in srgb, var(--color-secondary-light) 72%, var(--color-primary-light)) 100%);
+     --action-dca-bg-hover: linear-gradient(135deg,
+         color-mix(in srgb, var(--color-accent) 80%, white) 0%,
+         color-mix(in srgb, var(--color-secondary) 72%, var(--color-primary)) 100%);
+     --action-dca-text: rgba(18, 46, 44, 0.96);
+
+     --action-side-bg: color-mix(in srgb, rgba(255, 255, 255, 0.92) 74%, rgba(83, 200, 193, 0.12));
+     --action-side-bg-hover: color-mix(in srgb, rgba(255, 255, 255, 0.92) 62%, rgba(255, 120, 167, 0.16));
+     --action-side-text: rgba(18, 46, 44, 0.96);
+ }
+
+ :root[data-theme="mintRoseFairy"] body {
+     background:
+         linear-gradient(135deg, rgba(83, 200, 193, 0.24) 0%, rgba(243, 255, 251, 0.22) 45%, rgba(255, 120, 167, 0.18) 100%),
+         url("https://i.pinimg.com/474x/c9/11/ec/c911ec31a445ed3e6a3ebc14392a0e11.jpg") center/cover no-repeat fixed;
+     background-color: var(--bg-primary);
+     color: var(--text-primary);
+ }
+
+ :root[data-theme="mintRoseFairy"] body::before {
+     display: none;
+ }
+
+ :root[data-theme="mintRoseFairy"] .page-ledger,
+ :root[data-theme="mintRoseFairy"] .page-input,
+ :root[data-theme="mintRoseFairy"] .page-chart,
+ :root[data-theme="mintRoseFairy"] .page-budget,
+ :root[data-theme="mintRoseFairy"] .page-monthly-planner,
+ :root[data-theme="mintRoseFairy"] .page-daily-budget,
+ :root[data-theme="mintRoseFairy"] .page-settings,
+ :root[data-theme="mintRoseFairy"] .page-category-manage,
+ :root[data-theme="mintRoseFairy"] .page-investment,
+ :root[data-theme="mintRoseFairy"] .page-wallet,
+ :root[data-theme="mintRoseFairy"] .page-history,
+ :root[data-theme="mintRoseFairy"] .page-planner,
+ :root[data-theme="mintRoseFairy"] .page-manage-investment,
+ :root[data-theme="mintRoseFairy"] .page-annual-report,
+ :root[data-theme="mintRoseFairy"] .page-diary,
+ :root[data-theme="mintRoseFairy"] .page-installment,
+ :root[data-theme="mintRoseFairy"] .installment-page,
+ :root[data-theme="mintRoseFairy"] .dca-page,
+ :root[data-theme="mintRoseFairy"] .fixed-deposit-page,
+ :root[data-theme="mintRoseFairy"] .dividend-page,
+ :root[data-theme="mintRoseFairy"] .dca-management-page,
+ :root[data-theme="mintRoseFairy"] .dca-setup-page,
+ :root[data-theme="mintRoseFairy"] .investment-input-page,
+ :root[data-theme="mintRoseFairy"] .wishlist-content,
+ :root[data-theme="mintRoseFairy"] .savings-content {
+     background: transparent !important;
+     backdrop-filter: none !important;
+     box-shadow: none !important;
+ }
+
+ :root[data-theme="mintRoseFairy"] .card,
+ :root[data-theme="mintRoseFairy"] .record-card,
+ :root[data-theme="mintRoseFairy"] .ledger-card,
+ :root[data-theme="mintRoseFairy"] .summary-card,
+ :root[data-theme="mintRoseFairy"] .budget-card,
+ :root[data-theme="mintRoseFairy"] .wallet-card,
+ :root[data-theme="mintRoseFairy"] .chart-card,
+ :root[data-theme="mintRoseFairy"] .investment-card,
+ :root[data-theme="mintRoseFairy"] .stock-item-card,
+ :root[data-theme="mintRoseFairy"] .monthly-planner-card,
+ :root[data-theme="mintRoseFairy"] .dividend-stat-card,
+ :root[data-theme="mintRoseFairy"] .manage-investment-card,
+ :root[data-theme="mintRoseFairy"] .annual-report-card,
+ :root[data-theme="mintRoseFairy"] .diary-card,
+ :root[data-theme="mintRoseFairy"] .monthly-planning-card,
+ :root[data-theme="mintRoseFairy"] .investment-settings-card,
+ :root[data-theme="mintRoseFairy"] .wallet-budget-card,
+ :root[data-theme="mintRoseFairy"] .holding-card,
+ :root[data-theme="mintRoseFairy"] .buying-card,
+ :root[data-theme="mintRoseFairy"] .selling-card,
+ :root[data-theme="mintRoseFairy"] .dividend-card,
+ :root[data-theme="mintRoseFairy"] .regular-investment-card,
+ :root[data-theme="mintRoseFairy"] .investment-management-card,
+ :root[data-theme="mintRoseFairy"] .dca-card,
+ :root[data-theme="mintRoseFairy"] .installment-card,
+ :root[data-theme="mintRoseFairy"] .fixed-deposit-card {
+     background: var(--bg-card) !important;
+     border: 2px solid var(--card-border-color) !important;
+     border-radius: 20px !important;
+     color: var(--text-primary) !important;
+     box-shadow: 0 14px 38px rgba(18, 46, 44, 0.14) !important;
+     backdrop-filter: blur(14px);
+ }
+
+ :root[data-theme="mintRoseFairy"] .modal-content,
+ :root[data-theme="mintRoseFairy"] .modal-content-standard,
+ :root[data-theme="mintRoseFairy"] .budget-category-modal-content,
+ :root[data-theme="mintRoseFairy"] .budget-setting-modal-content,
+ :root[data-theme="mintRoseFairy"] .category-modal-content,
+ :root[data-theme="mintRoseFairy"] .dca-execute-modal .modal-content,
+ :root[data-theme="mintRoseFairy"] .account-modal-content,
+ :root[data-theme="mintRoseFairy"] .emoji-modal-content,
+ :root[data-theme="mintRoseFairy"] .history-modal-content,
+ :root[data-theme="mintRoseFairy"] .crop-modal-content,
+ :root[data-theme="mintRoseFairy"] .dialog-container,
+ :root[data-theme="mintRoseFairy"] .xiaosen-dialog,
+ :root[data-theme="mintRoseFairy"] .komori-dialog,
+ :root[data-theme="mintRoseFairy"] .mori-dialog-box,
+ :root[data-theme="mintRoseFairy"] .theme-modal-content,
+ :root[data-theme="mintRoseFairy"] .theme-modal-container {
+     background: rgba(255, 255, 255, 0.94) !important;
+     border: 2px solid rgba(83, 200, 193, 0.24) !important;
+     box-shadow: 0 22px 60px rgba(18, 46, 44, 0.18) !important;
+ }
+
+ :root[data-theme="mintRoseFairy"] .theme-modal-overlay,
+ :root[data-theme="mintRoseFairy"] .modal-overlay {
+     background: color-mix(in srgb, rgba(18, 46, 44, 0.55) 75%, transparent) !important;
+     backdrop-filter: blur(8px);
+ }
+
+ :root[data-theme="mintRoseFairy"] .btn,
+ :root[data-theme="mintRoseFairy"] .buy-action-btn-large {
+     background: var(--action-buy-bg) !important;
+     color: var(--action-buy-text) !important;
+     border: 2px solid color-mix(in srgb, var(--color-primary) 55%, white) !important;
+ }
+
+ :root[data-theme="mintRoseFairy"] .btn:hover,
+ :root[data-theme="mintRoseFairy"] .buy-action-btn-large:hover {
+     background: var(--action-buy-bg-hover) !important;
+ }
+
+ :root[data-theme="mintRoseFairy"] .dca-action-btn-large {
+     background: var(--action-dca-bg) !important;
+     color: var(--action-dca-text) !important;
+     border: 2px solid color-mix(in srgb, var(--color-secondary) 38%, white) !important;
+ }
+
+ :root[data-theme="mintRoseFairy"] .dca-action-btn-large:hover {
+     background: var(--action-dca-bg-hover) !important;
+ }
+
+ :root[data-theme="mintRoseFairy"] .back-btn,
+ :root[data-theme="mintRoseFairy"] .return-btn,
+ :root[data-theme="mintRoseFairy"] .input-back-btn,
+ :root[data-theme="mintRoseFairy"] .modal-back-btn,
+ :root[data-theme="mintRoseFairy"] .dca-back-btn,
+ :root[data-theme="mintRoseFairy"] .dca-setup-back-btn {
+     background: linear-gradient(135deg,
+         color-mix(in srgb, var(--color-primary) 82%, white) 0%,
+         color-mix(in srgb, var(--color-secondary) 68%, var(--color-primary-dark)) 100%) !important;
+     border: 2px solid rgba(83, 200, 193, 0.28) !important;
+     color: var(--text-white) !important;
+ }
+
+ :root[data-theme="mintRoseFairy"] .smart-analysis-btn,
+ :root[data-theme="mintRoseFairy"] .smart-reminders-btn,
+ :root[data-theme="mintRoseFairy"] .smart-suggestion-btn {
+     background: linear-gradient(135deg,
+         color-mix(in srgb, var(--color-primary) 78%, white) 0%,
+         color-mix(in srgb, var(--color-secondary) 70%, var(--color-accent)) 100%) !important;
+     color: rgba(18, 46, 44, 0.96) !important;
+     border: 2px solid rgba(83, 200, 193, 0.22) !important;
+ }
+
+ :root[data-theme="mintRoseFairy"] .key-btn.operator {
+     background: linear-gradient(135deg,
+         color-mix(in srgb, var(--color-primary) 78%, var(--color-primary-dark)) 0%,
+         color-mix(in srgb, var(--color-secondary) 72%, var(--color-primary-dark)) 100%) !important;
+     border-color: color-mix(in srgb, var(--color-primary-dark) 70%, var(--color-secondary-dark)) !important;
+     color: var(--text-white) !important;
+     font-weight: 800;
+     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+ }
+
+ :root[data-theme="mintRoseFairy"] .key-btn.operator:hover {
+     background: linear-gradient(135deg,
+         color-mix(in srgb, var(--color-primary-dark) 86%, black) 0%,
+         color-mix(in srgb, var(--color-secondary-dark) 78%, var(--color-primary-dark)) 100%) !important;
+ }
+
+ :root[data-theme="mintRoseFairy"] .key-btn.operator:active {
+     transform: scale(0.95);
+ }
+
+ :root[data-theme="mintRoseFairy"] .key-btn.equal {
+     background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%) !important;
+     border-color: var(--color-primary-dark) !important;
+     color: var(--text-white) !important;
+     font-weight: 900;
+     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+ }
+
+ :root[data-theme="mintRoseFairy"] .key-btn.equal:hover {
+     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%) !important;
+ }
+
+ :root[data-theme="mintRoseFairy"] .key-btn.delete {
+     background: linear-gradient(135deg, rgba(239, 68, 68, 0.96) 0%, rgba(185, 28, 28, 0.96) 100%) !important;
+     border-color: rgba(185, 28, 28, 0.86) !important;
+     color: var(--text-white) !important;
+     font-weight: 800;
+ }
+
+ :root[data-theme="mintRoseFairy"] .key-btn.delete:hover {
+     background: linear-gradient(135deg, rgba(220, 38, 38, 0.98) 0%, rgba(153, 27, 27, 0.98) 100%) !important;
+ }
+
 :root[data-theme="anyaMelody"] {
     --color-primary: #f06c9b;
     --color-primary-light: #f7a1bd;
@@ -22659,51 +23148,126 @@ transform: scale(0.99);
 }
 
 .account-modal-content {
-    max-height: 80vh;
+    max-height: 85vh;
+    backdrop-filter: blur(20px);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--bg-white) 98%, var(--color-primary) 2%) 0%, color-mix(in srgb, var(--bg-white) 95%, var(--color-primary) 5%) 100%);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 15%, transparent);
+    box-shadow: 0 20px 60px color-mix(in srgb, var(--color-primary) 20%, transparent), 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .account-list {
-    max-height: 400px;
+    max-height: 450px;
     overflow-y: auto;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    padding: 4px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, color-mix(in srgb, transparent 50%, var(--bg-white) 50%) 0%, transparent 100%);
+}
+
+.account-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.account-list::-webkit-scrollbar-track {
+    background: color-mix(in srgb, var(--bg-hover) 50%, transparent);
+    border-radius: 4px;
+    margin: 8px;
+}
+
+.account-list::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--color-primary), color-mix(in srgb, var(--color-primary) 70%, var(--color-primary-dark)));
+    border-radius: 4px;
+    border: 1px solid color-mix(in srgb, var(--bg-white) 30%, transparent);
+}
+
+.account-list::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
 }
 
 .account-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 16px;
-    background: var(--bg-white);
+    gap: 16px;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--bg-white) 0%, color-mix(in srgb, var(--bg-white) 95%, var(--color-primary) 5%) 100%);
     border: 2px solid var(--bg-hover);
-    border-radius: 12px;
-    margin-bottom: 12px;
+    border-radius: 16px;
+    margin-bottom: 16px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: accountItemSlideIn 0.5s ease forwards;
+}
+
+@keyframes accountItemSlideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.account-item:nth-child(1) { animation-delay: 0.05s; }
+.account-item:nth-child(2) { animation-delay: 0.1s; }
+.account-item:nth-child(3) { animation-delay: 0.15s; }
+.account-item:nth-child(4) { animation-delay: 0.2s; }
+.account-item:nth-child(5) { animation-delay: 0.25s; }
+.account-item:nth-child(6) { animation-delay: 0.3s; }
+.account-item:nth-child(7) { animation-delay: 0.35s; }
+.account-item:nth-child(8) { animation-delay: 0.4s; }
+
+.account-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-primary) 10%, transparent), transparent);
+    transition: left 0.6s ease;
+}
+
+.account-item:hover::before {
+    left: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .account-item {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
 }
 
 .account-item:hover {
-    border-color: var(--color-primary-light);
-    background: var(--bg-lighter);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px var(--color-primary-rgba-15);
+    border-color: var(--color-primary);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--bg-white) 90%, var(--color-primary) 10%) 0%, color-mix(in srgb, var(--bg-white) 85%, var(--color-primary) 15%) 100%);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 25px color-mix(in srgb, var(--color-primary) 25%, transparent), 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .account-item.selected {
     border-color: var(--color-primary);
-    background: linear-gradient(135deg, var(--bg-light-gradient) 0%, var(--bg-light-gradient) 100%);
-    box-shadow: 0 2px 8px var(--color-primary-rgba-20);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 8%, var(--bg-white) 92%) 0%, color-mix(in srgb, var(--color-primary) 12%, var(--bg-white) 88%) 100%);
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--color-primary) 30%, transparent), 0 3px 10px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px) scale(1.01);
 }
 
 .account-item-icon {
-    font-size: 40px;
-    width: 64px;
-    height: 64px;
+    font-size: 42px;
+    width: 70px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg-gradient-light);
-    border-radius: 14px;
+    background: linear-gradient(135deg, var(--bg-gradient-light) 0%, color-mix(in srgb, var(--bg-gradient-light) 80%, var(--color-primary) 20%) 100%);
+    border-radius: 18px;
     flex-shrink: 0;
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--color-primary) 15%, transparent);
+    position: relative;
+    z-index: 1;
 }
 
 .account-item-info {
@@ -22712,79 +23276,142 @@ transform: scale(0.99);
 }
 
 .account-item-name {
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 4px;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+    line-height: 1.3;
 }
 
 .account-item-currency {
-    font-size: 13px;
-    color: var(--text-tertiary);
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    opacity: 0.8;
 }
 
 .account-item-balance {
     text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
 }
 
 .account-balance-value {
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 700;
     color: var(--text-primary);
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+}
+
+.account-balance-value.negative {
+    color: #e74c3c;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.account-balance-value.positive {
+    color: #27ae60;
+    background: linear-gradient(135deg, #27ae60, #229954);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .account-detail-btn,
 .account-edit-btn {
-    background: none;
-    border: none;
-    font-size: 20px;
-    width: 36px;
-    height: 36px;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--bg-white) 90%, var(--color-primary) 10%) 0%, color-mix(in srgb, var(--bg-white) 80%, var(--color-primary) 20%) 100%);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+    font-size: 22px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     flex-shrink: 0;
     position: relative;
     z-index: 10;
     pointer-events: auto;
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--color-primary) 10%, transparent);
 }
 
 .account-detail-btn:hover,
 .account-edit-btn:hover {
-    background: var(--bg-soft);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 15%, var(--bg-white) 85%) 0%, color-mix(in srgb, var(--color-primary) 25%, var(--bg-white) 75%) 100%);
+    border-color: var(--color-primary);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 16px color-mix(in srgb, var(--color-primary) 25%, transparent), 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .account-detail-btn:active,
 .account-edit-btn:active {
-    background: var(--bg-toggle);
-    transform: scale(0.95);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 20%, var(--bg-white) 80%) 0%, color-mix(in srgb, var(--color-primary) 30%, var(--bg-white) 70%) 100%);
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--color-primary) 20%, transparent);
 }
 
 .account-add-btn {
     width: 100%;
-    padding: 14px 24px;
+    padding: 18px 24px;
     border: 2px dashed var(--color-primary);
-    border-radius: 12px;
-    background: var(--bg-gradient-light);
+    border-radius: 16px;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--bg-gradient-light) 90%, var(--color-primary) 10%) 0%, color-mix(in srgb, var(--bg-gradient-light) 80%, var(--color-primary) 20%) 100%);
     color: var(--color-primary);
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 17px;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--color-primary) 10%, transparent);
+    position: relative;
+    overflow: hidden;
+}
+
+.account-add-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-primary) 20%, transparent) 0%, transparent 70%);
+    transition: all 0.4s ease;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+}
+
+.account-add-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.account-add-btn:hover {
+    background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 15%, var(--bg-gradient-light) 85%) 0%, color-mix(in srgb, var(--color-primary) 25%, var(--bg-gradient-light) 75%) 100%);
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px color-mix(in srgb, var(--color-primary) 25%, transparent), 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .account-add-btn:active {
-    background: var(--bg-gradient);
+    background: linear-gradient(135deg, var(--color-primary) 0%, color-mix(in srgb, var(--color-primary) 80%, var(--color-primary-dark) 20%) 100%);
     color: var(--text-white);
     border-color: var(--color-primary);
-    transform: scale(0.98);
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 4px 16px color-mix(in srgb, var(--color-primary) 30%, transparent);
 }
 
 .account-manage-actions {
@@ -25119,8 +25746,8 @@ transform: scale(0.99);
     .account-detail-modal .modal-content,
     .account-manage-modal .modal-content {
         margin: 10px;
-        padding: 20px;
-        max-height: 90vh;
+        width: calc(100% - 20px);
+        max-height: calc(100vh - 20px);
         border-radius: 16px;
     }
     
@@ -25130,9 +25757,13 @@ transform: scale(0.99);
     }
     
     .account-item {
-        padding: 14px;
+        padding: 14px 12px;
+        padding-right: 96px;
         margin-bottom: 10px;
         border-radius: 12px;
+        gap: 12px;
+        align-items: flex-start;
+        flex-wrap: wrap;
     }
     
     .account-item-icon {
@@ -25140,13 +25771,76 @@ transform: scale(0.99);
         height: 56px;
         font-size: 28px;
     }
+
+    .account-item-icon-image {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        flex-shrink: 0;
+    }
+
+    .account-item-info {
+        min-width: 0;
+        flex: 1 1 auto;
+    }
     
     .account-item-name {
         font-size: 16px;
+        line-height: 1.2;
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: keep-all;
+    }
+
+    .account-item-currency {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: keep-all;
     }
     
     .account-item-balance {
+        align-items: flex-start;
+        text-align: left;
+        flex: 0 0 100%;
+        margin-left: 68px;
+        margin-top: 2px;
+    }
+
+    .account-balance-value {
+        font-size: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+
+    .account-detail-btn,
+    .account-edit-btn {
+        width: 36px;
+        height: 36px;
         font-size: 18px;
+        border-radius: 10px;
+        position: absolute;
+        right: 12px;
+    }
+
+    .account-detail-btn {
+        top: 50%;
+        transform: translateY(calc(-50% - 20px));
+    }
+
+    .account-edit-btn {
+        top: 50%;
+        transform: translateY(calc(-50% + 20px));
+    }
+
+    .account-item {
+        animation: none;
+        opacity: 1;
+        transform: none;
     }
     
     .form-field {
@@ -25169,6 +25863,23 @@ transform: scale(0.99);
         padding: 14px;
         font-size: 16px;
         border-radius: 12px;
+    }
+}
+
+@media (max-width: 375px) {
+    .account-item {
+        padding-right: 88px;
+    }
+
+    .account-detail-btn,
+    .account-edit-btn {
+        right: 10px;
+        width: 34px;
+        height: 34px;
+    }
+
+    .account-balance-value {
+        font-size: 15px;
     }
 }
 
@@ -32574,64 +33285,31 @@ body {
     color: var(--text-secondary) !important;
 }
 
- :root[data-theme="starryOceanPrince"] {
-     --color-primary: #2b6cff;
-     --color-primary-light: #6aa7ff;
-     --color-primary-lighter: #a9d0ff;
-     --color-primary-dark: #143b9f;
-     --color-secondary: #0b1a33;
-     --color-secondary-light: #163259;
-     --color-secondary-dark: #050814;
-     --color-accent: #7fd7ff;
-     --color-accent-light: #b8ecff;
-     --color-accent-dark: #2fb9ff;
-     --color-success: #22c55e;
-     --color-danger: #ef4444;
-     --color-warning: #f59e0b;
-     --color-info: #3b82f6;
-     --color-error: var(--color-danger);
-     --bg-primary: linear-gradient(135deg, rgba(5, 8, 20, 0.97) 0%, rgba(11, 26, 51, 0.93) 50%, rgba(20, 59, 159, 0.82) 100%);
-     --bg-body: rgba(5, 8, 20, 0.92);
-     --bg-body-strong: rgba(11, 26, 51, 0.96);
-     --bg-dark: rgba(5, 8, 20, 0.94);
-     --bg-gradient: linear-gradient(135deg, #050814 0%, #0b1a33 55%, #143b9f 100%);
-     --bg-gradient-light: linear-gradient(135deg, rgba(43, 108, 255, 0.12) 0%, rgba(127, 215, 255, 0.08) 100%);
-     --bg-white: rgba(8, 12, 24, 0.78);
-     --bg-card: rgba(10, 16, 34, 0.84);
-     --bg-light: rgba(18, 32, 64, 0.66);
-     --bg-lighter: rgba(43, 108, 255, 0.18);
-     --bg-soft: rgba(106, 167, 255, 0.12);
-     --bg-soft-strong: rgba(18, 32, 64, 0.78);
-     --text-primary: rgba(245, 249, 255, 0.96);
-     --text-secondary: rgba(185, 210, 235, 0.84);
-     --text-tertiary: rgba(155, 185, 220, 0.66);
-     --text-strong: rgba(255, 255, 255, 0.98);
-     --text-white: rgba(255, 255, 255, 0.98);
-     --border-primary: rgba(43, 108, 255, 0.7);
-     --border-light: rgba(43, 108, 255, 0.28);
-     --border-medium: rgba(127, 215, 255, 0.26);
-     --card-border-color: rgba(43, 108, 255, 0.4);
-     --control-border-color: rgba(43, 108, 255, 0.24);
-     --table-border-color: rgba(43, 108, 255, 0.18);
-     --shadow-primary: 0 20px 60px rgba(0, 0, 0, 0.75);
-     --shadow-primary-lg: 0 30px 80px rgba(0, 0, 0, 0.7);
-     --color-primary-rgba-08: rgba(43, 108, 255, 0.08);
-     --color-primary-rgba-10: rgba(43, 108, 255, 0.1);
-     --color-primary-rgba-15: rgba(43, 108, 255, 0.15);
-     --color-primary-rgba-20: rgba(43, 108, 255, 0.2);
-     --color-primary-rgba-25: rgba(43, 108, 255, 0.25);
-     --color-primary-rgba-30: rgba(43, 108, 255, 0.3);
-     --color-primary-rgba-40: rgba(43, 108, 255, 0.4);
-     --color-primary-light-rgba-08: rgba(106, 167, 255, 0.08);
-     --color-primary-light-rgba-10: rgba(106, 167, 255, 0.1);
-     --color-primary-light-rgba-15: rgba(106, 167, 255, 0.15);
-     --color-primary-light-rgba-20: rgba(106, 167, 255, 0.2);
-     --color-primary-light-rgba-25: rgba(106, 167, 255, 0.25);
-     --color-primary-light-rgba-30: rgba(106, 167, 255, 0.3);
-     --color-primary-light-rgba-40: rgba(106, 167, 255, 0.4);
-     --color-secondary-rgba-08: rgba(11, 26, 51, 0.08);
-     --color-secondary-rgba-10: rgba(11, 26, 51, 0.1);
-     --color-secondary-rgba-15: rgba(11, 26, 51, 0.15);
+:root[data-theme="waterBlade"] .modal-content,
+:root[data-theme="waterBlade"] .modal-content-standard,
+:root[data-theme="waterBlade"] .budget-category-modal-content,
+:root[data-theme="waterBlade"] .budget-setting-modal-content,
+:root[data-theme="waterBlade"] .category-modal-content,
+:root[data-theme="waterBlade"] .dca-execute-modal .modal-content,
+:root[data-theme="waterBlade"] .account-modal-content,
+:root[data-theme="waterBlade"] .emoji-modal-content,
+:root[data-theme="waterBlade"] .history-modal-content,
+:root[data-theme="waterBlade"] .crop-modal-content,
+:root[data-theme="waterBlade"] .dialog-container,
+:root[data-theme="waterBlade"] .xiaosen-dialog,
+:root[data-theme="waterBlade"] .komori-dialog,
+:root[data-theme="waterBlade"] .mori-dialog-box,
+:root[data-theme="waterBlade"] .theme-modal-content,
+:root[data-theme="waterBlade"] .theme-modal-container,
+:root[data-theme="waterBlade"] .dialog-content,
+:root[data-theme="waterBlade"] .popup-content {
+    background: rgba(7, 16, 22, 0.90) !important;
+    border: 1px solid rgba(73, 199, 211, 0.36) !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.62) !important;
+    backdrop-filter: blur(16px) !important;
+    color: rgba(240, 252, 255, 0.96) !important;
+}
+:root[data-theme="starryOceanPrince"] {
      --color-secondary-rgba-20: rgba(11, 26, 51, 0.2);
      --color-secondary-rgba-25: rgba(11, 26, 51, 0.25);
      --color-secondary-rgba-30: rgba(11, 26, 51, 0.3);
@@ -40877,8 +41555,8 @@ html:has([data-theme="shinobu"]) *[class*="budget-remaining"] {
     border: 1px solid rgba(100, 255, 218, 0.3) !important;
     border-radius: 20px !important;
     box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.3) !important,
-        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important,
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
         0 0 0 1px rgba(100, 255, 218, 0.1) !important;
     position: relative !important;
     overflow: hidden !important;
@@ -41207,10 +41885,7 @@ html:has([data-theme="shinobu"]) *[class*="budget-remaining"] {
 [data-theme="festive"] .budget-item:hover {
     border: 1px solid rgba(100, 255, 218, 0.3) !important;
     border-radius: 20px !important;
-    box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.3) !important,
-        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important,
-        0 0 0 1px rgba(100, 255, 218, 0.1) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(100, 255, 218, 0.1) !important;
     position: relative !important;
     overflow: hidden !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
@@ -41241,14 +41916,9 @@ html:has([data-theme="shinobu"]) *[class*="budget-remaining"] {
     backdrop-filter: blur(25px) saturate(200%) !important;
     -webkit-backdrop-filter: blur(25px) saturate(200%) !important;
     border-color: rgba(100, 255, 218, 0.5) !important;
-    box-shadow:
-        0 12px 40px rgba(0, 0, 0, 0.4) !important,
-        inset 0 1px 0 rgba(255, 255, 255, 0.2) !important,
-        0 0 20px rgba(100, 255, 218, 0.2) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4) !important, inset 0 1px 0 rgba(255, 255, 255, 0.2) !important, 0 0 20px rgba(100, 255, 218, 0.2) !important;
     transform: translateY(-4px) scale(1.02) !important;
 }
-
-/* ========== 夜�??�季主�? - 毛玻?��???========== */
 
 /* 夜�??�季主�? - 定�?定�??��?毛玻?��???*/
 [data-theme="nightglowSeasons"] .monthly-planning-card {
@@ -41257,10 +41927,7 @@ html:has([data-theme="shinobu"]) *[class*="budget-remaining"] {
     -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
     border: 1px solid rgba(100, 255, 218, 0.3) !important;
     border-radius: 20px !important;
-    box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3) !important,
-        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important,
-        0 0 0 1px rgba(100, 255, 218, 0.1) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(100, 255, 218, 0.1) !important;
     position: relative !important;
     overflow: hidden !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
@@ -41292,8 +41959,8 @@ html:has([data-theme="shinobu"]) *[class*="budget-remaining"] {
     -webkit-backdrop-filter: blur(25px) saturate(200%) !important;
     border-color: rgba(100, 255, 218, 0.5) !important;
     box-shadow: 
-        0 12px 40px rgba(0, 0, 0, 0.4) !important,
-        inset 0 1px 0 rgba(255, 255, 255, 0.2) !important,
+        0 12px 40px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
         0 0 20px rgba(100, 255, 218, 0.2) !important;
     transform: translateY(-4px) scale(1.02) !important;
 }
@@ -41306,8 +41973,8 @@ html:has([data-theme="shinobu"]) *[class*="budget-remaining"] {
     border: 1px solid rgba(100, 255, 218, 0.3) !important;
     border-radius: 20px !important;
     box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3) !important,
-        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important,
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
         0 0 0 1px rgba(100, 255, 218, 0.1) !important;
     position: relative !important;
     overflow: hidden !important;
@@ -41340,8 +42007,8 @@ html:has([data-theme="shinobu"]) *[class*="budget-remaining"] {
     -webkit-backdrop-filter: blur(25px) saturate(200%) !important;
     border-color: rgba(100, 255, 218, 0.5) !important;
     box-shadow: 
-        0 12px 40px rgba(0, 0, 0, 0.4) !important,
-        inset 0 1px 0 rgba(255, 255, 255, 0.2) !important,
+        0 12px 40px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
         0 0 20px rgba(100, 255, 218, 0.2) !important;
     transform: translateY(-4px) scale(1.02) !important;
 }
