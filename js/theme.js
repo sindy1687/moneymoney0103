@@ -1,4 +1,4 @@
-// ========== 主題顏色功能 ==========
+﻿// ========== 主題顏色功能 ==========
 var themes = window.AppThemes || [
     {
         id: 'pink',
@@ -195,6 +195,86 @@ var themes = window.AppThemes || [
         backgroundImage: 'https://i.pinimg.com/736x/73/3c/b0/733cb0696372d66f16702dd385a5aa5b.jpg'
     },
     {
+        id: 'waterBlade',
+        name: '水之刃',
+        icon: '🌊',
+        buttonIcon: '💧',
+        preview: 'linear-gradient(135deg, rgba(7, 16, 22, 0.92) 0%, rgba(31, 106, 165, 0.55) 55%, rgba(73, 199, 211, 0.45) 100%)',
+        color: '#49c7d3',
+        category: 'anime',
+        cssBackground: true,
+        backgroundImage: 'https://i.pinimg.com/736x/25/bc/b8/25bcb8505a3a276fcd8d978684ca797c.jpg',
+        investmentCardImage: 'https://i.pinimg.com/736x/25/bc/b8/25bcb8505a3a276fcd8d978684ca797c.jpg',
+        accountingCardImage: 'https://i.pinimg.com/736x/25/bc/b8/25bcb8505a3a276fcd8d978684ca797c.jpg',
+        walletBudgetCardImage: 'https://i.pinimg.com/736x/25/bc/b8/25bcb8505a3a276fcd8d978684ca797c.jpg',
+        monthlyPlanningCardImage: 'https://i.pinimg.com/736x/25/bc/b8/25bcb8505a3a276fcd8d978684ca797c.jpg',
+        investmentSettingsCardImage: 'https://i.pinimg.com/736x/25/bc/b8/25bcb8505a3a276fcd8d978684ca797c.jpg',
+        holdingCardImage: 'https://i.pinimg.com/736x/25/bc/b8/25bcb8505a3a276fcd8d978684ca797c.jpg',
+        buyingCardImage: 'https://i.pinimg.com/736x/25/bc/b8/25bcb8505a3a276fcd8d978684ca797c.jpg',
+        sellingCardImage: 'https://i.pinimg.com/736x/25/bc/b8/25bcb8505a3a276fcd8d978684ca797c.jpg',
+        dividendCardImage: 'https://i.pinimg.com/736x/25/bc/b8/25bcb8505a3a276fcd8d978684ca797c.jpg'
+    },
+    {
+        id: 'waveRonin',
+        name: '浪人水影',
+        icon: '🌊',
+        buttonIcon: '🗡️',
+        preview: 'linear-gradient(135deg, rgba(7, 21, 34, 0.92) 0%, rgba(30, 78, 115, 0.55) 55%, rgba(107, 183, 230, 0.40) 100%)',
+        color: '#2c7db3',
+        category: 'anime',
+        cssBackground: true,
+        backgroundImage: 'https://i.pinimg.com/736x/c5/d5/60/c5d5605539ede1eb0e8c9c1aef661dee.jpg',
+        investmentCardImage: 'https://i.pinimg.com/736x/c5/d5/60/c5d5605539ede1eb0e8c9c1aef661dee.jpg',
+        accountingCardImage: 'https://i.pinimg.com/736x/c5/d5/60/c5d5605539ede1eb0e8c9c1aef661dee.jpg',
+        walletBudgetCardImage: 'https://i.pinimg.com/736x/c5/d5/60/c5d5605539ede1eb0e8c9c1aef661dee.jpg',
+        monthlyPlanningCardImage: 'https://i.pinimg.com/736x/c5/d5/60/c5d5605539ede1eb0e8c9c1aef661dee.jpg',
+        investmentSettingsCardImage: 'https://i.pinimg.com/736x/c5/d5/60/c5d5605539ede1eb0e8c9c1aef661dee.jpg',
+        holdingCardImage: 'https://i.pinimg.com/736x/c5/d5/60/c5d5605539ede1eb0e8c9c1aef661dee.jpg',
+        buyingCardImage: 'https://i.pinimg.com/736x/c5/d5/60/c5d5605539ede1eb0e8c9c1aef661dee.jpg',
+        sellingCardImage: 'https://i.pinimg.com/736x/c5/d5/60/c5d5605539ede1eb0e8c9c1aef661dee.jpg',
+        dividendCardImage: 'https://i.pinimg.com/736x/c5/d5/60/c5d5605539ede1eb0e8c9c1aef661dee.jpg'
+    },
+    {
+        id: 'amberRonin',
+        name: '暖金浪人',
+        icon: '🍁',
+        buttonIcon: '🗡️',
+        preview: 'linear-gradient(135deg, rgba(27, 18, 13, 0.92) 0%, rgba(168, 90, 42, 0.34) 55%, rgba(244, 178, 74, 0.30) 100%)',
+        color: '#f4b24a',
+        category: 'anime',
+        cssBackground: true,
+        backgroundImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+        investmentCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+        accountingCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+        walletBudgetCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+        monthlyPlanningCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+        investmentSettingsCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+        holdingCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+        buyingCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+        sellingCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+        dividendCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg'
+    },
+    {
+        id: 'serpentEyes',
+        name: '蛇影雙瞳',
+        icon: '🐍',
+        buttonIcon: '👁️',
+        preview: 'linear-gradient(135deg, rgba(14, 20, 24, 0.94) 0%, rgba(31, 90, 102, 0.44) 55%, rgba(242, 178, 51, 0.24) 100%)',
+        color: '#2aa9a4',
+        category: 'anime',
+        cssBackground: true,
+        backgroundImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+        investmentCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+        accountingCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+        walletBudgetCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+        monthlyPlanningCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+        investmentSettingsCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+        holdingCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+        buyingCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+        sellingCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+        dividendCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg'
+    },
+    {
         id: 'shinchan',
         name: '蠟筆小新主題',
         icon: '🌻',
@@ -205,7 +285,7 @@ var themes = window.AppThemes || [
         backgroundImage: 'https://i.pinimg.com/1200x/c3/66/a8/c366a88a9b62dee30d8628ddae89afa9.jpg'
     },
     {
-        id: 'anyaMelody',
+        id: 'anyMelody',
         name: '安妮亞旋律',
         icon: '🎵',
         buttonIcon: '🎶',
@@ -264,6 +344,26 @@ var themes = window.AppThemes || [
         dividendCardImage: 'https://i.pinimg.com/1200x/ad/aa/b6/adaab6e2e82651185578cf132884c482.jpg'
     },
     {
+        id: 'mintRoseFairy',
+        name: '薄荷玫瑰精靈',
+        icon: '🧚',
+        buttonIcon: '🌿',
+        preview: 'linear-gradient(135deg, rgba(83, 200, 193, 0.34) 0%, rgba(243, 255, 251, 0.28) 45%, rgba(255, 120, 167, 0.22) 100%)',
+        color: '#53c8c1',
+        category: 'fantasy',
+        cssBackground: true,
+        backgroundImage: 'https://i.pinimg.com/474x/c9/11/ec/c911ec31a445ed3e6a3ebc14392a0e11.jpg',
+        investmentCardImage: 'https://i.pinimg.com/474x/c9/11/ec/c911ec31a445ed3e6a3ebc14392a0e11.jpg',
+        accountingCardImage: 'https://i.pinimg.com/474x/c9/11/ec/c911ec31a445ed3e6a3ebc14392a0e11.jpg',
+        walletBudgetCardImage: 'https://i.pinimg.com/474x/c9/11/ec/c911ec31a445ed3e6a3ebc14392a0e11.jpg',
+        monthlyPlanningCardImage: 'https://i.pinimg.com/474x/c9/11/ec/c911ec31a445ed3e6a3ebc14392a0e11.jpg',
+        investmentSettingsCardImage: 'https://i.pinimg.com/474x/c9/11/ec/c911ec31a445ed3e6a3ebc14392a0e11.jpg',
+        holdingCardImage: 'https://i.pinimg.com/474x/c9/11/ec/c911ec31a445ed3e6a3ebc14392a0e11.jpg',
+        buyingCardImage: 'https://i.pinimg.com/474x/c9/11/ec/c911ec31a445ed3e6a3ebc14392a0e11.jpg',
+        sellingCardImage: 'https://i.pinimg.com/474x/c9/11/ec/c911ec31a445ed3e6a3ebc14392a0e11.jpg',
+        dividendCardImage: 'https://i.pinimg.com/474x/c9/11/ec/c911ec31a445ed3e6a3ebc14392a0e11.jpg'
+    },
+    {
         id: 'crystalFortune',
         name: '粉晶招財',
         icon: '💎',
@@ -304,6 +404,26 @@ var themes = window.AppThemes || [
         investmentCardImage: 'https://i.pinimg.com/736x/bf/bb/d8/bfbbd8069018715418b04a38e199a34d.jpg',
         accountingCardImage: 'https://i.pinimg.com/736x/a7/bb/f9/a7bbf99031a6d722e01446217985af5f.jpg',
         walletBudgetCardImage: 'https://i.pinimg.com/1200x/95/64/99/956499812b93c3c5bf8226051c7e627f.jpg'
+    },
+    {
+        id: 'shibaPastel',
+        name: '柴犬粉彩',
+        icon: '🐶',
+        buttonIcon: '🐾',
+        preview: 'linear-gradient(135deg, rgba(244, 165, 142, 0.40) 0%, rgba(255, 236, 231, 0.18) 28%, rgba(158, 210, 230, 0.22) 62%, rgba(120, 148, 168, 0.18) 100%)',
+        color: '#f4a58e',
+        category: 'cute',
+        cssBackground: true,
+        backgroundImage: 'https://i.pinimg.com/1200x/22/08/48/220848ccfb147982dacd366023399186.jpg',
+        investmentCardImage: 'https://i.pinimg.com/1200x/22/08/48/220848ccfb147982dacd366023399186.jpg',
+        accountingCardImage: 'https://i.pinimg.com/1200x/22/08/48/220848ccfb147982dacd366023399186.jpg',
+        walletBudgetCardImage: 'https://i.pinimg.com/1200x/22/08/48/220848ccfb147982dacd366023399186.jpg',
+        monthlyPlanningCardImage: 'https://i.pinimg.com/1200x/22/08/48/220848ccfb147982dacd366023399186.jpg',
+        investmentSettingsCardImage: 'https://i.pinimg.com/1200x/22/08/48/220848ccfb147982dacd366023399186.jpg',
+        holdingCardImage: 'https://i.pinimg.com/1200x/22/08/48/220848ccfb147982dacd366023399186.jpg',
+        buyingCardImage: 'https://i.pinimg.com/1200x/22/08/48/220848ccfb147982dacd366023399186.jpg',
+        sellingCardImage: 'https://i.pinimg.com/1200x/22/08/48/220848ccfb147982dacd366023399186.jpg',
+        dividendCardImage: 'https://i.pinimg.com/1200x/22/08/48/220848ccfb147982dacd366023399186.jpg'
     },
     {
         id: 'dreamy',
@@ -609,6 +729,25 @@ var themes = window.AppThemes || [
         dividendCardImage: 'https://i.pinimg.com/1200x/b6/98/7f/b6987f6a963ae656eec7bfae5c7d7ba9.jpg'
     },
     {
+        id: 'piggyMelody',
+        name: '粉豬旋律',
+        icon: '🐷',
+        buttonIcon: '🎤',
+        preview: 'linear-gradient(135deg, rgba(255, 226, 236, 0.85) 0%, rgba(255, 240, 246, 0.78) 52%, rgba(255, 248, 252, 0.76) 100%)',
+        color: '#e86f9a',
+        category: 'cute',
+        backgroundImage: 'https://i.pinimg.com/736x/41/d8/c5/41d8c595cfef850cb707ed8d4a008d7f.jpg',
+        investmentCardImage: 'https://i.pinimg.com/736x/41/d8/c5/41d8c595cfef850cb707ed8d4a008d7f.jpg',
+        accountingCardImage: 'https://i.pinimg.com/736x/41/d8/c5/41d8c595cfef850cb707ed8d4a008d7f.jpg',
+        walletBudgetCardImage: 'https://i.pinimg.com/736x/41/d8/c5/41d8c595cfef850cb707ed8d4a008d7f.jpg',
+        monthlyPlanningCardImage: 'https://i.pinimg.com/736x/41/d8/c5/41d8c595cfef850cb707ed8d4a008d7f.jpg',
+        investmentSettingsCardImage: 'https://i.pinimg.com/736x/41/d8/c5/41d8c595cfef850cb707ed8d4a008d7f.jpg',
+        holdingCardImage: 'https://i.pinimg.com/736x/41/d8/c5/41d8c595cfef850cb707ed8d4a008d7f.jpg',
+        buyingCardImage: 'https://i.pinimg.com/736x/41/d8/c5/41d8c595cfef850cb707ed8d4a008d7f.jpg',
+        sellingCardImage: 'https://i.pinimg.com/736x/41/d8/c5/41d8c595cfef850cb707ed8d4a008d7f.jpg',
+        dividendCardImage: 'https://i.pinimg.com/736x/41/d8/c5/41d8c595cfef850cb707ed8d4a008d7f.jpg'
+    },
+    {
         id: 'autumnBunny',
         name: '秋日兔兔',
         icon: '🐰',
@@ -801,6 +940,26 @@ var themes = window.AppThemes || [
         buyingCardImage: 'https://i.pinimg.com/736x/57/e8/74/57e874b367bec0044835bee700c85c9f.jpg',
         sellingCardImage: 'https://i.pinimg.com/736x/57/e8/74/57e874b367bec0044835bee700c85c9f.jpg',
         dividendCardImage: 'https://i.pinimg.com/736x/57/e8/74/57e874b367bec0044835bee700c85c9f.jpg'
+    },
+    {
+        id: 'mintBlossomGarden',
+        name: '薄荷花園',
+        icon: '🌿',
+        buttonIcon: '🤍',
+        preview: 'linear-gradient(135deg, rgba(214, 244, 234, 0.92) 0%, rgba(178, 233, 220, 0.86) 45%, rgba(248, 246, 236, 0.82) 100%)',
+        color: '#5fb8a8',
+        category: 'cute',
+        cssBackground: true,
+        backgroundImage: 'https://i.pinimg.com/736x/d2/7b/08/d27b08c045e17c2c73427e866c5ff5e9.jpg',
+        investmentCardImage: 'https://i.pinimg.com/736x/d2/7b/08/d27b08c045e17c2c73427e866c5ff5e9.jpg',
+        accountingCardImage: 'https://i.pinimg.com/736x/d2/7b/08/d27b08c045e17c2c73427e866c5ff5e9.jpg',
+        walletBudgetCardImage: 'https://i.pinimg.com/736x/d2/7b/08/d27b08c045e17c2c73427e866c5ff5e9.jpg',
+        monthlyPlanningCardImage: 'https://i.pinimg.com/736x/d2/7b/08/d27b08c045e17c2c73427e866c5ff5e9.jpg',
+        investmentSettingsCardImage: 'https://i.pinimg.com/736x/d2/7b/08/d27b08c045e17c2c73427e866c5ff5e9.jpg',
+        holdingCardImage: 'https://i.pinimg.com/736x/d2/7b/08/d27b08c045e17c2c73427e866c5ff5e9.jpg',
+        buyingCardImage: 'https://i.pinimg.com/736x/d2/7b/08/d27b08c045e17c2c73427e866c5ff5e9.jpg',
+        sellingCardImage: 'https://i.pinimg.com/736x/d2/7b/08/d27b08c045e17c2c73427e866c5ff5e9.jpg',
+        dividendCardImage: 'https://i.pinimg.com/736x/d2/7b/08/d27b08c045e17c2c73427e866c5ff5e9.jpg'
     }
 ];
 
@@ -1154,10 +1313,50 @@ function updateThemeButtons(themeId) {
             navChart: '📊',
             navSettings: '⚙️'
         },
+        mintBlossomGarden: {
+            fab: '🌿',
+            navLedger: '📗',
+            navWallet: '👛',
+            navInvestment: '📈',
+            navChart: '📊',
+            navSettings: '⚙️'
+        },
+        mintRoseFairy: {
+            fab: '🧚',
+            navLedger: '📖',
+            navWallet: '👛',
+            navInvestment: '🌿',
+            navChart: '📊',
+            navSettings: '⚙️'
+        },
         starryOceanPrince: {
             fab: '⭐',
             navLedger: '🌌',
             navWallet: '🐟',
+            navInvestment: '📈',
+            navChart: '📊',
+            navSettings: '⚙️'
+        },
+        waterBlade: {
+            fab: '🌊',
+            navLedger: '🗡️',
+            navWallet: '💧',
+            navInvestment: '📈',
+            navChart: '📊',
+            navSettings: '⚙️'
+        },
+        waveRonin: {
+            fab: '🌊',
+            navLedger: '🗡️',
+            navWallet: '💧',
+            navInvestment: '📈',
+            navChart: '📊',
+            navSettings: '⚙️'
+        },
+        amberRonin: {
+            fab: '🍁',
+            navLedger: '🗡️',
+            navWallet: '🪙',
             navInvestment: '📈',
             navChart: '📊',
             navSettings: '⚙️'

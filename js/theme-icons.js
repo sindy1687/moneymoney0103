@@ -289,6 +289,22 @@ const buttonIcons = {
         navInvestment: '🌿',
         navChart: '📊',
         navSettings: '🪛'
+    },
+    amberRonin: {
+        fab: '🍁',
+        navLedger: '🗡️',
+        navWallet: '🪙',
+        navInvestment: '📈',
+        navChart: '📊',
+        navSettings: '⚙️'
+    },
+    serpentEyes: {
+        fab: '👁️',
+        navLedger: '📜',
+        navWallet: '🪙',
+        navInvestment: '📈',
+        navChart: '📊',
+        navSettings: '⚙️'
     }
 };
 

@@ -356,6 +356,47 @@ var themes = window.AppThemes || (window.AppThemes = [
     }
 ]);
 
+window.AppThemes.push({
+    id: 'amberRonin',
+    name: '暖金浪人',
+    icon: '🍁',
+    buttonIcon: '🗡️',
+    preview: 'linear-gradient(135deg, rgba(27, 18, 13, 0.92) 0%, rgba(168, 90, 42, 0.34) 55%, rgba(244, 178, 74, 0.30) 100%)',
+    color: '#f4b24a',
+    category: 'anime',
+    cssBackground: true,
+    backgroundImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+    investmentCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+    accountingCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+    walletBudgetCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+    monthlyPlanningCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+    investmentSettingsCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+    holdingCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+    buyingCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+    sellingCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg',
+    dividendCardImage: 'https://i.pinimg.com/736x/10/21/7b/10217b8f99106e8ff921040354429197.jpg'
+});
+
+window.AppThemes.push({
+    id: 'serpentEyes',
+    name: '蛇影雙瞳',
+    icon: '🐍',
+    buttonIcon: '👁️',
+    preview: 'linear-gradient(135deg, rgba(14, 20, 24, 0.94) 0%, rgba(31, 90, 102, 0.44) 55%, rgba(242, 178, 51, 0.24) 100%)',
+    color: '#2aa9a4',
+    category: 'anime',
+    cssBackground: true,
+    backgroundImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+    investmentCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+    accountingCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+    walletBudgetCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+    monthlyPlanningCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+    investmentSettingsCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+    holdingCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+    buyingCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+    sellingCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg',
+    dividendCardImage: 'https://i.pinimg.com/736x/2e/60/08/2e6008635951b66dcc9ad7b0943526f2.jpg'
+});
 // 主題分類定義
 const themeCategories = {
     basic: {
