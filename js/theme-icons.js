@@ -266,6 +266,14 @@ const buttonIcons = {
         navChart: '🌌',
         navSettings: '✨'
     },
+    littlePrinceWhaleNight: {
+        fab: '👑',
+        navLedger: '📖',
+        navWallet: '🐋',
+        navInvestment: '📈',
+        navChart: '🌌',
+        navSettings: '⚙️'
+    },
     littlePrince: {
         fab: '👑',
         navLedger: '📖',
@@ -304,6 +312,30 @@ const buttonIcons = {
         navWallet: '🪙',
         navInvestment: '📈',
         navChart: '📊',
+        navSettings: '⚙️'
+    },
+    kitsuneElegance: {
+        fab: '🦊',
+        navLedger: '📒',
+        navWallet: '🪙',
+        navInvestment: '📈',
+        navChart: '📊',
+        navSettings: '⚙️'
+    },
+    pikachuSnow: {
+        fab: '⚡',
+        navLedger: '📘',
+        navWallet: '💎',
+        navInvestment: '📈',
+        navChart: '📊',
+        navSettings: '⚙️'
+    },
+    blackCatCoinGalaxy: {
+        fab: '🪙',
+        navLedger: '📒',
+        navWallet: '🪙',
+        navInvestment: '📈',
+        navChart: '✨',
         navSettings: '⚙️'
     }
 };

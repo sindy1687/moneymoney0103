@@ -278,6 +278,26 @@ var themes = window.AppThemes || (window.AppThemes = [
         walletBudgetCardImage: 'https://i.pinimg.com/1200x/95/64/99/956499812b93c3c5bf8226051c7e627f.jpg'
     },
     {
+        id: 'pastelStarryEyes',
+        name: '夢幻星瞳',
+        icon: '🌙',
+        buttonIcon: '✨',
+        preview: 'url("https://i.pinimg.com/1200x/c2/c2/95/c2c29589e119b36a664e3f541ae5aeaa.jpg") center/cover',
+        color: '#b58cff',
+        category: 'cute',
+        cssBackground: true,
+        backgroundImage: 'https://i.pinimg.com/1200x/c2/c2/95/c2c29589e119b36a664e3f541ae5aeaa.jpg',
+        investmentCardImage: 'https://i.pinimg.com/1200x/c2/c2/95/c2c29589e119b36a664e3f541ae5aeaa.jpg',
+        accountingCardImage: 'https://i.pinimg.com/1200x/c2/c2/95/c2c29589e119b36a664e3f541ae5aeaa.jpg',
+        walletBudgetCardImage: 'https://i.pinimg.com/1200x/c2/c2/95/c2c29589e119b36a664e3f541ae5aeaa.jpg',
+        monthlyPlanningCardImage: 'https://i.pinimg.com/1200x/c2/c2/95/c2c29589e119b36a664e3f541ae5aeaa.jpg',
+        investmentSettingsCardImage: 'https://i.pinimg.com/1200x/c2/c2/95/c2c29589e119b36a664e3f541ae5aeaa.jpg',
+        holdingCardImage: 'https://i.pinimg.com/1200x/c2/c2/95/c2c29589e119b36a664e3f541ae5aeaa.jpg',
+        buyingCardImage: 'https://i.pinimg.com/1200x/c2/c2/95/c2c29589e119b36a664e3f541ae5aeaa.jpg',
+        sellingCardImage: 'https://i.pinimg.com/1200x/c2/c2/95/c2c29589e119b36a664e3f541ae5aeaa.jpg',
+        dividendCardImage: 'https://i.pinimg.com/1200x/c2/c2/95/c2c29589e119b36a664e3f541ae5aeaa.jpg'
+    },
+    {
         id: 'dreamy',
         name: '夢幻境域',
         icon: '🌈',
