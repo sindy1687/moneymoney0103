@@ -839,6 +839,55 @@ class SmartReminderSystem {
         }
     }
     
+    getMonthlySpendingSummary() {
+        const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        const monthMap = {};
+        const now = new Date();
+        const currentKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+        
+        records.forEach(record => {
+            const date = new Date(record.date || record.timestamp || Date.now());
+            if (Number.isNaN(date.getTime())) return;
+            
+            const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+            if (!monthMap[key]) {
+                monthMap[key] = {
+                    key,
+                    label: `${date.getFullYear()}年${date.getMonth() + 1}月`,
+                    expense: 0,
+                    income: 0,
+                    transfer: 0,
+                    count: 0
+                };
+            }
+            
+            const amount = parseFloat(record.amount) || 0;
+            if (record.type === 'expense' || record.type === '支出') {
+                monthMap[key].expense += amount;
+            } else if (record.type === 'income' || record.type === '收入') {
+                monthMap[key].income += amount;
+            } else if (record.type === 'transfer' || record.type === '轉帳') {
+                monthMap[key].transfer += amount;
+            }
+            
+            monthMap[key].count += 1;
+        });
+        
+        if (!monthMap[currentKey]) {
+            monthMap[currentKey] = {
+                key: currentKey,
+                label: `${now.getFullYear()}年${now.getMonth() + 1}月`,
+                expense: 0,
+                income: 0,
+                transfer: 0,
+                count: 0
+            };
+        }
+        
+        const months = Object.values(monthMap).sort((a, b) => b.key.localeCompare(a.key));
+        return { current: monthMap[currentKey], months };
+    }
+    
     // 顯示提醒面板
     showReminderPanel() {
         // 移除現有面板
@@ -847,31 +896,122 @@ class SmartReminderSystem {
             existingPanel.remove();
         }
         
+        const monthlySummary = this.getMonthlySpendingSummary();
+        const monthlyRows = monthlySummary.months.slice(0, 12).map(month => `
+            <div class="ai-month-row">
+                <div class="ai-month-label">${month.label}</div>
+                <div class="ai-month-values">
+                    <span>支出 NT$${Math.round(month.expense).toLocaleString()}</span>
+                    <span>收入 NT$${Math.round(month.income).toLocaleString()}</span>
+                    <span>花銷 NT$${Math.round(month.expense + month.transfer).toLocaleString()}</span>
+                </div>
+            </div>
+        `).join('');
+        
+        // 產生完整每月摘要卡片 HTML（直接從 localStorage 讀取，確保資料正確）
+        const _rawRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        const _monthMap = {};
+        _rawRecords.forEach(r => {
+            const d = new Date(r.date);
+            if (isNaN(d.getTime())) return;
+            const yr = d.getFullYear();
+            const mo = d.getMonth() + 1;
+            const k = `${yr}-${String(mo).padStart(2, '0')}`;
+            if (!_monthMap[k]) _monthMap[k] = { year: yr, month: mo, income: 0, expense: 0, transfer: 0, records: [] };
+            const amt = parseFloat(r.amount) || 0;
+            if (r.type === 'income') _monthMap[k].income += amt;
+            else if (r.type === 'expense') _monthMap[k].expense += amt;
+            else if (r.type === 'transfer') _monthMap[k].transfer += amt;
+            _monthMap[k].records.push(r);
+        });
+        const fullMonthlyData = Object.values(_monthMap).sort((a, b) =>
+            a.year !== b.year ? b.year - a.year : b.month - a.month
+        );
+
+        let fullMonthlyHtml = '';
+        if (fullMonthlyData.length === 0) {
+            fullMonthlyHtml = '<div style="text-align:center;color:#999;padding:20px;">尚無記帳記錄</div>';
+        } else {
+            fullMonthlyData.forEach(data => {
+                const net = data.income - data.expense - data.transfer;
+                const netClass = net >= 0 ? 'positive' : 'negative';
+                const monthKey = `${data.year}-${String(data.month).padStart(2, '0')}`;
+                const recordsHtml = (data.records || []).map(r => `
+                    <div class="monthly-record-item">
+                        <div class="monthly-record-date">${r.date}</div>
+                        <div class="monthly-record-info">
+                            <div class="monthly-record-category">${r.category || '未分類'}</div>
+                            <div class="monthly-record-note">${r.note || ''}</div>
+                        </div>
+                        <div class="monthly-record-amount ${r.type === 'income' ? 'income' : r.type === 'expense' ? 'expense' : 'transfer'}">
+                            ${r.type === 'income' ? '+' : r.type === 'expense' ? '-' : ''}NT$${parseFloat(r.amount).toLocaleString('zh-TW', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                        </div>
+                    </div>
+                `).join('');
+                fullMonthlyHtml += `
+                    <div class="monthly-summary-card" data-month="${monthKey}">
+                        <div class="monthly-summary-card-header">
+                            <div class="monthly-summary-card-title">${data.year}年${data.month}月</div>
+                            <div class="monthly-summary-net ${netClass}">
+                                ${net >= 0 ? '+' : ''}NT$${net.toLocaleString('zh-TW', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                            </div>
+                        </div>
+                        <div class="monthly-summary-details">
+                            <div class="monthly-summary-item">
+                                <span class="monthly-summary-label">收入</span>
+                                <span class="monthly-summary-value income">+NT$${data.income.toLocaleString('zh-TW', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
+                            </div>
+                            <div class="monthly-summary-item">
+                                <span class="monthly-summary-label">支出</span>
+                                <span class="monthly-summary-value expense">-NT$${data.expense.toLocaleString('zh-TW', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
+                            </div>
+                            <div class="monthly-summary-item">
+                                <span class="monthly-summary-label">轉帳</span>
+                                <span class="monthly-summary-value transfer">NT$${data.transfer.toLocaleString('zh-TW', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
+                            </div>
+                        </div>
+                        ${recordsHtml ? `
+                        <button class="monthly-summary-expand-btn" data-month="${monthKey}">查看詳情</button>
+                        <div class="monthly-summary-records" id="aiMonthlyRecords-${monthKey}" style="display:none;">
+                            <div class="monthly-records-list">${recordsHtml}</div>
+                        </div>` : ''}
+                    </div>
+                `;
+            });
+        }
+
         const panel = document.createElement('div');
         panel.className = 'reminder-panel';
         panel.innerHTML = `
             <div class="reminder-header">
-                <h3>🔔 智慧提醒</h3>
+                <h3>🤖 AI管家</h3>
                 <button class="reminder-close" onclick="this.closest('.reminder-panel').remove()">✕</button>
             </div>
             <div class="reminder-content">
                 <div class="reminder-stats">
                     <div class="stat-card">
-                        <div class="stat-value">${this.reminders.length}</div>
-                        <div class="stat-label">總提醒</div>
+                        <div class="stat-value">NT$${Math.round(monthlySummary.current.expense).toLocaleString()}</div>
+                        <div class="stat-label">本月支出</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">${this.getTodayReminders().length}</div>
-                        <div class="stat-label">今日提醒</div>
+                        <div class="stat-value">NT$${Math.round(monthlySummary.current.income).toLocaleString()}</div>
+                        <div class="stat-label">本月收入</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">${this.getHighPriorityReminders().length}</div>
-                        <div class="stat-label">高優先級</div>
+                        <div class="stat-value">NT$${Math.round(monthlySummary.current.expense - monthlySummary.current.income).toLocaleString()}</div>
+                        <div class="stat-label">淨支出</div>
+                    </div>
+                </div>
+
+                <div class="ai-monthly-summary">
+                    <h4>📅 每月收入支出清單</h4>
+                    <div class="monthly-summary-container">
+                        ${fullMonthlyHtml}
                     </div>
                 </div>
                 
                 <div class="reminder-settings">
-                    <h4>⚙️ 提醒設定</h4>
+                    <h4>⚙️ AI管家提醒設定</h4>
                     <div class="setting-group">
                         <label class="setting-label">消費習慣提醒</label>
                         <div class="setting-control">
@@ -912,7 +1052,7 @@ class SmartReminderSystem {
                 </div>
                 
                 <div class="reminder-history">
-                    <h4>📋 提醒歷史</h4>
+                    <h4>📋 AI管家紀錄</h4>
                     <div class="reminder-history" id="reminderHistory">
                         ${this.renderReminderHistory()}
                     </div>
@@ -926,7 +1066,19 @@ class SmartReminderSystem {
         `;
         
         document.body.appendChild(panel);
-        
+
+        // 綁定每月摘要展開/收起按鈕
+        panel.querySelectorAll('.monthly-summary-expand-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const monthKey = this.dataset.month;
+                const recordsDiv = panel.querySelector(`#aiMonthlyRecords-${monthKey}`);
+                if (!recordsDiv) return;
+                const isExpanded = recordsDiv.style.display !== 'none';
+                recordsDiv.style.display = isExpanded ? 'none' : 'block';
+                this.textContent = isExpanded ? '查看詳情' : '收起詳情';
+            });
+        });
+
         // 綁定設定變更事件
         this.bindSettingsEvents();
         

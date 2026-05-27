@@ -55,10 +55,14 @@ class SmartAccountingManager {
         }
         
         // 監聽智慧分析按鈕
-        const smartAnalysisBtn = document.getElementById('smartAnalysisBtn');
+        const smartAnalysisBtn = document.getElementById('smartAnalysisBtn') || document.getElementById('aiHousekeeperBtn');
         if (smartAnalysisBtn) {
             smartAnalysisBtn.addEventListener('click', () => {
-                this.analyzeSpendingPattern();
+                if (window.smartReminderSystem && typeof window.smartReminderSystem.showReminderPanel === 'function') {
+                    window.smartReminderSystem.showReminderPanel();
+                } else {
+                    this.analyzeSpendingPattern();
+                }
             });
         }
         

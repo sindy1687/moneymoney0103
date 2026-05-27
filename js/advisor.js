@@ -1,6 +1,6 @@
-// ========== 理財顧問功能模組 ==========
+// ========== 理財顧問小森 - 對話系統 ==========
 
-// 小森對話系統
+// 理財顧問對話數據
 let advisorDialogs = null;
 
 const ADVISOR_CHAT_HISTORY_KEY = 'advisor_chat_history_v1';
@@ -43,15 +43,13 @@ function scrollChatToBottom(container) {
     if (!container) return;
     container.scrollTop = container.scrollHeight;
 }
-
-// 載入對話資料庫
 async function loadAdvisorDialogs() {
     try {
         const response = await fetch('js/advisor-dialogs.json');
         advisorDialogs = await response.json();
     } catch (error) {
-        console.error('載入對話資料庫失敗:', error);
-        // 使用預設對話
+        console.error('載入理財顧問對話數據失敗', error);
+        // 使用預設對話數據
         advisorDialogs = {
             advisor_profile: {
                 id: "mori",
@@ -60,30 +58,22 @@ async function loadAdvisorDialogs() {
                 principles: ["no_judgement", "fact_based", "user_respect"]
             },
             dialogs: {
-                daily_open_normal: ["今天的花費還不多，狀況穩定。"],
-                entry_small: ["已記錄。"],
-                entry_medium: ["這筆金額我已標記。"],
-                entry_large: ["這是本月目前最大的一筆支出。"],
-                budget_80: ["這個分類本月剩餘不多。"],
-                budget_over: ["已超過原先設定的預算。"],
-                income_normal: ["收入已記錄。"],
-                income_dividend: ["股息已入帳。"],
-                monthly_good: ["這個月整體控制得不錯。"],
-                monthly_high: ["本月支出比上月高。"],
-                no_entry_today: ["今天還沒有記帳紀錄。"]
+                daily_open_normal: ["今天也一起把帳記好，我會幫你看收支。"],
+                entry_small: ["已記錄這筆支出。"],
+                entry_medium: ["這筆金額我幫你記下來了。"],
+                entry_large: ["這筆支出偏大，記得留意預算喔。"],
+                budget_80: ["這個分類已接近預算上限（80%）。"],
+                budget_over: ["這個分類已超過預算，建議調整支出。"],
+                income_normal: ["收入已登記完成。"],
+                income_dividend: ["股息收入已記錄，做得很好。"],
+                monthly_good: ["這個月的支出控制得不錯。"],
+                monthly_high: ["本月支出比上月高，建議檢視主要分類。"],
+                no_entry_today: ["今天還沒有記帳記錄。"]
             }
         };
     }
 }
 
-// 獲取今天已使用的對話 key
-function getTodayUsedDialogKeys() {
-    const today = new Date().toISOString().split('T')[0];
-    const key = `advisor_dialogs_${today}`;
-    return JSON.parse(localStorage.getItem(key) || '[]');
-}
-
-// 標記對話 key 為已使用
 function markDialogKeyAsUsed(dialogKey) {
     const today = new Date().toISOString().split('T')[0];
     const key = `advisor_dialogs_${today}`;
@@ -105,12 +95,10 @@ function getRandomDialog(dialogKey) {
     
     return messages[Math.floor(Math.random() * messages.length)];
 }
-
-// 顯示小森對話（不搭配音效）
 function showMoriDialog(message) {
     if (!message) return;
     
-    // 創建對話提示框
+    // 創建對話框元素
     const dialogBox = document.createElement('div');
     dialogBox.className = 'mori-dialog-box';
     dialogBox.innerHTML = `
@@ -124,12 +112,12 @@ function showMoriDialog(message) {
     
     document.body.appendChild(dialogBox);
     
-    // 觸發動畫顯示
+    // 添加淡入動畫效果
     setTimeout(() => {
         dialogBox.style.opacity = '1';
     }, 10);
     
-    // 3秒後自動消失
+    // 3秒後自動隱藏對話框
     setTimeout(() => {
         if (document.body.contains(dialogBox)) {
             dialogBox.style.opacity = '0';
@@ -144,7 +132,7 @@ function showMoriDialog(message) {
     }, 3000);
 }
 
-// 檢查並觸發小森對話（保存記錄時調用）
+// 檢查並觸發小森對話 - 根據記帳記錄顯示相應對話
 function checkAndTriggerMoriDialog(record) {
     if (!advisorDialogs) {
         loadAdvisorDialogs().then(() => {
@@ -153,14 +141,14 @@ function checkAndTriggerMoriDialog(record) {
         return;
     }
     
-    // 從 localStorage 獲取所有記錄
+    // 從 localStorage 獲取所有記帳記錄
     const allRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
     
     const usedKeys = getTodayUsedDialogKeys();
     const now = new Date();
     const today = now.toISOString().split('T')[0];
     
-    // 計算平均支出
+    // 計算本月支出
     const monthlyExpenses = allRecords.filter(r => {
         const recordDate = new Date(r.date);
         return (r.type === 'expense' || !r.type) && 
@@ -171,10 +159,10 @@ function checkAndTriggerMoriDialog(record) {
     const totalExpense = monthlyExpenses.reduce((sum, r) => sum + (r.amount || 0), 0);
     const avgExpense = monthlyExpenses.length > 0 ? totalExpense / monthlyExpenses.length : 0;
     
-    // 1. 收入相關對話
+    // 1. 收入類型對話
     if (record.type === 'income') {
-        // 檢查是否為股息
-        if (record.category && (record.category.includes('股息') || record.category.includes('股利') || record.category.includes('配息'))) {
+        // 檢查是否為股息收入
+        if (record.category && (record.category.includes('股息') || record.category.includes('利息') || record.category.includes('配息'))) {
             if (!usedKeys.includes('income_dividend')) {
                 const message = getRandomDialog('income_dividend');
                 if (message) {
@@ -195,22 +183,21 @@ function checkAndTriggerMoriDialog(record) {
         }
     }
     
-    // 2. 支出相關對話（根據金額大小）
+    // 2. ??穿?鞈???摨??僕?謍??選?銋???
     if (record.type === 'expense' || !record.type) {
         const amount = record.amount || 0;
         
-        // 檢查預算狀態
-        const budgets = JSON.parse(localStorage.getItem('budgets') || '[]');
+        // ?潘撓貔???????        const budgets = JSON.parse(localStorage.getItem('budgets') || '[]');
         const categoryBudget = budgets.find(b => b.category === record.category);
         
         if (categoryBudget) {
             const categoryExpenses = monthlyExpenses
-                .filter(r => (r.category || '未分類') === record.category)
+                .filter(r => (r.category || '?????) === record.category)
                 .reduce((sum, r) => sum + (r.amount || 0), 0);
             
             const percentage = (categoryExpenses / categoryBudget.amount) * 100;
             
-            // 預算超支
+            // ??????
             if (percentage >= 100 && !usedKeys.includes('budget_over')) {
                 const message = getRandomDialog('budget_over');
                 if (message) {
@@ -220,7 +207,7 @@ function checkAndTriggerMoriDialog(record) {
                 }
             }
             
-            // 預算接近上限
+            // ????鈭????
             if (percentage >= 80 && percentage < 100 && !usedKeys.includes('budget_80')) {
                 const message = getRandomDialog('budget_80');
                 if (message) {
@@ -231,7 +218,7 @@ function checkAndTriggerMoriDialog(record) {
             }
         }
         
-        // 根據金額大小觸發對話
+        // ?撖?????剜??怨?謒芣???
         if (avgExpense > 0) {
             if (amount >= avgExpense * 2 && !usedKeys.includes('entry_large')) {
                 const message = getRandomDialog('entry_large');
@@ -256,7 +243,7 @@ function checkAndTriggerMoriDialog(record) {
                 }
             }
         } else {
-            // 如果沒有平均支出數據，使用 entry_small
+            // ??????????穿?鞊?????entry_small
             if (!usedKeys.includes('entry_small')) {
                 const message = getRandomDialog('entry_small');
                 if (message) {
@@ -269,7 +256,7 @@ function checkAndTriggerMoriDialog(record) {
     }
 }
 
-// 檢查每日開啟對話
+// ?潘撓貔?船??????摨?
 function checkDailyOpenDialog(allRecords) {
     if (!advisorDialogs) {
         loadAdvisorDialogs().then(() => {
@@ -284,7 +271,7 @@ function checkDailyOpenDialog(allRecords) {
     const now = new Date();
     const today = now.toISOString().split('T')[0];
     
-    // 檢查今日支出
+    // ?潘撓貔?????穿
     const todayExpenses = allRecords.filter(r => {
         const recordDate = new Date(r.date);
         const recordDateStr = recordDate.toISOString().split('T')[0];
@@ -293,7 +280,7 @@ function checkDailyOpenDialog(allRecords) {
     
     const todayTotal = todayExpenses.reduce((sum, r) => sum + (r.amount || 0), 0);
     
-    // 今日首次開啟 AND 今日支出 = 0
+    // ??謑?謘賣暑??? AND ??謑??穿 = 0
     if (todayTotal === 0) {
         const message = getRandomDialog('daily_open_normal');
         if (message) {
@@ -302,8 +289,6 @@ function checkDailyOpenDialog(allRecords) {
         }
     }
 }
-
-// 檢查無記帳提醒（21:00前無任何記帳）
 function checkNoEntryTodayDialog(allRecords) {
     if (!advisorDialogs) {
         loadAdvisorDialogs().then(() => {
@@ -318,8 +303,7 @@ function checkNoEntryTodayDialog(allRecords) {
     const now = new Date();
     const hour = now.getHours();
     
-    // 21:00 前
-    if (hour < 21) {
+    // 21:00 ??    if (hour < 21) {
         const today = now.toISOString().split('T')[0];
         const todayRecords = allRecords.filter(r => {
             const recordDate = new Date(r.date);
@@ -337,7 +321,7 @@ function checkNoEntryTodayDialog(allRecords) {
     }
 }
 
-// 檢查月度對話
+// ?潘撓貔??撞??摨?
 function checkMonthlyDialogs(allRecords) {
     if (!advisorDialogs) {
         loadAdvisorDialogs().then(() => {
@@ -351,7 +335,7 @@ function checkMonthlyDialogs(allRecords) {
     const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
     
-    // 計算本月支出
+    // ?殷???蟡???穿
     const monthlyExpenses = allRecords.filter(r => {
         const recordDate = new Date(r.date);
         return (r.type === 'expense' || !r.type) && 
@@ -361,7 +345,7 @@ function checkMonthlyDialogs(allRecords) {
     
     const monthlyTotal = monthlyExpenses.reduce((sum, r) => sum + (r.amount || 0), 0);
     
-    // 計算上月支出
+    // ?殷???????穿
     const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1;
     const lastMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
     const lastMonthExpenses = allRecords.filter(r => {
@@ -373,11 +357,11 @@ function checkMonthlyDialogs(allRecords) {
     
     const lastMonthTotal = lastMonthExpenses.reduce((sum, r) => sum + (r.amount || 0), 0);
     
-    // 檢查預算
+    // ?潘撓貔???
     const budgets = JSON.parse(localStorage.getItem('budgets') || '[]');
     const totalBudget = budgets.reduce((sum, b) => sum + b.amount, 0);
     
-    // monthly_good: 月支出 ≤ 預算 AND ≤ 上月
+    // monthly_good: ?????????? AND ?????
     if (totalBudget > 0 && monthlyTotal <= totalBudget && monthlyTotal <= lastMonthTotal && !usedKeys.includes('monthly_good')) {
         const message = getRandomDialog('monthly_good');
         if (message) {
@@ -387,7 +371,7 @@ function checkMonthlyDialogs(allRecords) {
         }
     }
     
-    // monthly_high: 月支出 > 上月 OR 超過預算
+    // monthly_high: ?????> ??? OR ?????
     if ((monthlyTotal > lastMonthTotal || (totalBudget > 0 && monthlyTotal > totalBudget)) && !usedKeys.includes('monthly_high')) {
         const message = getRandomDialog('monthly_high');
         if (message) {
@@ -397,7 +381,7 @@ function checkMonthlyDialogs(allRecords) {
     }
 }
 
-// 檢查月結算評語（每月1號觸發）
+// ?潘撓貔???????止筑??伍?1?賹??瞏?
 function checkMonthlySummaryDialog(allRecords) {
     if (!advisorDialogs) {
         loadAdvisorDialogs().then(() => {
@@ -409,11 +393,9 @@ function checkMonthlySummaryDialog(allRecords) {
     const now = new Date();
     const today = now.getDate();
     
-    // 只在每月1號觸發
-    if (today !== 1) return;
+    // ??賃祗?伍?1?賹???    if (today !== 1) return;
     
-    // 檢查今天是否已經顯示過
-    const usedKeys = getTodayUsedDialogKeys();
+    // ?潘撓貔??鈭??秋????輯????    const usedKeys = getTodayUsedDialogKeys();
     if (usedKeys.includes('monthly_summary_excellent') || 
         usedKeys.includes('monthly_summary_good') || 
         usedKeys.includes('monthly_summary_warning') || 
@@ -421,8 +403,7 @@ function checkMonthlySummaryDialog(allRecords) {
         return;
     }
     
-    // 計算上個月的數據
-    const lastMonth = now.getMonth() === 0 ? 11 : now.getMonth() - 1;
+    // ?殷???????????    const lastMonth = now.getMonth() === 0 ? 11 : now.getMonth() - 1;
     const lastMonthYear = now.getMonth() === 0 ? now.getFullYear() - 1 : now.getFullYear();
     
     const lastMonthExpenses = allRecords.filter(r => {
@@ -434,8 +415,7 @@ function checkMonthlySummaryDialog(allRecords) {
     
     const lastMonthTotal = lastMonthExpenses.reduce((sum, r) => sum + (r.amount || 0), 0);
     
-    // 計算上上個月的支出（用於比較）
-    const twoMonthsAgo = lastMonth === 0 ? 11 : lastMonth - 1;
+    // ?殷???????????蝬???踐??伍????    const twoMonthsAgo = lastMonth === 0 ? 11 : lastMonth - 1;
     const twoMonthsAgoYear = lastMonth === 0 ? lastMonthYear - 1 : lastMonthYear;
     const twoMonthsAgoExpenses = allRecords.filter(r => {
         const recordDate = new Date(r.date);
@@ -445,12 +425,11 @@ function checkMonthlySummaryDialog(allRecords) {
     });
     const twoMonthsAgoTotal = twoMonthsAgoExpenses.reduce((sum, r) => sum + (r.amount || 0), 0);
     
-    // 檢查預算
+    // ?潘撓貔???
     const budgets = JSON.parse(localStorage.getItem('budgets') || '[]');
     const totalBudget = budgets.reduce((sum, b) => sum + b.amount, 0);
     
-    // 計算上個月的收入
-    const lastMonthIncomes = allRecords.filter(r => {
+    // ?殷????????????    const lastMonthIncomes = allRecords.filter(r => {
         const recordDate = new Date(r.date);
         return r.type === 'income' && 
                recordDate.getMonth() === lastMonth && 
@@ -458,12 +437,11 @@ function checkMonthlySummaryDialog(allRecords) {
     });
     const lastMonthIncome = lastMonthIncomes.reduce((sum, r) => sum + (r.amount || 0), 0);
     
-    // 計算儲蓄率
-    const savingsRate = lastMonthIncome > 0 ? ((lastMonthIncome - lastMonthTotal) / lastMonthIncome * 100) : 0;
+    // ?殷???????    const savingsRate = lastMonthIncome > 0 ? ((lastMonthIncome - lastMonthTotal) / lastMonthIncome * 100) : 0;
     
     let dialogKey = null;
     
-    // 判斷評語等級
+    // ????堊???
     if (totalBudget > 0) {
         const budgetRatio = (lastMonthTotal / totalBudget) * 100;
         
@@ -477,8 +455,7 @@ function checkMonthlySummaryDialog(allRecords) {
             dialogKey = 'monthly_summary_over';
         }
     } else {
-        // 沒有預算時，根據與上上個月的比較和儲蓄率判斷
-        if (lastMonthTotal <= twoMonthsAgoTotal && savingsRate >= 20) {
+        // ???????蹇??撖???????????????????抬???        if (lastMonthTotal <= twoMonthsAgoTotal && savingsRate >= 20) {
             dialogKey = 'monthly_summary_excellent';
         } else if (lastMonthTotal <= twoMonthsAgoTotal * 1.1 && savingsRate >= 10) {
             dialogKey = 'monthly_summary_good';
@@ -492,16 +469,13 @@ function checkMonthlySummaryDialog(allRecords) {
     if (dialogKey) {
         const message = getRandomDialog(dialogKey);
         if (message) {
-            // 延遲顯示，讓用戶先看到頁面
-            setTimeout(() => {
+            // ?勗?蹓?????踝?????????            setTimeout(() => {
                 showMoriDialog(message);
                 markDialogKeyAsUsed(dialogKey);
             }, 2000);
         }
     }
 }
-
-// 檢查超支原因並提示
 function checkOverspendReasonDialog() {
     if (!advisorDialogs) {
         loadAdvisorDialogs().then(() => {
@@ -510,15 +484,14 @@ function checkOverspendReasonDialog() {
         return;
     }
     
-    // 從 localStorage 獲取所有記錄
-    const allRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    // ??localStorage ??????????    const allRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
     
     const usedKeys = getTodayUsedDialogKeys();
     const now = new Date();
     const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
     
-    // 計算本月支出
+    // ?殷???蟡???穿
     const monthlyExpenses = allRecords.filter(r => {
         const recordDate = new Date(r.date);
         return (r.type === 'expense' || !r.type) && 
@@ -528,30 +501,28 @@ function checkOverspendReasonDialog() {
     
     const monthlyTotal = monthlyExpenses.reduce((sum, r) => sum + (r.amount || 0), 0);
     
-    // 檢查預算
+    // ?潘撓貔???
     const budgets = JSON.parse(localStorage.getItem('budgets') || '[]');
     const totalBudget = budgets.reduce((sum, b) => sum + b.amount, 0);
     
-    // 如果沒有超支，不顯示
+    // ????????????輯???
     if (totalBudget === 0 || monthlyTotal <= totalBudget) return;
     
-    // 檢查是否已經顯示過
-    if (usedKeys.includes('overspend_reason_category') || usedKeys.includes('overspend_reason_large')) {
+    // ?潘撓貔??秋????輯????    if (usedKeys.includes('overspend_reason_category') || usedKeys.includes('overspend_reason_large')) {
         return;
     }
     
-    // 分析超支原因
-    // 1. 檢查哪些分類超支最多
-    const categoryExpenses = {};
+    // ??????賹?
+    // 1. ?潘撓貔????????????    const categoryExpenses = {};
     monthlyExpenses.forEach(r => {
-        const category = r.category || '未分類';
+        const category = r.category || '?????;
         if (!categoryExpenses[category]) {
             categoryExpenses[category] = 0;
         }
         categoryExpenses[category] += r.amount || 0;
     });
     
-    // 找出超支最多的分類
+    // ???????叟垓????
     let maxOverspendCategory = null;
     let maxOverspendAmount = 0;
     
@@ -566,38 +537,37 @@ function checkOverspendReasonDialog() {
         }
     });
     
-    // 2. 檢查是否有大額支出
-    const avgExpense = monthlyExpenses.length > 0 ? monthlyTotal / monthlyExpenses.length : 0;
+    // 2. ?潘撓貔??秋??????選????    const avgExpense = monthlyExpenses.length > 0 ? monthlyTotal / monthlyExpenses.length : 0;
     const largeExpenses = monthlyExpenses.filter(r => (r.amount || 0) >= avgExpense * 3);
     
-    // 優先顯示分類超支原因
+    // ????輯????????賹?
     if (maxOverspendCategory && !usedKeys.includes('overspend_reason_category')) {
         const message = getRandomDialog('overspend_reason_category');
         if (message) {
-            showMoriDialog(`${message}「${maxOverspendCategory}」本月已超支 NT$${Math.round(maxOverspendAmount).toLocaleString('zh-TW')}。`);
+            showMoriDialog(`${message}??{maxOverspendCategory}??秧??????NT$${Math.round(maxOverspendAmount).toLocaleString('zh-TW')}?蹐?;
             markDialogKeyAsUsed('overspend_reason_category');
             return;
         }
     }
     
-    // 如果有大額支出，顯示大額支出原因
+    // ????????選???蝬??輯??扳????穿?賹?
     if (largeExpenses.length >= 2 && !usedKeys.includes('overspend_reason_large')) {
         const message = getRandomDialog('overspend_reason_large');
         if (message) {
             const largeTotal = largeExpenses.reduce((sum, r) => sum + (r.amount || 0), 0);
-            showMoriDialog(`${message}本月有 ${largeExpenses.length} 筆大額支出，共計 NT$${Math.round(largeTotal).toLocaleString('zh-TW')}。`);
+            showMoriDialog(`${message}?蟡???${largeExpenses.length} ??銋???蝬??璇? NT$${Math.round(largeTotal).toLocaleString('zh-TW')}?蹐?;
             markDialogKeyAsUsed('overspend_reason_large');
             return;
         }
     }
 }
 
-// 追蹤連續記帳天數
+// 擗釭擐????殉朱???
 function updateAccountingStreak(allRecords) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
-    // 獲取連續記帳天數
+    // ???????殉朱???
     let streak = parseInt(localStorage.getItem('accounting_streak') || '0');
     const lastRecordDate = localStorage.getItem('accounting_last_record_date');
     
@@ -608,26 +578,23 @@ function updateAccountingStreak(allRecords) {
         const daysDiff = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
         
         if (daysDiff === 1) {
-            // 連續記帳
+            // ????殉朱??
             streak += 1;
         } else if (daysDiff > 1) {
-            // 記帳中斷
+            // ?殉朱?????
             streak = 1;
         }
-        // daysDiff === 0 表示今天已經記過帳，不更新
-    } else {
-        // 第一次記帳
-        streak = 1;
+        // daysDiff === 0 ?萄?折??鈭????殉死???????謆??    } else {
+        // ????????        streak = 1;
     }
     
-    // 保存連續記帳天數和最後記帳日期
-    localStorage.setItem('accounting_streak', streak.toString());
+    // ?踐??????殉朱???????綽???謑??    localStorage.setItem('accounting_streak', streak.toString());
     localStorage.setItem('accounting_last_record_date', today.toISOString());
     
     return streak;
 }
 
-// 檢查連續記帳鼓勵對話
+// ?潘撓貔????殉朱????伐??摨?
 function checkStreakEncouragementDialog() {
     if (!advisorDialogs) {
         loadAdvisorDialogs().then(() => {
@@ -636,18 +603,16 @@ function checkStreakEncouragementDialog() {
         return;
     }
     
-    // 從 localStorage 獲取所有記錄
-    const allRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    // ??localStorage ??????????    const allRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
     
     const usedKeys = getTodayUsedDialogKeys();
     const streak = updateAccountingStreak(allRecords);
     
-    // 檢查是否已經顯示過今天的鼓勵
+    // ?潘撓貔??秋????輯??????剜?????
     const streakKey = `streak_${streak}`;
     if (usedKeys.includes(streakKey)) return;
     
-    // 檢查里程碑
-    let dialogKey = null;
+    // ?潘撓貔?????    let dialogKey = null;
     if (streak === 3) {
         dialogKey = 'streak_3';
     } else if (streak === 7) {
@@ -657,8 +622,7 @@ function checkStreakEncouragementDialog() {
     } else if (streak === 30) {
         dialogKey = 'streak_30';
     } else if (streak === 1) {
-        // 檢查是否中斷後重新開始
-        const lastStreak = parseInt(localStorage.getItem('accounting_last_streak') || '0');
+        // ?潘撓貔??秋???謘???????        const lastStreak = parseInt(localStorage.getItem('accounting_last_streak') || '0');
         if (lastStreak > 1) {
             dialogKey = 'streak_break';
         }
@@ -669,13 +633,13 @@ function checkStreakEncouragementDialog() {
         if (message) {
             showMoriDialog(message);
             markDialogKeyAsUsed(streakKey);
-            // 保存上次的連續天數
+            // ?踐????瘣?????剜???
             localStorage.setItem('accounting_last_streak', streak.toString());
         }
     }
 }
 
-// 檢查記帳中斷提醒
+// ?潘撓貔謢嗉??謘???
 function checkStreakBreakReminder(allRecords) {
     if (!advisorDialogs) {
         loadAdvisorDialogs().then(() => {
@@ -698,7 +662,7 @@ function checkStreakBreakReminder(allRecords) {
     
     const daysDiff = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
     
-    // 如果超過1天沒有記帳，且之前有連續記帳記錄
+    // ?????1?剜???????????????????殉朱??謢?
     const lastStreak = parseInt(localStorage.getItem('accounting_last_streak') || '0');
     if (daysDiff > 1 && lastStreak > 0) {
         const message = getRandomDialog('streak_break');
@@ -709,17 +673,14 @@ function checkStreakBreakReminder(allRecords) {
     }
 }
 
-// 初始化時載入對話資料庫
-loadAdvisorDialogs();
-
-// 初始化理財顧問聊天
+// ?豲??謘???舀???????loadAdvisorDialogs();
 function initAdvisorChat(records, modal) {
     const chatMessages = modal.querySelector('#advisorChatMessages');
     const chatInput = modal.querySelector('#advisorChatInput');
     const sendBtn = modal.querySelector('#advisorSendBtn');
     const advisorStatus = modal.querySelector('.advisor-status');
 
-    // 重新取得最新記錄（聊天開啟時用最新資料回答）
+    // ????謘???????????鈭????蹇???????謕????
     let latestRecords = records;
     try {
         latestRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
@@ -727,7 +688,7 @@ function initAdvisorChat(records, modal) {
         latestRecords = records;
     }
 
-    // 防止重複綁定：clone input 與 button
+    // ??怨翰????秋撒???lone input ??button
     const newChatInput = chatInput ? chatInput.cloneNode(true) : null;
     if (chatInput && chatInput.parentNode && newChatInput) {
         chatInput.parentNode.replaceChild(newChatInput, chatInput);
@@ -738,21 +699,20 @@ function initAdvisorChat(records, modal) {
         sendBtn.parentNode.replaceChild(newSendBtn, sendBtn);
     }
     
-    // 建立快捷問題列（若已存在則不重複建立）
-    if (chatMessages && !chatMessages.querySelector('.advisor-quick-actions')) {
+    // ?梁???寞伐????謅??鈭??殉朱謓???????梁????    if (chatMessages && !chatMessages.querySelector('.advisor-quick-actions')) {
         const quick = document.createElement('div');
         quick.className = 'advisor-quick-actions';
         quick.innerHTML = `
-            <button type="button" class="advisor-quick-btn" data-q="本月支出分析">本月支出</button>
-            <button type="button" class="advisor-quick-btn" data-q="最大支出分類是什麼">最大分類</button>
-            <button type="button" class="advisor-quick-btn" data-q="預算狀況">預算狀況</button>
-            <button type="button" class="advisor-quick-btn" data-q="這個月和上個月比較">月比較</button>
-            <button type="button" class="advisor-quick-btn advisor-quick-btn-secondary" data-action="clear_chat">清空對話</button>
+            <button type="button" class="advisor-quick-btn" data-q="?蟡???穿???">?蟡???穿</button>
+            <button type="button" class="advisor-quick-btn" data-q="???剜??蝞??遴等謢???>???剜???/button>
+            <button type="button" class="advisor-quick-btn" data-q="???????>???????/button>
+            <button type="button" class="advisor-quick-btn" data-q="?謕?????????伍??">?????/button>
+            <button type="button" class="advisor-quick-btn advisor-quick-btn-secondary" data-action="clear_chat">?敺???</button>
         `;
         chatMessages.appendChild(quick);
     }
 
-    // 載入歷史對話（若有）
+    // ??舐????摨??????
     if (chatMessages) {
         const history = getAdvisorChatHistory();
         if (history.length > 0) {
@@ -762,8 +722,7 @@ function initAdvisorChat(records, modal) {
             });
             scrollChatToBottom(chatMessages);
         } else {
-            // 沒有歷史才送歡迎消息（使用打字效果）
-            const welcomeMessage = generateAdvisorWelcomeMessage(latestRecords);
+            // ????????蹓潸翮擗??????輯撒?????????            const welcomeMessage = generateAdvisorWelcomeMessage(latestRecords);
             setTimeout(() => {
                 addAdvisorMessageTyping(chatMessages, 'advisor', welcomeMessage, () => {
                     pushAdvisorChatHistoryItem({ type: 'advisor', message: welcomeMessage });
@@ -772,26 +731,25 @@ function initAdvisorChat(records, modal) {
         }
     }
 
-    // 快捷按鈕事件
+    // ?寞伐????哨?颲?
     if (chatMessages) {
         chatMessages.querySelectorAll('.advisor-quick-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 if (btn.dataset.action === 'clear_chat') {
-                    if (confirm('要清空小森的對話記錄嗎？')) {
+                    if (confirm('確定要清除對話記錄嗎？')) {
                         clearAdvisorChatHistory();
                         if (chatMessages) {
-                            chatMessages.innerHTML = '';
+                            chatMessages.innerHTML = ';
                         }
-                        // 重新建立快捷列
-                        initAdvisorChat(latestRecords, modal);
+                        // ????梁???寞伐??                        initAdvisorChat(latestRecords, modal);
                     }
                     return;
                 }
-                const q = btn.dataset.q || '';
+                const q = btn.dataset.q || ';
                 if (!q || !newChatInput) return;
                 newChatInput.value = q;
                 newChatInput.focus();
-                // 直接送出
+                // ?皝??蹓鳴
                 if (newSendBtn && !newSendBtn.disabled) {
                     newSendBtn.click();
                 }
@@ -799,50 +757,46 @@ function initAdvisorChat(records, modal) {
         });
     }
     
-    // 發送按鈕事件
-    const sendMessage = () => {
+    // ?瞏捍蹓??????    const sendMessage = () => {
         if (!newChatInput) return;
         const userMessage = newChatInput.value.trim();
         if (!userMessage) return;
 
-        // 禁用輸入框和按鈕 + loading
+        // ?啾播??閰剁?ｇ????? + loading
         if (newChatInput) newChatInput.disabled = true;
-        const originalBtnText = newSendBtn ? newSendBtn.textContent : '';
+        const originalBtnText = newSendBtn ? newSendBtn.textContent : ';
         if (newSendBtn) {
             newSendBtn.disabled = true;
             newSendBtn.classList.add('is-loading');
-            newSendBtn.textContent = '回覆中...';
+            newSendBtn.textContent = '?豯???..';
         }
         
-        // 添加用戶消息
+        // ?????踝??剁?蹓?
         if (chatMessages) {
             addAdvisorMessage(chatMessages, 'user', userMessage);
             pushAdvisorChatHistoryItem({ type: 'user', message: userMessage });
         }
-        newChatInput.value = '';
+        newChatInput.value = ';
         
-        // 顯示"正在輸入..."狀態
-        showTypingIndicator(chatMessages, advisorStatus);
+        // ?輯?????謓剝?閰剁..."????        showTypingIndicator(chatMessages, advisorStatus);
         
-        // 根據問題複雜度計算思考時間（300-1500ms）
-        const questionComplexity = calculateQuestionComplexity(userMessage);
+        // ?撖?????湛??刻正????豲?????300-1500ms??        const questionComplexity = calculateQuestionComplexity(userMessage);
         const thinkingTime = 300 + (questionComplexity * 200);
         
-        // 模擬思考後生成回應
+        // ???豲???賹??豯?
         setTimeout(() => {
             const advisorResponse = generateAdvisorResponse(userMessage, latestRecords);
             hideTypingIndicator(chatMessages, advisorStatus);
             
-            // 使用打字效果顯示回應
+            // ?輯撒????????輯???豯?
             if (chatMessages) {
                 addAdvisorMessageTyping(chatMessages, 'advisor', advisorResponse, () => {
                     pushAdvisorChatHistoryItem({ type: 'advisor', message: advisorResponse });
-                    // 回應完成後重新啟用輸入
-                    if (newChatInput) newChatInput.disabled = false;
+                    // ?豯??堆??綽??????餅???                    if (newChatInput) newChatInput.disabled = false;
                     if (newSendBtn) {
                         newSendBtn.disabled = false;
                         newSendBtn.classList.remove('is-loading');
-                        newSendBtn.textContent = originalBtnText || '發送';
+                        newSendBtn.textContent = originalBtnText || '?瞏捍?;
                     }
                     if (newChatInput) newChatInput.focus();
                 });
@@ -863,46 +817,42 @@ function initAdvisorChat(records, modal) {
         });
     }
 }
-
-// 計算問題複雜度（0-6）
 function calculateQuestionComplexity(userMessage) {
     let complexity = 0;
     const message = userMessage.toLowerCase();
     
-    // 日期查詢 +1
-    if (message.match(/\d{1,2}[\/\-月]\d{1,2}/)) complexity += 1;
+    // ?鈭??鈭亙眺 +1
+    if (message.match(/\d{1,2}[\/\-??d{1,2}/)) complexity += 1;
     
-    // 金額查詢 +1
+    // ????鈭亙眺 +1
     if (message.match(/\d+/)) complexity += 1;
     
-    // 分類查詢 +1
-    if (message.includes('分類') || message.includes('類別')) complexity += 1;
+    // ????鈭亙眺 +1
+    if (message.includes('???') || message.includes('?遴竣??)) complexity += 1;
     
-    // 趨勢分析 +2
-    if (message.includes('趨勢') || message.includes('變化')) complexity += 2;
+    // ????? +2
+    if (message.includes('???) || message.includes('???')) complexity += 2;
     
-    // 預算分析 +1
-    if (message.includes('預算')) complexity += 1;
+    // ?????? +1
+    if (message.includes('???')) complexity += 1;
     
-    // 理財建議 +2
-    if (message.includes('建議') || message.includes('理財')) complexity += 2;
+    // 理財顧問相關詞彙 +2
+    if (message.includes('分析') || message.includes('理財顧問')) complexity += 2;
     
-    // 多個條件查詢 +1
+    // 包含多個條件查詢 +1
     const conditions = (message.match(/\d+/g) || []).length;
     if (conditions > 1) complexity += 1;
     
     return Math.min(complexity, 6);
 }
-
-// 顯示"正在輸入..."指示器
 function showTypingIndicator(container, statusElement) {
-    // 更新狀態為"正在輸入..."
+    // 顯示狀態文字"正在思考中..."
     if (statusElement) {
-        statusElement.textContent = '正在輸入...';
+        statusElement.textContent = '正在思考中...';
         statusElement.style.color = 'var(--color-primary)';
     }
     
-    // 創建打字指示器消息
+    // 創建打字指示器元素
     const typingDiv = document.createElement('div');
     typingDiv.className = 'advisor-message advisor-message-typing';
     typingDiv.id = 'advisorTypingIndicator';
@@ -922,27 +872,26 @@ function showTypingIndicator(container, statusElement) {
     container.appendChild(typingDiv);
     container.scrollTop = container.scrollHeight;
 }
-
-// 隱藏"正在輸入..."指示器
 function hideTypingIndicator(container, statusElement) {
-    // 移除打字指示器
-    const typingIndicator = container.querySelector('#advisorTypingIndicator');
+    // ??謒?????怠??    const typingIndicator = container.querySelector('#advisorTypingIndicator');
     if (typingIndicator) {
         typingIndicator.remove();
     }
     
-    // 恢復狀態為"在線"
+    // ?嚗瑕?????冪"???"
     if (statusElement) {
-        statusElement.textContent = '在線';
+        statusElement.textContent = '???';
         statusElement.style.color = 'var(--text-secondary)';
     }
 }
 
-// 使用打字效果添加消息
+// ?輯撒???????????剁?蹓?
 function addAdvisorMessageTyping(container, type, message, onComplete) {
-    // 先創建消息容器
-    const messageDiv = document.createElement('div');
+    // ???梁捂???祆???    const messageDiv = document.createElement('div');
     messageDiv.className = `advisor-message advisor-message-${type}`;
+    
+    // ?潘撓貔??秋???荒?HTML?萄赯?
+    const containsHTML = message.includes('<table') || message.includes('<div');
     
     if (type === 'advisor') {
         messageDiv.innerHTML = `
@@ -966,16 +915,26 @@ function addAdvisorMessageTyping(container, type, message, onComplete) {
     container.appendChild(messageDiv);
     const textElement = messageDiv.querySelector('.advisor-message-text');
     
-    // 打字效果參數
-    const typingSpeed = 20 + Math.random() * 30; // 20-50ms per character，模擬真人打字速度變化
+    // ?????荒?HTML?謆?鈭方????輯撒???????
+    if (containsHTML) {
+        const formattedMessage = message.replace(/\n/g, '<br>');
+        textElement.innerHTML = formattedMessage;
+        container.scrollTop = container.scrollHeight;
+        if (onComplete) {
+            setTimeout(onComplete, 100);
+        }
+        return;
+    }
+    
+    // ????????塗
+    const typingSpeed = 20 + Math.random() * 30; // 20-50ms per character???蟡??剔捂??殉??賹撞???
     let currentIndex = 0;
     const fullText = message;
     
-    // 打字函數
+    // ????鞈?
     const typeNextChar = () => {
         if (currentIndex < fullText.length) {
-            // 處理換行符
-            if (fullText[currentIndex] === '\n') {
+            // ????謜???            if (fullText[currentIndex] === '\n') {
                 textElement.innerHTML += '<br>';
             } else {
                 textElement.textContent += fullText[currentIndex];
@@ -1001,14 +960,15 @@ function addAdvisorMessageTyping(container, type, message, onComplete) {
         typeNextChar();
     }, 100);
 }
-
-// 添加消息到聊天界面
 function addAdvisorMessage(container, type, message) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `advisor-message advisor-message-${type}`;
     
-    // 將換行符轉換為 <br>
-    const formattedMessage = message.replace(/\n/g, '<br>');
+    // ?潘撓貔??秋???荒?HTML?萄赯?
+    const containsHTML = message.includes('<table') || message.includes('<div');
+    
+    // ?????荒?HTML?謆?銋抵?????銵????蛛瘜菟????<br>
+    const formattedMessage = containsHTML ? message : message.replace(/\n/g, '<br>');
     
     if (type === 'advisor') {
         messageDiv.innerHTML = `
@@ -1033,13 +993,13 @@ function addAdvisorMessage(container, type, message) {
     container.scrollTop = container.scrollHeight;
 }
 
-// 生成理財顧問歡迎消息
+// ?賹????踵?????剁?蹓?
 function generateAdvisorWelcomeMessage(records) {
     if (records.length === 0) {
-        return '您好，我是小森。\n\n看起來您還沒有任何記錄。開始記帳是理財的第一步，加油！';
+        return '??豢???????蹐彫\n??結??蹌?????ａ??遴???蹇??迎????謢????斯?????蹎???;
     }
     
-    // 分析記錄
+    // ????殉死?
     const now = new Date();
     const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
@@ -1055,55 +1015,53 @@ function generateAdvisorWelcomeMessage(records) {
     const totalExpense = expenses.reduce((sum, r) => sum + (r.amount || 0), 0);
     const totalIncome = incomes.reduce((sum, r) => sum + (r.amount || 0), 0);
     
-    // 分類統計
+    // ????舀０?
     const categoryStats = {};
     expenses.forEach(r => {
-        const category = r.category || '未分類';
+        const category = r.category || '?????;
         categoryStats[category] = (categoryStats[category] || 0) + (r.amount || 0);
     });
     
     const topCategory = Object.entries(categoryStats).sort((a, b) => b[1] - a[1])[0];
     
-    let message = `您好，我是小森。\n\n`;
+    let message = `??豢???????蹐彫\n`;
     
     if (monthlyRecords.length > 0) {
-        message += `本月統計：\n`;
-        message += `總支出：NT$ ${totalExpense.toLocaleString('zh-TW')}\n`;
+        message += `?蟡??舀０???n`;
+        message += `?株都??蝬?NT$ ${totalExpense.toLocaleString('zh-TW')}\n`;
         if (totalIncome > 0) {
-            message += `總收入：NT$ ${totalIncome.toLocaleString('zh-TW')}\n`;
+            message += `?株都??隡?NT$ ${totalIncome.toLocaleString('zh-TW')}\n`;
             const balance = totalIncome - totalExpense;
             if (balance > 0) {
-                message += `本月結餘：NT$ ${balance.toLocaleString('zh-TW')}\n`;
+                message += `?蟡??荒???彿T$ ${balance.toLocaleString('zh-TW')}\n`;
             } else {
-                message += `本月超支：NT$ ${Math.abs(balance).toLocaleString('zh-TW')}\n`;
+                message += `?蟡????謕蓉$ ${Math.abs(balance).toLocaleString('zh-TW')}\n`;
             }
         }
         
         if (topCategory) {
-            message += `最大支出分類：${topCategory[0]} (NT$ ${topCategory[1].toLocaleString('zh-TW')})\n`;
+            message += `???剜??蝞??遴筑?${topCategory[0]} (NT$ ${topCategory[1].toLocaleString('zh-TW')})\n`;
         }
     }
     
-    message += `\n我可以幫您分析支出趨勢、回答記帳相關問題。有什麼想問的嗎？`;
+    message += `\n??恃??曌???????蝞??嚗肅蹓???????謆?謚??選?蹇???餅蔬???????`;
     
     return message;
 }
-
-// 添加口語化前綴（隨機）
 function addConversationalPrefix(response) {
     const prefixes = [
-        '讓我幫您查一下...',
-        '好的，我來看看...',
-        '嗯...讓我分析一下...',
-        '我來幫您找找...',
-        '讓我整理一下...',
-        '好的，我馬上幫您查...',
-        '讓我看看您的記錄...',
-        '稍等一下，我來整理...',
-        '我來幫您分析...'
+        '???伍??銋???..',
+        '??????????..',
+        '??..????????..',
+        '????伍???對...',
+        '???皜????..',
+        '?????????伍???..',
+        '?????????殉死?...',
+        '??????????皜?...',
+        '????伍????...'
     ];
     
-    // 40% 機率添加前綴（讓對話更自然）
+    // 40% ??????????????摨?皜莎?憛?
     if (Math.random() < 0.4 && response.length > 30) {
         const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
         return prefix + '\n\n' + response;
@@ -1111,32 +1069,28 @@ function addConversationalPrefix(response) {
     
     return response;
 }
-
-// 智能理解問題（fallback）
-// 避免 getSmartResponse 未定義導致聊天系統報錯。
 function getSmartResponse(userMessage, records) {
-    const message = (userMessage || '').trim();
+    const message = (userMessage || ').trim();
     if (!message) {
-        return '可以跟我說你想查「支出 / 收入 / 預算 / 分類 / 趨勢」其中一項，我會幫你整理。';
+        return '??剛?????方???殉???魂???/ ?? / ??? / ??? / ?????????????????皜???;
     }
 
     const lower = message.toLowerCase();
-    if (lower.includes('幫我') || lower.includes('請') || lower.includes('怎麼')) {
-        return '我可以幫你分析記帳資料。\n\n你可以試著問：\n• 本月支出分析\n• 最大支出分類\n• 預算狀況\n• 這個月和上個月比較';
+    if (lower.includes('??') || lower.includes('??) || lower.includes('???')) {
+        return '??恃??曌蹎????????謕蹐彫\n?遴??駁?鈭亙疵?謅???n???蟡???穿???\n?????剜??蝞??遴魚n?????????n???謕?????????伍??';
     }
 
-    // 若使用者只輸入分類名稱，嘗試當作分類查詢
-    const trimmed = message.replace(/\s+/g, '');
+    // ?銋抵???鄞?荒?岳??????????啗﹝?圈謚??遴等貔?    const trimmed = message.replace(/\s+/g, ');
     if (trimmed.length <= 6 && records && Array.isArray(records)) {
-        return `你是想問「${message}」這個分類的花費嗎？\n\n你可以這樣問我：\n• ${message} 花了多少\n• 本月 ${message} 花了多少`;
+        return `?遴?謢?????{message}??謕???遴策??璇舐孕???\n\n?遴??駁?隞螞謕??????n??${message} ????叟城?\n???蟡? ${message} ????叟城?`;
     }
 
-    return '我還不太確定你的問題想查哪一種統計。\n\n你可以換個問法，例如：\n• 本月支出分析\n• 午餐花了多少\n• 12/7 買了什麼\n• 預算狀況';
+    return '?????鈭蝞??遴???????殉??????蝯?蹐彫\n?遴??駁?鈭???????????n???蟡???穿???\n?????????叟城?\n??12/7 ?????餃╪n?????????;
 }
 
 function queryCategorySpending(records, categoryKeyword) {
     if (!Array.isArray(records) || !categoryKeyword) {
-        return '我需要一些記帳資料才能幫你查分類支出。';
+        return '????秋撩??叟??????謕??鞈ａ??遴?貔?????穿??;
     }
     const now = new Date();
     const m = now.getMonth();
@@ -1145,14 +1099,14 @@ function queryCategorySpending(records, categoryKeyword) {
         const d = new Date(r.date);
         return (r.type === 'expense' || !r.type) && d.getMonth() === m && d.getFullYear() === y;
     });
-    const matched = expenses.filter(r => (r.category || '').includes(categoryKeyword));
+    const matched = expenses.filter(r => (r.category || ').includes(categoryKeyword));
     const total = matched.reduce((s, r) => s + (r.amount || 0), 0);
-    return `本月「${categoryKeyword}」相關支出：NT$ ${total.toLocaleString('zh-TW')}（${matched.length} 筆）`;
+    return `?蟡???{categoryKeyword}????謚恃??蝬?NT$ ${total.toLocaleString('zh-TW')}??{matched.length} ???`;
 }
 
 function queryTopSpending(records) {
     if (!Array.isArray(records) || records.length === 0) {
-        return '目前沒有足夠的記錄可以分析最大支出。';
+        return '?獢??????????????????剜??蝞?;
     }
     const now = new Date();
     const m = now.getMonth();
@@ -1161,20 +1115,20 @@ function queryTopSpending(records) {
         const d = new Date(r.date);
         return (r.type === 'expense' || !r.type) && d.getMonth() === m && d.getFullYear() === y;
     });
-    if (expenses.length === 0) return '本月目前沒有支出記錄。';
+    if (expenses.length === 0) return '?蟡??獢??????穿?殉死???;
 
     const categoryStats = {};
     expenses.forEach(r => {
-        const cat = r.category || '未分類';
+        const cat = r.category || '?????;
         categoryStats[cat] = (categoryStats[cat] || 0) + (r.amount || 0);
     });
     const [topCat, topAmt] = Object.entries(categoryStats).sort((a, b) => b[1] - a[1])[0];
-    return `本月支出最多的分類是「${topCat}」，累計 NT$ ${Math.round(topAmt).toLocaleString('zh-TW')}。`;
+    return `?蟡???穿???叟垓??????純?{topCat}????? NT$ ${Math.round(topAmt).toLocaleString('zh-TW')}?蹐?
 }
 
 function queryLowestSpending(records) {
     if (!Array.isArray(records) || records.length === 0) {
-        return '目前沒有足夠的記錄可以分析最低支出。';
+        return '?獢??????????????????遴???蝞?;
     }
     const now = new Date();
     const m = now.getMonth();
@@ -1183,15 +1137,15 @@ function queryLowestSpending(records) {
         const d = new Date(r.date);
         return (r.type === 'expense' || !r.type) && d.getMonth() === m && d.getFullYear() === y;
     });
-    if (expenses.length === 0) return '本月目前沒有支出記錄。';
+    if (expenses.length === 0) return '?蟡??獢??????穿?殉死???;
 
     const minRecord = expenses.slice().sort((a, b) => (a.amount || 0) - (b.amount || 0))[0];
-    return `本月最小的一筆支出是「${minRecord.category || '未分類'}」NT$ ${(minRecord.amount || 0).toLocaleString('zh-TW')}。`;
+    return `?蟡??????????蝞賃???{minRecord.category || '?????}??㎡$ ${(minRecord.amount || 0).toLocaleString('zh-TW')}?蹐?
 }
 
 function compareMonths(records) {
     if (!Array.isArray(records) || records.length === 0) {
-        return '目前沒有足夠的記錄可以做月份比較。';
+        return '?獢?????????????????伍????;
     }
     const now = new Date();
     const curM = now.getMonth();
@@ -1209,13 +1163,13 @@ function compareMonths(records) {
     const cur = sumMonth(curM, curY);
     const last = sumMonth(lastM, lastY);
     const diff = cur - last;
-    const sign = diff >= 0 ? '增加' : '減少';
-    return `本月支出 NT$ ${Math.round(cur).toLocaleString('zh-TW')}，上月 NT$ ${Math.round(last).toLocaleString('zh-TW')}，本月較上月${sign} NT$ ${Math.abs(Math.round(diff)).toLocaleString('zh-TW')}。`;
+    const sign = diff >= 0 ? '?竣?' : '???';
+    return `?蟡???穿 NT$ ${Math.round(cur).toLocaleString('zh-TW')}????NT$ ${Math.round(last).toLocaleString('zh-TW')}?謓??????${sign} NT$ ${Math.abs(Math.round(diff)).toLocaleString('zh-TW')}?蹐?
 }
 
 function getTotalSummary(records) {
     if (!Array.isArray(records) || records.length === 0) {
-        return '目前沒有足夠的記錄可以做總計。';
+        return '?獢???????????????株釭???;
     }
     const now = new Date();
     const m = now.getMonth();
@@ -1227,12 +1181,23 @@ function getTotalSummary(records) {
     const expense = month.filter(r => r.type === 'expense' || !r.type).reduce((s, r) => s + (r.amount || 0), 0);
     const income = month.filter(r => r.type === 'income').reduce((s, r) => s + (r.amount || 0), 0);
     const balance = income - expense;
-    return `本月總計：\n• 總支出：NT$ ${Math.round(expense).toLocaleString('zh-TW')}\n• 總收入：NT$ ${Math.round(income).toLocaleString('zh-TW')}\n• 結餘：NT$ ${Math.round(balance).toLocaleString('zh-TW')}`;
+    
+    let html = `?? ?蟡??株釭???n\n`;
+    html += `<table class="advisor-table">`;
+    html += `<thead><tr><th>??梱?</th><th>???</th></tr></thead>`;
+    html += `<tbody>`;
+    html += `<tr class="expense-row"><td class="category-cell">?株都???/td><td class="amount-cell">NT$ ${Math.round(expense).toLocaleString('zh-TW')}</td></tr>`;
+    html += `<tr class="income-row"><td class="category-cell">?株都???/td><td class="amount-cell">NT$ ${Math.round(income).toLocaleString('zh-TW')}</td></tr>`;
+    html += `</tbody>`;
+    html += `<tfoot><tr class="advisor-table-summary"><td class="category-cell">?荒??</td><td class="amount-cell" style="color: ${balance >= 0 ? '#10b981' : '#ef4444'}">NT$ ${Math.round(balance).toLocaleString('zh-TW')}</td></tr></tfoot>`;
+    html += `</table>`;
+    
+    return html;
 }
 
 function getAverageAnalysis(records) {
     if (!Array.isArray(records) || records.length === 0) {
-        return '目前沒有足夠的記錄可以做平均分析。';
+        return '?獢?????????????????????;
     }
     const now = new Date();
     const m = now.getMonth();
@@ -1241,120 +1206,116 @@ function getAverageAnalysis(records) {
         const d = new Date(r.date);
         return (r.type === 'expense' || !r.type) && d.getMonth() === m && d.getFullYear() === y;
     });
-    if (expenses.length === 0) return '本月目前沒有支出記錄，無法計算平均。';
+    if (expenses.length === 0) return '?蟡??獢??????穿?殉死???????????岑?;
     const total = expenses.reduce((s, r) => s + (r.amount || 0), 0);
     const avg = total / expenses.length;
-    return `本月支出平均每筆約 NT$ ${Math.round(avg).toLocaleString('zh-TW')}（共 ${expenses.length} 筆）。`;
+    return `?蟡???穿???伍???NT$ ${Math.round(avg).toLocaleString('zh-TW')}????${expenses.length} ????蹐?
 }
 
-// 生成理財顧問回應
+// ?賹????踵??豯?
 function generateAdvisorResponse(userMessage, records) {
     try {
         const message = userMessage.toLowerCase();
-        const originalMessage = userMessage; // 保留原始大小寫用於分類匹配
-    
-    // 提取金額（支持多種格式：1500、1500元、NT$1500等）
-    const amountPattern = /(\d+(?:\.\d+)?)\s*(?:元|塊|NT\$|萬|千)?/g;
+        const originalMessage = userMessage; // ?踐???賹??剜????瞉??遴竣???    
+        if ((originalMessage.includes('瘥?') || originalMessage.includes('??)) && originalMessage.includes('?嗆') && (originalMessage.includes('皜') || originalMessage.includes('?”'))) {
+            return addConversationalPrefix(generateMonthlyIncomeExpenseList(records, originalMessage));
+        }
+    // ??????????蹓??赯菜???1500??500??麻蹍$1500??
+    const amountPattern = /(\d+(?:\.\d+)?)\s*(?:??格??遑T\$|?瘣???/g;
     const amountMatches = [...message.matchAll(amountPattern)];
     let amounts = amountMatches.map(m => {
         let num = parseFloat(m[1]);
-        // 處理"萬"和"千"
-        if (m[0].includes('萬')) num *= 10000;
-        else if (m[0].includes('千')) num *= 1000;
+        // ???"??????
+        if (m[0].includes('??)) num *= 10000;
+        else if (m[0].includes('??)) num *= 1000;
         return num;
     }).filter(a => a > 0);
     
-    // 提取日期（支持多種格式：12/7、12-7、12月7號等）
-    const datePattern = /(\d{1,2})\s*[\/\-月]\s*(\d{1,2})/g;
+    // ????鈭?????蹓??赯菜???12/7??2-7??2???賹???    const datePattern = /(\d{1,2})\s*[\/\-??s*(\d{1,2})/g;
     const dateMatches = [...message.matchAll(datePattern)];
     
-    // 優先處理：日期+金額查詢（例如：12/7花了1500）
-    if (dateMatches.length > 0 && amounts.length > 0) {
+    // ???????垮謑??????鈭亙眺????縈?12/7???1500??    if (dateMatches.length > 0 && amounts.length > 0) {
         return addConversationalPrefix(queryDateAndAmount(userMessage, records, dateMatches[0], amounts[0]));
     }
     
-    // 金額查詢（例如：1500是買了什麼、1500買了什麼）
+    // ????鈭亙眺????縈?1500??芰?哨???餅膠??500?????餅??
     if (amounts.length > 0) {
-        const amountKeywords = ['是買了', '買了什麼', '是花了', '花了什麼', '買了', '花了', '用了', '付了', '花了多少', '買了多少'];
+        const amountKeywords = ['??芰??, '??????, '??迎???, '??????, '???', '???', '???', '?朴?', '????叟城?', '????叟城?'];
         if (amountKeywords.some(kw => message.includes(kw))) {
             return addConversationalPrefix(queryAmountOnly(userMessage, records, amounts[0]));
         }
     }
     
-    // 時間+金額+分類查詢（例如：什麼時候買午餐花了170）
-    if ((message.includes('什麼時候') || message.includes('哪天') || message.includes('幾號') || 
-         message.includes('何時') || message.includes('何日')) && 
-        (message.includes('花了') || message.includes('買了') || message.includes('用了') || 
-         message.includes('付了')) && amounts.length > 0) {
+    // ?蹇?+???+????鈭亙眺????縈???餅蔬??謕??????170??    if ((message.includes('??餅蔬???) || message.includes('??訾?') || message.includes('???') || 
+         message.includes('?遴??') || message.includes('?遴?謑?)) && 
+        (message.includes('???') || message.includes('???') || message.includes('???') || 
+         message.includes('?朴?')) && amounts.length > 0) {
         return addConversationalPrefix(queryAmountAndCategory(userMessage, records));
     }
     
-    // 日期查詢（例如：12/7買了什麼、12月7號買了什麼）
+    // ?鈭??鈭亙眺????縈?12/7?????餅膠??2???賹?哨???餅??
     if (dateMatches.length > 0) {
-        const dateKeywords = ['買了什麼', '花了什麼', '買了', '花了', '記錄', '交易', '做了什麼'];
+        const dateKeywords = ['??????, '??????, '???', '???', '?殉死?', '?剜??', '?謍????];
         if (dateKeywords.some(kw => message.includes(kw))) {
             return addConversationalPrefix(queryDateRecords(userMessage, records));
         }
     }
     
-    // 分類查詢（例如：午餐花了多少、交通費多少）
-    const categoryKeywords = ['午餐', '早餐', '晚餐', '宵夜', '食物', '餐', '飯', '交通', '車', '購物', 
-                              '娛樂', '醫療', '房租', '水電', '電費', '網路', '電話', '手機'];
+    // ????鈭亙眺????縈????????叟城??蹓箸摹?謍喟孕?叟城???    const categoryKeywords = ['???', '???', '?謍?', '?啗??', '????, '??, '??, '?剜??, '??, '????, 
+                              '?∵??', '???', '?頛?', '?鳩謆?, '?擗孕', '?祈璆?, '?擗?', '???'];
     const foundCategory = categoryKeywords.find(cat => originalMessage.includes(cat));
-    if (foundCategory && (message.includes('多少') || message.includes('花了') || message.includes('支出'))) {
+    if (foundCategory && (message.includes('?叟城?') || message.includes('???') || message.includes('??穿'))) {
         return addConversationalPrefix(queryCategorySpending(records, foundCategory));
     }
     
-    // 統計類查詢（例如：最多、最少、最大、最小）
-    if (message.includes('最多') || message.includes('最大') || message.includes('最高')) {
+    // ?舀０??遴等貔嚚?????垮??叟垣?蹓???蹓??剜?蹓???
+    if (message.includes('????) || message.includes('????) || message.includes('????)) {
         return addConversationalPrefix(queryTopSpending(records, message));
     }
-    if (message.includes('最少') || message.includes('最小') || message.includes('最低')) {
+    if (message.includes('????) || message.includes('????) || message.includes('????)) {
         return addConversationalPrefix(queryLowestSpending(records, message));
     }
     
-    // 比較查詢（例如：這個月比上個月、這個月和上個月）
-    if (message.includes('比') || message.includes('比較') || message.includes('對比')) {
+    // ?伍???鈭亙眺????縈??謕???伍??????蹓螞謕??????????    if (message.includes('??) || message.includes('?伍??') || message.includes('???')) {
         return addConversationalPrefix(compareMonths(records));
     }
     
-    // 分析關鍵詞（擴展更多變體）
-    let response = '';
-    if (message.includes('支出') || message.includes('花費') || message.includes('花錢') || 
-        message.includes('開銷') || message.includes('消費') || message.includes('花掉')) {
+    // ????謚殷?堊筑??皜??皜??????    let response = ';
+    if (message.includes('??穿') || message.includes('?璇舐孕') || message.includes('?璇ｇ') || 
+        message.includes('??∴?') || message.includes('?剁?蟡?) || message.includes('???')) {
         response = analyzeExpenses(records);
-    } else if (message.includes('收入') || message.includes('賺') || message.includes('薪水') || 
-               message.includes('工資') || message.includes('薪資') || message.includes('進帳')) {
+    } else if (message.includes('??') || message.includes('??) || message.includes('????') || 
+               message.includes('?漸?') || message.includes('???') || message.includes('???')) {
         response = analyzeIncome(records);
-    } else if (message.includes('建議') || message.includes('理財') || message.includes('省錢') || 
-               message.includes('如何') || message.includes('怎麼') || message.includes('應該')) {
+    } else if (message.includes('?梁???) || message.includes('??') || message.includes('?蹓選') || 
+               message.includes('???') || message.includes('???') || message.includes('??血?')) {
         response = provideFinancialAdvice(records);
-    } else if (message.includes('分類') || message.includes('類別') || message.includes('項目')) {
+    } else if (message.includes('???') || message.includes('?遴竣??) || message.includes('??梱?')) {
         response = analyzeCategories(records);
-    } else if (message.includes('趨勢') || message.includes('變化') || message.includes('走勢') || 
-               message.includes('成長') || message.includes('下降')) {
+    } else if (message.includes('???) || message.includes('???') || message.includes('???) || 
+               message.includes('??') || message.includes('??')) {
         response = analyzeTrends(records);
-    } else if (message.includes('預算') || message.includes('上限') || message.includes('限制')) {
+    } else if (message.includes('???') || message.includes('???') || message.includes('???')) {
         response = analyzeBudget(records);
-    } else if (message.includes('總計') || message.includes('總和') || message.includes('加總')) {
+    } else if (message.includes('?株釭?') || message.includes('?株郭?') || message.includes('?蹎?')) {
         response = getTotalSummary(records);
-    } else if (message.includes('平均') || message.includes('均值')) {
+    } else if (message.includes('??') || message.includes('??怏?)) {
         response = getAverageAnalysis(records);
     } else {
-        // 嘗試智能理解問題
+        // ?謅疵?蝞??????
         response = getSmartResponse(userMessage, records);
     }
     
-        // 為所有回應添加口語化前綴（隨機）
+        // ?蝞??????斗熄?蹎?止竣??????謇喟?賹?
         return addConversationalPrefix(response);
     } catch (e) {
         console.error('generateAdvisorResponse failed:', e);
-        return '我剛剛整理資料時遇到一點問題，請你再問一次，或試試看「本月支出分析 / 最大支出分類 / 預算狀況」。';
+        return '????謜????謕???抬???綜竣??選???ｇ?????????謘踹疵?啗﹝???魂秧????蝞???/ ???剜??蝞???/ ??????撕???;
     }
 }
 
-// 分析支出
-function analyzeExpenses(records) {
+// ?賹???穿?萄赯焙TML
+function generateExpenseTableHTML(records) {
     const now = new Date();
     const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
@@ -1366,35 +1327,55 @@ function analyzeExpenses(records) {
                recordDate.getFullYear() === currentYear;
     });
     
+    if (monthlyExpenses.length === 0) {
+        return '?蟡??獢??????穿?殉死???;
+    }
+    
     const total = monthlyExpenses.reduce((sum, r) => sum + (r.amount || 0), 0);
     const avg = monthlyExpenses.length > 0 ? total / monthlyExpenses.length : 0;
     
-    let response = `📊 本月支出分析：\n\n`;
-    response += `• 總支出：NT$ ${total.toLocaleString('zh-TW')}\n`;
-    response += `• 交易筆數：${monthlyExpenses.length} 筆\n`;
-    response += `• 平均每筆：NT$ ${Math.round(avg).toLocaleString('zh-TW')}\n\n`;
-    
-    // 分類統計
+    // ????舀０?
     const categoryStats = {};
     monthlyExpenses.forEach(r => {
-        const category = r.category || '未分類';
+        const category = r.category || '?????;
         categoryStats[category] = (categoryStats[category] || 0) + (r.amount || 0);
     });
     
     const sortedCategories = Object.entries(categoryStats).sort((a, b) => b[1] - a[1]);
-    if (sortedCategories.length > 0) {
-        response += `💰 支出分類排行：\n`;
-        sortedCategories.slice(0, 5).forEach(([cat, amount], index) => {
-            const percentage = ((amount / total) * 100).toFixed(1);
-            response += `${index + 1}. ${cat}：NT$ ${amount.toLocaleString('zh-TW')} (${percentage}%)\n`;
-        });
-    }
     
-    return response;
+    let html = `?? ?蟡???穿?????n\n`;
+    html += `???株都??蝬?NT$ ${total.toLocaleString('zh-TW')}\n`;
+    html += `???剜?????脣??{monthlyExpenses.length} ?n`;
+    html += `?????伍??彿T$ ${Math.round(avg).toLocaleString('zh-TW')}\n\n`;
+    
+    html += `<table class="advisor-table">`;
+    html += `<thead><tr><th>???</th><th>???</th><th>???</th><th>?蹎?</th></tr></thead>`;
+    html += `<tbody>`;
+    
+    sortedCategories.slice(0, 10).forEach(([cat, amount], index) => {
+        const percentage = ((amount / total) * 100).toFixed(1);
+        html += `<tr class="expense-row">`;
+        html += `<td>${index + 1}</td>`;
+        html += `<td class="category-cell">${cat}</td>`;
+        html += `<td class="amount-cell">NT$ ${amount.toLocaleString('zh-TW')}</td>`;
+        html += `<td>${percentage}%</td>`;
+        html += `</tr>`;
+    });
+    
+    html += `</tbody>`;
+    html += `<tfoot><tr class="advisor-table-summary"><td colspan="2">???</td><td class="amount-cell">NT$ ${total.toLocaleString('zh-TW')}</td><td>100%</td></tr></tfoot>`;
+    html += `</table>`;
+    
+    return html;
 }
 
-// 分析收入
-function analyzeIncome(records) {
+// ?????穿
+function analyzeExpenses(records) {
+    return generateExpenseTableHTML(records);
+}
+
+// ?賹????萄赯焙TML
+function generateIncomeTableHTML(records) {
     const now = new Date();
     const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
@@ -1406,21 +1387,54 @@ function analyzeIncome(records) {
                recordDate.getFullYear() === currentYear;
     });
     
-    const total = monthlyIncomes.reduce((sum, r) => sum + (r.amount || 0), 0);
-    
-    let response = `💰 本月收入分析：\n\n`;
-    response += `• 總收入：NT$ ${total.toLocaleString('zh-TW')}\n`;
-    response += `• 收入筆數：${monthlyIncomes.length} 筆\n`;
-    
-    if (total > 0) {
-        const avg = total / monthlyIncomes.length;
-        response += `• 平均每筆：NT$ ${Math.round(avg).toLocaleString('zh-TW')}\n`;
+    if (monthlyIncomes.length === 0) {
+        return '?蟡??獢???????殉死???;
     }
     
-    return response;
+    const total = monthlyIncomes.reduce((sum, r) => sum + (r.amount || 0), 0);
+    const avg = total / monthlyIncomes.length;
+    
+    // ????舀０?
+    const categoryStats = {};
+    monthlyIncomes.forEach(r => {
+        const category = r.category || '?????;
+        categoryStats[category] = (categoryStats[category] || 0) + (r.amount || 0);
+    });
+    
+    const sortedCategories = Object.entries(categoryStats).sort((a, b) => b[1] - a[1]);
+    
+    let html = `????蟡????????n\n`;
+    html += `???株都??隡?NT$ ${total.toLocaleString('zh-TW')}\n`;
+    html += `???????脣??{monthlyIncomes.length} ?n`;
+    html += `?????伍??彿T$ ${Math.round(avg).toLocaleString('zh-TW')}\n\n`;
+    
+    html += `<table class="advisor-table">`;
+    html += `<thead><tr><th>???</th><th>???</th><th>???</th><th>?蹎?</th></tr></thead>`;
+    html += `<tbody>`;
+    
+    sortedCategories.forEach(([cat, amount], index) => {
+        const percentage = ((amount / total) * 100).toFixed(1);
+        html += `<tr class="income-row">`;
+        html += `<td>${index + 1}</td>`;
+        html += `<td class="category-cell">${cat}</td>`;
+        html += `<td class="amount-cell">NT$ ${amount.toLocaleString('zh-TW')}</td>`;
+        html += `<td>${percentage}%</td>`;
+        html += `</tr>`;
+    });
+    
+    html += `</tbody>`;
+    html += `<tfoot><tr class="advisor-table-summary"><td colspan="2">???</td><td class="amount-cell">NT$ ${total.toLocaleString('zh-TW')}</td><td>100%</td></tr></tfoot>`;
+    html += `</table>`;
+    
+    return html;
 }
 
-// 提供理財建議
+// ?????
+function analyzeIncome(records) {
+    return generateIncomeTableHTML(records);
+}
+
+// ??????梁???
 function provideFinancialAdvice(records) {
     const now = new Date();
     const currentMonth = now.getMonth();
@@ -1437,41 +1451,41 @@ function provideFinancialAdvice(records) {
     const totalExpense = expenses.reduce((sum, r) => sum + (r.amount || 0), 0);
     const totalIncome = incomes.reduce((sum, r) => sum + (r.amount || 0), 0);
     
-    let response = `💡 理財建議：\n\n`;
+    let response = `??????梁???謇\n`;
     
     if (totalIncome > 0) {
         const savingsRate = ((totalIncome - totalExpense) / totalIncome * 100).toFixed(1);
         if (savingsRate > 20) {
-            response += `✅ 您的儲蓄率為 ${savingsRate}%，表現優秀！\n`;
+            response += `??????????恃冪 ${savingsRate}%????????n`;
         } else if (savingsRate > 0) {
-            response += `⚠️ 您的儲蓄率為 ${savingsRate}%，建議提高到 20% 以上。\n`;
+            response += `?蹎? ????????恃冪 ${savingsRate}%???????朱??20% ?鼎??蹐彫`;
         } else {
-            response += `❌ 本月出現超支，建議檢視支出項目，找出可以節省的地方。\n`;
+            response += `???蟡??蝞?????粹??謘踐??蝎??畾?????剛??倦?蹓???啾??蹐彫`;
         }
     }
     
-    // 分類建議
+    // ????梁???
     const categoryStats = {};
     expenses.forEach(r => {
-        const category = r.category || '未分類';
+        const category = r.category || '?????;
         categoryStats[category] = (categoryStats[category] || 0) + (r.amount || 0);
     });
     
     const topCategory = Object.entries(categoryStats).sort((a, b) => b[1] - a[1])[0];
     if (topCategory && topCategory[1] > totalExpense * 0.3) {
-        response += `\n📌 注意：「${topCategory[0]}」佔總支出 ${((topCategory[1] / totalExpense) * 100).toFixed(1)}%，建議檢視是否有優化空間。\n`;
+        response += `\n?? ???垣??{topCategory[0]}????株都???${((topCategory[1] / totalExpense) * 100).toFixed(1)}%?????喟??秋■謢?銵?????硃??蹐彫`;
     }
     
-    response += `\n💪 理財小貼士：\n`;
-    response += `• 記帳是理財的第一步，持續記錄很重要\n`;
-    response += `• 建議設定預算，控制各分類支出\n`;
-    response += `• 定期檢視支出趨勢，找出不必要的開銷\n`;
-    response += `• 建立緊急預備金，至少 3-6 個月的生活費\n`;
+    response += `\n??????蟡冽??\n`;
+    response += `???殉朱??????????????蹓??殉死??綽???秋?n`;
+    response += `???梁?????????????????穿\n`;
+    response += `???堊垮??潘撩???穿????鳴?蝞??對??????吵`;
+    response += `???梁???綽??隞??謕???瑟??3-6 ?????????蟡功n`;
     
     return response;
 }
 
-// 分析分類
+// ??????
 function analyzeCategories(records) {
     const now = new Date();
     const currentMonth = now.getMonth();
@@ -1486,29 +1500,28 @@ function analyzeCategories(records) {
     
     const categoryStats = {};
     monthlyExpenses.forEach(r => {
-        const category = r.category || '未分類';
+        const category = r.category || '?????;
         categoryStats[category] = (categoryStats[category] || 0) + (r.amount || 0);
     });
     
     const total = monthlyExpenses.reduce((sum, r) => sum + (r.amount || 0), 0);
     const sortedCategories = Object.entries(categoryStats).sort((a, b) => b[1] - a[1]);
     
-    let response = `📂 支出分類分析：\n\n`;
+    let response = `?? ??穿????????n\n`;
     sortedCategories.forEach(([cat, amount], index) => {
         const percentage = ((amount / total) * 100).toFixed(1);
-        response += `${index + 1}. ${cat}：NT$ ${amount.toLocaleString('zh-TW')} (${percentage}%)\n`;
+        response += `${index + 1}. ${cat}?彿T$ ${amount.toLocaleString('zh-TW')} (${percentage}%)\n`;
     });
     
     return response;
 }
 
-// 分析趨勢
+// ??????
 function analyzeTrends(records) {
     const now = new Date();
     const monthlyData = {};
     
-    // 統計最近 6 個月的支出
-    for (let i = 5; i >= 0; i--) {
+    // ?舀０???擗?6 ????????    for (let i = 5; i >= 0; i--) {
         const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
         const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
         monthlyData[monthKey] = 0;
@@ -1526,22 +1539,22 @@ function analyzeTrends(records) {
     
     const values = Object.values(monthlyData);
     const avg = values.reduce((a, b) => a + b, 0) / values.length;
-    const trend = values[values.length - 1] > values[values.length - 2] ? '上升' : '下降';
+    const trend = values[values.length - 1] > values[values.length - 2] ? '???' : '??';
     
-    let response = `📈 支出趨勢分析（最近 6 個月）：\n\n`;
-    response += `• 平均月支出：NT$ ${Math.round(avg).toLocaleString('zh-TW')}\n`;
-    response += `• 最新趨勢：${trend}\n`;
+    let response = `?? ??穿????????擗?6 ?????\n\n`;
+    response += `????????蝬?NT$ ${Math.round(avg).toLocaleString('zh-TW')}\n`;
+    response += `????????嚚?${trend}\n`;
     
     return response;
 }
 
-// 分析預算
+// ??????
 function analyzeBudget(records) {
-    // 獲取預算設定
+    // ???????桀??
     const budgets = JSON.parse(localStorage.getItem('budgets') || '[]');
     
     if (budgets.length === 0) {
-        return `📋 您還沒有設定預算。\n\n建議為主要支出分類設定預算，這樣可以更好地控制支出。\n\n可以在「設置」中設定預算。`;
+        return `?? ???????桀??????蹐彫\n?梁???蝞??秋撮??蝞??遴筆頨急謍??不??謕???剛??皜豢??啾?????蝞蹐彫\n??剛???溘?質澈?菜????桀??????蹐?
     }
     
     const now = new Date();
@@ -1555,76 +1568,69 @@ function analyzeBudget(records) {
                recordDate.getFullYear() === currentYear;
     });
     
-    let response = `📋 預算執行情況：\n\n`;
+    let response = `?? ???????????n\n`;
     
     budgets.forEach(budget => {
         const categoryExpenses = monthlyExpenses
-            .filter(r => (r.category || '未分類') === budget.category)
+            .filter(r => (r.category || '?????) === budget.category)
             .reduce((sum, r) => sum + (r.amount || 0), 0);
         
         const percentage = (categoryExpenses / budget.amount * 100).toFixed(1);
-        const status = percentage > 100 ? '❌ 超支' : percentage > 80 ? '⚠️ 接近' : '✅ 正常';
+        const status = percentage > 100 ? '????? : percentage > 80 ? '?蹎? ?鈭?' : '??????;
         
-        response += `${budget.category}：\n`;
-        response += `• 預算：NT$ ${budget.amount.toLocaleString('zh-TW')}\n`;
-        response += `• 已用：NT$ ${categoryExpenses.toLocaleString('zh-TW')} (${percentage}%)\n`;
-        response += `• 狀態：${status}\n\n`;
+        response += `${budget.category}??n`;
+        response += `??????彿T$ ${budget.amount.toLocaleString('zh-TW')}\n`;
+        response += `?????謕蓉$ ${categoryExpenses.toLocaleString('zh-TW')} (${percentage}%)\n`;
+        response += `???????${status}\n\n`;
     });
     
     return response;
 }
-
-// 查詢特定日期的記錄
 function queryDateRecords(userMessage, records) {
-    // 解析日期 - 優先匹配 12/7、12-7 這種格式
+    // ????鈭? - ????撖? 12/7??2-7 ?謕??瞉?
     const datePatterns = [
-        /(\d{1,2})\s*[\/\-]\s*(\d{1,2})/g,  // 例如：12/7、12-7（優先）
-        /(\d{1,2})\s*月\s*(\d{1,2})\s*號/g,  // 例如：12月7號
-        /(\d{1,2})\s*[月\/\-]\s*(\d{1,2})/g,  // 例如：12月5、12/5、12-5
-        /(\d{1,2})\s*號/g,  // 例如：5號
-        /(\d{4})\s*[年\/\-]\s*(\d{1,2})\s*[月\/\-]\s*(\d{1,2})/g,  // 例如：2024年12月5日
-        /今天|今日/g,
-        /昨天|昨日/g,
-        /前天/g,
-        /(\d+)\s*天前/g
+        /(\d{1,2})\s*[\/\-]\s*(\d{1,2})/g,  // ?????2/7??2-7??????
+        /(\d{1,2})\s*??*(\d{1,2})\s*??g,  // ?????2????        /(\d{1,2})\s*[???\-]\s*(\d{1,2})/g,  // ?????2????2/5??2-5
+        /(\d{1,2})\s*??g,  // ???????        /(\d{4})\s*[??/\-]\s*(\d{1,2})\s*[???\-]\s*(\d{1,2})/g,  // ?????024??2????        /??鈭??謑?g,
+        /??訾?|??踐?/g,
+        /???/g,
+        /(\d+)\s*?剜??/g
     ];
     
     let targetDate = null;
     const now = new Date();
     
-    // 嘗試匹配各種日期格式
+    // ?謅疵?撖?????鈭??瞉?
     for (const pattern of datePatterns) {
         const match = userMessage.match(pattern);
         if (match) {
             const matchStr = match[0];
             
-            if (matchStr.includes('今天') || matchStr.includes('今日')) {
+            if (matchStr.includes('??鈭?) || matchStr.includes('??謑?)) {
                 targetDate = new Date(now);
-            } else if (matchStr.includes('昨天') || matchStr.includes('昨日')) {
+            } else if (matchStr.includes('??訾?') || matchStr.includes('??踐?')) {
                 targetDate = new Date(now);
                 targetDate.setDate(targetDate.getDate() - 1);
-            } else if (matchStr.includes('前天')) {
+            } else if (matchStr.includes('???')) {
                 targetDate = new Date(now);
                 targetDate.setDate(targetDate.getDate() - 2);
-            } else if (matchStr.includes('天前')) {
+            } else if (matchStr.includes('?剜??')) {
                 const daysAgo = parseInt(matchStr.match(/(\d+)/)[1]);
                 targetDate = new Date(now);
                 targetDate.setDate(targetDate.getDate() - daysAgo);
             } else {
-                // 解析月日格式（支持 12/7、12-7、12月7號等）
-                const numbers = matchStr.match(/\d+/g);
+                // ???????瞉??????12/7??2-7??2???賹???                const numbers = matchStr.match(/\d+/g);
                 if (numbers && numbers.length >= 2) {
                     const month = parseInt(numbers[0]);
                     const day = parseInt(numbers[1]);
-                    // 如果月份大於12，可能是 日/月 格式（如 7/12 表示12月7日）
+                    // ??????剜謘?2???鞈?? ?????瞉???? 7/12 ?萄??2???隡?
                     if (month > 12 && day <= 12) {
                         targetDate = new Date(now.getFullYear(), day - 1, month);
                     } else {
                         targetDate = new Date(now.getFullYear(), month - 1, day);
                     }
                 } else if (numbers && numbers.length === 1) {
-                    // 只有日期，使用當前月份
-                    const day = parseInt(numbers[0]);
+                    // ????鈭?????踐?????                    const day = parseInt(numbers[0]);
                     targetDate = new Date(now.getFullYear(), now.getMonth(), day);
                 }
             }
@@ -1633,12 +1639,11 @@ function queryDateRecords(userMessage, records) {
         }
     }
     
-    // 如果沒有找到日期，嘗試查找最近的記錄
+    // ??????????鈭????啗?貔???擗??殉死?
     if (!targetDate) {
-        // 如果用戶問「買了什麼」但沒有指定日期，返回最近的記錄
-        if (userMessage.includes('買了什麼') || userMessage.includes('花了什麼')) {
-            // 返回最近幾筆記錄
-            const recentRecords = records
+        // ?????踝???純?賜?哨???餅膠??????????鈭????豯?擗??殉死?
+        if (userMessage.includes('??????) || userMessage.includes('??????)) {
+            // 擗????擗?曇?????            const recentRecords = records
                 .filter(r => r.type === 'expense' || !r.type)
                 .sort((a, b) => {
                     const dateA = new Date(a.date);
@@ -1648,28 +1653,27 @@ function queryDateRecords(userMessage, records) {
                 .slice(0, 10);
             
             if (recentRecords.length === 0) {
-                return '📋 您最近沒有支出記錄。';
+                return '?? ???擗???止??蝞????;
             }
             
-            let response = '📋 您最近的支出記錄：\n\n';
+            let response = '?? ???擗???穿?殉死???n\n';
             recentRecords.forEach((record, index) => {
                 const date = new Date(record.date);
-                const dateStr = `${date.getMonth() + 1}月${date.getDate()}號`;
+                const dateStr = `${date.getMonth() + 1}??{date.getDate()}?貕?
                 const amount = record.amount || 0;
-                const category = record.category || '未分類';
-                response += `${index + 1}. ${dateStr} - ${category}：NT$ ${amount.toLocaleString('zh-TW')}\n`;
+                const category = record.category || '?????;
+                response += `${index + 1}. ${dateStr} - ${category}?彿T$ ${amount.toLocaleString('zh-TW')}\n`;
             });
             
             return response;
         }
         
-        return '📅 我沒有在您的問題中找到具體日期。\n\n您可以這樣問我：\n• "12月5號買了什麼"\n• "昨天花了什麼"\n• "查一下今天買了什麼"\n• "幾月幾號買了什麼東西"';
+        return '?? ??????祗???????????????謑?貔螞蹐彫\n??賃?遛?謕??????n??"12???賹?哨????\n??"??訾???????\n??"?銋?????剜?粹????\n??"??????????餅蔬豰?';
     }
     
-    // 格式化日期用於比較
-    const targetDateStr = `${targetDate.getFullYear()}-${String(targetDate.getMonth() + 1).padStart(2, '0')}-${String(targetDate.getDate()).padStart(2, '0')}`;
+    // ?瞉??謘踐??賹??瞏???    const targetDateStr = `${targetDate.getFullYear()}-${String(targetDate.getMonth() + 1).padStart(2, '0')}-${String(targetDate.getDate()).padStart(2, '0')}`;
     
-    // 查找該日期的記錄
+    // ?鈭歹?啗謑?賹??殉死?
     const dateRecords = records.filter(record => {
         const recordDate = new Date(record.date);
         const recordDateStr = `${recordDate.getFullYear()}-${String(recordDate.getMonth() + 1).padStart(2, '0')}-${String(recordDate.getDate()).padStart(2, '0')}`;
@@ -1677,28 +1681,28 @@ function queryDateRecords(userMessage, records) {
     });
     
     if (dateRecords.length === 0) {
-        const dateStr = `${targetDate.getMonth() + 1}月${targetDate.getDate()}號`;
-        return `📅 ${dateStr} 沒有找到任何記錄。\n\n您可以查看其他日期的記錄，或者告訴我您想查詢的具體日期。`;
+        const dateStr = `${targetDate.getMonth() + 1}月${targetDate.getDate()}日`;
+        return `在 ${dateStr} 沒有找到任何記帳記錄。\n請確認日期是否正確，或嘗試查詢其他日期的記錄。`;
     }
     
-    // 分類統計
+    // 分類記錄
     const expenses = dateRecords.filter(r => r.type === 'expense' || !r.type);
     const incomes = dateRecords.filter(r => r.type === 'income');
     const transfers = dateRecords.filter(r => r.type === 'transfer');
     
-    const dateStr = `${targetDate.getMonth() + 1}月${targetDate.getDate()}號`;
-    let response = `📅 ${dateStr} 的記錄：\n\n`;
+    const dateStr = `${targetDate.getMonth() + 1}月${targetDate.getDate()}日`;
+    let response = `在 ${dateStr} 的記錄如下：\n\n`;
     
     if (expenses.length > 0) {
         const totalExpense = expenses.reduce((sum, r) => sum + (r.amount || 0), 0);
-        response += `📤 支出 (${expenses.length} 筆，共 NT$ ${totalExpense.toLocaleString('zh-TW')})：\n`;
+        response += `支出 (${expenses.length} 筆記錄，共 NT$ ${totalExpense.toLocaleString('zh-TW')})：\n`;
         expenses.forEach((record, index) => {
             const category = record.category || '未分類';
             const amount = record.amount || 0;
             const account = record.account && typeof getAccounts === 'function' ? getAccounts().find(a => a.id === record.account)?.name : '';
             const member = record.member || '';
             const note = record.note ? ` (${record.note})` : '';
-            response += `${index + 1}. ${category}：NT$ ${amount.toLocaleString('zh-TW')}`;
+            response += `${index + 1}. ${category} NT$ ${amount.toLocaleString('zh-TW')}`;
             if (account) response += ` [${account}]`;
             if (member) response += ` [${member}]`;
             if (note) response += note;
@@ -1709,12 +1713,12 @@ function queryDateRecords(userMessage, records) {
     
     if (incomes.length > 0) {
         const totalIncome = incomes.reduce((sum, r) => sum + (r.amount || 0), 0);
-        response += `💰 收入 (${incomes.length} 筆，共 NT$ ${totalIncome.toLocaleString('zh-TW')})：\n`;
+        response += `收入 (${incomes.length} 筆記錄，共 NT$ ${totalIncome.toLocaleString('zh-TW')})：\n`;
         incomes.forEach((record, index) => {
             const category = record.category || '未分類';
             const amount = record.amount || 0;
             const account = record.account && typeof getAccounts === 'function' ? getAccounts().find(a => a.id === record.account)?.name : '';
-            response += `${index + 1}. ${category}：NT$ ${amount.toLocaleString('zh-TW')}`;
+            response += `${index + 1}. ${category} NT$ ${amount.toLocaleString('zh-TW')}`;
             if (account) response += ` [${account}]`;
             response += '\n';
         });
@@ -1722,10 +1726,10 @@ function queryDateRecords(userMessage, records) {
     }
     
     if (transfers.length > 0) {
-        response += `🔄 轉帳 (${transfers.length} 筆)：\n`;
+        response += `?? ?改??(${transfers.length} ????n`;
         transfers.forEach((record, index) => {
             const amount = record.amount || 0;
-            const account = record.account && typeof getAccounts === 'function' ? getAccounts().find(a => a.id === record.account)?.name : '';
+            const account = record.account && typeof getAccounts === 'function' ? getAccounts().find(a => a.id === record.account)?.name : ';
             response += `${index + 1}. NT$ ${amount.toLocaleString('zh-TW')}`;
             if (account) response += ` [${account}]`;
             response += '\n';
@@ -1735,30 +1739,28 @@ function queryDateRecords(userMessage, records) {
     return response;
 }
 
-// 查詢特定金額和分類的記錄
+// ?鈭亙眺?摮????????遴策??殉死?
 function queryAmountAndCategory(userMessage, records) {
-    // 提取金額
+    // ??????
     const amountMatches = userMessage.match(/(\d+)/g);
     if (!amountMatches || amountMatches.length === 0) {
-        return '💰 我沒有在您的問題中找到金額。\n\n您可以這樣問我：\n• "我什麼時候買午餐花了170"\n• "哪天買了東西花了500"';
+        return '?????????祗?????????????選??蹐彫\n??賃?遛?謕??????n??"????餅蔬??謕??????170"\n??"??訾?????璇舀迤???500"';
     }
     
-    // 取第一個數字作為金額（通常是最後提到的金額）
-    const targetAmount = parseFloat(amountMatches[amountMatches.length - 1]);
+    // ?謘暹斯????殉???蝎??選??謍啗?????綽?????????    const targetAmount = parseFloat(amountMatches[amountMatches.length - 1]);
     
     if (isNaN(targetAmount) || targetAmount <= 0) {
-        return '💰 我無法識別您提到的金額。\n\n請告訴我具體的金額，例如："我什麼時候買午餐花了170"';
+        return '?????哨????鈭止????????選??蹐彫\n?ｇ???格?????????選??????????餅蔬??謕??????170"';
     }
     
-    // 提取分類關鍵詞
-    const categoryKeywords = [
-        '午餐', '早餐', '晚餐', '宵夜', '食物', '餐', '飯',
-        '交通', '車', '公車', '捷運', '計程車', '油錢',
-        '購物', '買', '衣服', '鞋子', '用品',
-        '娛樂', '電影', '遊戲', '唱歌',
-        '醫療', '看病', '藥',
-        '房租', '水電', '電費', '水費', '網路',
-        '其他'
+    // ???????謚殷??    const categoryKeywords = [
+        '???', '???', '?謍?', '?啗??', '????, '??, '??,
+        '?剜??, '??, '?蟡?', '???', '?殷????, '?砲??,
+        '????, '??, '???', '???', '???',
+        '?∵??', '?擗', '???', '???',
+        '???', '???', '??,
+        '?頛?', '?鳩謆?, '?擗孕', '?葡蟡?, '?祈璆?,
+        '???'
     ];
     
     let targetCategory = null;
@@ -1769,7 +1771,7 @@ function queryAmountAndCategory(userMessage, records) {
         }
     }
     
-    // 如果沒有找到分類關鍵詞，嘗試從記錄中匹配分類名稱
+    // ?????????????謚殷?堊筑??謅疵?綜筆?????撖???????
     if (!targetCategory) {
         const allCategories = [...new Set(records.map(r => r.category).filter(c => c))];
         for (const cat of allCategories) {
@@ -1780,30 +1782,27 @@ function queryAmountAndCategory(userMessage, records) {
         }
     }
     
-    // 過濾記錄：匹配金額和分類（如果指定了分類）
-    let matchedRecords = records.filter(record => {
+    // ???殉死??城?????選?????????謚??堊垢??????    let matchedRecords = records.filter(record => {
         const recordAmount = record.amount || 0;
-        // 允許金額有小的誤差（±1元）
+        // ?蹓曇???????????捕?蝪????
         const amountMatch = Math.abs(recordAmount - targetAmount) <= 1;
         
         if (!amountMatch) return false;
         
-        // 如果是支出記錄
-        if (record.type === 'expense' || !record.type) {
-            // 如果指定了分類，檢查分類是否匹配
+        // ???????蝞???        if (record.type === 'expense' || !record.type) {
+            // ???????哨???遴筑??潘撓貔?????秋??撖?
             if (targetCategory) {
-                const recordCategory = record.category || '未分類';
+                const recordCategory = record.category || '?????;
                 return recordCategory.includes(targetCategory) || targetCategory.includes(recordCategory);
             }
-            // 如果沒有指定分類，只匹配金額
+            // ???????????????撖????
             return true;
         }
         
         return false;
     });
     
-    // 如果沒有找到完全匹配的，嘗試只匹配金額
-    if (matchedRecords.length === 0 && targetCategory) {
+    // ??????????堆??撖?????謅疵??賂??????    if (matchedRecords.length === 0 && targetCategory) {
         matchedRecords = records.filter(record => {
             const recordAmount = record.amount || 0;
             const amountMatch = Math.abs(recordAmount - targetAmount) <= 1;
@@ -1812,35 +1811,34 @@ function queryAmountAndCategory(userMessage, records) {
     }
     
     if (matchedRecords.length === 0) {
-        let response = `🔍 沒有找到符合條件的記錄。\n\n`;
+        let response = `?? ???????????颲?????蹐彫\n`;
         if (targetCategory) {
-            response += `搜尋條件：\n• 分類：${targetCategory}\n• 金額：NT$ ${targetAmount.toLocaleString('zh-TW')}\n\n`;
+            response += `?謚???颲??謇???????{targetCategory}\n??????彿T$ ${targetAmount.toLocaleString('zh-TW')}\n\n`;
         } else {
-            response += `搜尋條件：\n• 金額：NT$ ${targetAmount.toLocaleString('zh-TW')}\n\n`;
+            response += `?謚???颲??謇??????彿T$ ${targetAmount.toLocaleString('zh-TW')}\n\n`;
         }
-        response += `💡 提示：\n• 確認金額是否正確\n• 確認分類名稱是否匹配\n• 可以只問金額，例如："什麼時候花了170"`;
+        response += `???????n???????????秋????﹏n??????????????秋??撖?\n????剛??????????縈?"??餅蔬??謕???70"`;
         return response;
     }
     
-    // 按日期排序（最新的在前）
-    matchedRecords.sort((a, b) => {
+    // ??止??賹??制???????????    matchedRecords.sort((a, b) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
         return dateB - dateA;
     });
     
-    let response = `🔍 找到 ${matchedRecords.length} 筆符合條件的記錄：\n\n`;
+    let response = `?? ??? ${matchedRecords.length} ??瘜??????殉死???n\n`;
     
     matchedRecords.forEach((record, index) => {
         const date = new Date(record.date);
-        const dateStr = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}號`;
-        const category = record.category || '未分類';
+        const dateStr = `${date.getFullYear()}??{date.getMonth() + 1}??{date.getDate()}?貕?
+        const category = record.category || '?????;
         const amount = record.amount || 0;
-        const account = record.account && typeof getAccounts === 'function' ? getAccounts().find(a => a.id === record.account)?.name : '';
-        const member = record.member || '';
-        const note = record.note ? ` (${record.note})` : '';
+        const account = record.account && typeof getAccounts === 'function' ? getAccounts().find(a => a.id === record.account)?.name : ';
+        const member = record.member || ';
+        const note = record.note ? ` (${record.note})` : ';
         
-        response += `${index + 1}. ${dateStr} - ${category}：NT$ ${amount.toLocaleString('zh-TW')}`;
+        response += `${index + 1}. ${dateStr} - ${category}?彿T$ ${amount.toLocaleString('zh-TW')}`;
         if (account) response += ` [${account}]`;
         if (member) response += ` [${member}]`;
         if (note) response += note;
@@ -1850,48 +1848,46 @@ function queryAmountAndCategory(userMessage, records) {
     if (matchedRecords.length === 1) {
         const record = matchedRecords[0];
         const date = new Date(record.date);
-        const dateStr = `${date.getMonth() + 1}月${date.getDate()}號`;
-        response += `\n✅ 答案是：${dateStr}`;
+        const dateStr = `${date.getMonth() + 1}??{date.getDate()}?貕?
+        response += `\n????????${dateStr}`;
     } else {
-        response += `\n💡 找到多筆記錄，請查看上面的詳細列表。`;
+        response += `\n???????叟垓??殉死????鈭???豰??????萄?蹐?
     }
     
     return response;
 }
 
-// 查詢特定金額買了什麼（例如：1500是買了什麼）
+// ?鈭亙眺?摮?????????餅???????500??芰?哨???餅??
 function queryAmountOnly(userMessage, records, targetAmount) {
-    // 過濾記錄：匹配金額
-    const matchedRecords = records.filter(record => {
+    // ???殉死??城??????    const matchedRecords = records.filter(record => {
         const recordAmount = record.amount || 0;
-        // 允許金額有小的誤差（±1元）
+        // ?蹓曇???????????捕?蝪????
         const amountMatch = Math.abs(recordAmount - targetAmount) <= 1;
         return amountMatch && (record.type === 'expense' || !record.type);
     });
     
     if (matchedRecords.length === 0) {
-        return `🔍 沒有找到金額為 NT$ ${targetAmount.toLocaleString('zh-TW')} 的支出記錄。\n\n💡 提示：\n• 確認金額是否正確\n• 可能該金額的記錄還沒有記錄`;
+        return `?? ???????????NT$ ${targetAmount.toLocaleString('zh-TW')} ????蝞???蹐彫\n???????n???????????秋????﹏n????迎??啗??選???殉死??????????
     }
     
-    // 按日期排序（最新的在前）
-    matchedRecords.sort((a, b) => {
+    // ??止??賹??制???????????    matchedRecords.sort((a, b) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
         return dateB - dateA;
     });
     
-    let response = `💰 金額 NT$ ${targetAmount.toLocaleString('zh-TW')} 的支出記錄：\n\n`;
+    let response = `?????? NT$ ${targetAmount.toLocaleString('zh-TW')} ????蝞????\n\n`;
     
     matchedRecords.forEach((record, index) => {
         const date = new Date(record.date);
-        const dateStr = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}號`;
-        const category = record.category || '未分類';
+        const dateStr = `${date.getFullYear()}??{date.getMonth() + 1}??{date.getDate()}?貕?
+        const category = record.category || '?????;
         const amount = record.amount || 0;
-        const account = record.account && typeof getAccounts === 'function' ? getAccounts().find(a => a.id === record.account)?.name : '';
-        const member = record.member || '';
-        const note = record.note ? ` (${record.note})` : '';
+        const account = record.account && typeof getAccounts === 'function' ? getAccounts().find(a => a.id === record.account)?.name : ';
+        const member = record.member || ';
+        const note = record.note ? ` (${record.note})` : ';
         
-        response += `${index + 1}. ${dateStr} - ${category}：NT$ ${amount.toLocaleString('zh-TW')}`;
+        response += `${index + 1}. ${dateStr} - ${category}?彿T$ ${amount.toLocaleString('zh-TW')}`;
         if (account) response += ` [${account}]`;
         if (member) response += ` [${member}]`;
         if (note) response += note;
@@ -1901,22 +1897,22 @@ function queryAmountOnly(userMessage, records, targetAmount) {
     if (matchedRecords.length === 1) {
         const record = matchedRecords[0];
         const date = new Date(record.date);
-        const dateStr = `${date.getMonth() + 1}月${date.getDate()}號`;
-        const category = record.category || '未分類';
-        response += `\n✅ 答案是：${dateStr} 買了 ${category}`;
+        const dateStr = `${date.getMonth() + 1}??{date.getDate()}?貕?
+        const category = record.category || '?????;
+        response += `\n????????${dateStr} ??? ${category}`;
     }
     
     return response;
 }
 
-// 查詢特定日期和金額的記錄（例如：12/7買了1500的東西）
+// ?鈭亙眺?摮??鈭?????選???殉死?????縈?12/7???1500????潮?
 function queryDateAndAmount(userMessage, records, dateMatch, targetAmount) {
-    // 解析日期
+    // ????鈭?
     const month = parseInt(dateMatch[1]);
     const day = parseInt(dateMatch[2]);
     const now = new Date();
     
-    // 如果月份大於12，可能是 日/月 格式
+    // ??????剜謘?2???鞈?? ?????瞉?
     let targetDate;
     if (month > 12 && day <= 12) {
         targetDate = new Date(now.getFullYear(), day - 1, month);
@@ -1924,11 +1920,9 @@ function queryDateAndAmount(userMessage, records, dateMatch, targetAmount) {
         targetDate = new Date(now.getFullYear(), month - 1, day);
     }
     
-    // 格式化日期用於比較
-    const targetDateStr = `${targetDate.getFullYear()}-${String(targetDate.getMonth() + 1).padStart(2, '0')}-${String(targetDate.getDate()).padStart(2, '0')}`;
+    // ?瞉??謘踐??賹??瞏???    const targetDateStr = `${targetDate.getFullYear()}-${String(targetDate.getMonth() + 1).padStart(2, '0')}-${String(targetDate.getDate()).padStart(2, '0')}`;
     
-    // 查找該日期且金額匹配的記錄
-    const matchedRecords = records.filter(record => {
+    // ?鈭歹?啗謑?賹?????撖??????    const matchedRecords = records.filter(record => {
         const recordDate = new Date(record.date);
         const recordDateStr = `${recordDate.getFullYear()}-${String(recordDate.getMonth() + 1).padStart(2, '0')}-${String(recordDate.getDate()).padStart(2, '0')}`;
         const recordAmount = record.amount || 0;
@@ -1936,22 +1930,22 @@ function queryDateAndAmount(userMessage, records, dateMatch, targetAmount) {
         return recordDateStr === targetDateStr && amountMatch && (record.type === 'expense' || !record.type);
     });
     
-    const dateStr = `${targetDate.getMonth() + 1}月${targetDate.getDate()}號`;
+    const dateStr = `${targetDate.getMonth() + 1}??{targetDate.getDate()}?貕?
     
     if (matchedRecords.length === 0) {
-        return `🔍 ${dateStr} 沒有找到金額為 NT$ ${targetAmount.toLocaleString('zh-TW')} 的支出記錄。\n\n💡 提示：\n• 確認日期是否正確\n• 確認金額是否正確`;
+        return `?? ${dateStr} ???????????NT$ ${targetAmount.toLocaleString('zh-TW')} ????蝞???蹐彫\n???????n???????鈭???秋????﹏n???????????秋????︶;
     }
     
-    let response = `📅 ${dateStr} 金額 NT$ ${targetAmount.toLocaleString('zh-TW')} 的記錄：\n\n`;
+    let response = `?? ${dateStr} ??? NT$ ${targetAmount.toLocaleString('zh-TW')} ??????\n\n`;
     
     matchedRecords.forEach((record, index) => {
-        const category = record.category || '未分類';
+        const category = record.category || '?????;
         const amount = record.amount || 0;
-        const account = record.account && typeof getAccounts === 'function' ? getAccounts().find(a => a.id === record.account)?.name : '';
-        const member = record.member || '';
-        const note = record.note ? ` (${record.note})` : '';
+        const account = record.account && typeof getAccounts === 'function' ? getAccounts().find(a => a.id === record.account)?.name : ';
+        const member = record.member || ';
+        const note = record.note ? ` (${record.note})` : ';
         
-        response += `${index + 1}. ${category}：NT$ ${amount.toLocaleString('zh-TW')}`;
+        response += `${index + 1}. ${category}?彿T$ ${amount.toLocaleString('zh-TW')}`;
         if (account) response += ` [${account}]`;
         if (member) response += ` [${member}]`;
         if (note) response += note;
@@ -1960,22 +1954,68 @@ function queryDateAndAmount(userMessage, records, dateMatch, targetAmount) {
     
     if (matchedRecords.length === 1) {
         const record = matchedRecords[0];
-        const category = record.category || '未分類';
-        response += `\n✅ 答案是：${category}`;
+        const category = record.category || '?????;
+        response += `\n????????${category}`;
     }
     
     return response;
 }
-
-// 一般回應
 function getGeneralResponse(userMessage, records) {
     const responses = [
-        '我理解您的問題。讓我為您分析一下記帳數據...',
-        '這是個好問題！根據您的記帳記錄...',
-        '讓我查看一下您的財務狀況...',
-        '根據您的記帳習慣，我建議...'
+        '?????蹌????選?蹇???叟冪??????????????..',
+        '?謕???????撮赯?謍梱?????????..',
+        '???鈭????蹌???謕???..',
+        '?撖?????殉朱??????梁???..'
     ];
     
-    return responses[Math.floor(Math.random() * responses.length)] + '\n\n您可以問我關於支出、收入、分類、趨勢、預算等問題，或者查詢特定日期的記錄（例如："12月5號買了什麼"），我會根據您的記帳數據提供分析。';
+    return responses[Math.floor(Math.random() * responses.length)] + '\n\n??賃???????瞏叟??蝞蹓澗??銋蹓??遴窖?蹓暸??嚗肅蹓???????????堊??堆撕?瑟謍梱??賹??殉死?????縈?"12???賹?哨??????????撖?????殉朱??鞊?????????;
 }
+
+
+
+function generateMonthlyIncomeExpenseList(records, userMessage) {
+    if (!Array.isArray(records) || records.length === 0) {
+        return '?桀?瘝?閮董鞈?嚗??啣?撟曄??嗅??箏?嚗?撠梯撟思??渡?瘥?皜??;
+    }
+    const now = new Date();
+    const ymMatch = String(userMessage || ').match(/(20\d{2})[\/\-撟弼(\d{1,2})/);
+    const mMatch = String(userMessage || ').match(/(\d{1,2})??);
+    let targetYear = now.getFullYear();
+    let targetMonth = now.getMonth() + 1;
+    if (ymMatch) {
+        targetYear = Number(ymMatch[1]);
+        targetMonth = Number(ymMatch[2]);
+    } else if (mMatch) {
+        targetMonth = Number(mMatch[1]);
+    }
+
+    const monthRecords = records.filter(r => {
+        const d = new Date(r.date);
+        return d.getFullYear() === targetYear && (d.getMonth() + 1) === targetMonth;
+    });
+    const expenses = monthRecords.filter(r => r.type === 'expense' || !r.type);
+    const incomes = monthRecords.filter(r => r.type === 'income');
+    const expenseTotal = expenses.reduce((s, r) => s + (r.amount || 0), 0);
+    const incomeTotal = incomes.reduce((s, r) => s + (r.amount || 0), 0);
+
+    const monthLabel = `${targetYear}-${String(targetMonth).padStart(2, '0')}`;
+    let text = `?? ${monthLabel} 瘥??嗆皜\n\n`;
+    text += `?嗅嚗T$ ${incomeTotal.toLocaleString('zh-TW')}嚗?{incomes.length} 蝑?\n`;
+    text += `?臬嚗T$ ${expenseTotal.toLocaleString('zh-TW')}嚗?{expenses.length} 蝑?\n`;
+    text += `蝯?嚗T$ ${(incomeTotal - expenseTotal).toLocaleString('zh-TW')}\n\n`;
+    text += `??交?蝝啜n`;
+    if (!incomes.length) text += `- ?祆?瘝??嗅閮?\n`;
+    incomes.slice().sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 20).forEach(r => {
+        text += `- ${r.date || '}嚚?{r.category || '?芸?憿?}嚚T$ ${(r.amount || 0).toLocaleString('zh-TW')}\n`;
+    });
+    text += `\n??箸?蝝啜n`;
+    if (!expenses.length) text += `- ?祆?瘝??臬閮?\n`;
+    expenses.slice().sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 20).forEach(r => {
+        text += `- ${r.date || '}嚚?{r.category || '?芸?憿?}嚚T$ ${(r.amount || 0).toLocaleString('zh-TW')}\n`;
+    });
+    text += `\n?航撓?乓?{targetYear}-${String(targetMonth === 12 ? 1 : targetMonth + 1).padStart(2, '0')} ?嗆皜???銝???;
+    return text;
+}
+
+
 

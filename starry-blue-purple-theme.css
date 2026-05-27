@@ -1,0 +1,245 @@
+/* ========== 星空藍紫主題 - 參考指定圖片配色 ========== */
+
+:root[data-theme="starry-blue-purple"] {
+    /* 主要顏色系統 - 深藍紫 + 亮藍點綴 */
+    --color-primary: #6B5B95;
+    --color-primary-light: #8B7BA8;
+    --color-primary-lighter: #B8A8D8;
+    --color-primary-dark: #4A3C75;
+
+    /* 次要顏色 - 深紫藍 */
+    --color-secondary: #5D4E85;
+    --color-secondary-light: #7A6B9E;
+    --color-secondary-dark: #3E3259;
+
+    /* 強調色 - 亮藍紫 */
+    --color-accent: #9B8BCD;
+    --color-accent-light: #B8A8E0;
+    --color-accent-dark: #7A6BA8;
+
+    /* 狀態顏色 */
+    --color-success: #66BB6A;
+    --color-danger: #EF5350;
+    --color-warning: #FFA726;
+    --color-info: #42A5F5;
+    --color-error: var(--color-danger);
+
+    /* 背景顏色系統 - 玻璃感但保持對比 */
+    --bg-primary: linear-gradient(135deg, rgba(107, 91, 149, 0.88) 0%, rgba(93, 78, 133, 0.75) 55%, rgba(155, 139, 205, 0.35) 100%);
+    --bg-body: rgba(20, 15, 35, 0.85);
+    --bg-body-strong: rgba(15, 10, 30, 0.90);
+    --bg-gradient: linear-gradient(135deg, rgba(107, 91, 149, 0.75) 0%, rgba(93, 78, 133, 0.65) 55%, rgba(155, 139, 205, 0.45) 100%);
+    --bg-gradient-light: linear-gradient(135deg, rgba(107, 91, 149, 0.15) 0%, rgba(93, 78, 133, 0.12) 100%);
+    --bg-white: rgba(255, 255, 255, 0.92);
+    --bg-card: rgba(255, 255, 255, 0.88);
+    --bg-light: rgba(245, 240, 255, 0.75);
+    --bg-lighter: rgba(235, 230, 250, 0.65);
+    --bg-soft: rgba(107, 91, 149, 0.18);
+    --bg-soft-strong: rgba(107, 91, 149, 0.28);
+
+    /* 文字顏色系統 - 深色確保對比 */
+    --text-primary: rgba(30, 20, 50, 0.95);
+    --text-secondary: rgba(60, 45, 85, 0.85);
+    --text-tertiary: rgba(90, 75, 115, 0.75);
+    --text-strong: rgba(20, 10, 40, 0.98);
+    --text-white: rgba(255, 255, 255, 0.96);
+
+    /* 邊框顏色系統 */
+    --border-primary: rgba(107, 91, 149, 0.45);
+    --border-light: rgba(155, 139, 205, 0.25);
+    --border-medium: rgba(184, 168, 216, 0.35);
+    --card-border-color: rgba(107, 91, 149, 0.30);
+    --control-border-color: rgba(155, 139, 205, 0.28);
+    --table-border-color: rgba(155, 139, 205, 0.20);
+
+    /* 陰影系統 */
+    --shadow-primary: 0 18px 55px rgba(107, 91, 149, 0.25);
+    --shadow-primary-lg: 0 28px 80px rgba(107, 91, 149, 0.35);
+
+    /* RGBA 透明度變體 */
+    --color-primary-rgba-08: rgba(107, 91, 149, 0.08);
+    --color-primary-rgba-10: rgba(107, 91, 149, 0.10);
+    --color-primary-rgba-12: rgba(107, 91, 149, 0.12);
+    --color-primary-rgba-15: rgba(107, 91, 149, 0.15);
+    --color-primary-rgba-18: rgba(107, 91, 149, 0.18);
+    --color-primary-rgba-20: rgba(107, 91, 149, 0.20);
+    --color-primary-rgba-22: rgba(107, 91, 149, 0.22);
+    --color-primary-rgba-25: rgba(107, 91, 149, 0.25);
+    --color-primary-rgba-30: rgba(107, 91, 149, 0.30);
+    --color-primary-rgba-40: rgba(107, 91, 149, 0.40);
+
+    --color-primary-light-rgba-10: rgba(139, 123, 168, 0.10);
+    --color-primary-light-rgba-15: rgba(139, 123, 168, 0.15);
+    --color-primary-light-rgba-20: rgba(139, 123, 168, 0.20);
+    --color-primary-light-rgba-25: rgba(139, 123, 168, 0.25);
+    --color-primary-light-rgba-30: rgba(139, 123, 168, 0.30);
+    --color-primary-light-rgba-40: rgba(139, 123, 168, 0.40);
+
+    --color-secondary-rgba-10: rgba(93, 78, 133, 0.10);
+    --color-secondary-rgba-15: rgba(93, 78, 133, 0.15);
+    --color-secondary-rgba-20: rgba(93, 78, 133, 0.20);
+    --color-secondary-rgba-25: rgba(93, 78, 133, 0.25);
+    --color-secondary-rgba-30: rgba(93, 78, 133, 0.30);
+    --color-secondary-rgba-40: rgba(93, 78, 133, 0.40);
+
+    /* 側邊欄顏色 */
+    --action-side-bg: color-mix(in srgb, rgba(255, 255, 255, 0.90) 78%, rgba(107, 91, 149, 0.12));
+    --action-side-bg-hover: color-mix(in srgb, rgba(255, 255, 255, 0.90) 68%, rgba(107, 91, 149, 0.22));
+    --action-side-text: var(--text-primary);
+}
+
+:root[data-theme="starry-blue-purple"] body {
+    background: url("https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg") center/cover no-repeat fixed;
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+}
+
+:root[data-theme="starry-blue-purple"] body::before {
+    display: none;
+}
+
+/* 卡片樣式調整 */
+:root[data-theme="starry-blue-purple"] .card,
+:root[data-theme="starry-blue-purple"] .investment-card,
+:root[data-theme="starry-blue-purple"] .accounting-card {
+    background: var(--bg-card);
+    border: 1px solid var(--card-border-color);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* 按鈕樣式 */
+:root[data-theme="starry-blue-purple"] .btn-primary,
+:root[data-theme="starry-blue-purple"] .buy-btn,
+:root[data-theme="starry-blue-purple"] .regular-investment-btn {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    color: var(--text-white);
+    border: none;
+    box-shadow: 0 4px 15px rgba(107, 91, 149, 0.3);
+}
+
+:root[data-theme="starry-blue-purple"] .btn-primary:hover,
+:root[data-theme="starry-blue-purple"] .buy-btn:hover,
+:root[data-theme="starry-blue-purple"] .regular-investment-btn:hover {
+    background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-secondary-light) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(107, 91, 149, 0.4);
+}
+
+/* 對話框樣式 */
+:root[data-theme="starry-blue-purple"] .modal,
+:root[data-theme="starry-blue-purple"] .dialog,
+:root[data-theme="starry-blue-purple"] .advisor-message-content {
+    background: var(--bg-white);
+    border: 1px solid var(--border-medium);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+:root[data-theme="starry-blue-purple"] .advisor-message {
+    color: var(--text-primary);
+}
+
+:root[data-theme="starry-blue-purple"] .advisor-message-text {
+    color: var(--text-primary);
+}
+
+/* 表格樣式 */
+:root[data-theme="starry-blue-purple"] .advisor-table {
+    background: var(--bg-white);
+    border-color: var(--border-light);
+}
+
+:root[data-theme="starry-blue-purple"] .advisor-table thead {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    color: var(--text-white);
+}
+
+:root[data-theme="starry-blue-purple"] .advisor-table td {
+    color: var(--text-primary);
+    border-color: var(--border-light);
+}
+
+:root[data-theme="starry-blue-purple"] .advisor-table .income-row .amount-cell {
+    color: #66BB6A;
+}
+
+:root[data-theme="starry-blue-purple"] .advisor-table .expense-row .amount-cell {
+    color: #EF5350;
+}
+
+/* 返回按鈕 */
+:root[data-theme="starry-blue-purple"] .back-btn,
+:root[data-theme="starry-blue-purple"] .return-btn {
+    background: var(--bg-soft);
+    color: var(--text-primary);
+    border: 1px solid var(--border-light);
+}
+
+:root[data-theme="starry-blue-purple"] .back-btn:hover,
+:root[data-theme="starry-blue-purple"] .return-btn:hover {
+    background: var(--bg-soft-strong);
+    border-color: var(--border-primary);
+}
+
+/* 智慧分析卡片 */
+:root[data-theme="starry-blue-purple"] .smart-analysis-card,
+:root[data-theme="starry-blue-purple"] .smart-reminder-card {
+    background: var(--bg-card);
+    border: 1px solid var(--card-border-color);
+    color: var(--text-primary);
+}
+
+/* 預算設定卡片 */
+:root[data-theme="starry-blue-purple"] .budget-card,
+:root[data-theme="starry-blue-purple"] .monthly-plan-card {
+    background: var(--bg-card);
+    border: 1px solid var(--card-border-color);
+    color: var(--text-primary);
+}
+
+/* 投資相關卡片 */
+:root[data-theme="starry-blue-purple"] .holding-card,
+:root[data-theme="starry-blue-purple"] .buy-card,
+:root[data-theme="starry-blue-purple"] .sell-card,
+:root[data-theme="starry-blue-purple"] .dividend-card {
+    background: var(--bg-card);
+    border: 1px solid var(--card-border-color);
+    color: var(--text-primary);
+}
+
+/* 支出模式分析卡片 */
+:root[data-theme="starry-blue-purple"] .expense-pattern-card {
+    background: var(--bg-card);
+    border: 1px solid var(--card-border-color);
+    color: var(--text-primary);
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    :root[data-theme="starry-blue-purple"] .modal,
+    :root[data-theme="starry-blue-purple"] .dialog {
+        max-width: 95vw;
+        max-height: 90vh;
+        margin: 5vh auto;
+        border-radius: 16px;
+    }
+    
+    :root[data-theme="starry-blue-purple"] .advisor-message-content {
+        max-width: 85%;
+    }
+}
+
+@media (max-width: 480px) {
+    :root[data-theme="starry-blue-purple"] .modal,
+    :root[data-theme="starry-blue-purple"] .dialog {
+        max-width: 100vw;
+        max-height: 100vh;
+        margin: 0;
+        border-radius: 0;
+    }
+    
+    :root[data-theme="starry-blue-purple"] .advisor-message-content {
+        max-width: 80%;
+    }
+}

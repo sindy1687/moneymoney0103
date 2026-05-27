@@ -125,3 +125,10 @@ function getStorageInfo() {
     };
 }
 
+if (typeof window !== 'undefined') {
+    window.compressImage = compressImage;
+    window.safeSetItem = safeSetItem;
+    window.compressAllIcons = compressAllIcons;
+    window.getStorageInfo = getStorageInfo;
+}
+

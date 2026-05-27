@@ -1,4 +1,4 @@
-﻿:root[data-theme="money"] {
+:root[data-theme="money"] {
     --color-primary: #2c3e50;
     --color-primary-light: #34495e;
     --color-primary-lighter: #7f8c8d;
@@ -14806,7 +14806,6 @@ width: 100%;
     transition: all var(--transition-base);
     background: linear-gradient(180deg, color-mix(in srgb, var(--bg-white) 92%, transparent) 0%, color-mix(in srgb, var(--bg-white) 86%, transparent) 100%);
     box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
-    transform: translateZ(0);
 }
 
 .theme-item:hover {
@@ -17304,10 +17303,22 @@ width: 100%;
     background: var(--bg-light);
     border-radius: 8px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 8px;
     font-size: 14px;
     font-weight: 500;
+}
+
+.calc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calc-row.highlight {
+    padding-top: 8px;
+    border-top: 1px solid var(--border-color);
+    font-weight: 600;
 }
 
 .pnl-value {
@@ -17321,6 +17332,178 @@ width: 100%;
 
 .pnl-value.negative {
     color: var(--color-danger);
+}
+
+/* 每月摘要樣式 */
+.page-monthly-summary {
+    padding: 16px;
+    background: var(--bg-primary);
+    min-height: 100vh;
+}
+
+.monthly-summary-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.monthly-summary-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.monthly-summary-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.monthly-summary-card {
+    background: var(--bg-light);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow-primary);
+}
+
+.monthly-summary-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.monthly-summary-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.monthly-summary-net {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.monthly-summary-net.positive {
+    color: var(--color-success);
+}
+
+.monthly-summary-net.negative {
+    color: var(--color-danger);
+}
+
+.monthly-summary-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.monthly-summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.monthly-summary-label {
+    color: var(--text-tertiary);
+}
+
+.monthly-summary-value {
+    font-weight: 500;
+}
+
+.monthly-summary-value.income {
+    color: var(--color-success);
+}
+
+.monthly-summary-value.expense {
+    color: var(--color-danger);
+}
+
+.monthly-summary-value.transfer {
+    color: var(--text-secondary);
+}
+
+.monthly-summary-expand-btn {
+    width: 100%;
+    padding: 8px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.monthly-summary-expand-btn:hover {
+    background: var(--bg-light);
+}
+
+.monthly-summary-records {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+}
+
+.monthly-records-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.monthly-record-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    background: var(--bg-primary);
+    border-radius: 8px;
+}
+
+.monthly-record-date {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    min-width: 80px;
+}
+
+.monthly-record-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.monthly-record-category {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.monthly-record-note {
+    font-size: 12px;
+    color: var(--text-tertiary);
+}
+
+.monthly-record-amount {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.monthly-record-amount.income {
+    color: var(--color-success);
+}
+
+.monthly-record-amount.expense {
+    color: var(--color-danger);
+}
+
+.monthly-record-amount.transfer {
+    color: var(--text-secondary);
 }
 
 .portfolio-list {
@@ -20757,14 +20940,15 @@ width: 100%;
 }
 
 .form-checkbox:checked::after {
-    content: '?';
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    color: var(--bg-white);
-    font-size: 14px;
-    font-weight: bold;
+    width: 5px;
+    height: 10px;
+    border: solid var(--bg-white);
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, -58%) rotate(45deg);
 }
 
 .form-checkbox-text {
@@ -21219,7 +21403,7 @@ width: 100%;
 }
 
 .form-submit-btn::before {
-    content: '?';
+    content: none;
     font-size: 18px;
     animation: sparkle 2s ease-in-out infinite;
 }
@@ -23778,6 +23962,45 @@ transform: scale(0.99);
     margin-top: 24px;
 }
 
+.dca-setup-page .form-checkbox-label {
+    min-height: 52px;
+    align-items: center;
+    padding: 12px 16px;
+    line-height: 1.35;
+}
+
+.dca-setup-page .form-checkbox {
+    width: 22px;
+    height: 22px;
+}
+
+.dca-setup-page .form-checkbox:checked::after {
+    content: '';
+    width: 6px;
+    height: 11px;
+    border: solid var(--bg-white);
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, -58%) rotate(45deg);
+}
+
+.dca-setup-page .form-checkbox-text {
+    min-width: 0;
+    line-height: 1.4;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+}
+
+.dca-setup-actions .form-submit-btn {
+    min-height: 56px;
+    padding: 14px 20px;
+    line-height: 1.2;
+    font-family: inherit;
+}
+
+.dca-setup-actions .form-submit-btn::before {
+    content: none;
+}
+
 @media (max-width: 576px) {
     .dca-page-header,
     .dca-setup-header {
@@ -25977,7 +26200,7 @@ transform: scale(0.99);
     }
 }
 
-/* 小屏幕手機優化（?375px） */
+/* 小屏幕手機優化（≤375px） */
 @media (max-width: 375px) {
     .category-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -26103,8 +26326,8 @@ transform: scale(0.99);
     .input-section {
         /* 使用固定定位，避免鍵盤彈出時移位 */
         position: fixed;
-        /* 確保在鍵盤彈出時保持位置 */
-        will-change: transform;
+        /* 避免手機端長期保留獨立合成圖層 */
+        will-change: auto;
     }
     
     /* 防止body在鍵盤彈出時滾動 */
@@ -26118,6 +26341,11 @@ transform: scale(0.99);
 
 /* 觸控優化 */
 @media (hover: none) and (pointer: coarse) {
+    .theme-video-background,
+    .theme-video-background .theme-video {
+        display: none !important;
+    }
+
     /* 增大觸控目標（符合Apple和Google的44x44px最小觸控目標） */
     button,
     .category-item,
@@ -26219,10 +26447,10 @@ transform: scale(0.99);
     .stock-list,
     .budget-list {
         -webkit-overflow-scrolling: touch;
-        will-change: scroll-position;
-        transform: translateZ(0); /* 啟用GPU加速 */
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
+        will-change: auto;
+        transform: none;
+        backface-visibility: visible;
+        -webkit-backface-visibility: visible;
     }
     
     /* 優化卡片陰影（手機上減少陰影以提升性能） */
@@ -26231,8 +26459,8 @@ transform: scale(0.99);
     .stock-item-card,
     .budget-item {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        transform: translateZ(0); /* 啟用GPU加速 */
-        will-change: transform;
+        transform: none;
+        will-change: auto;
     }
     
     /* 性能優化：減少重繪 */
@@ -26240,10 +26468,10 @@ transform: scale(0.99);
     .transaction-item,
     .key-btn,
     .tab-btn {
-        transform: translateZ(0);
-        will-change: transform;
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
+        transform: none;
+        will-change: auto;
+        backface-visibility: visible;
+        -webkit-backface-visibility: visible;
     }
     
     /* 減少動畫以提高性能 */
@@ -26265,7 +26493,7 @@ transform: scale(0.99);
     img {
         image-rendering: -webkit-optimize-contrast;
         image-rendering: crisp-edges;
-        transform: translateZ(0);
+        transform: none;
     }
     
     /* 減少模糊效果以提升性能 */
@@ -26276,8 +26504,8 @@ transform: scale(0.99);
     
     /* 優化輸入區域 */
     .input-section {
-        transform: translateZ(0);
-        will-change: transform;
+        transform: none;
+        will-change: auto;
     }
     
     /* 優化文字換行 */
@@ -26360,7 +26588,7 @@ transform: scale(0.99);
     }
 }
 
-/* 超小屏幕優化（?320px） */
+/* 超小屏幕優化（≤320px） */
 @media (max-width: 320px) {
     .category-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -27512,6 +27740,77 @@ transform: scale(0.99);
     }
 }
 
+/* Advisor Table Styles */
+.advisor-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 12px 0 !important;
+    font-size: var(--font-sm) !important;
+    background: var(--bg-white) !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.advisor-table thead {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%) !important;
+    color: var(--text-white) !important;
+}
+
+.advisor-table th {
+    padding: 10px 12px !important;
+    text-align: left !important;
+    font-weight: 600 !important;
+    font-size: var(--font-sm) !important;
+    border-bottom: 2px solid var(--color-primary-dark) !important;
+}
+
+.advisor-table td {
+    padding: 10px 12px !important;
+    border-bottom: 1px solid var(--border-light) !important;
+    color: var(--text-primary) !important;
+}
+
+.advisor-table tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+.advisor-table tbody tr:hover {
+    background: var(--bg-hover) !important;
+}
+
+.advisor-table .amount-cell {
+    text-align: right !important;
+    font-weight: 600 !important;
+    font-family: 'Courier New', monospace !important;
+}
+
+.advisor-table .income-row .amount-cell {
+    color: #10b981 !important;
+}
+
+.advisor-table .expense-row .amount-cell {
+    color: #ef4444 !important;
+}
+
+.advisor-table .category-cell {
+    font-weight: 500 !important;
+}
+
+.advisor-table .date-cell {
+    color: var(--text-secondary) !important;
+    font-size: var(--font-xs) !important;
+}
+
+.advisor-table-summary {
+    background: var(--bg-secondary) !important;
+    font-weight: 600 !important;
+}
+
+.advisor-table-summary td {
+    border-top: 2px solid var(--border-medium) !important;
+}
+
 @media (max-width: 480px) {
     .history-advisor-chat {
         width: 100% !important;
@@ -27591,7 +27890,7 @@ transform: scale(0.99);
     -webkit-overflow-scrolling: touch !important;
     overscroll-behavior: contain !important;
     touch-action: pan-y !important;
-    will-change: scroll-position !important;
+    will-change: auto !important;
     position: relative !important;
     z-index: 1 !important;
 }
@@ -27776,7 +28075,7 @@ transform: scale(0.99);
         overscroll-behavior: contain !important;
         height: 0 !important;
         touch-action: pan-y !important;
-        will-change: scroll-position !important;
+        will-change: auto !important;
     }
     
     .history-transaction-group {
@@ -36070,7 +36369,7 @@ body {
 :root[data-theme="starry"] select:focus {
     background: rgba(255, 255, 255, 0.12) !important;
     border-color: var(--color-secondary) !important;
-    box-shadow: 0 0 20px rgba(236, 72, 153, 0.3) !important, inset 0 0 10px rgba(107, 70, 193, 0.1) !important;
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.3), inset 0 0 10px rgba(107, 70, 193, 0.1) !important;
     transform: translateY(-1px) !important;
 }
 
@@ -41916,11 +42215,11 @@ html:has([data-theme="shinobu"]) *[class*="budget-remaining"] {
     backdrop-filter: blur(25px) saturate(200%) !important;
     -webkit-backdrop-filter: blur(25px) saturate(200%) !important;
     border-color: rgba(100, 255, 218, 0.5) !important;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4) !important, inset 0 1px 0 rgba(255, 255, 255, 0.2) !important, 0 0 20px rgba(100, 255, 218, 0.2) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 20px rgba(100, 255, 218, 0.2) !important;
     transform: translateY(-4px) scale(1.02) !important;
 }
 
-/* 夜�??�季主�? - 定�?定�??��?毛玻?��???*/
+/* 夜光四季主題 - 定期定額毛玻璃效果 */
 [data-theme="nightglowSeasons"] .monthly-planning-card {
     background: rgba(10, 25, 41, 0.7) !important;
     backdrop-filter: blur(20px) saturate(180%) !important;
@@ -41965,7 +42264,7 @@ html:has([data-theme="shinobu"]) *[class*="budget-remaining"] {
     transform: translateY(-4px) scale(1.02) !important;
 }
 
-/* 夜�??�季主�? - ?�利?��?毛玻?��???*/
+/* 夜光四季主題 - 股利毛玻璃效果 */
 [data-theme="nightglowSeasons"] .dividend-card {
     background: rgba(10, 25, 41, 0.7) !important;
     backdrop-filter: blur(20px) saturate(180%) !important;
@@ -42013,7 +42312,7 @@ html:has([data-theme="shinobu"]) *[class*="budget-remaining"] {
     transform: translateY(-4px) scale(1.02) !important;
 }
 
-/* 夜�??�季主�? - ?��??��?字�?強�?比度 */
+/* 夜光四季主題 - 文字對比度增強 */
 [data-theme="nightglowSeasons"] .monthly-planning-card h2,
 [data-theme="nightglowSeasons"] .monthly-planning-card h3,
 [data-theme="nightglowSeasons"] .monthly-planning-card .card-title,
@@ -42033,7 +42332,7 @@ html:has([data-theme="shinobu"]) *[class*="budget-remaining"] {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* 夜�??�季主�? - ?��?毛玻?��???*/
+/* 夜光四季主題 - 按鈕毛玻璃效果 */
 [data-theme="nightglowSeasons"] .monthly-planning-card button,
 [data-theme="nightglowSeasons"] .dividend-card button {
     background: rgba(100, 255, 218, 0.2) !important;
@@ -42508,4 +42807,140 @@ html:has([data-theme="shinobu"]) *[class*="budget-remaining"] {
         width: 95vw;
         max-height: 90vh;
     }
+}
+
+/* ========================================================
+   手機端特別優化 (Mobile Optimization Overrides)
+   ======================================================== */
+@media (max-width: 480px) {
+    /* 1. 字體大小與行距優化 (Larger Font Size & Line Height) */
+    body, html {
+        font-size: 16px !important;
+        line-height: 1.6 !important;
+    }
+    
+    /* 文字類型輸入框與選擇器，防止 iOS 自動放大縮放（排除 checkbox/radio） */
+    input[type="text"], input[type="number"], input[type="email"], 
+    input[type="password"], input[type="search"], input[type="tel"], 
+    input[type="url"], input[type="date"], input[type="month"],
+    select, textarea, .form-input, .form-select, .form-textarea, .note-input {
+        font-size: 16px !important;
+        line-height: 1.5 !important;
+        padding: 12px 14px !important;
+        min-height: 48px !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* 項目列表與清單字體 */
+    .transaction-item, .record-card, .ledger-card, .budget-item {
+        font-size: 15px !important;
+        line-height: 1.6 !important;
+    }
+
+    .transaction-category, .record-card-category {
+        font-size: 17px !important;
+        font-weight: 700 !important;
+    }
+
+    .transaction-note, .record-card-description {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+    }
+
+    .transaction-amount, .record-card-amount {
+        font-size: 19px !important;
+        font-weight: 800 !important;
+    }
+
+    /* 2. 全寬與容器優化 (Full Width Layouts) */
+    .app-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 12px 8px !important;
+        margin: 0 !important;
+    }
+
+    /* 頁面容器設為滿寬，但不強制內邊距，避免 sticky 標題產生左右白邊 */
+    .page-ledger, .page-input, .page-chart, .page-budget, 
+    .page-monthly-planner, .page-daily-budget, .page-settings, 
+    .page-wishlist-savings, .page-wishlist-form, .installment-management-page, 
+    .installment-setup-page, .page-category-manage, .page-investment {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 主要卡片與區塊設為滿寬（排除網格中的小卡片以免版面擠壓） */
+    .card, .record-card, .ledger-card, .budget-card, 
+    .wallet-card, .chart-card, .investment-card,
+    .transaction-group, .monthly-planner-card, .budget-summary,
+    .allocation-card {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 16px 12px !important;
+        box-sizing: border-box !important;
+        border-radius: 12px !important; /* 手機端圓角稍微收斂 */
+    }
+
+    /* 數字鍵盤按鈕優化 */
+    .keyboard {
+        padding: 12px 8px !important;
+        gap: 8px !important;
+    }
+
+    .keyboard-row {
+        gap: 8px !important;
+    }
+
+    .key-btn {
+        min-height: 56px !important;
+        font-size: 20px !important;
+        border-radius: 12px !important;
+    }
+
+    /* 分類選擇網格 */
+    .category-grid {
+        grid-template-columns: repeat(4, 1fr) !important; /* 4列更適合手機螢幕 */
+        gap: 8px !important;
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .category-item {
+        padding: 10px 4px !important;
+        min-height: 72px !important;
+    }
+
+    .category-icon {
+        font-size: 24px !important;
+        margin-bottom: 4px !important;
+    }
+
+    .category-name {
+        font-size: 11px !important;
+    }
+
+    /* 對話框/彈窗手機端滿寬且貼底，呈現 native sheet 質感 */
+    .modal-content, .modal-card, .dialog-content, .theme-modal-container, 
+    .account-modal-content, .emoji-modal-content, .entry-detail-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        border-radius: 20px 20px 0 0 !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        max-height: 85vh !important;
+        overflow-y: auto !important;
+        box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.2) !important;
+        animation: slideUp 0.3s ease-out !important;
+    }
+}
+
+/* 將動畫移至媒體查詢外，確保最高瀏覽器相容性 */
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
 }

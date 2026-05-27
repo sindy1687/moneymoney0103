@@ -1,6 +1,26 @@
 ﻿// ========== 主題顏色功能 ==========
 var themes = window.AppThemes || [
     {
+        id: 'piggyMirrorRoom',
+        name: '粉豬鏡屋',
+        icon: '🐷',
+        buttonIcon: '🌸',
+        preview: 'linear-gradient(135deg, rgba(255, 226, 220, 0.96) 0%, rgba(237, 206, 194, 0.9) 38%, rgba(201, 177, 166, 0.84) 68%, rgba(255, 245, 204, 0.88) 100%)',
+        color: '#d86f7f',
+        category: 'cute',
+        cssBackground: true,
+        backgroundImage: 'https://i.pinimg.com/1200x/e5/ca/83/e5ca834bacd3d95096788a867169934f.jpg',
+        investmentCardImage: 'https://i.pinimg.com/1200x/e5/ca/83/e5ca834bacd3d95096788a867169934f.jpg',
+        accountingCardImage: 'https://i.pinimg.com/1200x/e5/ca/83/e5ca834bacd3d95096788a867169934f.jpg',
+        walletBudgetCardImage: 'https://i.pinimg.com/1200x/e5/ca/83/e5ca834bacd3d95096788a867169934f.jpg',
+        monthlyPlanningCardImage: 'https://i.pinimg.com/1200x/e5/ca/83/e5ca834bacd3d95096788a867169934f.jpg',
+        investmentSettingsCardImage: 'https://i.pinimg.com/1200x/e5/ca/83/e5ca834bacd3d95096788a867169934f.jpg',
+        holdingCardImage: 'https://i.pinimg.com/1200x/e5/ca/83/e5ca834bacd3d95096788a867169934f.jpg',
+        buyingCardImage: 'https://i.pinimg.com/1200x/e5/ca/83/e5ca834bacd3d95096788a867169934f.jpg',
+        sellingCardImage: 'https://i.pinimg.com/1200x/e5/ca/83/e5ca834bacd3d95096788a867169934f.jpg',
+        dividendCardImage: 'https://i.pinimg.com/1200x/e5/ca/83/e5ca834bacd3d95096788a867169934f.jpg'
+    },
+    {
         id: 'pink',
         name: '粉色主題',
         icon: '💖',
@@ -916,6 +936,66 @@ var themes = window.AppThemes || [
         dividendCardImage: 'https://i.pinimg.com/736x/91/12/d5/9112d581109a8069dff4011d272cd26f.jpg'
     },
     {
+        id: 'dreamy-peach',
+        name: '夢幻桃色',
+        icon: '🍑',
+        buttonIcon: '🌸',
+        preview: 'url("https://i.pinimg.com/736x/74/18/41/741841fb6bb929097d201539a5be65d8.jpg") center/cover',
+        color: '#FF8A80',
+        category: 'cute',
+        cssBackground: true,
+        backgroundImage: 'https://i.pinimg.com/736x/74/18/41/741841fb6bb929097d201539a5be65d8.jpg',
+        investmentCardImage: 'https://i.pinimg.com/736x/74/18/41/741841fb6bb929097d201539a5be65d8.jpg',
+        accountingCardImage: 'https://i.pinimg.com/736x/74/18/41/741841fb6bb929097d201539a5be65d8.jpg',
+        walletBudgetCardImage: 'https://i.pinimg.com/736x/74/18/41/741841fb6bb929097d201539a5be65d8.jpg',
+        monthlyPlanningCardImage: 'https://i.pinimg.com/736x/74/18/41/741841fb6bb929097d201539a5be65d8.jpg',
+        investmentSettingsCardImage: 'https://i.pinimg.com/736x/74/18/41/741841fb6bb929097d201539a5be65d8.jpg',
+        holdingCardImage: 'https://i.pinimg.com/736x/74/18/41/741841fb6bb929097d201539a5be65d8.jpg',
+        buyingCardImage: 'https://i.pinimg.com/736x/74/18/41/741841fb6bb929097d201539a5be65d8.jpg',
+        sellingCardImage: 'https://i.pinimg.com/736x/74/18/41/741841fb6bb929097d201539a5be65d8.jpg',
+        dividendCardImage: 'https://i.pinimg.com/736x/74/18/41/741841fb6bb929097d201539a5be65d8.jpg'
+    },
+    {
+        id: 'starry-blue-purple',
+        name: '星空藍紫',
+        icon: '🌌',
+        buttonIcon: '✨',
+        preview: 'url("https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg") center/cover',
+        color: '#6B5B95',
+        category: 'cosmic',
+        cssBackground: true,
+        backgroundImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
+        investmentCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
+        accountingCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
+        walletBudgetCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
+        monthlyPlanningCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
+        investmentSettingsCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
+        holdingCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
+        buyingCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
+        sellingCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
+        dividendCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg'
+    },
+    {
+        id: 'soft-lavender',
+        name: '柔和薰衣草',
+        icon: '💜',
+        buttonIcon: '🌸',
+        preview: 'url("https://i.pinimg.com/736x/8a/89/e5/8a89e5e5bcee4b202c462bfc75cce79b.jpg") center/cover',
+        color: '#B8A8D8',
+        category: 'cute',
+        cssBackground: true,
+        backgroundImage: 'https://i.pinimg.com/736x/8a/89/e5/8a89e5e5bcee4b202c462bfc75cce79b.jpg',
+        investmentCardImage: 'https://i.pinimg.com/736x/8a/89/e5/8a89e5e5bcee4b202c462bfc75cce79b.jpg',
+        accountingCardImage: 'https://i.pinimg.com/736x/8a/89/e5/8a89e5e5bcee4b202c462bfc75cce79b.jpg',
+        walletBudgetCardImage: 'https://i.pinimg.com/736x/8a/89/e5/8a89e5e5bcee4b202c462bfc75cce79b.jpg',
+        monthlyPlanningCardImage: 'https://i.pinimg.com/736x/8a/89/e5/8a89e5e5bcee4b202c462bfc75cce79b.jpg',
+        investmentSettingsCardImage: 'https://i.pinimg.com/736x/8a/89/e5/8a89e5e5bcee4b202c462bfc75cce79b.jpg',
+        holdingCardImage: 'https://i.pinimg.com/736x/8a/89/e5/8a89e5e5bcee4b202c462bfc75cce79b.jpg',
+        buyingCardImage: 'https://i.pinimg.com/736x/8a/89/e5/8a89e5e5bcee4b202c462bfc75cce79b.jpg',
+        sellingCardImage: 'https://i.pinimg.com/736x/8a/89/e5/8a89e5e5bcee4b202c462bfc75cce79b.jpg',
+        dividendCardImage: 'https://i.pinimg.com/736x/8a/89/e5/8a89e5e5bcee4b202c462bfc75cce79b.jpg'
+    },
+    {
         id: 'littlePrince',
         name: '小王子星光',
         icon: '👑',
@@ -1351,89 +1431,119 @@ const themeCategories = {
 const themeAnimations = {};
 
 const themeVideoController = (() => {
-    let moneyVideoEl = null;
-    let spaceVideoEl = null;
-    let shinchanPoolVideoEl = null;
-    let nightglowSeasonsVideoEl = null;
+    const videoIdsByTheme = {
+        money: 'moneyThemeVideo',
+        space: 'spaceThemeVideo',
+        shinchanPool: 'shinchanPoolThemeVideo',
+        nightglowSeasons: 'nightglowSeasonsThemeVideo',
+        cyberpunkCity: 'cyberpunkCityThemeVideo'
+    };
+    const mobileMediaQuery = window.matchMedia
+        ? window.matchMedia('(max-width: 768px), (pointer: coarse)')
+        : { matches: false };
     let containerEl = null;
+    let activeThemeId = null;
 
-    const ensureElements = () => {
-        if (!moneyVideoEl) {
-            moneyVideoEl = document.getElementById('moneyThemeVideo');
-        }
-        if (!spaceVideoEl) {
-            spaceVideoEl = document.getElementById('spaceThemeVideo');
-        }
-        if (!shinchanPoolVideoEl) {
-            shinchanPoolVideoEl = document.getElementById('shinchanPoolThemeVideo');
-        }
-        if (!nightglowSeasonsVideoEl) {
-            nightglowSeasonsVideoEl = document.getElementById('nightglowSeasonsThemeVideo');
-        }
+    const ensureContainer = () => {
         if (!containerEl) {
             containerEl = document.querySelector('.theme-video-background');
         }
-        return (moneyVideoEl && spaceVideoEl && shinchanPoolVideoEl && nightglowSeasonsVideoEl && containerEl) || 
-               (moneyVideoEl && spaceVideoEl && containerEl);
+        return !!containerEl;
+    };
+
+    const getVideos = () => {
+        return Object.values(videoIdsByTheme)
+            .map(id => document.getElementById(id))
+            .filter(Boolean);
+    };
+
+    const unloadVideo = (video) => {
+        video.pause();
+        video.style.display = 'none';
+        video.removeAttribute('src');
+        video.preload = 'none';
+        video.querySelectorAll('source').forEach(source => {
+            if (source.src) {
+                source.removeAttribute('src');
+            }
+        });
+        video.load();
+    };
+
+    const loadVideo = (video) => {
+        const source = video.querySelector('source');
+        if (!source) return;
+
+        const sourceUrl = source.dataset.src || source.getAttribute('src');
+        if (!sourceUrl) return;
+
+        if (!source.getAttribute('src')) {
+            source.setAttribute('src', sourceUrl);
+            video.load();
+        }
+
+        video.preload = 'auto';
+    };
+
+    const clearVideos = () => {
+        getVideos().forEach(unloadVideo);
+        if (containerEl) {
+            containerEl.classList.remove('active');
+        }
     };
 
     const setActive = (themeId) => {
-        if (!ensureElements()) return;
-        
-        // Pause all videos
-        if (moneyVideoEl) moneyVideoEl.pause();
-        if (spaceVideoEl) spaceVideoEl.pause();
-        if (shinchanPoolVideoEl) shinchanPoolVideoEl.pause();
-        if (nightglowSeasonsVideoEl) nightglowSeasonsVideoEl.pause();
+        activeThemeId = themeId;
+        if (!ensureContainer()) return;
 
-        const isActive = themeId === 'money' || themeId === 'space' || themeId === 'shinchanPool' || themeId === 'nightglowSeasons';
-        containerEl.classList.toggle('active', isActive);
+        const videoId = videoIdsByTheme[themeId];
+        const shouldUseVideo = !!videoId && !mobileMediaQuery.matches;
 
-        if (isActive) {
-            let activeVideo = null;
-            
-            // Hide all videos first
-            if (moneyVideoEl) moneyVideoEl.style.display = 'none';
-            if (spaceVideoEl) spaceVideoEl.style.display = 'none';
-            if (shinchanPoolVideoEl) shinchanPoolVideoEl.style.display = 'none';
-            if (nightglowSeasonsVideoEl) nightglowSeasonsVideoEl.style.display = 'none';
-            
-            if (themeId === 'money') {
-                activeVideo = moneyVideoEl;
-                if (moneyVideoEl) moneyVideoEl.style.display = 'block';
-            } else if (themeId === 'space') {
-                activeVideo = spaceVideoEl;
-                if (spaceVideoEl) spaceVideoEl.style.display = 'block';
-            } else if (themeId === 'shinchanPool') {
-                activeVideo = shinchanPoolVideoEl;
-                if (shinchanPoolVideoEl) shinchanPoolVideoEl.style.display = 'block';
-            } else if (themeId === 'nightglowSeasons') {
-                activeVideo = nightglowSeasonsVideoEl;
-                if (nightglowSeasonsVideoEl) nightglowSeasonsVideoEl.style.display = 'block';
-            }
+        if (!shouldUseVideo) {
+            clearVideos();
+            return;
+        }
 
-            if (activeVideo) {
-                activeVideo.currentTime = 0;
-                const playPromise = activeVideo.play();
-                if (playPromise && typeof playPromise.catch === 'function') {
-                    playPromise.catch(() => {});
-                }
-            }
-        } else {
-            // Hide all videos when inactive
-            if (moneyVideoEl) moneyVideoEl.style.display = 'none';
-            if (spaceVideoEl) spaceVideoEl.style.display = 'none';
-            if (shinchanPoolVideoEl) shinchanPoolVideoEl.style.display = 'none';
-            if (nightglowSeasonsVideoEl) nightglowSeasonsVideoEl.style.display = 'none';
+        const activeVideo = document.getElementById(videoId);
+        if (!activeVideo) {
+            clearVideos();
+            return;
+        }
+
+        getVideos().forEach(video => {
+            if (video === activeVideo) return;
+            unloadVideo(video);
+        });
+
+        loadVideo(activeVideo);
+        activeVideo.style.display = 'block';
+        containerEl.classList.add('active');
+
+        try {
+            activeVideo.currentTime = 0;
+        } catch (error) {
+            console.warn('Unable to reset theme video:', error);
+        }
+
+        const playPromise = activeVideo.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(() => {});
         }
     };
+
+    if (typeof mobileMediaQuery.addEventListener === 'function') {
+        mobileMediaQuery.addEventListener('change', () => setActive(activeThemeId));
+    } else if (typeof mobileMediaQuery.addListener === 'function') {
+        mobileMediaQuery.addListener(() => setActive(activeThemeId));
+    }
 
     return { setActive };
 })();
 
 function getCurrentTheme() {
     // 優先使用 selectedTheme，如果沒有則使用舊的 theme 鍵值以保持向後兼容
-    return localStorage.getItem('selectedTheme') || localStorage.getItem('theme') || 'blue';
+    const DEFAULT_THEME = 'blue';
+    return localStorage.getItem('selectedTheme') || localStorage.getItem('theme') || DEFAULT_THEME;
 }
 
 function applyTheme(themeId) {

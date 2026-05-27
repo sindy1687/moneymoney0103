@@ -6,7 +6,9 @@
     <title>記帳 - 主輸入畫面</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="mori-theme.css">
+    <link rel="stylesheet" href="dreamy-peach-theme.css">
+    <link rel="stylesheet" href="starry-blue-purple-theme.css">
+    <link rel="stylesheet" href="soft-lavender-theme.css">
     <link rel="stylesheet" href="emerald-dream-theme.css">
     <link rel="stylesheet" href="flame-theme.css">
     <link rel="stylesheet" href="shinchan-theme.css">
@@ -18,6 +20,7 @@
     <link rel="stylesheet" href="little-prince-theme.css">
     <link rel="stylesheet" href="cyberpunk-city-theme.css">
     <link rel="stylesheet" href="css/styles-themes.css">
+    <link rel="stylesheet" href="css/theme-system.css">
     <link rel="stylesheet" href="searchHistory.css">
     <link rel="stylesheet" href="css/smart-accounting.css">
     <link rel="stylesheet" href="css/smart-reminders.css">
@@ -31,20 +34,20 @@
 </head>
 <body>
     <div class="theme-video-background" aria-hidden="true">
-        <video id="moneyThemeVideo" class="theme-video" autoplay loop muted playsinline preload="auto">
-            <source src="https://v1.pinimg.com/videos/iht/expMp4/a4/53/29/a45329a21920d8db7a7f778daa592453_720w.mp4" type="video/mp4">
+        <video id="moneyThemeVideo" class="theme-video" loop muted playsinline preload="none">
+            <source data-src="https://v1.pinimg.com/videos/iht/expMp4/a4/53/29/a45329a21920d8db7a7f778daa592453_720w.mp4" type="video/mp4">
         </video>
-        <video id="spaceThemeVideo" class="theme-video" autoplay loop muted playsinline preload="auto">
-            <source src="https://v1.pinimg.com/videos/iht/720p/4e/00/d1/4e00d1999152ab007ebe4aef36d5e2c9.mp4" type="video/mp4">
+        <video id="spaceThemeVideo" class="theme-video" loop muted playsinline preload="none">
+            <source data-src="https://v1.pinimg.com/videos/iht/720p/4e/00/d1/4e00d1999152ab007ebe4aef36d5e2c9.mp4" type="video/mp4">
         </video>
-        <video id="shinchanPoolThemeVideo" class="theme-video" autoplay loop muted playsinline preload="auto">
-            <source src="https://v1.pinimg.com/videos/iht/expMp4/76/35/eb/7635eb2cc1d1c08a867742f7144faf11_720w.mp4" type="video/mp4">
+        <video id="shinchanPoolThemeVideo" class="theme-video" loop muted playsinline preload="none">
+            <source data-src="https://v1.pinimg.com/videos/iht/expMp4/76/35/eb/7635eb2cc1d1c08a867742f7144faf11_720w.mp4" type="video/mp4">
         </video>
-        <video id="nightglowSeasonsThemeVideo" class="theme-video" autoplay loop muted playsinline preload="auto">
-            <source src="https://v1.pinimg.com/videos/iht/expMp4/c7/39/73/c739737a7c0471e01fa4e606507d0a48_720w.mp4" type="video/mp4">
+        <video id="nightglowSeasonsThemeVideo" class="theme-video" loop muted playsinline preload="none">
+            <source data-src="https://v1.pinimg.com/videos/iht/expMp4/c7/39/73/c739737a7c0471e01fa4e606507d0a48_720w.mp4" type="video/mp4">
         </video>
-        <video id="cyberpunkCityThemeVideo" class="theme-video" autoplay loop muted playsinline preload="auto">
-            <source src="https://v1.pinimg.com/videos/iht/expMp4/f0/38/aa/f038aad8dd17f765f1c3c975a4e869f0_720w.mp4" type="video/mp4">
+        <video id="cyberpunkCityThemeVideo" class="theme-video" loop muted playsinline preload="none">
+            <source data-src="https://v1.pinimg.com/videos/iht/expMp4/f0/38/aa/f038aad8dd17f765f1c3c975a4e869f0_720w.mp4" type="video/mp4">
         </video>
         <div class="theme-video-gradient"></div>
     </div>
@@ -426,8 +429,7 @@
         <div class="ledger-header">
             <button class="search-btn" id="searchBtn">🔍</button>
             <h2 class="ledger-title">默認帳本</h2>
-            <button class="smart-analysis-btn" id="smartAnalysisBtn" title="智慧分析">🧠 智慧分析</button>
-            <button class="smart-reminders-btn" id="smartRemindersBtn" title="智慧提醒">🔔 智慧提醒</button>
+            <button class="ai-housekeeper-btn smart-reminders-btn" id="aiHousekeeperBtn" title="AI管家">🤖 AI管家</button>
         </div>
 
         <!-- 搜索框 -->
@@ -767,6 +769,18 @@
 
         <div class="settings-list" id="settingsList">
             <!-- 設定項目將由 JavaScript 動態生成 -->
+        </div>
+    </div>
+
+    <!-- 每月摘要頁面 -->
+    <div class="page-monthly-summary" id="pageMonthlySummary" style="display: none;">
+        <div class="monthly-summary-header">
+            <button class="back-btn" id="monthlySummaryBackBtn">←</button>
+            <h2 class="monthly-summary-title">每月收入支出清單</h2>
+        </div>
+
+        <div class="monthly-summary-container" id="monthlySummaryList">
+            <!-- 每月摘要將由 JavaScript 動態生成 -->
         </div>
     </div>
 
@@ -1336,7 +1350,7 @@
 
                 <!-- 買入日期 -->
                 <div class="form-field">
-                    <label class="form-label">買入日期</label>
+                    <label class="form-label" id="calcDateLabelEl">買入日期</label>
                     <div class="form-date-wrapper">
                         <input type="date" 
                                class="form-input form-date-input" 
@@ -1347,7 +1361,7 @@
 
                 <!-- 買入價格 -->
                 <div class="form-field">
-                    <label class="form-label">買入價格</label>
+                    <label class="form-label" id="calcPriceLabelEl">買入價格</label>
                     <input type="number" 
                            class="form-input" 
                            id="calcPriceInput" 
@@ -1414,6 +1428,27 @@
                                id="calcAutoFeeCheckbox">
                         <span class="form-checkbox-text">系統自動計算（0.1425%，最低20元）</span>
                     </label>
+                </div>
+
+                <!-- 證交稅（賣出時顯示） -->
+                <div class="form-field" id="calcTaxFieldContainer" style="display: none;">
+                    <label class="form-label">證交稅</label>
+                    <input type="number" class="form-input" id="calcTaxInput" placeholder="預設 0.3%" step="1" min="0" value="0">
+                    <label class="form-checkbox-label" style="margin-top: 8px;">
+                        <input type="checkbox" class="form-checkbox" id="calcAutoTaxCheckbox" checked>
+                        <span class="form-checkbox-text">系統自動計算（0.3%）</span>
+                    </label>
+                </div>
+
+                <!-- 賣出試算結果（賣出時顯示） -->
+                <div class="form-field" id="sellCalcResultContainer" style="display: none;">
+                    <div class="calc-result">
+                        <div class="calc-row"><span>賣出金額：</span><span id="calcSellAmount">NT$0</span></div>
+                        <div class="calc-row"><span>手續費＋稅：</span><span id="calcSellCost">NT$0</span></div>
+                        <div class="calc-row"><span>平均成本：</span><span id="calcCostAmount">NT$0</span></div>
+                        <div class="calc-row highlight"><span>預估實現損益：</span><span id="calcEstimatedPnl" class="pnl-value">NT$0</span></div>
+                        <div class="calc-row"><span>報酬率：</span><span id="calcEstimatedReturn">0%</span></div>
+                    </div>
                 </div>
 
                 <!-- 定期定額選項（僅買入時顯示） -->
@@ -1710,8 +1745,34 @@
             </div>
             <div class="form-group">
                 <div class="calc-result">
-                    <span>預估實現損益：</span>
-                    <span id="estimatedPnl" class="pnl-value">NT$0</span>
+                    <div class="calc-row">
+                        <span>賣出金額：</span>
+                        <span id="sellAmount">NT$0</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>成本金額：</span>
+                        <span id="costAmount">NT$0</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>手續費：</span>
+                        <span id="sellFeeDisplay">NT$0</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>證交稅：</span>
+                        <span id="sellTaxDisplay">NT$0</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>淨收入：</span>
+                        <span id="netRevenue">NT$0</span>
+                    </div>
+                    <div class="calc-row highlight">
+                        <span>預估實現損益：</span>
+                        <span id="estimatedPnl" class="pnl-value">NT$0</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>報酬率：</span>
+                        <span id="estimatedReturn">0%</span>
+                    </div>
                 </div>
             </div>
             <button class="submit-btn" id="submitSell">記錄賣出</button>
@@ -1976,14 +2037,14 @@
             
             <div class="form-field">
                 <label class="form-label">轉出帳戶</label>
-                <select class="form-select" id="transferFromAccount">
+                <select class="form-select" id="autoTransferFromAccount">
                     <!-- 帳戶選項將由 JavaScript 動態生成 -->
                 </select>
             </div>
-            
+
             <div class="form-field">
                 <label class="form-label">轉入帳戶</label>
-                <select class="form-select" id="transferToAccount">
+                <select class="form-select" id="autoTransferToAccount">
                     <!-- 帳戶選項將由 JavaScript 動態生成 -->
                 </select>
             </div>
@@ -2022,7 +2083,6 @@
     <!-- 模組化腳本 -->
     <script src="js/categories.js"></script>
     <script src="js/storage.js"></script>
-    <script src="js/advisor.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/autoTransfer.js"></script>
     <!-- 智慧記帳功能 -->
@@ -2048,7 +2108,15 @@
     <!-- 可愛粉彩主題日期修復 -->
     <script src="cute_pastel_date_fix.js"></script>
     <!-- 主腳本（保留其他功能） -->
-    <script src="script.js?v=20251227_1"></script>
+    <script src="js/app/01-core-input-investment.js?v=20251227_1"></script>
+    <script src="js/app/sell-calculation-enhancement.js"></script>
+    <script src="js/disable-mori-features.js"></script>
+    <script src="js/app/monthly-summary.js"></script>
+    <script src="js/app/monthly-summary-nav.js"></script>
+    <script src="js/app/02-ledger-budget-settings.js?v=20251227_1"></script>
+    <script src="js/app/03-reports-data-entry.js?v=20251227_1"></script>
+    <script src="js/app/04-diary-investment-ui.js?v=20251227_1"></script>
+    <script src="js/app/05-dca-accounts-upload.js?v=20251227_1"></script>
     <script src="searchHistoryInit.js" type="module"></script>
     
     <!-- 自動修復投資卡片背景圖片 -->
