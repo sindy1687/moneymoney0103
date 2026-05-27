@@ -334,7 +334,8 @@
 }
 
 /* 智慧提醒按鈕 */
-.smart-reminders-btn {
+.smart-reminders-btn,
+.ai-housekeeper-btn {
     background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     color: white;
     border: none;
@@ -348,9 +349,50 @@
     gap: 6px;
 }
 
-.smart-reminders-btn:hover {
+.smart-reminders-btn:hover,
+.ai-housekeeper-btn:hover {
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.ai-monthly-summary {
+    padding: 20px;
+    background: var(--bg-soft);
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.ai-monthly-summary h4 {
+    margin: 0 0 16px 0;
+    color: var(--text-primary);
+    font-size: 16px;
+}
+
+.ai-month-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ai-month-row {
+    background: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.ai-month-label {
+    color: var(--text-primary);
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.ai-month-values {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    color: var(--text-secondary);
+    font-size: 13px;
 }
 
 /* 提醒類型圖標 */

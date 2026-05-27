@@ -1,0 +1,88 @@
+:root {
+  --theme-bg-image: url("https://i1-e.pinimg.com/1200x/ce/f5/f1/cef5f10f5eee2f1127bcf2c2873bf681.jpg");
+  --theme-text: #1c1917;
+}
+
+body {
+  min-height: 100vh;
+  background-image:
+    linear-gradient(
+      135deg,
+      rgba(255, 247, 237, 0.72),
+      rgba(253, 230, 138, 0.48),
+      rgba(255, 255, 255, 0.38)
+    ),
+    var(--theme-bg-image);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: var(--theme-text);
+}
+
+.app,
+.main-container,
+.page,
+.page-container,
+.content,
+.dashboard,
+.investment-page,
+.accounting-page,
+.installment-page,
+.recurring-page {
+  background: transparent !important;
+}
+
+.card,
+.panel,
+.info-card,
+.stat-card,
+.invest-card,
+.account-card,
+.wallet-card,
+.budget-card,
+.month-plan-card,
+.invest-setting-card,
+.holding-card,
+.buy-card,
+.sell-card,
+.dividend-card,
+.analysis-card,
+.suggestion-card,
+.insight-card,
+.smart-analysis-card,
+.smart-reminder-card,
+.installment-card,
+.recurring-card,
+.manage-invest-card {
+  background: rgba(255, 255, 255, 0.86);
+  color: #1f2937;
+  border: 1px solid rgba(180, 83, 9, 0.24);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 30px rgba(120, 53, 15, 0.16);
+}
+
+.modal,
+.dialog,
+.popup,
+.overlay-content,
+.modal-content,
+.dialog-content,
+.form-modal,
+.confirm-dialog {
+  background: rgba(255, 251, 235, 0.94);
+  color: #1c1917;
+  border: 1px solid rgba(180, 83, 9, 0.28);
+  backdrop-filter: blur(16px);
+}
+
+
+@media (max-width: 768px) {
+  body {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+  }
+
+}
