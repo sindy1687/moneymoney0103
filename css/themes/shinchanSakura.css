@@ -1,0 +1,762 @@
+/* 小新櫻花春日（shinchanSakura）
+ * 色彩取自主題照片：天空藍 → 櫻花粉 → 長春花藍（建築、橋）→ 淡紫地面，小新的粉紅上衣。
+ * 淺色主題：卡片一律淺底、文字一律深藍紫，按鈕白字時底色加深，確保對比清楚。 */
+:root[data-theme="shinchanSakura"] {
+    --ss-image: url("https://i.pinimg.com/1200x/8a/3f/d5/8a3fd5bf479cacb184b615ce48d57ab4.jpg");
+    --ss-ink: #2a2d4a;
+    --ss-rose-ink: #a03a64;
+    --ss-lavender-ink: #3d4f9e;
+    --ss-aqua-ink: #255a8f;
+
+    --color-primary: #e8789e;
+    --color-primary-light: #f6bcd0;
+    --color-primary-lighter: #fde8f0;
+    --color-primary-dark: #b84a76;
+
+    --color-secondary: #6fa8dc;
+    --color-secondary-light: #cfe6f8;
+    --color-secondary-dark: #2f6aa6;
+
+    --color-accent: #8b9fe0;
+    --color-accent-light: #dfe5f8;
+    --color-accent-dark: #4a5fb0;
+
+    --color-success: #15803d;
+    --color-danger: #c81e3c;
+    --color-warning: #b45309;
+    --color-info: #2563eb;
+    --color-error: var(--color-danger);
+
+    --bg-primary: transparent;
+    --bg-body: rgba(255, 255, 255, 0.40);
+    --bg-body-strong: rgba(255, 255, 255, 0.62);
+    --bg-dark: rgba(42, 45, 74, 0.70);
+
+    --bg-gradient: linear-gradient(135deg, #c94a78 0%, #8a5aa8 50%, #4f6fc0 100%);
+    --bg-gradient-light: linear-gradient(135deg,
+        rgba(214, 236, 252, 0.70) 0%,
+        rgba(253, 227, 238, 0.62) 45%,
+        rgba(226, 236, 252, 0.62) 75%,
+        rgba(226, 234, 250, 0.66) 100%);
+
+    --bg-white: rgba(255, 255, 255, 0.92);
+    --bg-card: rgba(255, 255, 255, 0.88);
+    --bg-light: rgba(255, 250, 252, 0.86);
+    --bg-lighter: rgba(255, 255, 255, 0.76);
+    --bg-soft: rgba(232, 120, 158, 0.08);
+    --bg-soft-strong: rgba(111, 168, 220, 0.14);
+
+    --text-primary: #2a2d4a;
+    --text-secondary: rgba(42, 45, 74, 0.82);
+    --text-tertiary: rgba(42, 45, 74, 0.68);
+    --text-strong: #1b1d33;
+    --text-white: #ffffff;
+
+    --border-primary: rgba(232, 120, 158, 0.50);
+    --border-light: rgba(42, 45, 74, 0.14);
+    --border-medium: rgba(139, 159, 224, 0.32);
+    --card-border-color: rgba(232, 120, 158, 0.20);
+    --control-border-color: rgba(42, 45, 74, 0.18);
+    --table-border-color: rgba(42, 45, 74, 0.14);
+
+    --shadow-primary: 0 14px 40px rgba(70, 80, 130, 0.18);
+    --shadow-primary-lg: 0 24px 64px rgba(70, 80, 130, 0.22);
+
+    --color-primary-rgba-05: rgba(232, 120, 158, 0.05);
+    --color-primary-rgba-08: rgba(232, 120, 158, 0.08);
+    --color-primary-rgba-10: rgba(232, 120, 158, 0.10);
+    --color-primary-rgba-12: rgba(232, 120, 158, 0.12);
+    --color-primary-rgba-15: rgba(232, 120, 158, 0.15);
+    --color-primary-rgba-18: rgba(232, 120, 158, 0.18);
+    --color-primary-rgba-20: rgba(232, 120, 158, 0.20);
+    --color-primary-rgba-25: rgba(232, 120, 158, 0.25);
+    --color-primary-rgba-30: rgba(232, 120, 158, 0.30);
+    --color-primary-rgba-35: rgba(232, 120, 158, 0.35);
+    --color-primary-rgba-40: rgba(232, 120, 158, 0.40);
+    --color-primary-rgba-50: rgba(232, 120, 158, 0.50);
+    --color-primary-rgba-80: rgba(160, 58, 100, 0.92);
+
+    --color-primary-light-rgba-08: rgba(246, 188, 208, 0.08);
+    --color-primary-light-rgba-10: rgba(246, 188, 208, 0.10);
+    --color-primary-light-rgba-15: rgba(246, 188, 208, 0.15);
+    --color-primary-light-rgba-20: rgba(246, 188, 208, 0.20);
+    --color-primary-light-rgba-25: rgba(246, 188, 208, 0.25);
+    --color-primary-light-rgba-30: rgba(246, 188, 208, 0.30);
+    --color-primary-light-rgba-40: rgba(246, 188, 208, 0.40);
+
+    --color-accent-rgba-05: rgba(139, 159, 224, 0.05);
+    --color-accent-rgba-10: rgba(139, 159, 224, 0.10);
+    --color-accent-rgba-15: rgba(139, 159, 224, 0.15);
+    --color-accent-rgba-20: rgba(139, 159, 224, 0.20);
+    --color-accent-rgba-25: rgba(139, 159, 224, 0.25);
+    --color-accent-rgba-30: rgba(139, 159, 224, 0.30);
+    --color-accent-rgba-40: rgba(139, 159, 224, 0.40);
+
+    --bg-light-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 246, 250, 0.84) 100%);
+    --bg-light-gradient-reverse: linear-gradient(180deg, rgba(255, 246, 250, 0.84) 0%, rgba(255, 255, 255, 0.92) 100%);
+
+    /* 卡片：淺色漸層薄紗疊在主題照片上，照片看得到、文字仍清楚 */
+    --ss-card-veil: linear-gradient(135deg,
+        rgba(247, 251, 255, 0.88) 0%,
+        rgba(255, 241, 247, 0.86) 50%,
+        rgba(240, 238, 252, 0.88) 100%);
+    --ss-card-photo: var(--ss-card-veil), var(--ss-image) center / cover no-repeat;
+
+    /* 買入：玫瑰 → 薰衣草（加深，白字清楚）；定期定額：水藍 → 長春花藍（淺底深字） */
+    --action-buy-bg: linear-gradient(135deg, #c94a78 0%, #8a5aa8 55%, #4f6fc0 100%);
+    --action-buy-bg-hover: linear-gradient(135deg, #b53d6a 0%, #78499a 55%, #4260b2 100%);
+    --action-buy-text: #ffffff;
+    --action-dca-bg: linear-gradient(135deg, #bfe3f8 0%, #cbd5f6 100%);
+    --action-dca-bg-hover: linear-gradient(135deg, #a9d8f5 0%, #b8c6f2 100%);
+    --action-dca-text: #1f3354;
+    --action-side-bg: rgba(255, 255, 255, 0.90);
+    --action-side-bg-hover: rgba(253, 227, 238, 0.95);
+    --action-side-text: var(--ss-ink);
+}
+
+/* ===== 背景：主題照片 + 漸層 ===== */
+:root[data-theme="shinchanSakura"] body {
+    background:
+        linear-gradient(165deg,
+            rgba(214, 236, 252, 0.38) 0%,
+            rgba(246, 188, 208, 0.24) 40%,
+            rgba(200, 196, 240, 0.22) 72%,
+            rgba(228, 222, 246, 0.34) 100%),
+        var(--ss-image) center / cover no-repeat fixed;
+    background-color: #eef5fc;
+    color: var(--text-primary);
+}
+
+:root[data-theme="shinchanSakura"] body::before {
+    display: none;
+}
+
+/* ===== 每一個分頁：透明底，讓背景照片透出 ===== */
+:root[data-theme="shinchanSakura"] .page-ledger,
+:root[data-theme="shinchanSakura"] .page-input,
+:root[data-theme="shinchanSakura"] .page-chart,
+:root[data-theme="shinchanSakura"] .chart-page,
+:root[data-theme="shinchanSakura"] .page-budget,
+:root[data-theme="shinchanSakura"] .page-monthly-planner,
+:root[data-theme="shinchanSakura"] .page-daily-budget,
+:root[data-theme="shinchanSakura"] .page-settings,
+:root[data-theme="shinchanSakura"] .page-monthly-summary,
+:root[data-theme="shinchanSakura"] .page-wishlist-savings,
+:root[data-theme="shinchanSakura"] .page-wishlist-form,
+:root[data-theme="shinchanSakura"] .page-category-manage,
+:root[data-theme="shinchanSakura"] .page-investment,
+:root[data-theme="shinchanSakura"] .investment-input-page,
+:root[data-theme="shinchanSakura"] .stock-detail-page,
+:root[data-theme="shinchanSakura"] .dividend-page,
+:root[data-theme="shinchanSakura"] .dca-management-page,
+:root[data-theme="shinchanSakura"] .dca-setup-page,
+:root[data-theme="shinchanSakura"] .installment-management-page,
+:root[data-theme="shinchanSakura"] .installment-setup-page,
+:root[data-theme="shinchanSakura"] .auto-transfer-management-page,
+:root[data-theme="shinchanSakura"] .auto-transfer-setup-page,
+:root[data-theme="shinchanSakura"] .empty-page {
+    background: transparent !important;
+    box-shadow: none !important;
+    color: var(--text-primary);
+}
+
+/* ===== 頁首 ===== */
+:root[data-theme="shinchanSakura"] .ledger-header,
+:root[data-theme="shinchanSakura"] .chart-header,
+:root[data-theme="shinchanSakura"] .budget-header,
+:root[data-theme="shinchanSakura"] .daily-budget-header,
+:root[data-theme="shinchanSakura"] .monthly-planner-header,
+:root[data-theme="shinchanSakura"] .settings-header,
+:root[data-theme="shinchanSakura"] .monthly-summary-header,
+:root[data-theme="shinchanSakura"] .wishlist-savings-header,
+:root[data-theme="shinchanSakura"] .wishlist-form-header,
+:root[data-theme="shinchanSakura"] .category-manage-header,
+:root[data-theme="shinchanSakura"] .investment-page-header,
+:root[data-theme="shinchanSakura"] .investment-form-header,
+:root[data-theme="shinchanSakura"] .dividend-page-header,
+:root[data-theme="shinchanSakura"] .dca-page-header,
+:root[data-theme="shinchanSakura"] .dca-setup-header,
+:root[data-theme="shinchanSakura"] .auto-transfer-header,
+:root[data-theme="shinchanSakura"] .auto-transfer-setup-header,
+:root[data-theme="shinchanSakura"] .input-page-header,
+:root[data-theme="shinchanSakura"] .tab-section,
+:root[data-theme="shinchanSakura"] .next-month-bills-header,
+:root[data-theme="shinchanSakura"] .theme-modal-header {
+    background: linear-gradient(135deg, rgba(245, 250, 255, 0.90) 0%, rgba(253, 232, 241, 0.88) 55%, rgba(232, 240, 253, 0.88) 100%) !important;
+    border-bottom: 1px solid rgba(232, 120, 158, 0.16) !important;
+    backdrop-filter: blur(16px);
+    color: var(--text-primary) !important;
+}
+
+:root[data-theme="shinchanSakura"] .page-title,
+:root[data-theme="shinchanSakura"] .ledger-title,
+:root[data-theme="shinchanSakura"] .chart-title,
+:root[data-theme="shinchanSakura"] .budget-title,
+:root[data-theme="shinchanSakura"] .settings-title,
+:root[data-theme="shinchanSakura"] .monthly-planner-title,
+:root[data-theme="shinchanSakura"] .monthly-summary-title,
+:root[data-theme="shinchanSakura"] .dividend-page-title,
+:root[data-theme="shinchanSakura"] .dca-page-title,
+:root[data-theme="shinchanSakura"] .dca-setup-title,
+:root[data-theme="shinchanSakura"] .form-header-title,
+:root[data-theme="shinchanSakura"] .section-title,
+:root[data-theme="shinchanSakura"] .chart-section-title,
+:root[data-theme="shinchanSakura"] .settings-section-title,
+:root[data-theme="shinchanSakura"] .dividend-section-title,
+:root[data-theme="shinchanSakura"] .budget-category-section-title,
+:root[data-theme="shinchanSakura"] .monthly-planner-card-title,
+:root[data-theme="shinchanSakura"] .monthly-summary-card-title,
+:root[data-theme="shinchanSakura"] .annual-report-section-title,
+:root[data-theme="shinchanSakura"] .nmb-section-title,
+:root[data-theme="shinchanSakura"] .emoji-section-title {
+    color: var(--ss-ink) !important;
+    -webkit-text-fill-color: var(--ss-ink) !important;
+    text-shadow: none !important;
+    background-image: none;
+}
+
+:root[data-theme="shinchanSakura"] .form-header-subtitle,
+:root[data-theme="shinchanSakura"] .summary-month,
+:root[data-theme="shinchanSakura"] .summary-line,
+:root[data-theme="shinchanSakura"] #chartMonthText {
+    color: var(--text-secondary) !important;
+    text-shadow: none !important;
+}
+
+/* ===== 卡片（記帳、投資、錢包、圖表、股息、定期定額、分期、設定…） ===== */
+:root[data-theme="shinchanSakura"] .summary-card,
+:root[data-theme="shinchanSakura"] .record-card,
+:root[data-theme="shinchanSakura"] .ledger-summary,
+:root[data-theme="shinchanSakura"] .stat-card,
+:root[data-theme="shinchanSakura"] .metric-card,
+:root[data-theme="shinchanSakura"] .chart-section,
+:root[data-theme="shinchanSakura"] .chart-container,
+:root[data-theme="shinchanSakura"] .chart-insight,
+:root[data-theme="shinchanSakura"] .budget-summary-item,
+:root[data-theme="shinchanSakura"] .budget-category-section,
+:root[data-theme="shinchanSakura"] .budget-add-section,
+:root[data-theme="shinchanSakura"] .daily-budget-summary-card,
+:root[data-theme="shinchanSakura"] .daily-detail-summary-card,
+:root[data-theme="shinchanSakura"] .next-month-budget-card,
+:root[data-theme="shinchanSakura"] .monthly-summary-card,
+:root[data-theme="shinchanSakura"] .monthly-summary-item,
+:root[data-theme="shinchanSakura"] .annual-report-card,
+:root[data-theme="shinchanSakura"] .stock-item-card,
+:root[data-theme="shinchanSakura"] .allocation-card,
+:root[data-theme="shinchanSakura"] .summary-toggle,
+:root[data-theme="shinchanSakura"] .investment-records-summary,
+:root[data-theme="shinchanSakura"] .dividend-stat-card,
+:root[data-theme="shinchanSakura"] .dividend-records-section,
+:root[data-theme="shinchanSakura"] .dividend-year-stats-section,
+:root[data-theme="shinchanSakura"] .dividend-calendar-section,
+:root[data-theme="shinchanSakura"] .dividend-year-stat-item,
+:root[data-theme="shinchanSakura"] .dca-item-card,
+:root[data-theme="shinchanSakura"] .dca-setup-form,
+:root[data-theme="shinchanSakura"] .auto-transfer-list-container,
+:root[data-theme="shinchanSakura"] .settings-section-items,
+:root[data-theme="shinchanSakura"] .account-detail-section,
+:root[data-theme="shinchanSakura"] .savings-form-container,
+:root[data-theme="shinchanSakura"] .wishlist-form-container,
+:root[data-theme="shinchanSakura"] .quick-actions-section,
+:root[data-theme="shinchanSakura"] .category-section,
+:root[data-theme="shinchanSakura"] .search-container,
+:root[data-theme="shinchanSakura"] .empty-state,
+:root[data-theme="shinchanSakura"] .reminder-item,
+:root[data-theme="shinchanSakura"] .history-item {
+    background: var(--ss-card-veil) !important;
+    border: 1px solid var(--card-border-color) !important;
+    box-shadow: var(--shadow-primary) !important;
+    color: var(--text-primary) !important;
+    backdrop-filter: blur(14px);
+}
+
+/* 指定要有照片的卡片：錢包預算、每月規劃、投資設定、持有中、買入、賣出、股息、記帳總覽、定期定額、分期 */
+:root[data-theme="shinchanSakura"] .budget-summary,
+:root[data-theme="shinchanSakura"] .monthly-planner-card,
+:root[data-theme="shinchanSakura"] .overview-summary-grid,
+:root[data-theme="shinchanSakura"] .stock-list-container,
+:root[data-theme="shinchanSakura"] .investment-form-container,
+:root[data-theme="shinchanSakura"] .dividend-stats-grid,
+:root[data-theme="shinchanSakura"] .summary-stats,
+:root[data-theme="shinchanSakura"] .dca-list-container,
+:root[data-theme="shinchanSakura"] .installment-management-page .settings-section-items,
+:root[data-theme="shinchanSakura"] .installment-setup-page .dca-setup-form {
+    background: var(--ss-card-photo) !important;
+    border: 1px solid var(--card-border-color) !important;
+    box-shadow: var(--shadow-primary) !important;
+    color: var(--text-primary) !important;
+    border-radius: 18px;
+}
+
+:root[data-theme="shinchanSakura"] .stock-item-card::before {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(253, 227, 238, 0.4) 50%, rgba(226, 234, 250, 0.3) 100%);
+}
+
+/* 卡片內的標籤與數值：深色、無陰影 */
+:root[data-theme="shinchanSakura"] .summary-label,
+:root[data-theme="shinchanSakura"] .stat-label,
+:root[data-theme="shinchanSakura"] .budget-summary-label,
+:root[data-theme="shinchanSakura"] .budget-detail-label,
+:root[data-theme="shinchanSakura"] .monthly-summary-label,
+:root[data-theme="shinchanSakura"] .monthly-planner-label,
+:root[data-theme="shinchanSakura"] .monthly-planner-subtotal-label,
+:root[data-theme="shinchanSakura"] .monthly-planner-result-label,
+:root[data-theme="shinchanSakura"] .dividend-stat-label,
+:root[data-theme="shinchanSakura"] .annual-report-card-label,
+:root[data-theme="shinchanSakura"] .dca-item-label,
+:root[data-theme="shinchanSakura"] .summary-toggle__label,
+:root[data-theme="shinchanSakura"] .summary-toggle__hint,
+:root[data-theme="shinchanSakura"] .summary-toggle__metric-label,
+:root[data-theme="shinchanSakura"] .allocation-card-sub,
+:root[data-theme="shinchanSakura"] .daily-detail-summary-label,
+:root[data-theme="shinchanSakura"] .stock-grid-card-price-prev-label,
+:root[data-theme="shinchanSakura"] .settings-item-subtext,
+:root[data-theme="shinchanSakura"] .monthly-planner-empty,
+:root[data-theme="shinchanSakura"] .empty-hint,
+:root[data-theme="shinchanSakura"] .empty-text,
+:root[data-theme="shinchanSakura"] .dividend-empty-text,
+:root[data-theme="shinchanSakura"] .dividend-empty-hint,
+:root[data-theme="shinchanSakura"] .account-info,
+:root[data-theme="shinchanSakura"] .account-item-name,
+:root[data-theme="shinchanSakura"] .account-item-currency,
+:root[data-theme="shinchanSakura"] .tab-text,
+:root[data-theme="shinchanSakura"] #stockCount {
+    color: var(--text-secondary) !important;
+    -webkit-text-fill-color: var(--text-secondary) !important;
+    text-shadow: none !important;
+}
+
+:root[data-theme="shinchanSakura"] .summary-value,
+:root[data-theme="shinchanSakura"] .stat-value,
+:root[data-theme="shinchanSakura"] .budget-summary-value,
+:root[data-theme="shinchanSakura"] .monthly-summary-value,
+:root[data-theme="shinchanSakura"] .monthly-planner-subtotal-value,
+:root[data-theme="shinchanSakura"] .dividend-stat-value,
+:root[data-theme="shinchanSakura"] .dividend-stat-value-large,
+:root[data-theme="shinchanSakura"] .annual-report-card-value,
+:root[data-theme="shinchanSakura"] .dca-item-value,
+:root[data-theme="shinchanSakura"] .summary-toggle__metric-value,
+:root[data-theme="shinchanSakura"] .allocation-card-title,
+:root[data-theme="shinchanSakura"] .stock-card-name,
+:root[data-theme="shinchanSakura"] .stock-grid-card-title,
+:root[data-theme="shinchanSakura"] .stock-grid-card-price-number,
+:root[data-theme="shinchanSakura"] .record-card-amount,
+:root[data-theme="shinchanSakura"] .settings-item-text,
+:root[data-theme="shinchanSakura"] .daily-detail-summary-value {
+    color: var(--text-primary) !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    text-shadow: none !important;
+}
+
+/* 金額語意色（淺底加深版）；保留正負、超支的切換 */
+:root[data-theme="shinchanSakura"] .budget-summary-value.budget-total,
+:root[data-theme="shinchanSakura"] #monthBudget {
+    color: var(--ss-rose-ink) !important;
+    -webkit-text-fill-color: var(--ss-rose-ink) !important;
+}
+
+:root[data-theme="shinchanSakura"] .budget-summary-value.budget-used,
+:root[data-theme="shinchanSakura"] .budget-summary-value.over-budget,
+:root[data-theme="shinchanSakura"] .budget-summary-value.expense,
+:root[data-theme="shinchanSakura"] #totalExpense,
+:root[data-theme="shinchanSakura"] #dailyExpenseAmount,
+:root[data-theme="shinchanSakura"] .negative,
+:root[data-theme="shinchanSakura"] .record-card.expense .record-card-amount {
+    color: var(--color-danger) !important;
+    -webkit-text-fill-color: var(--color-danger) !important;
+}
+
+:root[data-theme="shinchanSakura"] .budget-summary-value.budget-remaining:not(.over-budget),
+:root[data-theme="shinchanSakura"] #totalIncome,
+:root[data-theme="shinchanSakura"] .positive,
+:root[data-theme="shinchanSakura"] .record-card.income .record-card-amount {
+    color: var(--color-success) !important;
+    -webkit-text-fill-color: var(--color-success) !important;
+}
+
+/* ===== 按鈕：照片的插畫風格 =====
+ * 照片特徵：平塗粉彩、每個物件都有乾淨的描邊、橋下深一階的立體面、攤位的糖果條紋遮陽棚。
+ * → 按鈕一律平塗粉彩 + 2px 描邊 + 底部「台階」陰影（按下會下沉），大按鈕用遮陽棚條紋。
+ * 描邊與台階用 box-shadow 畫，不改 border 寬度，按鈕尺寸與版面不變。
+ * 有 inline 背景色的按鈕（調色盤、主題預覽）不套用，避免蓋掉它們本身的顏色。 */
+:root[data-theme="shinchanSakura"] {
+    --ss-btn-ink: #2a2d4a;
+    --ss-btn-paper: #fffaf2;
+    --ss-btn-line: #7f93d8;
+    --ss-btn-pink: #f9cddc;
+    --ss-btn-pink-light: #fde6ee;
+    --ss-btn-pink-line: #d0628d;
+    --ss-btn-pink-ink: #6b2346;
+    --ss-btn-sky: #cfe8fb;
+    --ss-btn-sky-light: #e6f3fd;
+    --ss-btn-sky-line: #4f84c8;
+    --ss-btn-sky-ink: #173a66;
+    --ss-btn-lavender: #e3e6fb;
+    --ss-btn-lavender-line: #5b6fc0;
+    --ss-btn-danger: #fde4e8;
+    --ss-btn-danger-line: #d0465f;
+    --ss-btn-danger-ink: #9b1c33;
+}
+
+/* 基本：紙白底、長春花藍描邊、深藍紫字 */
+:root[data-theme="shinchanSakura"] button:not(.nav-item):not(.fab-btn):not([style*="background"]) {
+    --ss-line: var(--ss-btn-line);
+    background: var(--ss-btn-paper) !important;
+    color: var(--ss-btn-ink) !important;
+    -webkit-text-fill-color: var(--ss-btn-ink) !important;
+    border-color: var(--ss-line) !important;
+    text-shadow: none !important;
+    font-weight: 700;
+    box-shadow: 0 0 0 2px var(--ss-line), 0 4px 0 2px var(--ss-line) !important;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+}
+
+:root[data-theme="shinchanSakura"] button:not(.nav-item):not(.fab-btn):not([style*="background"]):hover {
+    transform: translateY(-1px);
+}
+
+:root[data-theme="shinchanSakura"] button:not(.nav-item):not(.fab-btn):not([style*="background"]):active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 2px var(--ss-line), 0 1px 0 2px var(--ss-line) !important;
+}
+
+:root[data-theme="shinchanSakura"] button:not(.nav-item):not(.fab-btn):not([style*="background"]):disabled {
+    opacity: 0.55;
+    transform: none;
+}
+
+/* 主要動作：櫻花粉（買入、送出、儲存、確認、新增、智慧分析／提醒…） */
+:root[data-theme="shinchanSakura"] button:not(.nav-item):not(.fab-btn):not([style*="background"]):is(
+    .buy-action-btn-large, .buy-btn, .form-submit-btn, .submit-btn, .confirm-btn, .btn-accept,
+    .monthly-planner-btn:not(.monthly-planner-btn--secondary):not(.monthly-planner-btn--outline),
+    .dca-add-btn, .dca-execute-btn, .auto-transfer-add-btn, .account-add-btn, .add-btn,
+    .budget-setup-save-btn, .font-size-confirm-btn, .entry-detail-edit-btn, .account-detail-edit-btn,
+    .allocation-btn.primary, .advisor-send-btn, .empty-state-btn, .set-next-month-budget-btn, .nmb-hero-btn,
+    .daily-detail-quick-add-btn, .daily-budget-track-btn, .upload-background-btn, .account-image-upload-btn,
+    .ai-housekeeper-btn, .smart-reminders-btn, .smart-analysis-btn, .smart-suggestion-btn,
+    .investment-form-submit-btn, .category-modal-btn, .view-history-btn, .history-advisor-btn) {
+    --ss-line: var(--ss-btn-pink-line);
+    background: var(--ss-btn-pink) !important;
+    color: var(--ss-btn-pink-ink) !important;
+    -webkit-text-fill-color: var(--ss-btn-pink-ink) !important;
+    font-weight: 800;
+}
+
+/* 輔助動作：天空藍（定期定額、股息、賣出、查詢、自動帶入…） */
+:root[data-theme="shinchanSakura"] button:not(.nav-item):not(.fab-btn):not([style*="background"]):is(
+    .dca-action-btn-large, .dca-btn, .sell-btn, .dividend-btn, .dividend-quick-add-btn, .sell-quick-add-btn,
+    .metric-quote-btn, .form-query-btn, .shares-auto-fill-btn, #investmentRebalanceBtn,
+    .next-month-bill-btn, .monthly-summary-expand-btn, .history-background-btn, .quick-actions-edit-btn) {
+    --ss-line: var(--ss-btn-sky-line);
+    background: var(--ss-btn-sky) !important;
+    color: var(--ss-btn-sky-ink) !important;
+    -webkit-text-fill-color: var(--ss-btn-sky-ink) !important;
+    font-weight: 800;
+}
+
+/* 大按鈕：攤位遮陽棚的糖果條紋 */
+:root[data-theme="shinchanSakura"] button:not(.nav-item):not(.fab-btn):not([style*="background"]):is(#investmentBuyBtn, .buy-action-btn-large) {
+    background: repeating-linear-gradient(90deg, var(--ss-btn-pink) 0 14px, var(--ss-btn-pink-light) 14px 28px) !important;
+}
+
+:root[data-theme="shinchanSakura"] button:not(.nav-item):not(.fab-btn):not([style*="background"]):is(#investmentDCABtn, .dca-action-btn-large) {
+    background: repeating-linear-gradient(90deg, var(--ss-btn-sky) 0 14px, var(--ss-btn-sky-light) 14px 28px) !important;
+}
+
+/* 選取中的分頁籤、類型、月份：淡紫底 */
+:root[data-theme="shinchanSakura"] button:not(.nav-item):not(.fab-btn):not([style*="background"]).active,
+:root[data-theme="shinchanSakura"] button:not(.nav-item):not(.fab-btn):not([style*="background"])[aria-selected="true"] {
+    --ss-line: var(--ss-btn-lavender-line);
+    background: var(--ss-btn-lavender) !important;
+    color: var(--ss-btn-ink) !important;
+    -webkit-text-fill-color: var(--ss-btn-ink) !important;
+    font-weight: 800;
+}
+
+/* 刪除、清除：淡紅底深紅字 */
+:root[data-theme="shinchanSakura"] button:not(.nav-item):not(.fab-btn):not([style*="background"]):is(
+    .form-delete-btn, .transaction-delete-btn, .history-transaction-delete-btn, .quick-action-delete-btn,
+    .delete-custom-background-btn, .image-remove-btn, .account-image-remove-btn, .filter-clear-btn) {
+    --ss-line: var(--ss-btn-danger-line);
+    background: var(--ss-btn-danger) !important;
+    color: var(--ss-btn-danger-ink) !important;
+    -webkit-text-fill-color: var(--ss-btn-danger-ink) !important;
+}
+
+/* 返回鍵：紙白底、櫻花描邊、莓果色箭頭 */
+:root[data-theme="shinchanSakura"] button:not(.nav-item):not(.fab-btn):not([style*="background"]):is(
+    .back-btn, .input-back-btn, .modal-back-btn, .detail-back-btn, .investment-form-back-btn, .dividend-back-btn,
+    .dca-back-btn, .dca-setup-back-btn, .auto-transfer-back-btn, .auto-transfer-setup-back-btn) {
+    --ss-line: var(--ss-btn-pink-line);
+    background: var(--ss-btn-paper) !important;
+    color: var(--ss-btn-pink-ink) !important;
+    -webkit-text-fill-color: var(--ss-btn-pink-ink) !important;
+}
+
+/* 數字鍵盤：運算鍵用櫻花粉 */
+:root[data-theme="shinchanSakura"] button:not(.nav-item):not(.fab-btn):not([style*="background"]).key-btn.operator {
+    --ss-line: var(--ss-btn-pink-line);
+    background: var(--ss-btn-pink) !important;
+    color: var(--ss-btn-pink-ink) !important;
+    -webkit-text-fill-color: var(--ss-btn-pink-ink) !important;
+}
+
+/* FAB：位置不變；白底圓形、櫻花描邊台階（圖案由 theme.js 的 buttonIcons 決定：🐶） */
+:root[data-theme="shinchanSakura"] .fab-btn {
+    background: var(--ss-btn-paper) !important;
+    border: none !important;
+    box-shadow: 0 0 0 3px var(--ss-btn-pink-line), 0 5px 0 3px var(--ss-btn-pink-line) !important;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+:root[data-theme="shinchanSakura"] .fab-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 3px var(--ss-btn-pink-line), 0 2px 0 3px var(--ss-btn-pink-line) !important;
+}
+
+/* 底部導覽選取中：櫻花粉底 + 描邊 */
+:root[data-theme="shinchanSakura"] .nav-item.active {
+    background: var(--ss-btn-pink-light) !important;
+    box-shadow: 0 0 0 2px var(--ss-btn-pink-line), 0 3px 0 2px var(--ss-btn-pink-line) !important;
+}
+
+/* ===== 底部導覽 ===== */
+:root[data-theme="shinchanSakura"] .bottom-nav {
+    background: linear-gradient(135deg, rgba(245, 250, 255, 0.92) 0%, rgba(253, 232, 241, 0.92) 50%, rgba(226, 240, 250, 0.92) 100%) !important;
+    border-top: 1px solid rgba(232, 120, 158, 0.18) !important;
+    backdrop-filter: blur(18px);
+}
+
+:root[data-theme="shinchanSakura"] .nav-text {
+    color: rgba(42, 45, 74, 0.80) !important;
+    -webkit-text-fill-color: rgba(42, 45, 74, 0.80) !important;
+    text-shadow: none !important;
+}
+
+:root[data-theme="shinchanSakura"] .nav-item.active {
+    background: rgba(232, 120, 158, 0.14) !important;
+}
+
+:root[data-theme="shinchanSakura"] .nav-item.active .nav-text {
+    color: var(--ss-rose-ink) !important;
+    -webkit-text-fill-color: var(--ss-rose-ink) !important;
+}
+
+/* ===== 每一個彈窗／對話框：跟著主題、適配螢幕不變形 ===== */
+:root[data-theme="shinchanSakura"] .modal-overlay,
+:root[data-theme="shinchanSakura"] .dialog-overlay,
+:root[data-theme="shinchanSakura"] .theme-modal-overlay,
+:root[data-theme="shinchanSakura"] .portfolio-analysis-modal {
+    background: rgba(42, 45, 74, 0.42) !important;
+    backdrop-filter: blur(8px);
+}
+
+:root[data-theme="shinchanSakura"] .modal-content,
+:root[data-theme="shinchanSakura"] .modal-content-standard,
+:root[data-theme="shinchanSakura"] .modal-card,
+:root[data-theme="shinchanSakura"] .category-modal-content,
+:root[data-theme="shinchanSakura"] .account-modal-content,
+:root[data-theme="shinchanSakura"] .emoji-modal-content,
+:root[data-theme="shinchanSakura"] .history-modal-content,
+:root[data-theme="shinchanSakura"] .budget-category-modal-content,
+:root[data-theme="shinchanSakura"] .budget-setting-modal-content,
+:root[data-theme="shinchanSakura"] .daily-detail-modal__panel,
+:root[data-theme="shinchanSakura"] .dca-execute-modal .modal-content,
+:root[data-theme="shinchanSakura"] .portfolio-analysis-content,
+:root[data-theme="shinchanSakura"] .theme-modal-content,
+:root[data-theme="shinchanSakura"] .theme-modal-container,
+:root[data-theme="shinchanSakura"] .dialog-content,
+:root[data-theme="shinchanSakura"] .popup-content,
+:root[data-theme="shinchanSakura"] .spending-analysis-panel,
+:root[data-theme="shinchanSakura"] .panel-content,
+:root[data-theme="shinchanSakura"] .reminder-panel,
+:root[data-theme="shinchanSakura"] .reminder-content,
+:root[data-theme="shinchanSakura"] .smart-notification,
+:root[data-theme="shinchanSakura"] .smart-suggestion-banner,
+:root[data-theme="shinchanSakura"] .category-suggestion-tooltip {
+    background: linear-gradient(160deg, rgba(247, 251, 255, 0.97) 0%, rgba(255, 242, 248, 0.97) 55%, rgba(240, 246, 254, 0.97) 100%) !important;
+    border: 1px solid rgba(232, 120, 158, 0.22) !important;
+    box-shadow: var(--shadow-primary-lg) !important;
+    color: var(--text-primary) !important;
+    max-width: min(94vw, 640px);
+    max-height: 88vh;
+    max-height: 88dvh;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+:root[data-theme="shinchanSakura"] .modal-header,
+:root[data-theme="shinchanSakura"] .dialog-header,
+:root[data-theme="shinchanSakura"] .panel-header,
+:root[data-theme="shinchanSakura"] .reminder-header,
+:root[data-theme="shinchanSakura"] .notification-header,
+:root[data-theme="shinchanSakura"] .history-modal-header,
+:root[data-theme="shinchanSakura"] .daily-detail-modal__header,
+:root[data-theme="shinchanSakura"] .advisor-chat-header,
+:root[data-theme="shinchanSakura"] .portfolio-analysis-header {
+    background: linear-gradient(135deg, rgba(253, 227, 238, 0.95) 0%, rgba(233, 226, 250, 0.95) 100%) !important;
+    color: var(--ss-ink) !important;
+    border-bottom: 1px solid rgba(232, 120, 158, 0.18) !important;
+}
+
+:root[data-theme="shinchanSakura"] .modal-title,
+:root[data-theme="shinchanSakura"] .modal-label,
+:root[data-theme="shinchanSakura"] .modal-body,
+:root[data-theme="shinchanSakura"] .dialog-body,
+:root[data-theme="shinchanSakura"] .daily-detail-modal__title,
+:root[data-theme="shinchanSakura"] .category-modal-label,
+:root[data-theme="shinchanSakura"] .reminder-title,
+:root[data-theme="shinchanSakura"] .reminder-message,
+:root[data-theme="shinchanSakura"] .notification-title,
+:root[data-theme="shinchanSakura"] .notification-body,
+:root[data-theme="shinchanSakura"] .suggestion-text,
+:root[data-theme="shinchanSakura"] .tooltip-title,
+:root[data-theme="shinchanSakura"] .setting-label {
+    color: var(--text-primary) !important;
+    text-shadow: none !important;
+}
+
+:root[data-theme="shinchanSakura"] .modal-close-btn,
+:root[data-theme="shinchanSakura"] .modal-close,
+:root[data-theme="shinchanSakura"] .dialog-close,
+:root[data-theme="shinchanSakura"] .panel-close,
+:root[data-theme="shinchanSakura"] .reminder-close,
+:root[data-theme="shinchanSakura"] .notification-close,
+:root[data-theme="shinchanSakura"] .history-close-btn,
+:root[data-theme="shinchanSakura"] .advisor-close-btn,
+:root[data-theme="shinchanSakura"] .daily-detail-close-btn,
+:root[data-theme="shinchanSakura"] .budget-category-close-btn,
+:root[data-theme="shinchanSakura"] .budget-setup-close-btn,
+:root[data-theme="shinchanSakura"] .creator-close-btn,
+:root[data-theme="shinchanSakura"] .font-size-close-btn,
+:root[data-theme="shinchanSakura"] .annual-report-close-btn,
+:root[data-theme="shinchanSakura"] .next-month-close-btn,
+:root[data-theme="shinchanSakura"] .member-select-close-btn,
+:root[data-theme="shinchanSakura"] .background-selector-close-btn {
+    color: var(--ss-rose-ink) !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    text-shadow: none !important;
+}
+
+/* ===== 智慧分析（支出模式分析、消費洞察、改善建議）、智慧提醒 ===== */
+:root[data-theme="shinchanSakura"] .analysis-summary .summary-item,
+:root[data-theme="shinchanSakura"] .ai-monthly-summary,
+:root[data-theme="shinchanSakura"] .ai-month-row,
+:root[data-theme="shinchanSakura"] .reminder-settings,
+:root[data-theme="shinchanSakura"] .reminder-stats,
+:root[data-theme="shinchanSakura"] .reminder-history,
+:root[data-theme="shinchanSakura"] .quick-settings,
+:root[data-theme="shinchanSakura"] .suggestion-main,
+:root[data-theme="shinchanSakura"] .category-item {
+    background: rgba(255, 255, 255, 0.86) !important;
+    border: 1px solid rgba(139, 159, 224, 0.22) !important;
+    color: var(--text-primary) !important;
+}
+
+:root[data-theme="shinchanSakura"] .insights,
+:root[data-theme="shinchanSakura"] .insight-item {
+    background: linear-gradient(135deg, rgba(232, 240, 253, 0.92) 0%, rgba(240, 233, 252, 0.92) 100%) !important;
+    border-left: 4px solid var(--color-accent-dark) !important;
+    color: var(--text-primary) !important;
+}
+
+:root[data-theme="shinchanSakura"] .insight-title {
+    color: var(--ss-lavender-ink) !important;
+}
+
+:root[data-theme="shinchanSakura"] .recommendations,
+:root[data-theme="shinchanSakura"] .recommendation-item {
+    background: linear-gradient(135deg, rgba(222, 244, 236, 0.92) 0%, rgba(220, 241, 245, 0.92) 100%) !important;
+    border-left: 4px solid var(--color-success) !important;
+    color: var(--text-primary) !important;
+}
+
+:root[data-theme="shinchanSakura"] .recommendation-title {
+    color: var(--color-success) !important;
+}
+
+:root[data-theme="shinchanSakura"] .insight-content,
+:root[data-theme="shinchanSakura"] .recommendation-content,
+:root[data-theme="shinchanSakura"] .category-name,
+:root[data-theme="shinchanSakura"] .category-amount,
+:root[data-theme="shinchanSakura"] .category-percent,
+:root[data-theme="shinchanSakura"] .ai-month-label,
+:root[data-theme="shinchanSakura"] .ai-month-values,
+:root[data-theme="shinchanSakura"] .history-title,
+:root[data-theme="shinchanSakura"] .history-message,
+:root[data-theme="shinchanSakura"] .history-time,
+:root[data-theme="shinchanSakura"] .reminder-time {
+    color: var(--text-primary) !important;
+    text-shadow: none !important;
+}
+
+/* ===== 表單 ===== */
+:root[data-theme="shinchanSakura"] .form-input,
+:root[data-theme="shinchanSakura"] .form-select,
+:root[data-theme="shinchanSakura"] .form-textarea,
+:root[data-theme="shinchanSakura"] .note-input,
+:root[data-theme="shinchanSakura"] .category-modal-input,
+:root[data-theme="shinchanSakura"] .monthly-planner-input,
+:root[data-theme="shinchanSakura"] .monthly-planner-goal-input,
+:root[data-theme="shinchanSakura"] .monthly-planner-item-name,
+:root[data-theme="shinchanSakura"] .monthly-planner-item-amount,
+:root[data-theme="shinchanSakura"] .monthly-planner-item-note,
+:root[data-theme="shinchanSakura"] .theme-search-input,
+:root[data-theme="shinchanSakura"] .advisor-chat-input,
+:root[data-theme="shinchanSakura"] .setting-select,
+:root[data-theme="shinchanSakura"] .setting-time,
+:root[data-theme="shinchanSakura"] .investment-form-container input,
+:root[data-theme="shinchanSakura"] .investment-form-container select,
+:root[data-theme="shinchanSakura"] .dca-setup-form input,
+:root[data-theme="shinchanSakura"] .dca-setup-form select,
+:root[data-theme="shinchanSakura"] .stock-search-container input,
+:root[data-theme="shinchanSakura"] .search-container input {
+    background: rgba(255, 255, 255, 0.94) !important;
+    border: 2px solid rgba(232, 120, 158, 0.22) !important;
+    color: var(--text-primary) !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+}
+
+:root[data-theme="shinchanSakura"] input::placeholder,
+:root[data-theme="shinchanSakura"] textarea::placeholder {
+    color: rgba(42, 45, 74, 0.55) !important;
+    -webkit-text-fill-color: rgba(42, 45, 74, 0.55) !important;
+}
+
+:root[data-theme="shinchanSakura"] .form-input:focus,
+:root[data-theme="shinchanSakura"] .form-select:focus,
+:root[data-theme="shinchanSakura"] .form-textarea:focus,
+:root[data-theme="shinchanSakura"] .monthly-planner-input:focus,
+:root[data-theme="shinchanSakura"] .investment-form-container input:focus,
+:root[data-theme="shinchanSakura"] .dca-setup-form input:focus {
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 0 3px rgba(232, 120, 158, 0.18) !important;
+}
+
+/* 記帳輸入區、數字鍵盤 */
+:root[data-theme="shinchanSakura"] .input-section {
+    background: linear-gradient(160deg, rgba(247, 251, 255, 0.94) 0%, rgba(255, 240, 247, 0.94) 100%) !important;
+    border-top: 2px solid rgba(232, 120, 158, 0.20) !important;
+}
+
+:root[data-theme="shinchanSakura"] .key-btn {
+    background: rgba(255, 255, 255, 0.92) !important;
+    border: 1px solid rgba(139, 159, 224, 0.22) !important;
+    color: var(--ss-ink) !important;
+}
+
+:root[data-theme="shinchanSakura"] .key-btn.operator {
+    background: rgba(253, 227, 238, 0.95) !important;
+    color: var(--ss-rose-ink) !important;
+}
+
+/* 進度條、分隔線 */
+:root[data-theme="shinchanSakura"] .dca-progress-bar,
+:root[data-theme="shinchanSakura"] .dividend-year-stat-bar {
+    background: rgba(139, 159, 224, 0.18) !important;
+}
+
+:root[data-theme="shinchanSakura"] .dca-progress-fill,
+:root[data-theme="shinchanSakura"] .dividend-year-stat-bar-fill {
+    background: linear-gradient(90deg, #e8789e 0%, #8b9fe0 55%, #6fa8dc 100%) !important;
+}

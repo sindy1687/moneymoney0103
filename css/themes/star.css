@@ -31,9 +31,10 @@
     --bg-white: #1a1f3a;
     --bg-light: #2a2f4a;
     --bg-lighter: #3a3f5a;
-    --text-primary: var(--bg-white);
-    --text-secondary: var(--bg-white);
-    --text-tertiary: var(--bg-white);
+    /* 原本三個文字色都等於 --bg-white（#1a1f3a），深底深字完全看不到 */
+    --text-primary: #ecebff;
+    --text-secondary: rgba(236, 235, 255, 0.82);
+    --text-tertiary: rgba(236, 235, 255, 0.64);
     --border-light: rgba(139, 124, 246, 0.2);
     --border-medium: rgba(139, 124, 246, 0.3);
 }

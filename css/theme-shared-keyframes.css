@@ -1,0 +1,28 @@
+/* 多個主題與 styles.css 共用的動畫。
+ * 原本定義在 shinchan-theme.css / festive-theme.css；主題 CSS 改成按需載入後，
+ * 移到這個一律載入的檔案，其他主題的動畫才不會失效。 */
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

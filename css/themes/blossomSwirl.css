@@ -1,0 +1,754 @@
+/* 花漾漩渦（blossomSwirl）
+ * 色彩取自主題照片：奶油黃 → 蜜桃 → 玫瑰粉 → 薰衣草紫 → 長春花藍 → 水藍，金色花蕊。
+ * 淺色主題：卡片一律淺底、文字一律深梅色，按鈕白字時底色加深，確保對比清楚。 */
+:root[data-theme="blossomSwirl"] {
+    --bs-image: url("https://i.pinimg.com/1200x/87/88/31/8788314954b00c57fa71e9761651c1e8.jpg");
+    --bs-ink: #3a2140;
+    --bs-rose-ink: #9c2e5a;
+    --bs-lavender-ink: #5a43a3;
+    --bs-aqua-ink: #22697a;
+
+    --color-primary: #e2578a;
+    --color-primary-light: #f3a3c0;
+    --color-primary-lighter: #fde3ee;
+    --color-primary-dark: #b8386a;
+
+    --color-secondary: #7cc6d3;
+    --color-secondary-light: #c3e9ef;
+    --color-secondary-dark: #2f8296;
+
+    --color-accent: #9b84d9;
+    --color-accent-light: #ddd3f5;
+    --color-accent-dark: #6c54b8;
+
+    --color-success: #15803d;
+    --color-danger: #c81e3c;
+    --color-warning: #b45309;
+    --color-info: #2563eb;
+    --color-error: var(--color-danger);
+
+    --bg-primary: transparent;
+    --bg-body: rgba(255, 255, 255, 0.40);
+    --bg-body-strong: rgba(255, 255, 255, 0.62);
+    --bg-dark: rgba(58, 33, 64, 0.70);
+
+    --bg-gradient: linear-gradient(135deg, #c93f74 0%, #a14f9e 50%, #7a5cc4 100%);
+    --bg-gradient-light: linear-gradient(135deg,
+        rgba(255, 244, 220, 0.70) 0%,
+        rgba(253, 227, 238, 0.62) 45%,
+        rgba(226, 236, 252, 0.62) 75%,
+        rgba(214, 240, 244, 0.66) 100%);
+
+    --bg-white: rgba(255, 255, 255, 0.92);
+    --bg-card: rgba(255, 255, 255, 0.88);
+    --bg-light: rgba(255, 250, 252, 0.86);
+    --bg-lighter: rgba(255, 255, 255, 0.76);
+    --bg-soft: rgba(226, 87, 138, 0.08);
+    --bg-soft-strong: rgba(124, 198, 211, 0.14);
+
+    --text-primary: #3a2140;
+    --text-secondary: rgba(58, 33, 64, 0.82);
+    --text-tertiary: rgba(58, 33, 64, 0.68);
+    --text-strong: #24122a;
+    --text-white: #ffffff;
+
+    --border-primary: rgba(226, 87, 138, 0.50);
+    --border-light: rgba(58, 33, 64, 0.14);
+    --border-medium: rgba(155, 132, 217, 0.32);
+    --card-border-color: rgba(226, 87, 138, 0.20);
+    --control-border-color: rgba(58, 33, 64, 0.18);
+    --table-border-color: rgba(58, 33, 64, 0.14);
+
+    --shadow-primary: 0 14px 40px rgba(122, 70, 120, 0.18);
+    --shadow-primary-lg: 0 24px 64px rgba(122, 70, 120, 0.22);
+
+    --color-primary-rgba-05: rgba(226, 87, 138, 0.05);
+    --color-primary-rgba-08: rgba(226, 87, 138, 0.08);
+    --color-primary-rgba-10: rgba(226, 87, 138, 0.10);
+    --color-primary-rgba-12: rgba(226, 87, 138, 0.12);
+    --color-primary-rgba-15: rgba(226, 87, 138, 0.15);
+    --color-primary-rgba-18: rgba(226, 87, 138, 0.18);
+    --color-primary-rgba-20: rgba(226, 87, 138, 0.20);
+    --color-primary-rgba-25: rgba(226, 87, 138, 0.25);
+    --color-primary-rgba-30: rgba(226, 87, 138, 0.30);
+    --color-primary-rgba-35: rgba(226, 87, 138, 0.35);
+    --color-primary-rgba-40: rgba(226, 87, 138, 0.40);
+    --color-primary-rgba-50: rgba(226, 87, 138, 0.50);
+    --color-primary-rgba-80: rgba(156, 46, 90, 0.92);
+
+    --color-primary-light-rgba-08: rgba(243, 163, 192, 0.08);
+    --color-primary-light-rgba-10: rgba(243, 163, 192, 0.10);
+    --color-primary-light-rgba-15: rgba(243, 163, 192, 0.15);
+    --color-primary-light-rgba-20: rgba(243, 163, 192, 0.20);
+    --color-primary-light-rgba-25: rgba(243, 163, 192, 0.25);
+    --color-primary-light-rgba-30: rgba(243, 163, 192, 0.30);
+    --color-primary-light-rgba-40: rgba(243, 163, 192, 0.40);
+
+    --color-accent-rgba-05: rgba(155, 132, 217, 0.05);
+    --color-accent-rgba-10: rgba(155, 132, 217, 0.10);
+    --color-accent-rgba-15: rgba(155, 132, 217, 0.15);
+    --color-accent-rgba-20: rgba(155, 132, 217, 0.20);
+    --color-accent-rgba-25: rgba(155, 132, 217, 0.25);
+    --color-accent-rgba-30: rgba(155, 132, 217, 0.30);
+    --color-accent-rgba-40: rgba(155, 132, 217, 0.40);
+
+    --bg-light-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 246, 250, 0.84) 100%);
+    --bg-light-gradient-reverse: linear-gradient(180deg, rgba(255, 246, 250, 0.84) 0%, rgba(255, 255, 255, 0.92) 100%);
+
+    /* 卡片：淺色漸層薄紗疊在主題照片上，照片看得到、文字仍清楚 */
+    --bs-card-veil: linear-gradient(135deg,
+        rgba(255, 252, 244, 0.88) 0%,
+        rgba(255, 241, 247, 0.86) 50%,
+        rgba(238, 246, 252, 0.88) 100%);
+    --bs-card-photo: var(--bs-card-veil), var(--bs-image) center / cover no-repeat;
+
+    /* 買入：玫瑰 → 薰衣草（加深，白字清楚）；定期定額：水藍 → 長春花藍（淺底深字） */
+    --action-buy-bg: linear-gradient(135deg, #c93f74 0%, #a14f9e 55%, #7a5cc4 100%);
+    --action-buy-bg-hover: linear-gradient(135deg, #b8336a 0%, #8f4390 55%, #6a4db6 100%);
+    --action-buy-text: #ffffff;
+    --action-dca-bg: linear-gradient(135deg, #a6e0e8 0%, #bccdf5 100%);
+    --action-dca-bg-hover: linear-gradient(135deg, #93d6e0 0%, #a9bff2 100%);
+    --action-dca-text: #233049;
+    --action-side-bg: rgba(255, 255, 255, 0.90);
+    --action-side-bg-hover: rgba(253, 227, 238, 0.95);
+    --action-side-text: var(--bs-ink);
+}
+
+/* ===== 背景：主題照片 + 漸層 ===== */
+:root[data-theme="blossomSwirl"] body {
+    background:
+        linear-gradient(165deg,
+            rgba(255, 244, 220, 0.38) 0%,
+            rgba(247, 168, 196, 0.24) 40%,
+            rgba(169, 192, 242, 0.22) 72%,
+            rgba(168, 220, 227, 0.34) 100%),
+        var(--bs-image) center / cover no-repeat fixed;
+    background-color: #fdf0f5;
+    color: var(--text-primary);
+}
+
+:root[data-theme="blossomSwirl"] body::before {
+    display: none;
+}
+
+/* ===== 每一個分頁：透明底，讓背景照片透出 ===== */
+:root[data-theme="blossomSwirl"] .page-ledger,
+:root[data-theme="blossomSwirl"] .page-input,
+:root[data-theme="blossomSwirl"] .page-chart,
+:root[data-theme="blossomSwirl"] .chart-page,
+:root[data-theme="blossomSwirl"] .page-budget,
+:root[data-theme="blossomSwirl"] .page-monthly-planner,
+:root[data-theme="blossomSwirl"] .page-daily-budget,
+:root[data-theme="blossomSwirl"] .page-settings,
+:root[data-theme="blossomSwirl"] .page-monthly-summary,
+:root[data-theme="blossomSwirl"] .page-wishlist-savings,
+:root[data-theme="blossomSwirl"] .page-wishlist-form,
+:root[data-theme="blossomSwirl"] .page-category-manage,
+:root[data-theme="blossomSwirl"] .page-investment,
+:root[data-theme="blossomSwirl"] .investment-input-page,
+:root[data-theme="blossomSwirl"] .stock-detail-page,
+:root[data-theme="blossomSwirl"] .dividend-page,
+:root[data-theme="blossomSwirl"] .dca-management-page,
+:root[data-theme="blossomSwirl"] .dca-setup-page,
+:root[data-theme="blossomSwirl"] .installment-management-page,
+:root[data-theme="blossomSwirl"] .installment-setup-page,
+:root[data-theme="blossomSwirl"] .auto-transfer-management-page,
+:root[data-theme="blossomSwirl"] .auto-transfer-setup-page,
+:root[data-theme="blossomSwirl"] .empty-page {
+    background: transparent !important;
+    box-shadow: none !important;
+    color: var(--text-primary);
+}
+
+/* ===== 頁首 ===== */
+:root[data-theme="blossomSwirl"] .ledger-header,
+:root[data-theme="blossomSwirl"] .chart-header,
+:root[data-theme="blossomSwirl"] .budget-header,
+:root[data-theme="blossomSwirl"] .daily-budget-header,
+:root[data-theme="blossomSwirl"] .monthly-planner-header,
+:root[data-theme="blossomSwirl"] .settings-header,
+:root[data-theme="blossomSwirl"] .monthly-summary-header,
+:root[data-theme="blossomSwirl"] .wishlist-savings-header,
+:root[data-theme="blossomSwirl"] .wishlist-form-header,
+:root[data-theme="blossomSwirl"] .category-manage-header,
+:root[data-theme="blossomSwirl"] .investment-page-header,
+:root[data-theme="blossomSwirl"] .investment-form-header,
+:root[data-theme="blossomSwirl"] .dividend-page-header,
+:root[data-theme="blossomSwirl"] .dca-page-header,
+:root[data-theme="blossomSwirl"] .dca-setup-header,
+:root[data-theme="blossomSwirl"] .auto-transfer-header,
+:root[data-theme="blossomSwirl"] .auto-transfer-setup-header,
+:root[data-theme="blossomSwirl"] .input-page-header,
+:root[data-theme="blossomSwirl"] .tab-section,
+:root[data-theme="blossomSwirl"] .next-month-bills-header,
+:root[data-theme="blossomSwirl"] .theme-modal-header {
+    background: linear-gradient(135deg, rgba(255, 249, 240, 0.90) 0%, rgba(253, 232, 241, 0.88) 55%, rgba(232, 240, 253, 0.88) 100%) !important;
+    border-bottom: 1px solid rgba(226, 87, 138, 0.16) !important;
+    backdrop-filter: blur(16px);
+    color: var(--text-primary) !important;
+}
+
+:root[data-theme="blossomSwirl"] .page-title,
+:root[data-theme="blossomSwirl"] .ledger-title,
+:root[data-theme="blossomSwirl"] .chart-title,
+:root[data-theme="blossomSwirl"] .budget-title,
+:root[data-theme="blossomSwirl"] .settings-title,
+:root[data-theme="blossomSwirl"] .monthly-planner-title,
+:root[data-theme="blossomSwirl"] .monthly-summary-title,
+:root[data-theme="blossomSwirl"] .dividend-page-title,
+:root[data-theme="blossomSwirl"] .dca-page-title,
+:root[data-theme="blossomSwirl"] .dca-setup-title,
+:root[data-theme="blossomSwirl"] .form-header-title,
+:root[data-theme="blossomSwirl"] .section-title,
+:root[data-theme="blossomSwirl"] .chart-section-title,
+:root[data-theme="blossomSwirl"] .settings-section-title,
+:root[data-theme="blossomSwirl"] .dividend-section-title,
+:root[data-theme="blossomSwirl"] .budget-category-section-title,
+:root[data-theme="blossomSwirl"] .monthly-planner-card-title,
+:root[data-theme="blossomSwirl"] .monthly-summary-card-title,
+:root[data-theme="blossomSwirl"] .annual-report-section-title,
+:root[data-theme="blossomSwirl"] .nmb-section-title,
+:root[data-theme="blossomSwirl"] .emoji-section-title {
+    color: var(--bs-ink) !important;
+    -webkit-text-fill-color: var(--bs-ink) !important;
+    text-shadow: none !important;
+    background-image: none;
+}
+
+:root[data-theme="blossomSwirl"] .form-header-subtitle,
+:root[data-theme="blossomSwirl"] .summary-month,
+:root[data-theme="blossomSwirl"] .summary-line,
+:root[data-theme="blossomSwirl"] #chartMonthText {
+    color: var(--text-secondary) !important;
+    text-shadow: none !important;
+}
+
+/* ===== 卡片（記帳、投資、錢包、圖表、股息、定期定額、分期、設定…） ===== */
+:root[data-theme="blossomSwirl"] .summary-card,
+:root[data-theme="blossomSwirl"] .record-card,
+:root[data-theme="blossomSwirl"] .ledger-summary,
+:root[data-theme="blossomSwirl"] .stat-card,
+:root[data-theme="blossomSwirl"] .metric-card,
+:root[data-theme="blossomSwirl"] .chart-section,
+:root[data-theme="blossomSwirl"] .chart-container,
+:root[data-theme="blossomSwirl"] .chart-insight,
+:root[data-theme="blossomSwirl"] .budget-summary-item,
+:root[data-theme="blossomSwirl"] .budget-category-section,
+:root[data-theme="blossomSwirl"] .budget-add-section,
+:root[data-theme="blossomSwirl"] .daily-budget-summary-card,
+:root[data-theme="blossomSwirl"] .daily-detail-summary-card,
+:root[data-theme="blossomSwirl"] .next-month-budget-card,
+:root[data-theme="blossomSwirl"] .monthly-summary-card,
+:root[data-theme="blossomSwirl"] .monthly-summary-item,
+:root[data-theme="blossomSwirl"] .annual-report-card,
+:root[data-theme="blossomSwirl"] .stock-item-card,
+:root[data-theme="blossomSwirl"] .allocation-card,
+:root[data-theme="blossomSwirl"] .summary-toggle,
+:root[data-theme="blossomSwirl"] .investment-records-summary,
+:root[data-theme="blossomSwirl"] .dividend-stat-card,
+:root[data-theme="blossomSwirl"] .dividend-records-section,
+:root[data-theme="blossomSwirl"] .dividend-year-stats-section,
+:root[data-theme="blossomSwirl"] .dividend-calendar-section,
+:root[data-theme="blossomSwirl"] .dividend-year-stat-item,
+:root[data-theme="blossomSwirl"] .dca-item-card,
+:root[data-theme="blossomSwirl"] .dca-setup-form,
+:root[data-theme="blossomSwirl"] .auto-transfer-list-container,
+:root[data-theme="blossomSwirl"] .settings-section-items,
+:root[data-theme="blossomSwirl"] .account-detail-section,
+:root[data-theme="blossomSwirl"] .savings-form-container,
+:root[data-theme="blossomSwirl"] .wishlist-form-container,
+:root[data-theme="blossomSwirl"] .quick-actions-section,
+:root[data-theme="blossomSwirl"] .category-section,
+:root[data-theme="blossomSwirl"] .search-container,
+:root[data-theme="blossomSwirl"] .empty-state,
+:root[data-theme="blossomSwirl"] .reminder-item,
+:root[data-theme="blossomSwirl"] .history-item {
+    background: var(--bs-card-veil) !important;
+    border: 1px solid var(--card-border-color) !important;
+    box-shadow: var(--shadow-primary) !important;
+    color: var(--text-primary) !important;
+    backdrop-filter: blur(14px);
+}
+
+/* 指定要有照片的卡片：錢包預算、每月規劃、投資設定、持有中、買入、賣出、股息、記帳總覽、定期定額、分期 */
+:root[data-theme="blossomSwirl"] .budget-summary,
+:root[data-theme="blossomSwirl"] .monthly-planner-card,
+:root[data-theme="blossomSwirl"] .overview-summary-grid,
+:root[data-theme="blossomSwirl"] .stock-list-container,
+:root[data-theme="blossomSwirl"] .investment-form-container,
+:root[data-theme="blossomSwirl"] .dividend-stats-grid,
+:root[data-theme="blossomSwirl"] .summary-stats,
+:root[data-theme="blossomSwirl"] .dca-list-container,
+:root[data-theme="blossomSwirl"] .installment-management-page .settings-section-items,
+:root[data-theme="blossomSwirl"] .installment-setup-page .dca-setup-form {
+    background: var(--bs-card-photo) !important;
+    border: 1px solid var(--card-border-color) !important;
+    box-shadow: var(--shadow-primary) !important;
+    color: var(--text-primary) !important;
+    border-radius: 18px;
+}
+
+:root[data-theme="blossomSwirl"] .stock-item-card::before {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(253, 227, 238, 0.4) 50%, rgba(214, 240, 244, 0.3) 100%);
+}
+
+/* 卡片內的標籤與數值：深色、無陰影 */
+:root[data-theme="blossomSwirl"] .summary-label,
+:root[data-theme="blossomSwirl"] .stat-label,
+:root[data-theme="blossomSwirl"] .budget-summary-label,
+:root[data-theme="blossomSwirl"] .budget-detail-label,
+:root[data-theme="blossomSwirl"] .monthly-summary-label,
+:root[data-theme="blossomSwirl"] .monthly-planner-label,
+:root[data-theme="blossomSwirl"] .monthly-planner-subtotal-label,
+:root[data-theme="blossomSwirl"] .monthly-planner-result-label,
+:root[data-theme="blossomSwirl"] .dividend-stat-label,
+:root[data-theme="blossomSwirl"] .annual-report-card-label,
+:root[data-theme="blossomSwirl"] .dca-item-label,
+:root[data-theme="blossomSwirl"] .summary-toggle__label,
+:root[data-theme="blossomSwirl"] .summary-toggle__hint,
+:root[data-theme="blossomSwirl"] .summary-toggle__metric-label,
+:root[data-theme="blossomSwirl"] .allocation-card-sub,
+:root[data-theme="blossomSwirl"] .daily-detail-summary-label,
+:root[data-theme="blossomSwirl"] .stock-grid-card-price-prev-label,
+:root[data-theme="blossomSwirl"] .settings-item-subtext,
+:root[data-theme="blossomSwirl"] .monthly-planner-empty,
+:root[data-theme="blossomSwirl"] .empty-hint,
+:root[data-theme="blossomSwirl"] .empty-text,
+:root[data-theme="blossomSwirl"] .dividend-empty-text,
+:root[data-theme="blossomSwirl"] .dividend-empty-hint,
+:root[data-theme="blossomSwirl"] .account-info,
+:root[data-theme="blossomSwirl"] .account-item-name,
+:root[data-theme="blossomSwirl"] .account-item-currency,
+:root[data-theme="blossomSwirl"] .tab-text,
+:root[data-theme="blossomSwirl"] #stockCount {
+    color: var(--text-secondary) !important;
+    -webkit-text-fill-color: var(--text-secondary) !important;
+    text-shadow: none !important;
+}
+
+:root[data-theme="blossomSwirl"] .summary-value,
+:root[data-theme="blossomSwirl"] .stat-value,
+:root[data-theme="blossomSwirl"] .budget-summary-value,
+:root[data-theme="blossomSwirl"] .monthly-summary-value,
+:root[data-theme="blossomSwirl"] .monthly-planner-subtotal-value,
+:root[data-theme="blossomSwirl"] .dividend-stat-value,
+:root[data-theme="blossomSwirl"] .dividend-stat-value-large,
+:root[data-theme="blossomSwirl"] .annual-report-card-value,
+:root[data-theme="blossomSwirl"] .dca-item-value,
+:root[data-theme="blossomSwirl"] .summary-toggle__metric-value,
+:root[data-theme="blossomSwirl"] .allocation-card-title,
+:root[data-theme="blossomSwirl"] .stock-card-name,
+:root[data-theme="blossomSwirl"] .stock-grid-card-title,
+:root[data-theme="blossomSwirl"] .stock-grid-card-price-number,
+:root[data-theme="blossomSwirl"] .record-card-amount,
+:root[data-theme="blossomSwirl"] .settings-item-text,
+:root[data-theme="blossomSwirl"] .daily-detail-summary-value {
+    color: var(--text-primary) !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    text-shadow: none !important;
+}
+
+/* 金額語意色（淺底加深版）；保留正負、超支的切換 */
+:root[data-theme="blossomSwirl"] .budget-summary-value.budget-total,
+:root[data-theme="blossomSwirl"] #monthBudget {
+    color: var(--bs-rose-ink) !important;
+    -webkit-text-fill-color: var(--bs-rose-ink) !important;
+}
+
+:root[data-theme="blossomSwirl"] .budget-summary-value.budget-used,
+:root[data-theme="blossomSwirl"] .budget-summary-value.over-budget,
+:root[data-theme="blossomSwirl"] .budget-summary-value.expense,
+:root[data-theme="blossomSwirl"] #totalExpense,
+:root[data-theme="blossomSwirl"] #dailyExpenseAmount,
+:root[data-theme="blossomSwirl"] .negative,
+:root[data-theme="blossomSwirl"] .record-card.expense .record-card-amount {
+    color: var(--color-danger) !important;
+    -webkit-text-fill-color: var(--color-danger) !important;
+}
+
+:root[data-theme="blossomSwirl"] .budget-summary-value.budget-remaining:not(.over-budget),
+:root[data-theme="blossomSwirl"] #totalIncome,
+:root[data-theme="blossomSwirl"] .positive,
+:root[data-theme="blossomSwirl"] .record-card.income .record-card-amount {
+    color: var(--color-success) !important;
+    -webkit-text-fill-color: var(--color-success) !important;
+}
+
+/* ===== 按鈕 ===== */
+:root[data-theme="blossomSwirl"] .buy-action-btn-large,
+:root[data-theme="blossomSwirl"] .buy-btn,
+:root[data-theme="blossomSwirl"] .form-submit-btn,
+:root[data-theme="blossomSwirl"] .submit-btn,
+:root[data-theme="blossomSwirl"] .monthly-planner-btn:not(.monthly-planner-btn--secondary):not(.monthly-planner-btn--outline),
+:root[data-theme="blossomSwirl"] .dca-add-btn,
+:root[data-theme="blossomSwirl"] .dca-execute-btn,
+:root[data-theme="blossomSwirl"] .auto-transfer-add-btn,
+:root[data-theme="blossomSwirl"] .budget-setup-save-btn,
+:root[data-theme="blossomSwirl"] .font-size-confirm-btn,
+:root[data-theme="blossomSwirl"] .entry-detail-edit-btn,
+:root[data-theme="blossomSwirl"] .modal-btn.confirm-btn,
+:root[data-theme="blossomSwirl"] .confirm-btn,
+:root[data-theme="blossomSwirl"] .btn-accept,
+:root[data-theme="blossomSwirl"] .allocation-btn.primary,
+:root[data-theme="blossomSwirl"] .advisor-send-btn,
+:root[data-theme="blossomSwirl"] .empty-state-btn,
+:root[data-theme="blossomSwirl"] .savings-type-tab.active,
+:root[data-theme="blossomSwirl"] .smart-analysis-btn,
+:root[data-theme="blossomSwirl"] .smart-suggestion-btn,
+:root[data-theme="blossomSwirl"] .ai-housekeeper-btn,
+:root[data-theme="blossomSwirl"] .smart-reminders-btn,
+:root[data-theme="blossomSwirl"] .investment-form-submit-btn {
+    background: var(--action-buy-bg) !important;
+    color: var(--action-buy-text) !important;
+    -webkit-text-fill-color: var(--action-buy-text) !important;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    text-shadow: 0 1px 2px rgba(58, 33, 64, 0.35) !important;
+    box-shadow: 0 8px 22px rgba(161, 79, 158, 0.28) !important;
+}
+
+:root[data-theme="blossomSwirl"] .buy-action-btn-large:hover,
+:root[data-theme="blossomSwirl"] .buy-btn:hover,
+:root[data-theme="blossomSwirl"] .form-submit-btn:hover,
+:root[data-theme="blossomSwirl"] .monthly-planner-btn:not(.monthly-planner-btn--secondary):not(.monthly-planner-btn--outline):hover,
+:root[data-theme="blossomSwirl"] .dca-add-btn:hover,
+:root[data-theme="blossomSwirl"] .dca-execute-btn:hover,
+:root[data-theme="blossomSwirl"] .ai-housekeeper-btn:hover {
+    background: var(--action-buy-bg-hover) !important;
+}
+
+:root[data-theme="blossomSwirl"] .dca-action-btn-large,
+:root[data-theme="blossomSwirl"] .dca-btn,
+:root[data-theme="blossomSwirl"] .dividend-quick-add-btn,
+:root[data-theme="blossomSwirl"] .sell-quick-add-btn,
+:root[data-theme="blossomSwirl"] .metric-quote-btn,
+:root[data-theme="blossomSwirl"] .form-query-btn,
+:root[data-theme="blossomSwirl"] .shares-auto-fill-btn,
+:root[data-theme="blossomSwirl"] #investmentRebalanceBtn {
+    background: var(--action-dca-bg) !important;
+    color: var(--action-dca-text) !important;
+    -webkit-text-fill-color: var(--action-dca-text) !important;
+    border: 1px solid rgba(47, 130, 150, 0.30) !important;
+    text-shadow: none !important;
+    box-shadow: 0 8px 22px rgba(47, 130, 150, 0.20) !important;
+}
+
+:root[data-theme="blossomSwirl"] .dca-action-btn-large:hover,
+:root[data-theme="blossomSwirl"] .dca-btn:hover {
+    background: var(--action-dca-bg-hover) !important;
+}
+
+/* 次要按鈕、分頁籤、月份切換 */
+:root[data-theme="blossomSwirl"] .monthly-planner-btn--secondary,
+:root[data-theme="blossomSwirl"] .monthly-planner-btn--outline,
+:root[data-theme="blossomSwirl"] .month-nav-btn,
+:root[data-theme="blossomSwirl"] .budget-edit-btn,
+:root[data-theme="blossomSwirl"] .savings-type-tab:not(.active),
+:root[data-theme="blossomSwirl"] .tab-btn,
+:root[data-theme="blossomSwirl"] .chart-tab-btn,
+:root[data-theme="blossomSwirl"] .type-btn,
+:root[data-theme="blossomSwirl"] .action-btn,
+:root[data-theme="blossomSwirl"] .modal-btn.cancel-btn,
+:root[data-theme="blossomSwirl"] .cancel-btn,
+:root[data-theme="blossomSwirl"] .btn-dismiss,
+:root[data-theme="blossomSwirl"] .allocation-btn:not(.primary),
+:root[data-theme="blossomSwirl"] .side-action-btn,
+:root[data-theme="blossomSwirl"] .quick-icon-btn,
+:root[data-theme="blossomSwirl"] .next-month-bill-btn,
+:root[data-theme="blossomSwirl"] .dca-edit-btn,
+:root[data-theme="blossomSwirl"] .account-edit-btn,
+:root[data-theme="blossomSwirl"] .account-detail-btn,
+:root[data-theme="blossomSwirl"] .record-action-btn,
+:root[data-theme="blossomSwirl"] .reminder-action,
+:root[data-theme="blossomSwirl"] .notification-action,
+:root[data-theme="blossomSwirl"] .alt-category-btn,
+:root[data-theme="blossomSwirl"] .savings-template-btn {
+    background: rgba(255, 255, 255, 0.90) !important;
+    color: var(--bs-ink) !important;
+    -webkit-text-fill-color: var(--bs-ink) !important;
+    border: 1px solid rgba(226, 87, 138, 0.26) !important;
+    text-shadow: none !important;
+}
+
+:root[data-theme="blossomSwirl"] .tab-btn.active,
+:root[data-theme="blossomSwirl"] .chart-tab-btn.active,
+:root[data-theme="blossomSwirl"] .type-btn.active,
+:root[data-theme="blossomSwirl"] .ledger-type-tab.active {
+    background: rgba(253, 227, 238, 0.95) !important;
+    color: var(--bs-rose-ink) !important;
+    -webkit-text-fill-color: var(--bs-rose-ink) !important;
+    border: 2px solid rgba(226, 87, 138, 0.45) !important;
+}
+
+:root[data-theme="blossomSwirl"] .ledger-tab-text,
+:root[data-theme="blossomSwirl"] .type-btn {
+    color: var(--bs-ink) !important;
+    -webkit-text-fill-color: var(--bs-ink) !important;
+    text-shadow: none !important;
+}
+
+/* 返回鍵 */
+:root[data-theme="blossomSwirl"] .back-btn,
+:root[data-theme="blossomSwirl"] .input-back-btn,
+:root[data-theme="blossomSwirl"] .modal-back-btn,
+:root[data-theme="blossomSwirl"] .detail-back-btn,
+:root[data-theme="blossomSwirl"] .investment-form-back-btn,
+:root[data-theme="blossomSwirl"] .dividend-back-btn,
+:root[data-theme="blossomSwirl"] .dca-back-btn,
+:root[data-theme="blossomSwirl"] .dca-setup-back-btn,
+:root[data-theme="blossomSwirl"] .auto-transfer-back-btn,
+:root[data-theme="blossomSwirl"] .auto-transfer-setup-back-btn {
+    background: rgba(255, 255, 255, 0.92) !important;
+    color: var(--bs-rose-ink) !important;
+    -webkit-text-fill-color: var(--bs-rose-ink) !important;
+    border: 1px solid rgba(226, 87, 138, 0.35) !important;
+    text-shadow: none !important;
+    box-shadow: 0 4px 12px rgba(156, 46, 90, 0.14) !important;
+}
+
+/* FAB：位置不變，只換顏色（圖案由 theme.js 的 buttonIcons 決定） */
+:root[data-theme="blossomSwirl"] .fab-btn {
+    background: linear-gradient(135deg, #f3a3c0 0%, #c9a6ec 55%, #9fd3df 100%) !important;
+    border: 2px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow: 0 10px 26px rgba(161, 79, 158, 0.32) !important;
+}
+
+/* ===== 底部導覽 ===== */
+:root[data-theme="blossomSwirl"] .bottom-nav {
+    background: linear-gradient(135deg, rgba(255, 249, 240, 0.92) 0%, rgba(253, 232, 241, 0.92) 50%, rgba(226, 240, 250, 0.92) 100%) !important;
+    border-top: 1px solid rgba(226, 87, 138, 0.18) !important;
+    backdrop-filter: blur(18px);
+}
+
+:root[data-theme="blossomSwirl"] .nav-text {
+    color: rgba(58, 33, 64, 0.80) !important;
+    -webkit-text-fill-color: rgba(58, 33, 64, 0.80) !important;
+    text-shadow: none !important;
+}
+
+:root[data-theme="blossomSwirl"] .nav-item.active {
+    background: rgba(226, 87, 138, 0.14) !important;
+}
+
+:root[data-theme="blossomSwirl"] .nav-item.active .nav-text {
+    color: var(--bs-rose-ink) !important;
+    -webkit-text-fill-color: var(--bs-rose-ink) !important;
+}
+
+/* ===== 每一個彈窗／對話框：跟著主題、適配螢幕不變形 ===== */
+:root[data-theme="blossomSwirl"] .modal-overlay,
+:root[data-theme="blossomSwirl"] .dialog-overlay,
+:root[data-theme="blossomSwirl"] .theme-modal-overlay,
+:root[data-theme="blossomSwirl"] .portfolio-analysis-modal {
+    background: rgba(58, 33, 64, 0.42) !important;
+    backdrop-filter: blur(8px);
+}
+
+:root[data-theme="blossomSwirl"] .modal-content,
+:root[data-theme="blossomSwirl"] .modal-content-standard,
+:root[data-theme="blossomSwirl"] .modal-card,
+:root[data-theme="blossomSwirl"] .category-modal-content,
+:root[data-theme="blossomSwirl"] .account-modal-content,
+:root[data-theme="blossomSwirl"] .emoji-modal-content,
+:root[data-theme="blossomSwirl"] .history-modal-content,
+:root[data-theme="blossomSwirl"] .budget-category-modal-content,
+:root[data-theme="blossomSwirl"] .budget-setting-modal-content,
+:root[data-theme="blossomSwirl"] .daily-detail-modal__panel,
+:root[data-theme="blossomSwirl"] .dca-execute-modal .modal-content,
+:root[data-theme="blossomSwirl"] .portfolio-analysis-content,
+:root[data-theme="blossomSwirl"] .theme-modal-content,
+:root[data-theme="blossomSwirl"] .theme-modal-container,
+:root[data-theme="blossomSwirl"] .dialog-content,
+:root[data-theme="blossomSwirl"] .popup-content,
+:root[data-theme="blossomSwirl"] .spending-analysis-panel,
+:root[data-theme="blossomSwirl"] .panel-content,
+:root[data-theme="blossomSwirl"] .reminder-panel,
+:root[data-theme="blossomSwirl"] .reminder-content,
+:root[data-theme="blossomSwirl"] .smart-notification,
+:root[data-theme="blossomSwirl"] .smart-suggestion-banner,
+:root[data-theme="blossomSwirl"] .category-suggestion-tooltip {
+    background: linear-gradient(160deg, rgba(255, 252, 246, 0.97) 0%, rgba(255, 242, 248, 0.97) 55%, rgba(240, 246, 254, 0.97) 100%) !important;
+    border: 1px solid rgba(226, 87, 138, 0.22) !important;
+    box-shadow: var(--shadow-primary-lg) !important;
+    color: var(--text-primary) !important;
+    max-width: min(94vw, 640px);
+    max-height: 88vh;
+    max-height: 88dvh;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+:root[data-theme="blossomSwirl"] .modal-header,
+:root[data-theme="blossomSwirl"] .dialog-header,
+:root[data-theme="blossomSwirl"] .panel-header,
+:root[data-theme="blossomSwirl"] .reminder-header,
+:root[data-theme="blossomSwirl"] .notification-header,
+:root[data-theme="blossomSwirl"] .history-modal-header,
+:root[data-theme="blossomSwirl"] .daily-detail-modal__header,
+:root[data-theme="blossomSwirl"] .advisor-chat-header,
+:root[data-theme="blossomSwirl"] .portfolio-analysis-header {
+    background: linear-gradient(135deg, rgba(253, 227, 238, 0.95) 0%, rgba(233, 226, 250, 0.95) 100%) !important;
+    color: var(--bs-ink) !important;
+    border-bottom: 1px solid rgba(226, 87, 138, 0.18) !important;
+}
+
+:root[data-theme="blossomSwirl"] .modal-title,
+:root[data-theme="blossomSwirl"] .modal-label,
+:root[data-theme="blossomSwirl"] .modal-body,
+:root[data-theme="blossomSwirl"] .dialog-body,
+:root[data-theme="blossomSwirl"] .daily-detail-modal__title,
+:root[data-theme="blossomSwirl"] .category-modal-label,
+:root[data-theme="blossomSwirl"] .reminder-title,
+:root[data-theme="blossomSwirl"] .reminder-message,
+:root[data-theme="blossomSwirl"] .notification-title,
+:root[data-theme="blossomSwirl"] .notification-body,
+:root[data-theme="blossomSwirl"] .suggestion-text,
+:root[data-theme="blossomSwirl"] .tooltip-title,
+:root[data-theme="blossomSwirl"] .setting-label {
+    color: var(--text-primary) !important;
+    text-shadow: none !important;
+}
+
+:root[data-theme="blossomSwirl"] .modal-close-btn,
+:root[data-theme="blossomSwirl"] .modal-close,
+:root[data-theme="blossomSwirl"] .dialog-close,
+:root[data-theme="blossomSwirl"] .panel-close,
+:root[data-theme="blossomSwirl"] .reminder-close,
+:root[data-theme="blossomSwirl"] .notification-close,
+:root[data-theme="blossomSwirl"] .history-close-btn,
+:root[data-theme="blossomSwirl"] .advisor-close-btn,
+:root[data-theme="blossomSwirl"] .daily-detail-close-btn,
+:root[data-theme="blossomSwirl"] .budget-category-close-btn,
+:root[data-theme="blossomSwirl"] .budget-setup-close-btn,
+:root[data-theme="blossomSwirl"] .creator-close-btn,
+:root[data-theme="blossomSwirl"] .font-size-close-btn,
+:root[data-theme="blossomSwirl"] .annual-report-close-btn,
+:root[data-theme="blossomSwirl"] .next-month-close-btn,
+:root[data-theme="blossomSwirl"] .member-select-close-btn,
+:root[data-theme="blossomSwirl"] .background-selector-close-btn {
+    color: var(--bs-rose-ink) !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    text-shadow: none !important;
+}
+
+/* ===== 智慧分析（支出模式分析、消費洞察、改善建議）、智慧提醒 ===== */
+:root[data-theme="blossomSwirl"] .analysis-summary .summary-item,
+:root[data-theme="blossomSwirl"] .ai-monthly-summary,
+:root[data-theme="blossomSwirl"] .ai-month-row,
+:root[data-theme="blossomSwirl"] .reminder-settings,
+:root[data-theme="blossomSwirl"] .reminder-stats,
+:root[data-theme="blossomSwirl"] .reminder-history,
+:root[data-theme="blossomSwirl"] .quick-settings,
+:root[data-theme="blossomSwirl"] .suggestion-main,
+:root[data-theme="blossomSwirl"] .category-item {
+    background: rgba(255, 255, 255, 0.86) !important;
+    border: 1px solid rgba(155, 132, 217, 0.22) !important;
+    color: var(--text-primary) !important;
+}
+
+:root[data-theme="blossomSwirl"] .insights,
+:root[data-theme="blossomSwirl"] .insight-item {
+    background: linear-gradient(135deg, rgba(232, 240, 253, 0.92) 0%, rgba(240, 233, 252, 0.92) 100%) !important;
+    border-left: 4px solid var(--color-accent-dark) !important;
+    color: var(--text-primary) !important;
+}
+
+:root[data-theme="blossomSwirl"] .insight-title {
+    color: var(--bs-lavender-ink) !important;
+}
+
+:root[data-theme="blossomSwirl"] .recommendations,
+:root[data-theme="blossomSwirl"] .recommendation-item {
+    background: linear-gradient(135deg, rgba(222, 244, 236, 0.92) 0%, rgba(220, 241, 245, 0.92) 100%) !important;
+    border-left: 4px solid var(--color-success) !important;
+    color: var(--text-primary) !important;
+}
+
+:root[data-theme="blossomSwirl"] .recommendation-title {
+    color: var(--color-success) !important;
+}
+
+:root[data-theme="blossomSwirl"] .insight-content,
+:root[data-theme="blossomSwirl"] .recommendation-content,
+:root[data-theme="blossomSwirl"] .category-name,
+:root[data-theme="blossomSwirl"] .category-amount,
+:root[data-theme="blossomSwirl"] .category-percent,
+:root[data-theme="blossomSwirl"] .ai-month-label,
+:root[data-theme="blossomSwirl"] .ai-month-values,
+:root[data-theme="blossomSwirl"] .history-title,
+:root[data-theme="blossomSwirl"] .history-message,
+:root[data-theme="blossomSwirl"] .history-time,
+:root[data-theme="blossomSwirl"] .reminder-time {
+    color: var(--text-primary) !important;
+    text-shadow: none !important;
+}
+
+/* ===== 表單 ===== */
+:root[data-theme="blossomSwirl"] .form-input,
+:root[data-theme="blossomSwirl"] .form-select,
+:root[data-theme="blossomSwirl"] .form-textarea,
+:root[data-theme="blossomSwirl"] .note-input,
+:root[data-theme="blossomSwirl"] .category-modal-input,
+:root[data-theme="blossomSwirl"] .monthly-planner-input,
+:root[data-theme="blossomSwirl"] .monthly-planner-goal-input,
+:root[data-theme="blossomSwirl"] .monthly-planner-item-name,
+:root[data-theme="blossomSwirl"] .monthly-planner-item-amount,
+:root[data-theme="blossomSwirl"] .monthly-planner-item-note,
+:root[data-theme="blossomSwirl"] .theme-search-input,
+:root[data-theme="blossomSwirl"] .advisor-chat-input,
+:root[data-theme="blossomSwirl"] .setting-select,
+:root[data-theme="blossomSwirl"] .setting-time,
+:root[data-theme="blossomSwirl"] .investment-form-container input,
+:root[data-theme="blossomSwirl"] .investment-form-container select,
+:root[data-theme="blossomSwirl"] .dca-setup-form input,
+:root[data-theme="blossomSwirl"] .dca-setup-form select,
+:root[data-theme="blossomSwirl"] .stock-search-container input,
+:root[data-theme="blossomSwirl"] .search-container input {
+    background: rgba(255, 255, 255, 0.94) !important;
+    border: 2px solid rgba(226, 87, 138, 0.22) !important;
+    color: var(--text-primary) !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+}
+
+:root[data-theme="blossomSwirl"] input::placeholder,
+:root[data-theme="blossomSwirl"] textarea::placeholder {
+    color: rgba(58, 33, 64, 0.55) !important;
+    -webkit-text-fill-color: rgba(58, 33, 64, 0.55) !important;
+}
+
+:root[data-theme="blossomSwirl"] .form-input:focus,
+:root[data-theme="blossomSwirl"] .form-select:focus,
+:root[data-theme="blossomSwirl"] .form-textarea:focus,
+:root[data-theme="blossomSwirl"] .monthly-planner-input:focus,
+:root[data-theme="blossomSwirl"] .investment-form-container input:focus,
+:root[data-theme="blossomSwirl"] .dca-setup-form input:focus {
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 0 3px rgba(226, 87, 138, 0.18) !important;
+}
+
+/* 記帳輸入區、數字鍵盤 */
+:root[data-theme="blossomSwirl"] .input-section {
+    background: linear-gradient(160deg, rgba(255, 252, 246, 0.94) 0%, rgba(255, 240, 247, 0.94) 100%) !important;
+    border-top: 2px solid rgba(226, 87, 138, 0.20) !important;
+}
+
+:root[data-theme="blossomSwirl"] .key-btn {
+    background: rgba(255, 255, 255, 0.92) !important;
+    border: 1px solid rgba(155, 132, 217, 0.22) !important;
+    color: var(--bs-ink) !important;
+}
+
+:root[data-theme="blossomSwirl"] .key-btn.operator {
+    background: rgba(253, 227, 238, 0.95) !important;
+    color: var(--bs-rose-ink) !important;
+}
+
+/* 進度條、分隔線 */
+:root[data-theme="blossomSwirl"] .dca-progress-bar,
+:root[data-theme="blossomSwirl"] .dividend-year-stat-bar {
+    background: rgba(155, 132, 217, 0.18) !important;
+}
+
+:root[data-theme="blossomSwirl"] .dca-progress-fill,
+:root[data-theme="blossomSwirl"] .dividend-year-stat-bar-fill {
+    background: linear-gradient(90deg, #e2578a 0%, #9b84d9 55%, #7cc6d3 100%) !important;
+}

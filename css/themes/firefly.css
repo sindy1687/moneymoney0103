@@ -29,7 +29,8 @@
     --bg-white: #121a2b;
     --bg-light: #1a2b3f;
     --bg-lighter: #243449;
-    --text-primary: var(--bg-white);
+    /* 原本等於 --bg-white（#121a2b），深底深字完全看不到 */
+    --text-primary: rgba(255, 255, 255, 0.96);
     --text-secondary: rgba(255, 255, 255, 0.9);
     --text-tertiary: rgba(255, 255, 255, 0.75);
     --border-light: rgba(250, 204, 21, 0.2);

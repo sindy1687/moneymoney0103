@@ -1,0 +1,1486 @@
+/* 文字可讀性修正（最後載入）
+ * 由瀏覽器實測產生：逐一主題、逐頁量測文字與背景的對比，只修正對比不足（WCAG 4.5:1，大字 3:1）的元素。
+ * 每條規則只作用在該主題與當時的狀態（:not(.positive) 等），不影響其他主題；保留原色相，只調深淺。
+ * 不改版面、不改主題設定。 */
+/* ==== 自動產生 ==== */
+:root[data-theme="piggyMirrorRoom"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blue"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="purple"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="red"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] button#ledgerPrevMonthBtn.month-nav-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] button#ledgerNextMonthBtn.month-nav-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] button#monthlyPlannerApplySampleBtn.monthly-planner-btn.monthly-planner-btn--secondary:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] button#chartPrevMonthBtn.month-nav-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] button#chartNextMonthBtn.month-nav-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="waterBlade"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="kitsuneElegance"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="emeraldPrince"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="samoyedSnowWave"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="samoyedSnowWave"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pastelBlossomMist"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="emerald"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="getrich"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="festive"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cozyWood"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="autumnBunny"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mintBlossomGarden"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    box-shadow: inset 0 0 0 100vmax rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+}
+
+:root[data-theme="piggyMirrorRoom"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="red"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="red"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="emeraldPrince"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pikachuSnow"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pikachuSnow"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="totoroCitrusPool"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="totoroCitrusPool"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="leafCatGreen"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="festive"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="festive"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="festive"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="starry-blue-purple"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blueBunnyFlower"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mintBlossomGarden"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mintBlossomGarden"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mintBlossomGarden"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mintBlossomGarden"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="narutoGraffiti"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) {
+    box-shadow: inset 0 0 0 100vmax rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+}
+
+:root[data-theme="pink"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="green"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="shinchan"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #5c5c5c !important; -webkit-text-fill-color: #5c5c5c;
+}
+
+:root[data-theme="pink"] button.ledger-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #a84577 !important; -webkit-text-fill-color: #a84577;
+}
+
+:root[data-theme="pink"] button.ledger-type-tab:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pink"] span#stockCount.stock-count:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #686873 !important; -webkit-text-fill-color: #686873;
+}
+
+:root[data-theme="pink"] span#dailyExpenseAmount.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pink"] span#totalExpense.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pink"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blue"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="green"] span#dailyExpenseAmount.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="green"] span#totalExpense.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="green"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="purple"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="orange"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="red"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="yellow"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="anyMelody"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="nightglowSeasons"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mori"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="starryOceanPrince"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #c93939 !important; -webkit-text-fill-color: #c93939;
+}
+
+:root[data-theme="pink"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pink"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #db5a9b !important; -webkit-text-fill-color: #db5a9b;
+}
+
+:root[data-theme="pink"] span#totalBudgetAmount.budget-summary-value.budget-total:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pink"] div.budget-add-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.budget-edit-btn.budget-add-btn-full:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #b34a7e !important; -webkit-text-fill-color: #b34a7e;
+}
+
+:root[data-theme="pink"] span#totalBudgetRemaining.budget-summary-value.budget-remaining:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blue"] span#totalBudgetRemaining.budget-summary-value.budget-remaining:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="green"] span#totalBudgetRemaining.budget-summary-value.budget-remaining:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="purple"] span#totalBudgetRemaining.budget-summary-value.budget-remaining:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="orange"] span#totalBudgetRemaining.budget-summary-value.budget-remaining:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] span#totalBudgetRemaining.budget-summary-value.budget-remaining:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="red"] span#totalBudgetRemaining.budget-summary-value.budget-remaining:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="yellow"] span#totalBudgetRemaining.budget-summary-value.budget-remaining:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] span#totalBudgetRemaining.budget-summary-value.budget-remaining:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] span#totalBudgetRemaining.budget-summary-value.budget-remaining:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="anyMelody"] span#totalBudgetRemaining.budget-summary-value.budget-remaining:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="nightglowSeasons"] span#totalBudgetRemaining.budget-summary-value.budget-remaining:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mori"] span#totalBudgetRemaining.budget-summary-value.budget-remaining:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="starryOceanPrince"] span#totalBudgetRemaining.budget-summary-value.budget-remaining:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #167e3c !important; -webkit-text-fill-color: #167e3c;
+}
+
+:root[data-theme="pink"] div#monthlyPlannerFixedList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pink"] div#monthlyPlannerSavingsList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pink"] div#monthlyPlannerPersonalList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pink"] div#savingGoalList.monthly-planner-goal-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blue"] div#monthlyPlannerFixedList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blue"] div#monthlyPlannerSavingsList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blue"] div#monthlyPlannerPersonalList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blue"] div#savingGoalList.monthly-planner-goal-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="green"] div#monthlyPlannerFixedList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="green"] div#monthlyPlannerSavingsList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="green"] div#monthlyPlannerPersonalList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="green"] div#savingGoalList.monthly-planner-goal-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="purple"] div#monthlyPlannerFixedList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="purple"] div#monthlyPlannerSavingsList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="purple"] div#monthlyPlannerPersonalList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="purple"] div#savingGoalList.monthly-planner-goal-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] div#monthlyPlannerFixedList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] div#monthlyPlannerSavingsList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] div#monthlyPlannerPersonalList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] div#savingGoalList.monthly-planner-goal-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="red"] div#monthlyPlannerFixedList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="red"] div#monthlyPlannerSavingsList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="red"] div#monthlyPlannerPersonalList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="red"] div#savingGoalList.monthly-planner-goal-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] div#monthlyPlannerFixedList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] div#monthlyPlannerSavingsList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] div#monthlyPlannerPersonalList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] div#savingGoalList.monthly-planner-goal-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] div#monthlyPlannerFixedList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] div#monthlyPlannerSavingsList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] div#monthlyPlannerPersonalList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] div#savingGoalList.monthly-planner-goal-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="anyMelody"] div#monthlyPlannerFixedList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="anyMelody"] div#monthlyPlannerSavingsList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="anyMelody"] div#monthlyPlannerPersonalList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="anyMelody"] div#savingGoalList.monthly-planner-goal-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="nightglowSeasons"] div#monthlyPlannerFixedList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="nightglowSeasons"] div#monthlyPlannerSavingsList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="nightglowSeasons"] div#monthlyPlannerPersonalList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="nightglowSeasons"] div#savingGoalList.monthly-planner-goal-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mori"] div#monthlyPlannerFixedList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mori"] div#monthlyPlannerSavingsList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mori"] div#monthlyPlannerPersonalList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mori"] div#savingGoalList.monthly-planner-goal-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="starryOceanPrince"] div#monthlyPlannerFixedList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="starryOceanPrince"] div#monthlyPlannerSavingsList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="starryOceanPrince"] div#monthlyPlannerPersonalList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="starryOceanPrince"] div#savingGoalList.monthly-planner-goal-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #676c78 !important; -webkit-text-fill-color: #676c78;
+}
+
+:root[data-theme="pink"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="green"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] button#chartTabInvestment.chart-tab-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="space"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="serpentEyes"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="floralGradient"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pastelBlossomMist"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pastelBlossomMist"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="emerald"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="getrich"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="getrich"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="starry-blue-purple"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="jellyParty"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cozyWood"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="oceanWhale"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="piggyMelody"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="piggyMelody"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="autumnBunny"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="luckyCatPink"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) {
+    box-shadow: inset 0 0 0 100vmax rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+}
+
+:root[data-theme="pink"] button#monthlyPlannerQuickAddBtn.monthly-planner-btn.monthly-planner-btn--outline:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #8f3b65 !important; -webkit-text-fill-color: #8f3b65;
+}
+
+:root[data-theme="pink"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pink"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="orange"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="orange"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="orange"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamyGalaxy"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="shinchan"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cuteCats"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="shibaPastel"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #474747 !important; -webkit-text-fill-color: #474747;
+}
+
+:root[data-theme="pink"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #3d3d3d !important; -webkit-text-fill-color: #3d3d3d;
+}
+
+:root[data-theme="pink"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blue"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blue"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blue"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blue"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="green"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="green"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="orange"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] button#investmentRebalanceBtn.side-action-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamyGalaxy"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="totoro"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="totoro"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="anyMelody"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="anyMelody"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="floralGradient"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mintRoseFairy"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="crystalFortune"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="emeraldPrince"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="shibaPastel"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="citrusNoirBlossom"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="totoroCitrusPool"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pastelStarryEyes"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="spacegold"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="nightglowSeasons"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="nightglowSeasons"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mori"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mori"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamy-peach"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamy-peach"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="oceanWhale"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="capybaraSakuraPond"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="capybaraSakuraPond"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mintBunnyTea"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="goldfishLantern"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="lilyCatPond"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="coinCatGold"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mintBlossomGarden"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) {
+    box-shadow: inset 0 0 0 100vmax rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+}
+
+:root[data-theme="pink"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #6b6d78 !important; -webkit-text-fill-color: #6b6d78;
+}
+
+:root[data-theme="pink"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pink"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #bd4e85 !important; -webkit-text-fill-color: #bd4e85;
+}
+
+:root[data-theme="pink"] div.settings-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.settings-section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #6b696a !important; -webkit-text-fill-color: #6b696a;
+}
+
+:root[data-theme="blue"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="shinchan"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #575757 !important; -webkit-text-fill-color: #575757;
+}
+
+:root[data-theme="blue"] button.ledger-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #376ba7 !important; -webkit-text-fill-color: #376ba7;
+}
+
+:root[data-theme="blue"] button.ledger-type-tab:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blue"] span#stockCount.stock-count:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #616976 !important; -webkit-text-fill-color: #616976;
+}
+
+:root[data-theme="blue"] div.stat-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.stat-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #34557c !important; -webkit-text-fill-color: #34557c;
+}
+
+:root[data-theme="blue"] span#dailyExpenseAmount.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blue"] span#totalExpense.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] span#dailyExpenseAmount.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] span#totalExpense.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #c43838 !important; -webkit-text-fill-color: #c43838;
+}
+
+:root[data-theme="blue"] div.budget-summary-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.budget-summary-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #4b719e !important; -webkit-text-fill-color: #4b719e;
+}
+
+:root[data-theme="blue"] span#totalBudgetAmount.budget-summary-value.budget-total:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blue"] div.budget-add-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.budget-edit-btn.budget-add-btn-full:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #3a70b0 !important; -webkit-text-fill-color: #3a70b0;
+}
+
+:root[data-theme="blue"] button#monthlyPlannerQuickAddBtn.monthly-planner-btn.monthly-planner-btn--outline:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #2f5c91 !important; -webkit-text-fill-color: #2f5c91;
+}
+
+:root[data-theme="blue"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #696d78 !important; -webkit-text-fill-color: #696d78;
+}
+
+:root[data-theme="blue"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blue"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #3d76b9 !important; -webkit-text-fill-color: #3d76b9;
+}
+
+:root[data-theme="blue"] div.settings-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.settings-section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #696a6b !important; -webkit-text-fill-color: #696a6b;
+}
+
+:root[data-theme="green"] button.ledger-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #347736 !important; -webkit-text-fill-color: #347736;
+}
+
+:root[data-theme="green"] button.ledger-type-tab:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="green"] span#stockCount.stock-count:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #616971 !important; -webkit-text-fill-color: #616971;
+}
+
+:root[data-theme="green"] div.stat-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.stat-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #326035 !important; -webkit-text-fill-color: #326035;
+}
+
+:root[data-theme="green"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="green"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #439a46 !important; -webkit-text-fill-color: #439a46;
+}
+
+:root[data-theme="green"] div.budget-summary-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.budget-summary-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #487a4a !important; -webkit-text-fill-color: #487a4a;
+}
+
+:root[data-theme="green"] span#totalBudgetAmount.budget-summary-value.budget-total:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="green"] div.budget-add-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.budget-edit-btn.budget-add-btn-full:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="shinchan"] span#totalBudgetRemaining.budget-summary-value.budget-remaining:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #377e3a !important; -webkit-text-fill-color: #377e3a;
+}
+
+:root[data-theme="green"] button#monthlyPlannerQuickAddBtn.monthly-planner-btn.monthly-planner-btn--outline:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #2c652e !important; -webkit-text-fill-color: #2c652e;
+}
+
+:root[data-theme="green"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="green"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="orange"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="yellow"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamyGalaxy"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="crystalFortune"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="emeraldPrince"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="emeraldPrince"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="emeraldPrince"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamy-peach"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="soft-lavender"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="soft-lavender"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="jellyParty"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="lilyCatPond"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blackGoldFrog"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blackCatCoinGalaxy"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) {
+    box-shadow: inset 0 0 0 100vmax rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+}
+
+:root[data-theme="green"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #696d77 !important; -webkit-text-fill-color: #696d77;
+}
+
+:root[data-theme="green"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="green"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #3a853d !important; -webkit-text-fill-color: #3a853d;
+}
+
+:root[data-theme="green"] div.settings-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.settings-section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #696a69 !important; -webkit-text-fill-color: #696a69;
+}
+
+:root[data-theme="purple"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="yellow"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="caitu"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cuteCats"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamyfish"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="oceanWhale"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #4c4c4c !important; -webkit-text-fill-color: #4c4c4c;
+}
+
+:root[data-theme="purple"] button.ledger-type-tab:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="purple"] span#stockCount.stock-count:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #666271 !important; -webkit-text-fill-color: #666271;
+}
+
+:root[data-theme="purple"] div.stat-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.stat-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #682873 !important; -webkit-text-fill-color: #682873;
+}
+
+:root[data-theme="purple"] span#dailyExpenseAmount.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="purple"] span#totalExpense.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #a73030 !important; -webkit-text-fill-color: #a73030;
+}
+
+:root[data-theme="purple"] div.budget-summary-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.budget-summary-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #a24bb1 !important; -webkit-text-fill-color: #a24bb1;
+}
+
+:root[data-theme="purple"] button#monthlyPlannerQuickAddBtn.monthly-planner-btn.monthly-planner-btn--outline:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #8c239e !important; -webkit-text-fill-color: #8c239e;
+}
+
+:root[data-theme="purple"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="purple"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="purple"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="red"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] button#monthlyPlannerAddFixedBtn.monthly-planner-btn.monthly-planner-btn--secondary:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] button#monthlyPlannerAddPersonalBtn.monthly-planner-btn.monthly-planner-btn--secondary:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="waveRonin"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blueBunnyFlower"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blueBunnyFlower"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blueBunnyFlower"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blueBunnyFlower"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    box-shadow: inset 0 0 0 100vmax rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+}
+
+:root[data-theme="purple"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #6a6c77 !important; -webkit-text-fill-color: #6a6c77;
+}
+
+:root[data-theme="purple"] div.settings-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.settings-section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #656364 !important; -webkit-text-fill-color: #656364;
+}
+
+:root[data-theme="orange"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] span#summaryToggleInvested.summary-toggle__metric-value:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] span#summaryTogglePnl.summary-toggle__metric-value.neutral:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] span#summaryToggleDividend.summary-toggle__metric-value:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="shinchan"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="shinchan"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="festive"] button#investmentRebalanceBtn.side-action-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #616161 !important; -webkit-text-fill-color: #616161;
+}
+
+:root[data-theme="orange"] button.ledger-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #995b00 !important; -webkit-text-fill-color: #995b00;
+}
+
+:root[data-theme="orange"] button.ledger-type-tab:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="orange"] span#stockCount.stock-count:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #696b6c !important; -webkit-text-fill-color: #696b6c;
+}
+
+:root[data-theme="orange"] div.stat-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.stat-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #7f520f !important; -webkit-text-fill-color: #7f520f;
+}
+
+:root[data-theme="orange"] span#dailyExpenseAmount.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="orange"] span#totalExpense.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #d23c3c !important; -webkit-text-fill-color: #d23c3c;
+}
+
+:root[data-theme="orange"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="orange"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #c77700 !important; -webkit-text-fill-color: #c77700;
+}
+
+:root[data-theme="orange"] div.budget-summary-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.budget-summary-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #94641e !important; -webkit-text-fill-color: #94641e;
+}
+
+:root[data-theme="orange"] span#totalBudgetAmount.budget-summary-value.budget-total:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="orange"] div.budget-add-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.budget-edit-btn.budget-add-btn-full:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #a36100 !important; -webkit-text-fill-color: #a36100;
+}
+
+:root[data-theme="orange"] div#monthlyPlannerFixedList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="orange"] div#monthlyPlannerSavingsList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="orange"] div#monthlyPlannerPersonalList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="orange"] div#savingGoalList.monthly-planner-goal-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="yellow"] div#monthlyPlannerFixedList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="yellow"] div#monthlyPlannerSavingsList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="yellow"] div#monthlyPlannerPersonalList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="yellow"] div#savingGoalList.monthly-planner-goal-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #666c73 !important; -webkit-text-fill-color: #666c73;
+}
+
+:root[data-theme="orange"] button#monthlyPlannerQuickAddBtn.monthly-planner-btn.monthly-planner-btn--outline:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #7f4c00 !important; -webkit-text-fill-color: #7f4c00;
+}
+
+:root[data-theme="orange"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #696c72 !important; -webkit-text-fill-color: #696c72;
+}
+
+:root[data-theme="orange"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="orange"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #ad6700 !important; -webkit-text-fill-color: #ad6700;
+}
+
+:root[data-theme="orange"] div.settings-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.settings-section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #6b6a68 !important; -webkit-text-fill-color: #6b6a68;
+}
+
+:root[data-theme="cyan"] button.ledger-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #007583 !important; -webkit-text-fill-color: #007583;
+}
+
+:root[data-theme="cyan"] button.ledger-type-tab:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] span#stockCount.stock-count:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #626d78 !important; -webkit-text-fill-color: #626d78;
+}
+
+:root[data-theme="cyan"] div.stat-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.stat-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #0f626c !important; -webkit-text-fill-color: #0f626c;
+}
+
+:root[data-theme="cyan"] span#dailyExpenseAmount.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] span#totalExpense.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #ce3a3a !important; -webkit-text-fill-color: #ce3a3a;
+}
+
+:root[data-theme="cyan"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #0096aa !important; -webkit-text-fill-color: #0096aa;
+}
+
+:root[data-theme="cyan"] div.budget-summary-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.budget-summary-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #1f7985 !important; -webkit-text-fill-color: #1f7985;
+}
+
+:root[data-theme="cyan"] span#totalBudgetAmount.budget-summary-value.budget-total:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] div.budget-add-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.budget-edit-btn.budget-add-btn-full:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #007c8c !important; -webkit-text-fill-color: #007c8c;
+}
+
+:root[data-theme="cyan"] button#monthlyPlannerQuickAddBtn.monthly-planner-btn.monthly-planner-btn--outline:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #00626e !important; -webkit-text-fill-color: #00626e;
+}
+
+:root[data-theme="cyan"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="shinchan"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mintRoseFairy"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cuteCats"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cuteCats"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="shibaPastel"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamy"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamyfish"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamyfish"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamyfish"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamyfish"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamyfish"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="soft-lavender"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mintBunnyTea"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="lilyCatPond"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #424242 !important; -webkit-text-fill-color: #424242;
+}
+
+:root[data-theme="cyan"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #008494 !important; -webkit-text-fill-color: #008494;
+}
+
+:root[data-theme="cyan"] div.settings-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.settings-section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #686b6b !important; -webkit-text-fill-color: #686b6b;
+}
+
+:root[data-theme="red"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="yellow"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="yellow"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="yellow"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #525252 !important; -webkit-text-fill-color: #525252;
+}
+
+:root[data-theme="red"] button.ledger-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #bc2f2b !important; -webkit-text-fill-color: #bc2f2b;
+}
+
+:root[data-theme="red"] button.ledger-type-tab:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="red"] span#stockCount.stock-count:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #686470 !important; -webkit-text-fill-color: #686470;
+}
+
+:root[data-theme="red"] div.stat-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.stat-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #822d2b !important; -webkit-text-fill-color: #822d2b;
+}
+
+:root[data-theme="red"] span#dailyExpenseAmount.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="red"] span#totalExpense.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #b13232 !important; -webkit-text-fill-color: #b13232;
+}
+
+:root[data-theme="red"] div.budget-summary-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.budget-summary-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #b74c49 !important; -webkit-text-fill-color: #b74c49;
+}
+
+:root[data-theme="red"] span#totalBudgetAmount.budget-summary-value.budget-total:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="red"] div.budget-add-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.budget-edit-btn.budget-add-btn-full:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #ce3330 !important; -webkit-text-fill-color: #ce3330;
+}
+
+:root[data-theme="red"] button#monthlyPlannerQuickAddBtn.monthly-planner-btn.monthly-planner-btn--outline:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #a52926 !important; -webkit-text-fill-color: #a52926;
+}
+
+:root[data-theme="red"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] button#monthlyPlannerAddSavingsBtn.monthly-planner-btn.monthly-planner-btn--secondary:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] button#chartTabExpense.chart-tab-btn.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamyGalaxy"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamyGalaxy"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="totoro"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mintRoseFairy"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mintRoseFairy"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mintRoseFairy"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mintRoseFairy"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="samoyedSnowWave"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pastelStarryEyes"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pastelStarryEyes"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="emerald"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="festive"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="littlePrince"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="capybaraSakuraPond"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="capybaraSakuraPond"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="capybaraSakuraPond"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="capybaraSakuraPond"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="blueBunnyFlower"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) {
+    box-shadow: inset 0 0 0 100vmax rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+}
+
+:root[data-theme="red"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #6b6c77 !important; -webkit-text-fill-color: #6b6c77;
+}
+
+:root[data-theme="red"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="red"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #c5312e !important; -webkit-text-fill-color: #c5312e;
+}
+
+:root[data-theme="red"] div.settings-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.settings-section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #666364 !important; -webkit-text-fill-color: #666364;
+}
+
+:root[data-theme="yellow"] button#aiHousekeeperBtn.ai-housekeeper-btn.smart-reminders-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div.section-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h3.section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div.summary-toggle__top:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.summary-toggle__label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div#chartExpensePage.chart-page.chart-page--active:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h3.chart-section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="shinchan"] button#investmentRebalanceBtn.side-action-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cuteCats"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cuteCats"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cuteCats"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cuteCats"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="luckyCatPink"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="luckyCatPink"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #666666 !important; -webkit-text-fill-color: #666666;
+}
+
+:root[data-theme="yellow"] button.ledger-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="yellow"] span#totalBudgetAmount.budget-summary-value.budget-total:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="yellow"] div.budget-add-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.budget-edit-btn.budget-add-btn-full:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #886818 !important; -webkit-text-fill-color: #886818;
+}
+
+:root[data-theme="yellow"] button.ledger-type-tab:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="yellow"] span#stockCount.stock-count:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #6c7072 !important; -webkit-text-fill-color: #6c7072;
+}
+
+:root[data-theme="yellow"] div.stat-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.stat-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #796022 !important; -webkit-text-fill-color: #796022;
+}
+
+:root[data-theme="yellow"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="yellow"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #ab831f !important; -webkit-text-fill-color: #ab831f;
+}
+
+:root[data-theme="yellow"] div.budget-summary-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.budget-summary-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #836b2d !important; -webkit-text-fill-color: #836b2d;
+}
+
+:root[data-theme="yellow"] button#monthlyPlannerQuickAddBtn.monthly-planner-btn.monthly-planner-btn--outline:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #735815 !important; -webkit-text-fill-color: #735815;
+}
+
+:root[data-theme="yellow"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #696c73 !important; -webkit-text-fill-color: #696c73;
+}
+
+:root[data-theme="yellow"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="yellow"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #a17b1d !important; -webkit-text-fill-color: #a17b1d;
+}
+
+:root[data-theme="yellow"] div.settings-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.settings-section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #6b6b69 !important; -webkit-text-fill-color: #6b6b69;
+}
+
+:root[data-theme="indigo"] button.ledger-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #5360ad !important; -webkit-text-fill-color: #5360ad;
+}
+
+:root[data-theme="indigo"] button.ledger-type-tab:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] span#stockCount.stock-count:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div.settings-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.settings-section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #646465 !important; -webkit-text-fill-color: #646465;
+}
+
+:root[data-theme="indigo"] div.stat-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.stat-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #2b2b2d !important; -webkit-text-fill-color: #2b2b2d;
+}
+
+:root[data-theme="indigo"] span#dailyExpenseAmount.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] span#totalExpense.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #812525 !important; -webkit-text-fill-color: #812525;
+}
+
+:root[data-theme="indigo"] span#monthBudget.stat-value:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="soft-lavender"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #464647 !important; -webkit-text-fill-color: #464647;
+}
+
+:root[data-theme="indigo"] div#summaryLine.summary-line:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #49494b !important; -webkit-text-fill-color: #49494b;
+}
+
+:root[data-theme="indigo"] div#ledgerList.ledger-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #6b6b6b !important; -webkit-text-fill-color: #6b6b6b;
+}
+
+:root[data-theme="indigo"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #2c335c !important; -webkit-text-fill-color: #2c335c;
+}
+
+:root[data-theme="indigo"] div.budget-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.budget-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div.monthly-planner-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.monthly-planner-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div.monthly-planner-card:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-card-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] span#monthlyPlannerFixedSubtotal.monthly-planner-subtotal-value:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] span#monthlyPlannerPersonalSubtotal.monthly-planner-subtotal-value:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] span#monthlyPlannerTotalExpense.monthly-planner-result-value:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] span#monthlyPlannerBalance.monthly-planner-result-value:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div.chart-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h3.chart-section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div.settings-item-text-group:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.settings-item-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #191919 !important; -webkit-text-fill-color: #191919;
+}
+
+:root[data-theme="indigo"] div.budget-summary-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.budget-summary-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div.monthly-planner-field:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > label.monthly-planner-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div.monthly-planner-result-row.monthly-planner-result-row--highlight:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.monthly-planner-result-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div#monthlyPlannerHint.monthly-planner-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #171819 !important; -webkit-text-fill-color: #171819;
+}
+
+:root[data-theme="indigo"] span#totalBudgetAmount.budget-summary-value.budget-total:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div.budget-add-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.budget-edit-btn.budget-add-btn-full:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #161a2e !important; -webkit-text-fill-color: #161a2e;
+}
+
+:root[data-theme="indigo"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #350f0f !important; -webkit-text-fill-color: #350f0f;
+}
+
+:root[data-theme="indigo"] span#totalBudgetRemaining.budget-summary-value.budget-remaining:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #05200f !important; -webkit-text-fill-color: #05200f;
+}
+
+:root[data-theme="indigo"] div#monthlyPlannerFixedList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div#monthlyPlannerPersonalList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div#savingGoalList.monthly-planner-goal-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #1b1b1d !important; -webkit-text-fill-color: #1b1b1d;
+}
+
+:root[data-theme="indigo"] div.monthly-planner-subtotal:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.monthly-planner-subtotal-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div.monthly-planner-result-row:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.monthly-planner-result-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div.settings-item-text-group:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.settings-item-subtext:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div.settings-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.settings-item-arrow:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #1c1c1e !important; -webkit-text-fill-color: #1c1c1e;
+}
+
+:root[data-theme="indigo"] div.monthly-planner-card.monthly-planner-card--savings:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-card-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #464747 !important; -webkit-text-fill-color: #464747;
+}
+
+:root[data-theme="indigo"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div#chartMonthText.chart-month-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #444546 !important; -webkit-text-fill-color: #444546;
+}
+
+:root[data-theme="indigo"] div#monthlyPlannerSavingsList.monthly-planner-items:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.monthly-planner-empty:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #2d2e31 !important; -webkit-text-fill-color: #2d2e31;
+}
+
+:root[data-theme="indigo"] span#monthlyPlannerSavingsSubtotal.monthly-planner-subtotal-value:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #2d2d2e !important; -webkit-text-fill-color: #2d2d2e;
+}
+
+:root[data-theme="indigo"] button#monthlyPlannerQuickAddBtn.monthly-planner-btn.monthly-planner-btn--outline:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #3b447b !important; -webkit-text-fill-color: #3b447b;
+}
+
+:root[data-theme="indigo"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #131627 !important; -webkit-text-fill-color: #131627;
+}
+
+:root[data-theme="indigo"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #212a47 !important; -webkit-text-fill-color: #212a47;
+}
+
+:root[data-theme="indigo"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #6b6a6b !important; -webkit-text-fill-color: #6b6a6b;
+}
+
+:root[data-theme="indigo"] div.summary-toggle__top:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.summary-toggle__hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #656566 !important; -webkit-text-fill-color: #656566;
+}
+
+:root[data-theme="indigo"] div.summary-toggle__metric:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.summary-toggle__metric-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #5f5f60 !important; -webkit-text-fill-color: #5f5f60;
+}
+
+:root[data-theme="indigo"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #4b589d !important; -webkit-text-fill-color: #4b589d;
+}
+
+:root[data-theme="indigo"] div.chart-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.chart-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="indigo"] div.settings-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.settings-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="waterBlade"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #414242 !important; -webkit-text-fill-color: #414242;
+}
+
+:root[data-theme="teal"] button.ledger-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #1b746c !important; -webkit-text-fill-color: #1b746c;
+}
+
+:root[data-theme="teal"] button.ledger-type-tab:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] span#stockCount.stock-count:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #5f6872 !important; -webkit-text-fill-color: #5f6872;
+}
+
+:root[data-theme="teal"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #23998e !important; -webkit-text-fill-color: #23998e;
+}
+
+:root[data-theme="teal"] span#totalBudgetAmount.budget-summary-value.budget-total:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] div.budget-add-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.budget-edit-btn.budget-add-btn-full:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #1c7b72 !important; -webkit-text-fill-color: #1c7b72;
+}
+
+:root[data-theme="teal"] button#monthlyPlannerQuickAddBtn.monthly-planner-btn.monthly-planner-btn--outline:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #17645c !important; -webkit-text-fill-color: #17645c;
+}
+
+:root[data-theme="teal"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #1e8178 !important; -webkit-text-fill-color: #1e8178;
+}
+
+:root[data-theme="teal"] div.settings-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.settings-section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #686a6a !important; -webkit-text-fill-color: #686a6a;
+}
+
+:root[data-theme="dreamyGalaxy"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #424142 !important; -webkit-text-fill-color: #424142;
+}
+
+:root[data-theme="dreamyGalaxy"] span#stockCount.stock-count:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #61618d !important; -webkit-text-fill-color: #61618d;
+}
+
+:root[data-theme="dreamyGalaxy"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #676795 !important; -webkit-text-fill-color: #676795;
+}
+
+:root[data-theme="dreamyGalaxy"] div.summary-toggle__top:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.summary-toggle__hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #62629c !important; -webkit-text-fill-color: #62629c;
+}
+
+:root[data-theme="dreamyGalaxy"] div.summary-toggle__metric:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.summary-toggle__metric-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #5c5c92 !important; -webkit-text-fill-color: #5c5c92;
+}
+
+:root[data-theme="dreamyGalaxy"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamyGalaxy"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #7f709c !important; -webkit-text-fill-color: #7f709c;
+}
+
+:root[data-theme="dreamyGalaxy"] div#chartMonthText.chart-month-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #58588b !important; -webkit-text-fill-color: #58588b;
+}
+
+:root[data-theme="dreamyGalaxy"] div.settings-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.settings-section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #646464 !important; -webkit-text-fill-color: #646464;
+}
+
+:root[data-theme="dreamyGalaxy"] div.settings-item-text-group:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.settings-item-subtext:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamyGalaxy"] div.settings-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.settings-item-arrow:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #606099 !important; -webkit-text-fill-color: #606099;
+}
+
+:root[data-theme="star"] button.ledger-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #9789f7 !important; -webkit-text-fill-color: #9789f7;
+}
+
+:root[data-theme="star"] div.stat-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.stat-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #beb8ef !important; -webkit-text-fill-color: #beb8ef;
+}
+
+:root[data-theme="star"] span#dailyExpenseAmount.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="star"] span#totalExpense.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #f37878 !important; -webkit-text-fill-color: #f37878;
+}
+
+:root[data-theme="star"] div#ledgerList.ledger-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="star"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #4f4e54 !important; -webkit-text-fill-color: #4f4e54;
+}
+
+:root[data-theme="star"] div.budget-summary-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.budget-summary-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #8d84d8 !important; -webkit-text-fill-color: #8d84d8;
+}
+
+:root[data-theme="star"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #f15e5e !important; -webkit-text-fill-color: #f15e5e;
+}
+
+:root[data-theme="star"] button#monthlyPlannerQuickAddBtn.monthly-planner-btn.monthly-planner-btn--outline:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #aba1f9 !important; -webkit-text-fill-color: #aba1f9;
+}
+
+:root[data-theme="star"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #515156 !important; -webkit-text-fill-color: #515156;
+}
+
+:root[data-theme="aurora"] button.ledger-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #b3f2ff !important; -webkit-text-fill-color: #b3f2ff;
+}
+
+:root[data-theme="aurora"] button.ledger-type-tab:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #d2d6dd !important; -webkit-text-fill-color: #d2d6dd;
+}
+
+:root[data-theme="aurora"] span#dailyExpenseAmount.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] span#totalExpense.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #a32e2e !important; -webkit-text-fill-color: #a32e2e;
+}
+
+:root[data-theme="aurora"] div#summaryLine.summary-line:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #121e2b !important; -webkit-text-fill-color: #121e2b;
+}
+
+:root[data-theme="aurora"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #0094b3 !important; -webkit-text-fill-color: #0094b3;
+}
+
+:root[data-theme="aurora"] span#totalBudgetAmount.budget-summary-value.budget-total:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] div.budget-add-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.budget-edit-btn.budget-add-btn-full:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #007b94 !important; -webkit-text-fill-color: #007b94;
+}
+
+:root[data-theme="aurora"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #151d2b !important; -webkit-text-fill-color: #151d2b;
+}
+
+:root[data-theme="aurora"] button#monthlyPlannerQuickAddBtn.monthly-planner-btn.monthly-planner-btn--outline:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #001e24 !important; -webkit-text-fill-color: #001e24;
+}
+
+:root[data-theme="aurora"] div.section-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h3.section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] div#chartExpensePage.chart-page.chart-page--active:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h3.chart-section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #c1c3c8 !important; -webkit-text-fill-color: #c1c3c8;
+}
+
+:root[data-theme="aurora"] span#stockCount.stock-count:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #c0c4ce !important; -webkit-text-fill-color: #c0c4ce;
+}
+
+:root[data-theme="aurora"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #525765 !important; -webkit-text-fill-color: #525765;
+}
+
+:root[data-theme="aurora"] div.summary-toggle__top:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.summary-toggle__label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #d4d5d9 !important; -webkit-text-fill-color: #d4d5d9;
+}
+
+:root[data-theme="aurora"] div.summary-toggle__top:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.summary-toggle__hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #d6d8dd !important; -webkit-text-fill-color: #d6d8dd;
+}
+
+:root[data-theme="aurora"] div.summary-toggle__metric:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.summary-toggle__metric-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #cdcfd6 !important; -webkit-text-fill-color: #cdcfd6;
+}
+
+:root[data-theme="aurora"] span#summaryToggleInvested.summary-toggle__metric-value:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] span#summaryTogglePnl.summary-toggle__metric-value.neutral:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] span#summaryToggleDividend.summary-toggle__metric-value:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #cfd1d4 !important; -webkit-text-fill-color: #cfd1d4;
+}
+
+:root[data-theme="aurora"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="aurora"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #004452 !important; -webkit-text-fill-color: #004452;
+}
+
+:root[data-theme="aurora"] div#chartMonthText.chart-month-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #162636 !important; -webkit-text-fill-color: #162636;
+}
+
+:root[data-theme="firefly"] span#dailyExpenseAmount.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="firefly"] span#totalExpense.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #f7a5a5 !important; -webkit-text-fill-color: #f7a5a5;
+}
+
+:root[data-theme="firefly"] div#ledgerList.ledger-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="firefly"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #505050 !important; -webkit-text-fill-color: #505050;
+}
+
+:root[data-theme="firefly"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #b8babf !important; -webkit-text-fill-color: #b8babf;
+}
+
+:root[data-theme="firefly"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #bdbfc4 !important; -webkit-text-fill-color: #bdbfc4;
+}
+
+:root[data-theme="firefly"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #535353 !important; -webkit-text-fill-color: #535353;
+}
+
+:root[data-theme="neon"] button.ledger-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #f7f3fe !important; -webkit-text-fill-color: #f7f3fe;
+}
+
+:root[data-theme="neon"] div.stat-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.stat-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #cbc2ee !important; -webkit-text-fill-color: #cbc2ee;
+}
+
+:root[data-theme="neon"] span#dailyExpenseAmount.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="neon"] span#totalExpense.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #f48484 !important; -webkit-text-fill-color: #f48484;
+}
+
+:root[data-theme="neon"] div#ledgerList.ledger-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="neon"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #545555 !important; -webkit-text-fill-color: #545555;
+}
+
+:root[data-theme="neon"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="neon"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #8e56f0 !important; -webkit-text-fill-color: #8e56f0;
+}
+
+:root[data-theme="neon"] div.budget-summary-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.budget-summary-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #9d85d4 !important; -webkit-text-fill-color: #9d85d4;
+}
+
+:root[data-theme="neon"] span#totalBudgetAmount.budget-summary-value.budget-total:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #a97df3 !important; -webkit-text-fill-color: #a97df3;
+}
+
+:root[data-theme="neon"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #f26666 !important; -webkit-text-fill-color: #f26666;
+}
+
+:root[data-theme="neon"] div.budget-add-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.budget-edit-btn.budget-add-btn-full:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #a679f3 !important; -webkit-text-fill-color: #a679f3;
+}
+
+:root[data-theme="neon"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #f2f2f5 !important; -webkit-text-fill-color: #f2f2f5;
+}
+
+:root[data-theme="neon"] button#monthlyPlannerQuickAddBtn.monthly-planner-btn.monthly-planner-btn--outline:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #d5c0f9 !important; -webkit-text-fill-color: #d5c0f9;
+}
+
+:root[data-theme="neon"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="neon"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #0f1b30 !important; -webkit-text-fill-color: #0f1b30;
+}
+
+:root[data-theme="neon"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #161426 !important; -webkit-text-fill-color: #161426;
+}
+
+:root[data-theme="neon"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #1d273e !important; -webkit-text-fill-color: #1d273e;
+}
+
+:root[data-theme="neon"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #575859 !important; -webkit-text-fill-color: #575859;
+}
+
+:root[data-theme="neon"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="neon"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #b895f5 !important; -webkit-text-fill-color: #b895f5;
+}
+
+:root[data-theme="midnight"] button.ledger-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #a5a6f7 !important; -webkit-text-fill-color: #a5a6f7;
+}
+
+:root[data-theme="midnight"] div.stat-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.stat-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #aaace5 !important; -webkit-text-fill-color: #aaace5;
+}
+
+:root[data-theme="midnight"] span#dailyExpenseAmount.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="midnight"] span#totalExpense.stat-value.expense:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #f26262 !important; -webkit-text-fill-color: #f26262;
+}
+
+:root[data-theme="midnight"] div#ledgerList.ledger-list:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="midnight"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #525354 !important; -webkit-text-fill-color: #525354;
+}
+
+:root[data-theme="midnight"] div.budget-summary-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.budget-summary-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #8184cd !important; -webkit-text-fill-color: #8184cd;
+}
+
+:root[data-theme="midnight"] span#totalBudgetAmount.budget-summary-value.budget-total:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #7c7ef3 !important; -webkit-text-fill-color: #7c7ef3;
+}
+
+:root[data-theme="midnight"] div.budget-add-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.budget-edit-btn.budget-add-btn-full:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="midnight"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="midnight"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #797bf3 !important; -webkit-text-fill-color: #797bf3;
+}
+
+:root[data-theme="midnight"] button#monthlyPlannerQuickAddBtn.monthly-planner-btn.monthly-planner-btn--outline:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #a8a9f7 !important; -webkit-text-fill-color: #a8a9f7;
+}
+
+:root[data-theme="midnight"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="midnight"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #f6f6f8 !important; -webkit-text-fill-color: #f6f6f8;
+}
+
+:root[data-theme="midnight"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #191e38 !important; -webkit-text-fill-color: #191e38;
+}
+
+:root[data-theme="midnight"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #515152 !important; -webkit-text-fill-color: #515152;
+}
+
+:root[data-theme="space"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #005152 !important; -webkit-text-fill-color: #005152;
+}
+
+:root[data-theme="totoro"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="totoro"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #545656 !important; -webkit-text-fill-color: #545656;
+}
+
+:root[data-theme="waveRonin"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #f0f1f1 !important; -webkit-text-fill-color: #f0f1f1;
+}
+
+:root[data-theme="amberRonin"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #474746 !important; -webkit-text-fill-color: #474746;
+}
+
+:root[data-theme="shinchan"] button.nav-item.active:not(.over-budget):not(.over):not(.positive):not(.negative) > span.nav-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #7f6b00 !important; -webkit-text-fill-color: #7f6b00; text-shadow: none !important;
+}
+
+:root[data-theme="shinchan"] button.nav-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.nav-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #6b6b6a !important; -webkit-text-fill-color: #6b6b6a; text-shadow: none !important;
+}
+
+:root[data-theme="shinchan"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="shinchan"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #9e8500 !important; -webkit-text-fill-color: #9e8500;
+}
+
+:root[data-theme="shinchan"] span#totalBudgetAmount.budget-summary-value.budget-total:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="shinchan"] div.budget-add-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.budget-edit-btn.budget-add-btn-full:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="shinchan"] button#monthlyPlannerQuickAddBtn.monthly-planner-btn.monthly-planner-btn--outline:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #7f6b00 !important; -webkit-text-fill-color: #7f6b00;
+}
+
+:root[data-theme="shinchan"] span#totalBudgetUsed.budget-summary-value.budget-used:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #cd382d !important; -webkit-text-fill-color: #cd382d;
+}
+
+:root[data-theme="shinchan"] div.summary-toggle__top:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.summary-toggle__label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #286c2b !important; -webkit-text-fill-color: #286c2b;
+}
+
+:root[data-theme="shinchan"] div.summary-toggle__top:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.summary-toggle__hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #145fb4 !important; -webkit-text-fill-color: #145fb4;
+}
+
+:root[data-theme="shinchan"] div.summary-toggle__metric:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.summary-toggle__metric-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #1259a9 !important; -webkit-text-fill-color: #1259a9;
+}
+
+:root[data-theme="shinchan"] span#summaryToggleInvested.summary-toggle__metric-value:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="shinchan"] span#summaryTogglePnl.summary-toggle__metric-value.neutral:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="shinchan"] span#summaryToggleDividend.summary-toggle__metric-value:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #266729 !important; -webkit-text-fill-color: #266729;
+}
+
+:root[data-theme="anyMelody"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="nightglowSeasons"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mori"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="starryOceanPrince"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #707070 !important; -webkit-text-fill-color: #707070;
+}
+
+:root[data-theme="money"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #c9ced3 !important; -webkit-text-fill-color: #c9ced3;
+}
+
+:root[data-theme="money"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #0f161c !important; -webkit-text-fill-color: #0f161c;
+}
+
+:root[data-theme="caitu"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #575655 !important; -webkit-text-fill-color: #575655;
+}
+
+:root[data-theme="caitu"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #615d4f !important; -webkit-text-fill-color: #615d4f;
+}
+
+:root[data-theme="caitu"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #45443d !important; -webkit-text-fill-color: #45443d;
+}
+
+:root[data-theme="crystalFortune"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="crystalFortune"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="crystalFortune"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="crystalFortune"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #616160 !important; -webkit-text-fill-color: #616160;
+}
+
+:root[data-theme="emeraldPrince"] button.nav-item.active:not(.over-budget):not(.over):not(.positive):not(.negative) > span.nav-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #18482d !important; -webkit-text-fill-color: #18482d;
+}
+
+:root[data-theme="cuteCats"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #575253 !important; -webkit-text-fill-color: #575253;
+}
+
+:root[data-theme="cuteCats"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    box-shadow: inset 0 0 0 100vmax rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+}
+
+:root[data-theme="dreamy"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamy"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamy"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamy"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #37454a !important; -webkit-text-fill-color: #37454a;
+}
+
+:root[data-theme="dreamy"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #3e4e53 !important; -webkit-text-fill-color: #3e4e53;
+}
+
+:root[data-theme="dreamy"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamy"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #3b494e !important; -webkit-text-fill-color: #3b494e;
+}
+
+:root[data-theme="dreamy"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #4d4f50 !important; -webkit-text-fill-color: #4d4f50;
+}
+
+:root[data-theme="dreamy"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #3d4041 !important; -webkit-text-fill-color: #3d4041;
+}
+
+:root[data-theme="dreamyfish"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #4e5051 !important; -webkit-text-fill-color: #4e5051;
+}
+
+:root[data-theme="dreamyfish"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #535654 !important; -webkit-text-fill-color: #535654;
+}
+
+:root[data-theme="emerald"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #000100 !important; -webkit-text-fill-color: #000100;
+}
+
+:root[data-theme="spacegold"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #615a1e !important; -webkit-text-fill-color: #615a1e;
+}
+
+:root[data-theme="spacegold"] button#savingGoalAddBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="spacegold"] button#monthlyPlannerSaveBtn.monthly-planner-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #423e14 !important; -webkit-text-fill-color: #423e14;
+}
+
+:root[data-theme="spacegold"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #615d4e !important; -webkit-text-fill-color: #615d4e;
+}
+
+:root[data-theme="spacegold"] button#investmentDCABtn.dca-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #45443c !important; -webkit-text-fill-color: #45443c;
+}
+
+:root[data-theme="festive"] button#ledgerPrevMonthBtn.month-nav-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="festive"] button#ledgerNextMonthBtn.month-nav-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="festive"] button#chartPrevMonthBtn.month-nav-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="festive"] button#chartNextMonthBtn.month-nav-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #b85000 !important; -webkit-text-fill-color: #b85000;
+}
+
+:root[data-theme="festive"] button.nav-item:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.nav-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #666565 !important; -webkit-text-fill-color: #666565; text-shadow: none !important;
+}
+
+:root[data-theme="festive"] div.monthly-planner-field:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > label.monthly-planner-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="festive"] div.monthly-planner-subtotal:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.monthly-planner-subtotal-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="festive"] div.savings-type-tabs:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > button.savings-type-tab:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="festive"] div.monthly-planner-result-row:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.monthly-planner-result-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="festive"] div#monthlyPlannerHint.monthly-planner-hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #a84900 !important; -webkit-text-fill-color: #a84900;
+}
+
+:root[data-theme="festive"] button#monthlyPlannerQuickAddBtn.monthly-planner-btn.monthly-planner-btn--outline:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #c22b2b !important; -webkit-text-fill-color: #c22b2b;
+}
+
+:root[data-theme="festive"] div.monthly-planner-result-row.monthly-planner-result-row--highlight:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.monthly-planner-result-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #9e4500 !important; -webkit-text-fill-color: #9e4500;
+}
+
+:root[data-theme="festive"] span#stockCount.stock-count:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #3b3b3b !important; -webkit-text-fill-color: #3b3b3b;
+}
+
+:root[data-theme="festive"] div.empty-state:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > div.empty-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #a34700 !important; -webkit-text-fill-color: #a34700;
+}
+
+:root[data-theme="festive"] div.summary-toggle__top:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.summary-toggle__label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #7c1313 !important; -webkit-text-fill-color: #7c1313;
+}
+
+:root[data-theme="festive"] div.summary-toggle__top:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.summary-toggle__hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #662c00 !important; -webkit-text-fill-color: #662c00;
+}
+
+:root[data-theme="festive"] div.summary-toggle__metric:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.summary-toggle__metric-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #612a00 !important; -webkit-text-fill-color: #612a00;
+}
+
+:root[data-theme="festive"] span#summaryToggleInvested.summary-toggle__metric-value:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="festive"] span#summaryTogglePnl.summary-toggle__metric-value.neutral:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="festive"] span#summaryToggleDividend.summary-toggle__metric-value:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #751212 !important; -webkit-text-fill-color: #751212;
+}
+
+:root[data-theme="dreamy-peach"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #424040 !important; -webkit-text-fill-color: #424040;
+}
+
+:root[data-theme="littlePrince"] button.ledger-type-tab.active:not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #c1cbdf !important; -webkit-text-fill-color: #c1cbdf;
+}
+
+:root[data-theme="littlePrince"] button.ledger-type-tab:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.ledger-tab-text:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #c7cad3 !important; -webkit-text-fill-color: #c7cad3;
+}
+
+:root[data-theme="littlePrince"] div.summary-toggle__top:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.summary-toggle__hint:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #c7c9cf !important; -webkit-text-fill-color: #c7c9cf;
+}
+
+:root[data-theme="littlePrince"] div.summary-toggle__metric:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > span.summary-toggle__metric-label:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #c2c4cb !important; -webkit-text-fill-color: #c2c4cb;
+}
+
+:root[data-theme="littlePrince"] span#summaryToggleInvested.summary-toggle__metric-value:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="littlePrince"] span#summaryTogglePnl.summary-toggle__metric-value.neutral:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="littlePrince"] span#summaryToggleDividend.summary-toggle__metric-value:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #c1c2c7 !important; -webkit-text-fill-color: #c1c2c7;
+}
+
+:root[data-theme="oceanWhale"] button#investmentBuyBtn.buy-action-btn-large:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #3c3d3d !important; -webkit-text-fill-color: #3c3d3d;
+}
+
+:root[data-theme="mintBunnyTea"] button#budgetBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mintBunnyTea"] button#monthlyPlannerBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mintBunnyTea"] button#chartBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="mintBunnyTea"] button#settingsBackBtn.back-btn:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #5b5b5b !important; -webkit-text-fill-color: #5b5b5b;
+}
+
+:root[data-theme="piggyMirrorRoom"] .nav-item:not(.active) .nav-text,
+:root[data-theme="pink"] .nav-item:not(.active) .nav-text,
+:root[data-theme="blue"] .nav-item:not(.active) .nav-text,
+:root[data-theme="green"] .nav-item:not(.active) .nav-text,
+:root[data-theme="purple"] .nav-item:not(.active) .nav-text,
+:root[data-theme="orange"] .nav-item:not(.active) .nav-text,
+:root[data-theme="cyan"] .nav-item:not(.active) .nav-text,
+:root[data-theme="red"] .nav-item:not(.active) .nav-text,
+:root[data-theme="yellow"] .nav-item:not(.active) .nav-text,
+:root[data-theme="teal"] .nav-item:not(.active) .nav-text,
+:root[data-theme="mandalaNoirBloom"] .nav-item:not(.active) .nav-text,
+:root[data-theme="aurora"] .nav-item:not(.active) .nav-text,
+:root[data-theme="totoro"] .nav-item:not(.active) .nav-text,
+:root[data-theme="shinchan"] .nav-item:not(.active) .nav-text,
+:root[data-theme="caitu"] .nav-item:not(.active) .nav-text,
+:root[data-theme="floralGradient"] .nav-item:not(.active) .nav-text,
+:root[data-theme="mintRoseFairy"] .nav-item:not(.active) .nav-text,
+:root[data-theme="crystalFortune"] .nav-item:not(.active) .nav-text,
+:root[data-theme="cuteCats"] .nav-item:not(.active) .nav-text,
+:root[data-theme="pikachuSnow"] .nav-item:not(.active) .nav-text,
+:root[data-theme="blueLotusGoldGlow"] .nav-item:not(.active) .nav-text,
+:root[data-theme="samoyedSnowWave"] .nav-item:not(.active) .nav-text,
+:root[data-theme="citrusNoirBlossom"] .nav-item:not(.active) .nav-text,
+:root[data-theme="totoroCitrusPool"] .nav-item:not(.active) .nav-text,
+:root[data-theme="leafCatGreen"] .nav-item:not(.active) .nav-text,
+:root[data-theme="pastelBlossomMist"] .nav-item:not(.active) .nav-text,
+:root[data-theme="pastelStarryEyes"] .nav-item:not(.active) .nav-text,
+:root[data-theme="dreamy"] .nav-item:not(.active) .nav-text,
+:root[data-theme="dreamyfish"] .nav-item:not(.active) .nav-text,
+:root[data-theme="emerald"] .nav-item:not(.active) .nav-text,
+:root[data-theme="spacegold"] .nav-item:not(.active) .nav-text,
+:root[data-theme="attractGold"] .nav-item:not(.active) .nav-text,
+:root[data-theme="getrich"] .nav-item:not(.active) .nav-text,
+:root[data-theme="festive"] .nav-item:not(.active) .nav-text,
+:root[data-theme="dreamy-peach"] .nav-item:not(.active) .nav-text,
+:root[data-theme="starry-blue-purple"] .nav-item:not(.active) .nav-text,
+:root[data-theme="soft-lavender"] .nav-item:not(.active) .nav-text,
+:root[data-theme="jellyParty"] .nav-item:not(.active) .nav-text,
+:root[data-theme="cozyWood"] .nav-item:not(.active) .nav-text,
+:root[data-theme="autumnBunny"] .nav-item:not(.active) .nav-text,
+:root[data-theme="luckyCatPink"] .nav-item:not(.active) .nav-text,
+:root[data-theme="crimsonIvory"] .nav-item:not(.active) .nav-text,
+:root[data-theme="blueBunnyFlower"] .nav-item:not(.active) .nav-text,
+:root[data-theme="mintBlossomGarden"] .nav-item:not(.active) .nav-text {
+    color: var(--text-secondary) !important; -webkit-text-fill-color: var(--text-secondary); text-shadow: none !important;
+}
+
+/* ==== 人工指定 ==== */
+:root[data-theme="serpentEyes"] #aiHousekeeperBtn,
+:root[data-theme="serpentEyes"] #investmentBuyBtn,
+:root[data-theme="kitsuneElegance"] #aiHousekeeperBtn,
+:root[data-theme="kitsuneElegance"] #investmentBuyBtn {
+    color: #000 !important;
+    -webkit-text-fill-color: #000;
+}
+
+:root[data-theme="indigo"] .savings-type-tab.active {
+    background: #3f4aa0 !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff;
+}
+
+:root[data-theme="midnight"] .savings-type-tab.active {
+    background: #4f46e5 !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff;
+}
+
+:root[data-theme="cuteCats"] #investmentDCABtn {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff;
+}
