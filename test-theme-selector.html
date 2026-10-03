@@ -34,8 +34,8 @@
     
     <div id="test-results"></div>
 
-    <script src="js/theme.js"></script>
-    <script>
+    <script type="application/x-player-script" data-src="js/theme.js"></script>
+    <script type="application/x-player-script">
         function testThemeSelector() {
             try {
                 console.log('測試主題選擇器...');
@@ -71,10 +71,12 @@
         }
         
         // 頁面載入完成後初始化主題
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('playerappready', () => {
             console.log('頁面載入完成，初始化主題...');
             initTheme();
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-test-theme-selector.html"></script>
 </body>
 </html>

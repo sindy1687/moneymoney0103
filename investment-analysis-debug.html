@@ -212,10 +212,10 @@
     </style>
 
     <!-- 載入必要的腳本 -->
-    <script src="js/investment-analysis.js"></script>
-    <script src="js/investment-analysis-integration.js"></script>
+    <script type="application/x-player-script" data-src="js/investment-analysis.js"></script>
+    <script type="application/x-player-script" data-src="js/investment-analysis-integration.js"></script>
 
-    <script>
+    <script type="application/x-player-script">
         // 直接測試投資組合分析
         function testPortfolioAnalysisDirect() {
             const modal = document.getElementById('portfolioAnalysisModal');
@@ -333,8 +333,8 @@
                 html += '<div class="status error">❌ InvestmentAnalysisManager 未創建</div>';
             }
             
-            // 檢查 localStorage
-            const investmentRecords = localStorage.getItem('investmentRecords');
+            // 檢查 playerStorage
+            const investmentRecords = playerStorage.getItem('investmentRecords');
             if (investmentRecords) {
                 try {
                     const records = JSON.parse(investmentRecords);
@@ -356,7 +356,7 @@
             
             try {
                 // 檢查投資記錄
-                const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+                const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
                 statusDiv.innerHTML = '<div class="status success">✅ 找到 ' + records.length + ' 筆投資記錄</div>';
                 
                 // 計算持股
@@ -448,9 +448,9 @@
                 }
             ];
             
-            localStorage.setItem('investmentRecords', JSON.stringify(testData));
-            localStorage.setItem('stockCurrentPrices', JSON.stringify(currentPrices));
-            localStorage.setItem('investmentGoals', JSON.stringify(testGoals));
+            playerStorage.setItem('investmentRecords', JSON.stringify(testData));
+            playerStorage.setItem('stockCurrentPrices', JSON.stringify(currentPrices));
+            playerStorage.setItem('investmentGoals', JSON.stringify(testGoals));
             
             document.getElementById('dataStatus').innerHTML = '<div class="status success">✅ 測試數據已載入（包含投資記錄和目標）</div>';
             
@@ -514,7 +514,7 @@
                     }
                 ];
                 
-                localStorage.setItem('investmentGoals', JSON.stringify(testGoals));
+                playerStorage.setItem('investmentGoals', JSON.stringify(testGoals));
                 
                 if (typeof investmentAnalysisManager === 'undefined') {
                     throw new Error('InvestmentAnalysisManager 未定義');
@@ -623,9 +623,9 @@
         
         // 清除測試數據
         function clearTestData() {
-            localStorage.removeItem('investmentRecords');
-            localStorage.removeItem('stockCurrentPrices');
-            localStorage.removeItem('investmentGoals');
+            playerStorage.removeItem('investmentRecords');
+            playerStorage.removeItem('stockCurrentPrices');
+            playerStorage.removeItem('investmentGoals');
             
             document.getElementById('cleanupStatus').innerHTML = '<div class="status success">✅ 測試數據已清除</div>';
         }
@@ -648,9 +648,11 @@
         }
         
         // 頁面載入時自動檢查
-        window.addEventListener('load', function() {
+        document.addEventListener('playerappready', function() {
             setTimeout(checkSystem, 500);
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-investment-analysis-debug.html"></script>
 </body>
 </html>

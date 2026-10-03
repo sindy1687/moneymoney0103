@@ -488,7 +488,7 @@
         <button class="test-btn" onclick="hideModal()">關閉</button>
     </div>
 
-    <script>
+    <script type="application/x-player-script">
         function setTheme(themeId) {
             document.body.setAttribute('data-theme', themeId);
             
@@ -582,10 +582,12 @@
         }
         
         // 初始化
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('playerappready', function() {
             // 設置初始背景
             document.body.style.background = 'linear-gradient(135deg, #faf5ff 0%, #f0f8ff 50%, #fff0f5 100%)';
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-test-dreamy-realm-theme.html"></script>
 </body>
 </html>

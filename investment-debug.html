@@ -96,13 +96,13 @@
         </div>
     </div>
 
-    <script>
+    <script type="application/x-player-script">
         // 載入投資分析模組
         // 注意：在實際使用中需要先載入 investment-analysis.js
         
         function checkInvestmentRecords() {
             try {
-                const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+                const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
                 const results = document.getElementById('debugResults');
                 
                 let html = '<h3>📋 investmentRecords</h3>';
@@ -143,7 +143,7 @@
         
         function checkCurrentPrices() {
             try {
-                const prices = JSON.parse(localStorage.getItem('stockCurrentPrices') || '{}');
+                const prices = JSON.parse(playerStorage.getItem('stockCurrentPrices') || '{}');
                 const results = document.getElementById('debugResults');
                 
                 let html = '<h3>💰 stockCurrentPrices</h3>';
@@ -170,7 +170,7 @@
         
         function checkDCAPlans() {
             try {
-                const plans = JSON.parse(localStorage.getItem('dcaPlans') || '[]');
+                const plans = JSON.parse(playerStorage.getItem('dcaPlans') || '[]');
                 const results = document.getElementById('debugResults');
                 
                 let html = '<h3>📅 dcaPlans</h3>';
@@ -205,7 +205,7 @@
         
         function calculatePortfolio() {
             try {
-                const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+                const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
                 const portfolio = {};
                 
                 records.forEach(record => {
@@ -233,7 +233,7 @@
                 });
                 
                 // 更新當前價格
-                const currentPrices = JSON.parse(localStorage.getItem('stockCurrentPrices') || '{}');
+                const currentPrices = JSON.parse(playerStorage.getItem('stockCurrentPrices') || '{}');
                 Object.keys(portfolio).forEach(symbol => {
                     if (currentPrices[symbol]) {
                         portfolio[symbol].currentPrice = currentPrices[symbol];
@@ -276,7 +276,7 @@
         function simulateAnalysis() {
             try {
                 // 模擬投資分析
-                const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+                const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
                 const portfolio = {};
                 
                 records.forEach(record => {
@@ -304,7 +304,7 @@
                 });
                 
                 // 更新當前價格
-                const currentPrices = JSON.parse(localStorage.getItem('stockCurrentPrices') || '{}');
+                const currentPrices = JSON.parse(playerStorage.getItem('stockCurrentPrices') || '{}');
                 Object.keys(portfolio).forEach(symbol => {
                     if (currentPrices[symbol]) {
                         portfolio[symbol].currentPrice = currentPrices[symbol];
@@ -373,7 +373,7 @@
         
         function addTestData() {
             try {
-                const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+                const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
                 
                 // 新增測試買入記錄
                 const testRecords = [
@@ -404,13 +404,13 @@
                 ];
                 
                 records.push(...testRecords);
-                localStorage.setItem('investmentRecords', JSON.stringify(records));
+                playerStorage.setItem('investmentRecords', JSON.stringify(records));
                 
                 // 新增測試價格
-                const prices = JSON.parse(localStorage.getItem('stockCurrentPrices') || '{}');
+                const prices = JSON.parse(playerStorage.getItem('stockCurrentPrices') || '{}');
                 prices['2330'] = 560;
                 prices['0050'] = 155;
-                localStorage.setItem('stockCurrentPrices', JSON.stringify(prices));
+                playerStorage.setItem('stockCurrentPrices', JSON.stringify(prices));
                 
                 document.getElementById('testDataResults').innerHTML = 
                     '<div class="debug-item success">✅ 測試資料已新增</div>';
@@ -423,9 +423,9 @@
         
         function clearTestData() {
             try {
-                localStorage.removeItem('investmentRecords');
-                localStorage.removeItem('stockCurrentPrices');
-                localStorage.removeItem('dcaPlans');
+                playerStorage.removeItem('investmentRecords');
+                playerStorage.removeItem('stockCurrentPrices');
+                playerStorage.removeItem('dcaPlans');
                 
                 document.getElementById('testDataResults').innerHTML = 
                     '<div class="debug-item success">✅ 所有測試資料已清空</div>';
@@ -443,9 +443,11 @@
         }
         
         // 頁面載入時自動檢查
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('playerappready', function() {
             checkAllData();
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-investment-debug.html"></script>
 </body>
 </html>

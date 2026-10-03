@@ -136,10 +136,10 @@
     </div>
 
     <!-- 載入必要的腳本 -->
-    <script src="js/investment-analysis.js"></script>
-    <script src="js/investment-analysis-integration.js"></script>
+    <script type="application/x-player-script" data-src="js/investment-analysis.js"></script>
+    <script type="application/x-player-script" data-src="js/investment-analysis-integration.js"></script>
 
-    <script>
+    <script type="application/x-player-script">
         function updateStatus(elementId, message, type = 'success') {
             const statusDiv = document.getElementById(elementId);
             statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
@@ -152,7 +152,7 @@
 
         function checkInvestmentRecords() {
             try {
-                const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+                const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
                 
                 let html = `<div class="status success">✅ 找到 ${records.length} 筆投資記錄</div>`;
                 
@@ -189,7 +189,7 @@ ${JSON.stringify(records, null, 2)}</div>`;
 
         function checkCurrentPrices() {
             try {
-                const prices = JSON.parse(localStorage.getItem('stockCurrentPrices') || '{}');
+                const prices = JSON.parse(playerStorage.getItem('stockCurrentPrices') || '{}');
                 
                 let html = `<div class="status success">✅ 找到 ${Object.keys(prices).length} 檔股票的當前價格</div>`;
                 
@@ -265,14 +265,14 @@ ${JSON.stringify(prices, null, 2)}</div>`;
             
             try {
                 // 檢查投資記錄
-                const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+                const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
                 if (records.length === 0) {
                     problems.push('沒有投資記錄');
                     solutions.push('在主應用程式中進行股票買賣操作');
                 }
                 
                 // 檢查當前價格
-                const prices = JSON.parse(localStorage.getItem('stockCurrentPrices') || '{}');
+                const prices = JSON.parse(playerStorage.getItem('stockCurrentPrices') || '{}');
                 if (Object.keys(prices).length === 0) {
                     problems.push('沒有當前價格數據');
                     solutions.push('更新股票價格或使用模擬數據');
@@ -314,8 +314,8 @@ ${JSON.stringify(prices, null, 2)}</div>`;
         function fixCommonIssues() {
             try {
                 // 修復當前價格
-                const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
-                const prices = JSON.parse(localStorage.getItem('stockCurrentPrices') || '{}');
+                const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
+                const prices = JSON.parse(playerStorage.getItem('stockCurrentPrices') || '{}');
                 
                 // 為有記錄但沒有價格的股票設置模擬價格
                 const symbols = [...new Set(records.map(r => r.stockCode))];
@@ -325,7 +325,7 @@ ${JSON.stringify(prices, null, 2)}</div>`;
                     }
                 });
                 
-                localStorage.setItem('stockCurrentPrices', JSON.stringify(prices));
+                playerStorage.setItem('stockCurrentPrices', JSON.stringify(prices));
                 
                 updateStatus('diagnosisStatus', '✅ 已修復當前價格問題');
                 
@@ -380,8 +380,8 @@ ${JSON.stringify(prices, null, 2)}</div>`;
                 '0050': 125
             };
             
-            localStorage.setItem('investmentRecords', JSON.stringify(mockRecords));
-            localStorage.setItem('stockCurrentPrices', JSON.stringify(mockPrices));
+            playerStorage.setItem('investmentRecords', JSON.stringify(mockRecords));
+            playerStorage.setItem('stockCurrentPrices', JSON.stringify(mockPrices));
             
             updateStatus('diagnosisStatus', '✅ 已創建模擬股票數據');
             
@@ -436,8 +436,8 @@ ${JSON.stringify(prices, null, 2)}</div>`;
         function testWithRealData() {
             try {
                 // 使用真實的投資記錄和價格數據
-                const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
-                const prices = JSON.parse(localStorage.getItem('stockCurrentPrices') || '{}');
+                const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
+                const prices = JSON.parse(playerStorage.getItem('stockCurrentPrices') || '{}');
                 
                 if (records.length === 0) {
                     updateStatus('testStatus', '⚠️ 沒有真實投資記錄，請先使用模擬數據', 'warning');
@@ -524,9 +524,11 @@ ${JSON.stringify(prices, null, 2)}</div>`;
         }
 
         // 頁面載入時自動檢查
-        window.addEventListener('load', function() {
+        document.addEventListener('playerappready', function() {
             setTimeout(checkAllData, 500);
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-stock-data-check.html"></script>
 </body>
 </html>

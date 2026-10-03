@@ -2,7 +2,7 @@
 import { initSearchHistoryUI } from './searchHistory.js';
 
 // Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('playerappready', () => {
     const ensureWrapper = (inputEl) => {
         if (!inputEl || !inputEl.parentElement) return null;
         const wrapper = inputEl.parentElement;

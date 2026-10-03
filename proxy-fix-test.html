@@ -113,9 +113,9 @@
     </div>
 
     <!-- 載入必要的腳本 -->
-    <script src="script.js"></script>
+    <script type="application/x-player-script" data-src="script.js"></script>
 
-    <script>
+    <script type="application/x-player-script">
         function updateStatus(elementId, message, type = 'success') {
             const statusDiv = document.getElementById(elementId);
             statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
@@ -257,10 +257,10 @@
                 if (price && price > 0) {
                     updateStatus('proxyStatus', `✅ 成功獲取 ${stockCode} 股價: ${price}`, 'success');
                     
-                    // 保存到 localStorage
-                    const prices = JSON.parse(localStorage.getItem('stockCurrentPrices') || '{}');
+                    // 保存到 playerStorage
+                    const prices = JSON.parse(playerStorage.getItem('stockCurrentPrices') || '{}');
                     prices[stockCode] = price;
-                    localStorage.setItem('stockCurrentPrices', JSON.stringify(prices));
+                    playerStorage.setItem('stockCurrentPrices', JSON.stringify(prices));
                     
                     updateResults('proxyResults', {
                         stockCode: stockCode,
@@ -348,18 +348,18 @@
                 '00878': 45
             };
             
-            localStorage.setItem('stockCurrentPrices', JSON.stringify(mockPrices));
+            playerStorage.setItem('stockCurrentPrices', JSON.stringify(mockPrices));
             
             updateStatus('priceStatus', '✅ 模擬數據創建成功', 'success');
             updateResults('priceResults', {
                 mockData: mockPrices,
-                message: '模擬股價數據已保存到 localStorage',
+                message: '模擬股價數據已保存到 playerStorage',
                 timestamp: new Date().toISOString()
             });
         }
 
         // 頁面載入時顯示當前代理配置
-        window.addEventListener('load', function() {
+        document.addEventListener('playerappready', function() {
             let html = '<div class="status success">✅ 當前代理配置</div>';
             html += '<div class="proxy-list">';
             
@@ -385,5 +385,7 @@
             return '未知';
         }
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-proxy-fix-test.html"></script>
 </body>
 </html>

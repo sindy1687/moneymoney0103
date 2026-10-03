@@ -192,10 +192,10 @@
     </div>
 
     <!-- 載入必要的腳本 -->
-    <script src="js/investment-analysis.js"></script>
-    <script src="js/investment-analysis-integration.js"></script>
+    <script type="application/x-player-script" data-src="js/investment-analysis.js"></script>
+    <script type="application/x-player-script" data-src="js/investment-analysis-integration.js"></script>
 
-    <script>
+    <script type="application/x-player-script">
         function updateStatus(elementId, message, type = 'success') {
             const statusDiv = document.getElementById(elementId);
             statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
@@ -321,9 +321,9 @@
                 }
             ];
             
-            localStorage.setItem('investmentRecords', JSON.stringify(investmentRecords));
-            localStorage.setItem('stockCurrentPrices', JSON.stringify(currentPrices));
-            localStorage.setItem('investmentGoals', JSON.stringify(testGoals));
+            playerStorage.setItem('investmentRecords', JSON.stringify(investmentRecords));
+            playerStorage.setItem('stockCurrentPrices', JSON.stringify(currentPrices));
+            playerStorage.setItem('investmentGoals', JSON.stringify(testGoals));
             
             updateStatus('dataStatus', '✅ 測試數據已載入');
             
@@ -337,7 +337,7 @@
         function loadDefaultGoals() {
             if (typeof investmentAnalysisManager !== 'undefined') {
                 investmentAnalysisManager.currentGoals = investmentAnalysisManager.getDefaultGoals();
-                localStorage.setItem('investmentGoals', JSON.stringify(investmentAnalysisManager.currentGoals));
+                playerStorage.setItem('investmentGoals', JSON.stringify(investmentAnalysisManager.currentGoals));
                 updateStatus('dataStatus', '✅ 預設目標已載入');
             } else {
                 updateStatus('dataStatus', '❌ InvestmentAnalysisManager 未定義', 'error');
@@ -346,9 +346,9 @@
 
         function showCurrentData() {
             try {
-                const investmentRecords = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
-                const investmentGoals = JSON.parse(localStorage.getItem('investmentGoals') || '[]');
-                const stockCurrentPrices = JSON.parse(localStorage.getItem('stockCurrentPrices') || '{}');
+                const investmentRecords = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
+                const investmentGoals = JSON.parse(playerStorage.getItem('investmentGoals') || '[]');
+                const stockCurrentPrices = JSON.parse(playerStorage.getItem('stockCurrentPrices') || '{}');
                 
                 updateDataDisplay({
                     投資記錄: investmentRecords,
@@ -364,9 +364,9 @@
         }
 
         function clearData() {
-            localStorage.removeItem('investmentRecords');
-            localStorage.removeItem('investmentGoals');
-            localStorage.removeItem('stockCurrentPrices');
+            playerStorage.removeItem('investmentRecords');
+            playerStorage.removeItem('investmentGoals');
+            playerStorage.removeItem('stockCurrentPrices');
             
             if (typeof investmentAnalysisManager !== 'undefined') {
                 investmentAnalysisManager.currentHoldings = [];
@@ -564,9 +564,11 @@
         }
 
         // 頁面載入時自動檢查
-        window.addEventListener('load', function() {
+        document.addEventListener('playerappready', function() {
             setTimeout(checkBasicFunction, 500);
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-goal-tracking-test.html"></script>
 </body>
 </html>

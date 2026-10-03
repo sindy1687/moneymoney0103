@@ -79,7 +79,7 @@
         </div>
     </div>
 
-    <script>
+    <script type="application/x-player-script">
         function switchTheme(themeId) {
             const root = document.documentElement;
             root.setAttribute('data-theme', themeId);
@@ -125,9 +125,11 @@
         }
         
         // 初始化
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('playerappready', function() {
             setTimeout(updateDebugInfo, 100);
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-simple-test-festive.html"></script>
 </body>
 </html>

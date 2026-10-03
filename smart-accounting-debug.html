@@ -203,9 +203,9 @@
     </div>
 
     <!-- 載入智慧記帳模組 -->
-    <script src="js/smart-accounting.js"></script>
+    <script type="application/x-player-script" data-src="js/smart-accounting.js"></script>
     
-    <script>
+    <script type="application/x-player-script">
         // 測試結果顯示
         function showResult(containerId, content, type = 'success') {
             const container = document.getElementById(containerId);
@@ -516,10 +516,12 @@
         }
         
         // 頁面載入完成時自動檢查
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('playerappready', function() {
             console.log('智慧記帳調試頁面已載入');
             checkModules();
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-smart-accounting-debug.html"></script>
 </body>
 </html>

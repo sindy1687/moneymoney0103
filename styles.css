@@ -7169,9 +7169,10 @@
     --bg-white: #1a1f3a;
     --bg-light: #2a2f4a;
     --bg-lighter: #3a3f5a;
-    --text-primary: var(--bg-white);
-    --text-secondary: var(--bg-white);
-    --text-tertiary: var(--bg-white);
+    /* 原本三個文字色都等於 --bg-white（#1a1f3a），深底深字完全看不到 */
+    --text-primary: #ecebff;
+    --text-secondary: rgba(236, 235, 255, 0.82);
+    --text-tertiary: rgba(236, 235, 255, 0.64);
     --border-light: rgba(139, 124, 246, 0.2);
     --border-medium: rgba(139, 124, 246, 0.3);
 }
@@ -7443,7 +7444,8 @@
     --bg-white: #121a2b;
     --bg-light: #1a2b3f;
     --bg-lighter: #243449;
-    --text-primary: var(--bg-white);
+    /* 原本等於 --bg-white（#121a2b），深底深字完全看不到 */
+    --text-primary: rgba(255, 255, 255, 0.96);
     --text-secondary: rgba(255, 255, 255, 0.9);
     --text-tertiary: rgba(255, 255, 255, 0.75);
     --border-light: rgba(250, 204, 21, 0.2);
@@ -14866,7 +14868,7 @@ width: 100%;
 }
 
 .theme-item-preview--image.error::after {
-    content: '???';
+    content: '🖼️';
     position: absolute;
     top: 50%;
     left: 50%;
@@ -18832,7 +18834,7 @@ width: 100%;
     left: -100%;
     width: 100%;
     height: 100%;
-    background-image: url('./image/7be0d95a7ebaa0d920e4c045a8b89ec7.jpg');
+    /* 原本的 image/7be0d95a...jpg 不存在（404），改為不載入圖片 */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -19916,7 +19918,7 @@ width: 100%;
 }
 
 .record-card.dividend-reinvest::after {
-    content: '??';
+    content: '🔄';
     position: absolute;
     top: 10px;
     right: 10px;
@@ -21207,7 +21209,7 @@ width: 100%;
 }
 
 .quick-title::before {
-    content: '?? 或快速選擇：';
+    content: '⚡ 或快速選擇：';
     margin-right: 4px;
 }
 
@@ -24552,7 +24554,7 @@ transform: scale(0.99);
     border: 2px solid var(--border-light);
 }
 
-#removeImageBtn {
+#removeThemeImageBtn {
     position: absolute;
     top: 8px;
     right: 8px;
@@ -24570,7 +24572,7 @@ transform: scale(0.99);
     transition: all var(--transition-fast);
 }
 
-#removeImageBtn:hover {
+#removeThemeImageBtn:hover {
     background: rgba(255, 0, 0, 0.8);
     transform: scale(1.1);
 }
@@ -31978,7 +31980,7 @@ body {
 
 /* 水果圖標裝飾 */
 :root[data-theme="fruit"] .card::after {
-    content: '??';
+    content: '🍓';
     position: absolute;
     top: -10px;
     right: -10px;
@@ -31989,19 +31991,19 @@ body {
 }
 
 :root[data-theme="fruit"] .investment-card::after {
-    content: '??';
+    content: '🍊';
 }
 
 :root[data-theme="fruit"] .budget-card::after {
-    content: '??';
+    content: '🍋';
 }
 
 :root[data-theme="fruit"] .wallet-card::after {
-    content: '??';
+    content: '🍇';
 }
 
 :root[data-theme="fruit"] .chart-card::after {
-    content: '??';
+    content: '🍉';
 }
 /* 為所有主題統一設置預算標籤文字為淺色 */
 .budget-summary-label {
@@ -34292,7 +34294,7 @@ body {
 }
 
 :root[data-theme="emeraldPrince"] .komori-dialog::before {
-    content: '??';
+    content: '💚';
     position: absolute;
     top: -15px;
     left: 50%;
@@ -42943,4 +42945,216 @@ html:has([data-theme="shinobu"]) *[class*="budget-remaining"] {
 @keyframes slideUp {
     from { transform: translateY(100%); }
     to { transform: translateY(0); }
+}
+
+/* Google Drive 雲端備份 UI 樣式 */
+.google-drive-restore-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.google-drive-restore-box {
+    width: min(520px, 100%);
+    max-height: 80vh;
+    overflow: hidden;
+    border-radius: 24px;
+    background: #ffffff;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.google-drive-restore-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.google-drive-restore-header h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #111827;
+}
+
+.google-drive-restore-header button {
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 50%;
+    background: #f3f4f6;
+    color: #111827;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.google-drive-file-list {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 12px;
+}
+
+.google-drive-file-item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 10px;
+    padding: 14px;
+    border: 1px solid #dbeafe;
+    border-radius: 16px;
+    background: #eff6ff;
+    color: #111827;
+    text-align: left;
+    cursor: pointer;
+}
+
+.google-drive-file-item strong {
+    font-size: 15px;
+    color: #111827;
+    word-break: break-all;
+}
+
+.google-drive-file-item span {
+    font-size: 13px;
+    color: #4b5563;
+}
+
+@media (max-width: 768px) {
+    .google-drive-restore-box {
+        width: 100%;
+        max-height: 85vh;
+        border-radius: 20px;
+    }
+
+    .google-drive-file-item {
+        padding: 16px;
+        font-size: 16px;
+    }
+}
+
+/* 設定頁面 Google Drive 備份樣式 */
+#googleDriveBackupSection,
+.drive-backup-settings {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  overflow: visible !important;
+  margin: 18px 0;
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+}
+
+.drive-backup-settings h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  color: #111827;
+}
+
+.settings-section-desc {
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+.settings-drive-actions {
+  display: grid !important;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.settings-drive-btn {
+  width: 100%;
+  min-height: 84px;
+  display: flex !important;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid #bfdbfe;
+  border-radius: 20px;
+  background: #eff6ff;
+  color: #111827;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.12);
+}
+
+.settings-drive-btn:active {
+  transform: scale(0.98);
+}
+
+.settings-drive-icon {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: #dbeafe;
+  font-size: 26px;
+}
+
+.settings-drive-text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.settings-drive-text strong {
+  font-size: 17px;
+  color: #111827;
+}
+
+.settings-drive-text small {
+  font-size: 13px;
+  line-height: 1.45;
+  color: #374151;
+}
+
+.restore-drive-btn {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  box-shadow: 0 8px 18px rgba(22, 163, 74, 0.12);
+}
+
+.restore-drive-btn .settings-drive-icon {
+  background: #dcfce7;
+}
+
+.google-drive-backup-status {
+  margin: 12px 2px 0;
+  font-size: 13px;
+  color: #2563eb;
+}
+
+@media (max-width: 768px) {
+  #googleDriveBackupSection,
+  .drive-backup-settings {
+    margin: 14px 0;
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .settings-drive-btn {
+    min-height: 88px;
+    padding: 15px;
+    border-radius: 18px;
+  }
+
+  .settings-drive-text strong {
+    font-size: 16px;
+  }
+
+  .settings-drive-text small {
+    font-size: 13px;
+  }
 }

@@ -131,10 +131,10 @@
     </div>
 
     <!-- 載入必要的腳本 -->
-    <script src="js/investment-analysis.js"></script>
-    <script src="js/investment-analysis-integration.js"></script>
+    <script type="application/x-player-script" data-src="js/investment-analysis.js"></script>
+    <script type="application/x-player-script" data-src="js/investment-analysis-integration.js"></script>
 
-    <script>
+    <script type="application/x-player-script">
         function updateStatus(message, type = 'success') {
             const statusDiv = document.getElementById('status');
             statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
@@ -215,8 +215,8 @@
                 '2330': 680.5
             };
             
-            localStorage.setItem('investmentRecords', JSON.stringify(testData));
-            localStorage.setItem('stockCurrentPrices', JSON.stringify(currentPrices));
+            playerStorage.setItem('investmentRecords', JSON.stringify(testData));
+            playerStorage.setItem('stockCurrentPrices', JSON.stringify(currentPrices));
             
             updateStatus('✅ 測試數據已載入');
             
@@ -292,7 +292,7 @@
 
         function showInvestmentRecords() {
             try {
-                const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+                const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
                 updateDataDisplay({
                     投資記錄數量: records.length,
                     記錄詳情: records
@@ -322,7 +322,7 @@
 
         function showCurrentPrices() {
             try {
-                const prices = JSON.parse(localStorage.getItem('stockCurrentPrices') || '{}');
+                const prices = JSON.parse(playerStorage.getItem('stockCurrentPrices') || '{}');
                 updateDataDisplay({
                     當前價格數量: Object.keys(prices).length,
                     價格詳情: prices
@@ -334,9 +334,11 @@
         }
 
         // 頁面載入時自動測試
-        window.addEventListener('load', function() {
+        document.addEventListener('playerappready', function() {
             setTimeout(testBasicFunction, 500);
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-investment-analysis-simple-test.html"></script>
 </body>
 </html>

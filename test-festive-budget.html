@@ -137,7 +137,7 @@
         </div>
     </div>
 
-    <script>
+    <script type="application/x-player-script">
         function switchTheme(themeId) {
             const root = document.documentElement;
             root.setAttribute('data-theme', themeId);
@@ -178,9 +178,11 @@
         }
 
         // 初始化
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('playerappready', function() {
             updateDebugInfo('festive');
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-test-festive-budget.html"></script>
 </body>
 </html>

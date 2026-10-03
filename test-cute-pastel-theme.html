@@ -223,7 +223,7 @@
         </div>
     </div>
 
-    <script>
+    <script type="application/x-player-script">
         function switchTheme(themeId) {
             document.body.setAttribute('data-theme', themeId);
         }
@@ -239,9 +239,11 @@
         }
 
         // 設定初始主題
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('playerappready', function() {
             document.body.setAttribute('data-theme', 'cutePastel');
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-test-cute-pastel-theme.html"></script>
 </body>
 </html>

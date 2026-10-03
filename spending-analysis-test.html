@@ -109,10 +109,10 @@
     </div>
 
     <!-- 載入智慧記帳系統 -->
-    <script src="js/smart-accounting.js"></script>
-    <script src="js/smart-accounting-integration.js"></script>
+    <script type="application/x-player-script" data-src="js/smart-accounting.js"></script>
+    <script type="application/x-player-script" data-src="js/smart-accounting-integration.js"></script>
     
-    <script>
+    <script type="application/x-player-script">
         // 測試數據
         const testData = [
             { date: '2026-01-15', type: 'expense', amount: 150, category: '餐飲', description: '午餐' },
@@ -163,20 +163,20 @@
         
         // 載入測試數據
         function loadTestData() {
-            localStorage.setItem('accountingRecords', JSON.stringify(testData));
+            playerStorage.setItem('accountingRecords', JSON.stringify(testData));
             showResult('dataResults', '✅ 測試數據已載入', 'success');
         }
         
         // 清除數據
         function clearData() {
-            localStorage.removeItem('accountingRecords');
+            playerStorage.removeItem('accountingRecords');
             document.getElementById('dataPreview').style.display = 'none';
             showResult('dataResults', '✅ 數據已清除', 'success');
         }
         
         // 顯示數據預覽
         function showDataPreview() {
-            const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+            const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
             const preview = document.getElementById('dataPreview');
             
             if (records.length > 0) {
@@ -231,7 +231,7 @@
         // 測試真實數據分析
         function testAnalysisWithRealData() {
             if (typeof SmartAccounting !== 'undefined') {
-                const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+                const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
                 
                 if (records.length > 0) {
                     const analysis = SmartAccounting.analyzeSpendingPattern(records, 'monthly');
@@ -268,11 +268,13 @@
         }
         
         // 頁面載入時自動檢查系統
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('playerappready', function() {
             setTimeout(() => {
                 checkSystem();
             }, 1000);
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-spending-analysis-test.html"></script>
 </body>
 </html>

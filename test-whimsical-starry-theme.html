@@ -6,7 +6,7 @@
     <title>夢幻星空主題測試</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="whimsical-starry-theme.css">
-    <script src="js/theme.js"></script>
+    <script type="application/x-player-script" data-src="js/theme.js"></script>
     <style>
         body {
             padding: 20px;
@@ -252,9 +252,9 @@
         </div>
     </div>
 
-    <script>
+    <script type="application/x-player-script">
         // 自動應用主題
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('playerappready', function() {
             applyTheme('whimsicalStarry');
         });
 
@@ -267,5 +267,7 @@
             fab.classList.add('starry-animation');
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-test-whimsical-starry-theme.html"></script>
 </body>
 </html>

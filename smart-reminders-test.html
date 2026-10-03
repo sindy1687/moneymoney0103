@@ -240,9 +240,9 @@
     </div>
 
     <!-- 載入智慧提醒系統 -->
-    <script src="js/smart-reminders.js"></script>
+    <script type="application/x-player-script" data-src="js/smart-reminders.js"></script>
     
-    <script>
+    <script type="application/x-player-script">
         // 系統檢查
         function checkSystem() {
             const container = document.getElementById('systemResults');
@@ -669,10 +669,12 @@
         }
         
         // 頁面載入完成時自動檢查
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('playerappready', function() {
             console.log('智慧提醒系統測試頁面已載入');
             checkSystem();
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-smart-reminders-test.html"></script>
 </body>
 </html>

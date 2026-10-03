@@ -65,9 +65,9 @@
     </div>
 
     <!-- 載入主題系統 -->
-    <script src="js/theme.js"></script>
+    <script type="application/x-player-script" data-src="js/theme.js"></script>
 
-    <script>
+    <script type="application/x-player-script">
         function updateStatus(message, type = 'success') {
             const status = document.getElementById('status');
             status.textContent = message;
@@ -145,5 +145,7 @@
             testModules();
         }, 3000);
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-simple-theme-test.html"></script>
 </body>
 </html>

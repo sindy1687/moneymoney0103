@@ -270,9 +270,9 @@
     </div>
 
     <!-- 載入投資分析模組 -->
-    <script src="js/investment-analysis.js"></script>
+    <script type="application/x-player-script" data-src="js/investment-analysis.js"></script>
     
-    <script>
+    <script type="application/x-player-script">
         // 測試資料
         let testHoldings = [
             { symbol: '2330', name: '台積電', quantity: 10, currentPrice: 550, avgCost: 500, type: 'stock' },
@@ -760,10 +760,12 @@
         }
         
         // 頁面載入完成
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('playerappready', function() {
             console.log('投資分析測試頁面已載入');
             console.log('可用功能:', Object.keys(window.InvestmentAnalysis));
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-investment-analysis-test.html"></script>
 </body>
 </html>

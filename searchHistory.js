@@ -6,7 +6,7 @@ function saveSearchQuery(query, type = 'stock') {
     if (!query.trim()) return;
     
     const key = `searchHistory_${type}`;
-    let history = JSON.parse(localStorage.getItem(key) || '[]');
+    let history = JSON.parse(playerStorage.getItem(key) || '[]');
     
     // Remove if already exists
     history = history.filter(item => item !== query);
@@ -19,20 +19,20 @@ function saveSearchQuery(query, type = 'stock') {
         history = history.slice(0, MAX_HISTORY_ITEMS);
     }
     
-    localStorage.setItem(key, JSON.stringify(history));
+    playerStorage.setItem(key, JSON.stringify(history));
     updateSearchHistoryUI(type);
 }
 
 // Get search history
 function getSearchHistory(type = 'stock') {
     const key = `searchHistory_${type}`;
-    return JSON.parse(localStorage.getItem(key) || '[]');
+    return JSON.parse(playerStorage.getItem(key) || '[]');
 }
 
 // Clear search history
 function clearSearchHistory(type = 'stock') {
     const key = `searchHistory_${type}`;
-    localStorage.removeItem(key);
+    playerStorage.removeItem(key);
     updateSearchHistoryUI(type);
 }
 

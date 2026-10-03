@@ -51,7 +51,7 @@
         <div>邊框顏色: <span id="borderColor">檢查中...</span></div>
     </div>
 
-    <script>
+    <script type="application/x-player-script">
         function check() {
             const html = document.documentElement;
             const card = document.querySelector('.test-card');
@@ -74,5 +74,7 @@
         // 頁面載入後檢查
         setTimeout(check, 100);
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-final-test.html"></script>
 </body>
 </html>

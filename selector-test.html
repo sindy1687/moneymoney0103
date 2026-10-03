@@ -121,7 +121,7 @@
         </div>
     </div>
 
-    <script>
+    <script type="application/x-player-script">
         function setTheme(theme) {
             console.log('設置主題:', theme);
             const root = document.documentElement;
@@ -209,12 +209,14 @@
         }
         
         // 初始化
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('playerappready', function() {
             setTimeout(() => {
                 updateDebugInfo();
                 checkAll();
             }, 100);
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-selector-test.html"></script>
 </body>
 </html>

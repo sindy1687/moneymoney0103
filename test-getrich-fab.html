@@ -75,10 +75,10 @@
     <button class="fab-btn" id="fabBtn">💰</button>
     
     <!-- 引入 JavaScript -->
-    <script src="js/theme-icons.js"></script>
-    <script src="js/theme-core.js"></script>
+    <script type="application/x-player-script" data-src="js/theme-icons.js"></script>
+    <script type="application/x-player-script" data-src="js/theme-core.js"></script>
     
-    <script>
+    <script type="application/x-player-script">
         // 測試主題切換
         function testThemeSwitch() {
             const themes = ['getrich', 'pink', 'blue', 'green'];
@@ -101,7 +101,7 @@
         }
         
         // 初始化
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('playerappready', function() {
             console.log('頁面載入完成，初始化主題...');
             
             // 確保 ThemeIcons 已載入
@@ -126,5 +126,7 @@
             }
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-test-getrich-fab.html"></script>
 </body>
 </html>
