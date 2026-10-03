@@ -1,0 +1,448 @@
+{
+  "pages": 44,
+  "javascriptFiles": 75,
+  "syntax": [],
+  "missing": [],
+  "duplicates": [],
+  "pageInfo": [
+    {
+      "page": "complete-diagnosis.html",
+      "scripts": [
+        "js\\theme.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "debug-budget-cards.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "debug-fab-button.html",
+      "scripts": [
+        "js\\theme.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "debug-investment-cards.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "debug-main-app.html",
+      "scripts": [
+        "js\\theme.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "debug-theme-page.html",
+      "scripts": [
+        "js\\theme.js",
+        "debug-theme.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "debug-theme-test.html",
+      "scripts": [
+        "js\\theme-debug.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "debug-theme.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "emerald-prince-theme-test.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "fab-position-test.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "final-test.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "goal-tracking-test.html",
+      "scripts": [
+        "js\\investment-analysis.js",
+        "js\\investment-analysis-integration.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "index.html",
+      "scripts": [
+        "js\\categories.js",
+        "js\\storage.js",
+        "js\\storage-manager.js",
+        "js\\advisor-chat.js",
+        "js\\theme.js",
+        "js\\autoTransfer.js",
+        "js\\smart-accounting.js",
+        "js\\smart-accounting-integration.js",
+        "js\\smart-reminders.js",
+        "js\\performance-optimizer-simple.js",
+        "js\\theme-text-fixes.js",
+        "cloud-upload-config.js",
+        "js\\player-cloud-upload.js",
+        "js\\app\\01-core-input-investment.js",
+        "js\\app\\sell-calculation-enhancement.js",
+        "js\\disable-mori-features.js",
+        "js\\app\\monthly-summary.js",
+        "js\\app\\monthly-summary-nav.js",
+        "js\\app\\02-ledger-budget-settings.js",
+        "js\\app\\03-reports-data-entry.js",
+        "js\\app\\04-diary-investment-ui.js",
+        "js\\app\\05-dca-accounts-upload.js",
+        "searchHistoryInit.js",
+        "js\\theme-css-loader.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": false
+    },
+    {
+      "page": "investment-analysis-debug.html",
+      "scripts": [
+        "js\\investment-analysis.js",
+        "js\\investment-analysis-integration.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "investment-analysis-simple-test.html",
+      "scripts": [
+        "js\\investment-analysis.js",
+        "js\\investment-analysis-integration.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "investment-analysis-test.html",
+      "scripts": [
+        "js\\investment-analysis.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "investment-debug.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "minimal-test.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "proxy-fix-test.html",
+      "scripts": [
+        "script.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "real-structure-test.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "savings-suggestion-test.html",
+      "scripts": [
+        "js\\smart-accounting.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "searchHistory.html",
+      "scripts": [],
+      "isolated": false
+    },
+    {
+      "page": "selector-test.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "simple-test-festive.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "simple-test.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "simple-theme-test.html",
+      "scripts": [
+        "js\\theme.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "smart-accounting-debug.html",
+      "scripts": [
+        "js\\smart-accounting.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "smart-accounting-test.html",
+      "scripts": [
+        "js\\smart-accounting.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "smart-reminders-test.html",
+      "scripts": [
+        "js\\smart-reminders.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "spending-analysis-test.html",
+      "scripts": [
+        "js\\smart-accounting.js",
+        "js\\smart-accounting-integration.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "stock-data-check.html",
+      "scripts": [
+        "js\\investment-analysis.js",
+        "js\\investment-analysis-integration.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "test-budget-fix.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "test-cute-pastel-theme.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "test-dreamy-galaxy-theme.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "test-dreamy-realm-theme.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "test-festive-budget.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "test-festive-theme.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "test-getrich-fab.html",
+      "scripts": [
+        "js\\theme-icons.js",
+        "js\\theme-core.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "test-investment-summary.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "test-starry-theme.html",
+      "scripts": [
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "test-theme-selector.html",
+      "scripts": [
+        "js\\theme.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "test-whimsical-starry-theme.html",
+      "scripts": [
+        "js\\theme.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "theme-simple-test.html",
+      "scripts": [
+        "js\\theme.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    },
+    {
+      "page": "theme-test.html",
+      "scripts": [
+        "js\\theme.js",
+        "js\\player-storage.js",
+        "js\\app-bootstrap.js"
+      ],
+      "isolated": true
+    }
+  ],
+  "notDirectlyReferenced": [
+    "add_spacegold_icons.js",
+    "check-theme.js",
+    "clear_data_function.gs",
+    "cloud-upload-service.gs",
+    "fix-icons.js",
+    "GoogleAppsScriptBackend.js",
+    "googleDriveBackup.js",
+    "inject-debug.js",
+    "js\\advisor-clean.js",
+    "js\\app\\02-ledger-budget-settings.backup.js",
+    "js\\page-home.js",
+    "js\\page-import-export.js",
+    "js\\page-investment.js",
+    "js\\page-monthly-planner.js",
+    "js\\page-report.js",
+    "js\\page-settings.js",
+    "js\\page-theme.js",
+    "js\\page-wallet.js",
+    "js\\shared\\base.js",
+    "js\\shared\\number-keyboard.js",
+    "js\\shared\\ui.js",
+    "js\\theme-backup-original.js",
+    "js\\theme-data.js",
+    "js\\theme-loader.js",
+    "js\\theme-main.js",
+    "js\\theme-modular-backup.js",
+    "js\\theme-ui.js",
+    "js\\themes.js",
+    "js\\theme_backup.js",
+    "js\\theme_selector_clean.js",
+    "page-import-export.js",
+    "searchHistory.js",
+    "searchHistoryPatch.js",
+    "test-smart-reminders-fix.js",
+    "test-theme-debug.js"
+  ]
+}

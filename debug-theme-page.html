@@ -61,10 +61,10 @@
     <link rel="stylesheet" href="styles.css">
     
     <!-- 引入主題相關的JS -->
-    <script src="js/theme.js"></script>
-    <script src="debug-theme.js"></script>
+    <script type="application/x-player-script" data-src="js/theme.js"></script>
+    <script type="application/x-player-script" data-src="debug-theme.js"></script>
     
-    <script>
+    <script type="application/x-player-script">
         function showDebugInfo() {
             const output = document.getElementById('debug-output');
             output.innerHTML = '<pre>請查看瀏覽器控制台獲取詳細調試信息</pre>';
@@ -96,7 +96,7 @@
         }
         
         // 頁面載入完成後顯示初始信息
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('playerappready', () => {
             console.log('頁面載入完成');
             showDebugInfo();
             
@@ -109,5 +109,7 @@
             }
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-debug-theme-page.html"></script>
 </body>
 </html>

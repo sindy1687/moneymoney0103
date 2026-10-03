@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>完整診斷工具</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="js/theme.js"></script>
+    <script type="application/x-player-script" data-src="js/theme.js"></script>
     <style>
         body {
             margin: 0;
@@ -179,7 +179,7 @@
         </div>
     </div>
 
-    <script>
+    <script type="application/x-player-script">
         function runCompleteDiagnosis() {
             console.log('=== 開始完整診斷 ===');
             const output = document.getElementById('diagnosticOutput');
@@ -197,11 +197,11 @@
             results.push(`✓ HTML標籤: ${html.tagName}`);
             results.push(`✓ 當前主題: ${currentTheme || '(未設置)'}`);
             
-            // 檢查localStorage
-            const selectedTheme = localStorage.getItem('selectedTheme');
-            const oldTheme = localStorage.getItem('theme');
-            results.push(`✓ localStorage selectedTheme: ${selectedTheme || '(無)'}`);
-            results.push(`✓ localStorage theme: ${oldTheme || '(無)'}`);
+            // 檢查playerStorage
+            const selectedTheme = playerStorage.getItem('selectedTheme');
+            const oldTheme = playerStorage.getItem('theme');
+            results.push(`✓ playerStorage selectedTheme: ${selectedTheme || '(無)'}`);
+            results.push(`✓ playerStorage theme: ${oldTheme || '(無)'}`);
             
             // 2. 檢查CSS文件
             results.push('\n=== CSS文件檢查 ===');
@@ -366,8 +366,8 @@
         function forceApplyFestive() {
             console.log('強制應用節日慶典主題...');
             document.documentElement.setAttribute('data-theme', 'festive');
-            localStorage.setItem('selectedTheme', 'festive');
-            localStorage.setItem('theme', 'festive');
+            playerStorage.setItem('selectedTheme', 'festive');
+            playerStorage.setItem('theme', 'festive');
             
             // 強制應用樣式
             const cards = document.querySelectorAll('.summary-card');
@@ -399,14 +399,16 @@
         
         function clearCache() {
             console.log('清除緩存並重新載入...');
-            localStorage.clear();
+            playerStorage.clear();
             location.reload(true);
         }
         
         // 初始化
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('playerappready', function() {
             setTimeout(runCompleteDiagnosis, 1000);
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-complete-diagnosis.html"></script>
 </body>
 </html>

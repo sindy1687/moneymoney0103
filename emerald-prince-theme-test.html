@@ -69,15 +69,17 @@
         </div>
     </div>
 
-    <script>
+    <script type="application/x-player-script">
         function setTheme(themeName) {
             document.documentElement.setAttribute('data-theme', themeName);
-            localStorage.setItem('selectedTheme', themeName);
+            playerStorage.setItem('selectedTheme', themeName);
         }
 
         // 載入保存的主題
-        const savedTheme = localStorage.getItem('selectedTheme') || 'default';
+        const savedTheme = playerStorage.getItem('selectedTheme') || 'default';
         setTheme(savedTheme);
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-emerald-prince-theme-test.html"></script>
 </body>
 </html>

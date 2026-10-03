@@ -118,7 +118,7 @@
         </div>
     </div>
 
-    <script>
+    <script type="application/x-player-script">
         function switchTheme(themeId) {
             console.log('切換主題到:', themeId);
             const root = document.documentElement;
@@ -251,12 +251,14 @@
         }
         
         // 初始化
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('playerappready', function() {
             setTimeout(() => {
                 updateDebugInfo();
                 runDiagnostics();
             }, 100);
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-debug-theme.html"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>主應用程式調試</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="js/theme.js"></script>
+    <script type="application/x-player-script" data-src="js/theme.js"></script>
     <style>
         body {
             margin: 0;
@@ -128,7 +128,7 @@
         </div>
     </div>
 
-    <script>
+    <script type="application/x-player-script">
         function testTheme(themeId) {
             console.log('測試主題:', themeId);
             
@@ -148,8 +148,8 @@
             
             // 直接設置
             document.documentElement.setAttribute('data-theme', 'festive');
-            localStorage.setItem('selectedTheme', 'festive');
-            localStorage.setItem('theme', 'festive');
+            playerStorage.setItem('selectedTheme', 'festive');
+            playerStorage.setItem('theme', 'festive');
             
             // 強制重新計算樣式
             const cards = document.querySelectorAll('.summary-card');
@@ -171,9 +171,9 @@
             console.log('根元素屬性:', root.attributes);
             console.log('data-theme:', root.getAttribute('data-theme'));
             
-            // 檢查localStorage
-            console.log('localStorage selectedTheme:', localStorage.getItem('selectedTheme'));
-            console.log('localStorage theme:', localStorage.getItem('theme'));
+            // 檢查playerStorage
+            console.log('playerStorage selectedTheme:', playerStorage.getItem('selectedTheme'));
+            console.log('playerStorage theme:', playerStorage.getItem('theme'));
             
             // 檢查主題函數
             console.log('applyTheme函數存在:', typeof applyTheme);
@@ -213,8 +213,8 @@
             
             document.getElementById('currentTheme').textContent = currentTheme || '(無)';
             document.getElementById('htmlAttribute').textContent = root.outerHTML.substring(0, 100) + '...';
-            document.getElementById('localStorage').textContent = 
-                `selectedTheme: ${localStorage.getItem('selectedTheme')}, theme: ${localStorage.getItem('theme')}`;
+            document.getElementById('playerStorage').textContent = 
+                `selectedTheme: ${playerStorage.getItem('selectedTheme')}, theme: ${playerStorage.getItem('theme')}`;
             
             if (firstCard) {
                 const style = getComputedStyle(firstCard);
@@ -245,12 +245,14 @@
         }
         
         // 初始化
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('playerappready', function() {
             setTimeout(() => {
                 updateDebugInfo();
                 checkAll();
             }, 200);
         });
     </script>
+<script src="js/player-storage.js"></script>
+<script src="js/app-bootstrap.js" data-storage-name="money-diagnostic-debug-main-app.html"></script>
 </body>
 </html>
