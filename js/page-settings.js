@@ -22,7 +22,7 @@ function initSettingsPage() {
             ]
         },
         {
-            title: '☁️ 雲端備份',
+            title: '☁️ Google Sheet 備份',
             items: [
                 { icon: '📤', title: '上傳到 Google Sheet', description: '備份資料到 Google 雲端', action: 'uploadAllData' },
                 { icon: '📥', title: '從 Google Sheet 下載', description: '從雲端還原資料', action: 'downloadAllData' },
@@ -71,6 +71,11 @@ function initSettingsPage() {
     });
     settingsList.innerHTML = html;
     bindSettingsEvents();
+
+    // 確保 Google Drive 備份入口已插入
+    if (typeof ensureGoogleDriveBackupEntryInSettings === 'function') {
+        ensureGoogleDriveBackupEntryInSettings();
+    }
 }
 
 // 綁定設定事件
@@ -110,8 +115,8 @@ function handleSettingsAction(action) {
             }
             break;
         case 'downloadAllData':
-            if (typeof downloadAllDataFromGoogleSheet === 'function') {
-                downloadAllDataFromGoogleSheet();
+            if (typeof cloudRestoreFromGoogleSheet === 'function') {
+                cloudRestoreFromGoogleSheet();
             }
             break;
         case 'clearAllData':
@@ -142,7 +147,7 @@ function showSettingsPage() {
     const installmentManagementPage = document.getElementById('installmentManagementPage');
     const installmentSetupPage = document.getElementById('installmentSetupPage');
     const bottomNav = document.querySelector('.bottom-nav');
-    
+
     if (installmentManagementPage) installmentManagementPage.style.display = 'none';
     if (installmentSetupPage) installmentSetupPage.style.display = 'none';
     if (pageSettings) pageSettings.style.display = 'block';
@@ -150,6 +155,13 @@ function showSettingsPage() {
     if (typeof initSettingsPage === 'function') {
         initSettingsPage();
     }
+
+    // 確保 Google Drive 備份入口已插入
+    setTimeout(() => {
+        if (typeof ensureGoogleDriveBackupEntryInSettings === 'function') {
+            ensureGoogleDriveBackupEntryInSettings();
+        }
+    }, 0);
 }
 
 // 顯示分期管理頁面

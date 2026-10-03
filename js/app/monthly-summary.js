@@ -2,7 +2,7 @@
 (function() {
     // 獲取每月收入支出數據
     function getMonthlySummary() {
-        const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
         const monthlyData = {};
 
         records.forEach(record => {
@@ -129,7 +129,7 @@
     }
 
     // 初始化
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('playerappready', function() {
         // 檢查是否在每月摘要頁面
         const monthlySummaryPage = document.getElementById('pageMonthlySummary');
         if (monthlySummaryPage) {

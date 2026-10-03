@@ -192,7 +192,7 @@ var themes = window.AppThemes || [
         buttonIcon: '🌙',
         preview: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
         color: '#6366f1',
-        category: 'dark'
+        category: 'cosmic'
     },
     {
         id: 'space',
@@ -201,8 +201,7 @@ var themes = window.AppThemes || [
         buttonIcon: '🛸',
         preview: 'linear-gradient(135deg, #001428 0%, #002850 60%, #8a2be2 100%)',
         color: '#00d4ff',
-        category: 'dynamic',
-        backgroundVideo: 'https://v1.pinimg.com/videos/iht/720p/4e/00/d1/4e00d1999152ab007ebe4aef36d5e2c9.mp4'
+        category: 'cosmic'
     },
     {
         id: 'totoro',
@@ -370,9 +369,8 @@ var themes = window.AppThemes || [
         buttonIcon: '💸',
         preview: 'url("https://i.pinimg.com/736x/cc/56/8d/cc568d4109c2c92d507f597ba0ece7be.jpg") center/cover',
         color: '#16f49a',
-        category: 'dynamic',
-        backgroundImage: 'https://i.pinimg.com/736x/cc/56/8d/cc568d4109c2c92d507f597ba0ece7be.jpg',
-        backgroundVideo: 'https://v1.pinimg.com/videos/iht/expMp4/a4/53/29/a45329a21920d8db7a7f778daa592453_720w.mp4'
+        category: 'wealth',
+        backgroundImage: 'https://i.pinimg.com/736x/cc/56/8d/cc568d4109c2c92d507f597ba0ece7be.jpg'
     },
     {
         id: 'caitu',
@@ -626,6 +624,30 @@ var themes = window.AppThemes || [
         dividendCardImage: 'https://i.pinimg.com/1200x/da/80/c5/da80c5a273bc8fe4e4f62f4bf66c6f95.jpg'
     },
     {
+        id: 'shinchanSakura',
+        name: '小新櫻花春日',
+        icon: '🌸',
+        buttonIcon: '🐶',
+        preview: 'url("https://i.pinimg.com/1200x/8a/3f/d5/8a3fd5bf479cacb184b615ce48d57ab4.jpg") center/cover',
+        color: '#e8789e',
+        category: 'anime',
+        // 背景與卡片照片由 css/themes/shinchanSakura.css 套用（含漸層薄紗，確保文字清楚）
+        cssBackground: true,
+        backgroundImage: 'https://i.pinimg.com/1200x/8a/3f/d5/8a3fd5bf479cacb184b615ce48d57ab4.jpg'
+    },
+    {
+        id: 'blossomSwirl',
+        name: '花漾漩渦',
+        icon: '🌸',
+        buttonIcon: '💐',
+        preview: 'url("https://i.pinimg.com/1200x/87/88/31/8788314954b00c57fa71e9761651c1e8.jpg") center/cover',
+        color: '#e2578a',
+        category: 'cute',
+        // 背景與卡片照片由 css/themes/blossomSwirl.css 套用（含漸層薄紗，確保文字清楚）
+        cssBackground: true,
+        backgroundImage: 'https://i.pinimg.com/1200x/87/88/31/8788314954b00c57fa71e9761651c1e8.jpg'
+    },
+    {
         id: 'pastelBlossomMist',
         name: '粉彩花霧',
         icon: '🌸',
@@ -858,33 +880,13 @@ var themes = window.AppThemes || [
         dividendCardImage: 'https://i.pinimg.com/1200x/d4/ed/3b/d4ed3ba9170e4f38f19dc1d3868eb986.jpg'
     },
     {
-        id: 'attractGold',
-        name: '吸金紅金',
-        icon: '🪙',
-        buttonIcon: '🧧',
-        preview: 'url("https://i.pinimg.com/1200x/94/e4/9e/94e49ef07a1ce58f8bfa3b177a580bd5.jpg") center/cover',
-        color: '#C62828',
-        category: 'wealth',
-        cssBackground: true,
-        backgroundImage: 'https://i.pinimg.com/1200x/94/e4/9e/94e49ef07a1ce58f8bfa3b177a580bd5.jpg',
-        investmentCardImage: 'https://i.pinimg.com/1200x/94/e4/9e/94e49ef07a1ce58f8bfa3b177a580bd5.jpg',
-        accountingCardImage: 'https://i.pinimg.com/1200x/94/e4/9e/94e49ef07a1ce58f8bfa3b177a580bd5.jpg',
-        walletBudgetCardImage: 'https://i.pinimg.com/1200x/94/e4/9e/94e49ef07a1ce58f8bfa3b177a580bd5.jpg',
-        monthlyPlanningCardImage: 'https://i.pinimg.com/1200x/94/e4/9e/94e49ef07a1ce58f8bfa3b177a580bd5.jpg',
-        investmentSettingsCardImage: 'https://i.pinimg.com/1200x/94/e4/9e/94e49ef07a1ce58f8bfa3b177a580bd5.jpg',
-        holdingCardImage: 'https://i.pinimg.com/1200x/94/e4/9e/94e49ef07a1ce58f8bfa3b177a580bd5.jpg',
-        buyingCardImage: 'https://i.pinimg.com/1200x/94/e4/9e/94e49ef07a1ce58f8bfa3b177a580bd5.jpg',
-        sellingCardImage: 'https://i.pinimg.com/1200x/94/e4/9e/94e49ef07a1ce58f8bfa3b177a580bd5.jpg',
-        dividendCardImage: 'https://i.pinimg.com/1200x/94/e4/9e/94e49ef07a1ce58f8bfa3b177a580bd5.jpg'
-    },
-    {
         id: 'festive',
         name: '節日慶典',
         icon: '🎊',
         buttonIcon: '🎉',
         preview: 'url("https://i.pinimg.com/736x/c8/57/a1/c857a19b3f5bd274ba864e54dc27f550.jpg") center/cover',
         color: '#E63946',
-        category: 'celebration',
+        category: 'wealth',
         backgroundImage: 'https://i.pinimg.com/736x/c8/57/a1/c857a19b3f5bd274ba864e54dc27f550.jpg',
         investmentCardImage: 'https://i.pinimg.com/1200x/ba/24/9a/ba249a3cc3f9f317683f78c240ff0686.jpg',
         accountingCardImage: 'https://i.pinimg.com/736x/c8/57/a1/c857a19b3f5bd274ba864e54dc27f550.jpg',
@@ -897,24 +899,13 @@ var themes = window.AppThemes || [
         dividendCardImage: 'https://i.pinimg.com/1200x/ba/24/9a/ba249a3cc3f9f317683f78c240ff0686.jpg'
     },
     {
-        id: 'shinchanPool',
-        name: '小新泳池派對',
-        icon: '🏊',
-        preview: 'url("image/79793c93271b2231adefb28841972eec.jpg") center/cover',
-        color: '#00CED1',
-        category: 'dynamic',
-        backgroundImage: 'image/79793c93271b2231adefb28841972eec.jpg',
-        backgroundVideo: 'https://v1.pinimg.com/videos/iht/expMp4/76/35/eb/7635eb2cc1d1c08a867742f7144faf11_720w.mp4'
-    },
-    {
         id: 'nightglowSeasons',
         name: '夜光四季',
         icon: '🌃',
         buttonIcon: '✨',
         preview: 'linear-gradient(135deg, #0a1929 0%, #1e3a5f 25%, #2e5266 50%, #1a365d 75%, #0f172a 100%)',
         color: '#64ffda',
-        category: 'dynamic',
-        backgroundVideo: 'https://v1.pinimg.com/videos/iht/expMp4/c7/39/73/c739737a7c0471e01fa4e606507d0a48_720w.mp4'
+        category: 'cosmic'
     },
     {
         id: 'mori',
@@ -1382,175 +1373,62 @@ var themes = window.AppThemes || [
     },
 ];
 
+// 分類順序即選單分頁順序。每個主題的 category 必須是這裡的其中一個。
 const themeCategories = {
-    cosmic: {
-        name: '宇宙星空',
-        icon: '🌌',
-        description: '星空、極光等宇宙主題'
-    },
-    dark: {
-        name: '深色主題',
-        icon: '🌙',
-        description: '深色護眼主題'
-    },
-    anime: {
-        name: '動漫風格',
-        icon: '🎌',
-        description: '吉卜力、鬼滅等動漫主題'
-    },
-    wealth: {
-        name: '財富金錢',
-        icon: '💰',
-        description: '金錢、財富相關主題'
+    basic: {
+        name: '基本色彩',
+        icon: '🖍️',
+        description: '單色簡約主題'
     },
     cute: {
         name: '可愛風格',
         icon: '🐾',
-        description: '可愛、萌系主題',
+        description: '可愛、萌系、粉彩主題',
         animation: 'cuteAnimation'
+    },
+    cosmic: {
+        name: '星空暗夜',
+        icon: '🌌',
+        description: '星空、極光、深色護眼主題'
     },
     fantasy: {
         name: '奇幻風格',
         icon: '🗡️',
-        description: '騎士、奇幻主題',
+        description: '騎士、奇幻、華麗主題',
         animation: 'fantasyAnimation'
     },
-    dynamic: {
-        name: '動態背景',
-        icon: '🎬',
-        description: '影片動態背景主題',
-        animation: 'dynamicAnimation'
+    anime: {
+        name: '動漫風格',
+        icon: '🎌',
+        description: '吉卜力、鬼滅、小新等動漫主題'
     },
-    celebration: {
-        name: '節日慶典',
-        icon: '🎊',
-        description: '節日、慶典、派對主題'
+    wealth: {
+        name: '財富節慶',
+        icon: '💰',
+        description: '金錢、招財、節日慶典主題'
     }
 };
 
 const themeAnimations = {};
 
-const themeVideoController = (() => {
-    const videoIdsByTheme = {
-        money: 'moneyThemeVideo',
-        space: 'spaceThemeVideo',
-        shinchanPool: 'shinchanPoolThemeVideo',
-        nightglowSeasons: 'nightglowSeasonsThemeVideo',
-        cyberpunkCity: 'cyberpunkCityThemeVideo'
-    };
-    const mobileMediaQuery = window.matchMedia
-        ? window.matchMedia('(max-width: 768px), (pointer: coarse)')
-        : { matches: false };
-    let containerEl = null;
-    let activeThemeId = null;
-
-    const ensureContainer = () => {
-        if (!containerEl) {
-            containerEl = document.querySelector('.theme-video-background');
-        }
-        return !!containerEl;
-    };
-
-    const getVideos = () => {
-        return Object.values(videoIdsByTheme)
-            .map(id => document.getElementById(id))
-            .filter(Boolean);
-    };
-
-    const unloadVideo = (video) => {
-        video.pause();
-        video.style.display = 'none';
-        video.removeAttribute('src');
-        video.preload = 'none';
-        video.querySelectorAll('source').forEach(source => {
-            if (source.src) {
-                source.removeAttribute('src');
-            }
-        });
-        video.load();
-    };
-
-    const loadVideo = (video) => {
-        const source = video.querySelector('source');
-        if (!source) return;
-
-        const sourceUrl = source.dataset.src || source.getAttribute('src');
-        if (!sourceUrl) return;
-
-        if (!source.getAttribute('src')) {
-            source.setAttribute('src', sourceUrl);
-            video.load();
-        }
-
-        video.preload = 'auto';
-    };
-
-    const clearVideos = () => {
-        getVideos().forEach(unloadVideo);
-        if (containerEl) {
-            containerEl.classList.remove('active');
-        }
-    };
-
-    const setActive = (themeId) => {
-        activeThemeId = themeId;
-        if (!ensureContainer()) return;
-
-        const videoId = videoIdsByTheme[themeId];
-        const shouldUseVideo = !!videoId && !mobileMediaQuery.matches;
-
-        if (!shouldUseVideo) {
-            clearVideos();
-            return;
-        }
-
-        const activeVideo = document.getElementById(videoId);
-        if (!activeVideo) {
-            clearVideos();
-            return;
-        }
-
-        getVideos().forEach(video => {
-            if (video === activeVideo) return;
-            unloadVideo(video);
-        });
-
-        loadVideo(activeVideo);
-        activeVideo.style.display = 'block';
-        containerEl.classList.add('active');
-
-        try {
-            activeVideo.currentTime = 0;
-        } catch (error) {
-            console.warn('Unable to reset theme video:', error);
-        }
-
-        const playPromise = activeVideo.play();
-        if (playPromise && typeof playPromise.catch === 'function') {
-            playPromise.catch(() => {});
-        }
-    };
-
-    if (typeof mobileMediaQuery.addEventListener === 'function') {
-        mobileMediaQuery.addEventListener('change', () => setActive(activeThemeId));
-    } else if (typeof mobileMediaQuery.addListener === 'function') {
-        mobileMediaQuery.addListener(() => setActive(activeThemeId));
-    }
-
-    return { setActive };
-})();
+// 動態影片背景已移除
 
 function getCurrentTheme() {
     // 優先使用 selectedTheme，如果沒有則使用舊的 theme 鍵值以保持向後兼容
     const DEFAULT_THEME = 'blue';
-    return localStorage.getItem('selectedTheme') || localStorage.getItem('theme') || DEFAULT_THEME;
+    const saved = playerStorage.getItem('selectedTheme') || playerStorage.getItem('theme') || DEFAULT_THEME;
+    // 已刪除的主題（例如小新泳池派對）改回預設，避免套用到不存在的主題；自訂主題不在清單內，保留
+    if (saved !== 'custom' && !themes.some(t => t.id === saved)) return DEFAULT_THEME;
+    return saved;
 }
 
 function applyTheme(themeId) {
+    // 只載入這個主題的 CSS（js/theme-css-loader.js）
+    if (typeof window.loadThemeCss === 'function') window.loadThemeCss(themeId);
     const root = document.documentElement;
     root.setAttribute('data-theme', themeId);
-    localStorage.setItem('selectedTheme', themeId);
-    localStorage.setItem('theme', themeId); // 保持向後兼容
+    playerStorage.setItem('selectedTheme', themeId);
+    playerStorage.setItem('theme', themeId); // 保持向後兼容
     root.style.removeProperty('--bg-white');
     
     // 自動應用主題背景圖片
@@ -1569,7 +1447,6 @@ function applyTheme(themeId) {
     applyThemeCardImages(theme);
     
     updateThemeButtons(themeId);
-    themeVideoController.setActive(themeId);
 
     const pageChart = document.getElementById('pageChart');
     if (pageChart && pageChart.style.display !== 'none') {
@@ -2144,14 +2021,6 @@ function updateThemeButtons(themeId) {
             navChart: '🔭',
             navSettings: '🌠'
         },
-        shinchanPool: {
-            fab: '🏊',
-            navLedger: '🦆',
-            navWallet: '💧',
-            navInvestment: '🌊',
-            navChart: '🏖️',
-            navSettings: '⛱️'
-        },
         dreamyGalaxy: {
             fab: '🌌',
             navLedger: '✨',
@@ -2167,6 +2036,22 @@ function updateThemeButtons(themeId) {
             navInvestment: '🌈',
             navChart: '🦋',
             navSettings: '🎨'
+        },
+        shinchanSakura: {
+            fab: '🐶',
+            navLedger: '🌸',
+            navWallet: '👛',
+            navInvestment: '📈',
+            navChart: '🌤️',
+            navSettings: '🎐'
+        },
+        blossomSwirl: {
+            fab: '💐',
+            navLedger: '🌸',
+            navWallet: '💗',
+            navInvestment: '🌷',
+            navChart: '🦋',
+            navSettings: '🎀'
         },
         crimsonIvory: {
             fab: '🥀',
@@ -2321,11 +2206,11 @@ function restoreButtonIcons() {
 }
 
 function getCustomTheme() {
-    return JSON.parse(localStorage.getItem('customTheme') || '{}');
+    return JSON.parse(playerStorage.getItem('customTheme') || '{}');
 }
 
 function saveCustomTheme(theme) {
-    localStorage.setItem('customTheme', JSON.stringify(theme));
+    playerStorage.setItem('customTheme', JSON.stringify(theme));
 }
 
 function applyCustomTheme() {
@@ -2546,7 +2431,7 @@ function showThemeSelector() {
                 ${customTheme.backgroundImage ? `
                     <div id="imagePreviewContainer" class="theme-image-preview">
                         <img src="${customTheme.backgroundImage}" alt="背景預覽" class="theme-image-preview-img">
-                        <button id="removeImageBtn" class="theme-image-remove-btn" type="button">✕</button>
+                        <button id="removeThemeImageBtn" class="theme-image-remove-btn" type="button">✕</button>
                     </div>
                 ` : '<div id="imagePreviewContainer"></div>'}
             </div>
@@ -2621,7 +2506,9 @@ function showThemeSelector() {
 
         let gridHTML = '';
         
-        Object.entries(groupedThemes).forEach(([categoryId, categoryThemes]) => {
+        // 依 themeCategories 的順序排列分區，未列出的分類放最後
+        const orderedCategories = [...Object.keys(themeCategories), ...Object.keys(groupedThemes).filter(id => !themeCategories[id])];
+        orderedCategories.filter(id => groupedThemes[id]).map(id => [id, groupedThemes[id]]).forEach(([categoryId, categoryThemes]) => {
             const categoryInfo = themeCategories[categoryId] || { name: '其他', icon: '📁', description: '' };
             
             gridHTML += `
@@ -2690,7 +2577,7 @@ function showThemeSelector() {
 
     const uploadBtn = document.getElementById('uploadImageBtn');
     const imageInput = document.getElementById('backgroundImageInput');
-    const removeImageBtn = document.getElementById('removeImageBtn');
+    const removeImageBtn = document.getElementById('removeThemeImageBtn');
 
     if (uploadBtn && imageInput) {
         uploadBtn.addEventListener('click', () => imageInput.click());
@@ -2698,17 +2585,21 @@ function showThemeSelector() {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = (event) => {
-                    const imageUrl = event.target.result;
+                reader.onload = async (event) => {
+                    // 背景照片壓縮到 1280px：原始手機照片常有數 MB，會佔滿儲存空間
+                    let imageUrl = event.target.result;
+                    if (typeof compressImage === 'function') {
+                        try { imageUrl = await compressImage(imageUrl, 1280, 1280, 0.72); } catch (_) {}
+                    }
                     const previewContainer = document.getElementById('imagePreviewContainer');
                     previewContainer.innerHTML = `
                         <img src="${imageUrl}" alt="背景預覽" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 8px;">
-                        <button id="removeImageBtn" style="position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 18px;">✕</button>
+                        <button id="removeThemeImageBtn" style="position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 18px;">✕</button>
                     `;
                     previewContainer.style.position = 'relative';
                     previewContainer.style.marginTop = '12px';
 
-                    const newRemoveBtn = document.getElementById('removeImageBtn');
+                    const newRemoveBtn = document.getElementById('removeThemeImageBtn');
                     if (newRemoveBtn) {
                         newRemoveBtn.addEventListener('click', () => {
                             imageInput.value = '';
@@ -2805,6 +2696,6 @@ function initTheme() {
     }, 100);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('playerappready', () => {
     initTheme();
 });

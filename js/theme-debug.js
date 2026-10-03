@@ -195,8 +195,8 @@
     }
 
     // 開始載入
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadAllModules);
+    if (!window.playerAppReady) {
+        document.addEventListener('playerappready', loadAllModules);
     } else {
         loadAllModules();
     }

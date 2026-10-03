@@ -103,7 +103,7 @@ class InvestmentAnalysisManager {
     loadHoldings() {
         try {
             // 從投資記錄中計算持股
-            const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+            const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
             const portfolio = this.calculatePortfolio(records);
             
             // 轉換格式以符合投資分析模組需求
@@ -155,7 +155,7 @@ class InvestmentAnalysisManager {
         });
         
         // 更新當前價格
-        const currentPrices = JSON.parse(localStorage.getItem('stockCurrentPrices') || '{}');
+        const currentPrices = JSON.parse(playerStorage.getItem('stockCurrentPrices') || '{}');
         Object.keys(portfolio).forEach(symbol => {
             if (currentPrices[symbol]) {
                 portfolio[symbol].currentPrice = currentPrices[symbol];
@@ -168,7 +168,7 @@ class InvestmentAnalysisManager {
     // 取得股票名稱
     getStockName(symbol) {
         // 從投資記錄中查找股票名稱
-        const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+        const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
         const record = records.find(r => r.stockCode === symbol);
         return record ? record.stockName : symbol;
     }
@@ -176,7 +176,7 @@ class InvestmentAnalysisManager {
     // 載入目標資料
     loadGoals() {
         try {
-            const goalsData = localStorage.getItem('investmentGoals') || '[]';
+            const goalsData = playerStorage.getItem('investmentGoals') || '[]';
             this.currentGoals = JSON.parse(goalsData);
         } catch (error) {
             console.error('載入目標資料失敗:', error);
@@ -589,7 +589,7 @@ class InvestmentAnalysisManager {
 const investmentAnalysisManager = new InvestmentAnalysisManager();
 
 // 當頁面載入完成時初始化
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('playerappready', function() {
     // 確保投資分析模組已載入
     if (typeof InvestmentAnalysis !== 'undefined') {
         investmentAnalysisManager.init();

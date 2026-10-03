@@ -63,7 +63,7 @@ function updateDCAList() {
     const dcaListContainer = document.getElementById('dcaListContainer');
     if (!dcaListContainer) return;
     
-    const dcaPlans = JSON.parse(localStorage.getItem('dcaPlans') || '[]');
+    const dcaPlans = JSON.parse(playerStorage.getItem('dcaPlans') || '[]');
     
     if (dcaPlans.length === 0) {
         dcaListContainer.innerHTML = `
@@ -167,7 +167,7 @@ function showDCASetupPage(planId = null) {
         
         if (planId) {
             // 編輯模式
-            const plans = JSON.parse(localStorage.getItem('dcaPlans') || '[]');
+            const plans = JSON.parse(playerStorage.getItem('dcaPlans') || '[]');
             const plan = plans.find(p => p.id === planId);
             if (plan) {
                 document.getElementById('dcaStockCodeInput').value = plan.stockCode;
@@ -310,7 +310,7 @@ function saveDCAPlan() {
         return;
     }
     
-    let plans = JSON.parse(localStorage.getItem('dcaPlans') || '[]');
+    let plans = JSON.parse(playerStorage.getItem('dcaPlans') || '[]');
     
     if (window.editingDCAPlanId) {
         // 編輯模式
@@ -349,7 +349,7 @@ function saveDCAPlan() {
         plans.push(newPlan);
     }
     
-    localStorage.setItem('dcaPlans', JSON.stringify(plans));
+    playerStorage.setItem('dcaPlans', JSON.stringify(plans));
     showDCAManagementPage();
 }
 
@@ -360,7 +360,7 @@ function editDCAPlan(planId) {
 
 // 刪除定期定額計劃
 function deleteDCAPlan(planId) {
-    let plans = JSON.parse(localStorage.getItem('dcaPlans') || '[]');
+    let plans = JSON.parse(playerStorage.getItem('dcaPlans') || '[]');
     const planToDelete = plans.find(p => p.id === planId);
     
     if (!planToDelete) {
@@ -376,7 +376,7 @@ function deleteDCAPlan(planId) {
     const stockCode = planToDelete.stockCode;
     
     // 1. 刪除所有相關的投資記錄（isDCA: true 且 stockCode 匹配）
-    let investmentRecords = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+    let investmentRecords = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
     const dcaInvestmentRecords = investmentRecords.filter(r => 
         r.type === 'buy' && 
         r.isDCA === true && 
@@ -397,12 +397,12 @@ function deleteDCAPlan(planId) {
     investmentRecords = investmentRecords.filter(r => 
         !(r.type === 'buy' && r.isDCA === true && r.stockCode === stockCode)
     );
-    localStorage.setItem('investmentRecords', JSON.stringify(investmentRecords));
+    playerStorage.setItem('investmentRecords', JSON.stringify(investmentRecords));
     
     // 2. 刪除所有相關的記帳記錄（現在是 transfer，舊資料可能仍是 expense）
     // 方法1：通過 investmentRecordId 匹配
     // 方法2：通過 note 中包含股票代碼和「定期定額」匹配（備用方案）
-    let accountingRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    let accountingRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     
     // 找出要刪除的記帳記錄
     const recordsToDelete = accountingRecords.filter(r => {
@@ -448,11 +448,11 @@ function deleteDCAPlan(planId) {
         return true; // 保留
     });
     
-    localStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
+    playerStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
     
     // 3. 刪除定期定額計劃
     plans = plans.filter(p => p.id !== planId);
-    localStorage.setItem('dcaPlans', JSON.stringify(plans));
+    playerStorage.setItem('dcaPlans', JSON.stringify(plans));
     
     // 4. 更新所有相關顯示
     updateInvestmentSummary();
@@ -487,7 +487,7 @@ function deleteDCAPlan(planId) {
 
 // 執行定期定額計劃（手動觸發）
 function executeDCAPlan(planId) {
-    const plans = JSON.parse(localStorage.getItem('dcaPlans') || '[]');
+    const plans = JSON.parse(playerStorage.getItem('dcaPlans') || '[]');
     const plan = plans.find(p => p.id === planId);
     
     if (!plan) {
@@ -506,7 +506,7 @@ function executeDCAPlan(planId) {
 
 // 獲取股票參考價格（從投資記錄中查找最近一次的買入價格）
 function getStockReferencePrice(stockCode) {
-    const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
     
     // 查找該股票最近的買入記錄
     const buyRecords = records
@@ -753,9 +753,9 @@ function processDCATransaction(plan, price) {
     };
     
     // 保存投資記錄
-    let investmentRecords = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+    let investmentRecords = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
     investmentRecords.push(investmentRecord);
-    localStorage.setItem('investmentRecords', JSON.stringify(investmentRecords));
+    playerStorage.setItem('investmentRecords', JSON.stringify(investmentRecords));
     
     // 方案 B：在記帳本中記錄「轉帳」：銀行 → 交割帳戶（投資不算生活支出）
     const fromAccountId = plan.fromAccountId || (typeof getSelectedAccount === 'function' ? getSelectedAccount()?.id : null);
@@ -774,17 +774,17 @@ function processDCATransaction(plan, price) {
         investmentRecordId: investmentRecord.timestamp
     };
     
-    let accountingRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    let accountingRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     accountingRecords.push(accountingRecord);
-    localStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
+    playerStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
     
     // 更新定期定額計劃的最後執行時間
-    let dcaPlans = JSON.parse(localStorage.getItem('dcaPlans') || '[]');
+    let dcaPlans = JSON.parse(playerStorage.getItem('dcaPlans') || '[]');
     const planIndex = dcaPlans.findIndex(p => p.id === plan.id);
     if (planIndex !== -1) {
         dcaPlans[planIndex].lastExecuted = new Date().toISOString();
         dcaPlans[planIndex].executedCount = nextCycleNumber;
-        localStorage.setItem('dcaPlans', JSON.stringify(dcaPlans));
+        playerStorage.setItem('dcaPlans', JSON.stringify(dcaPlans));
     }
 
     // 小撒花（每期成功）
@@ -823,11 +823,11 @@ function checkAndExecuteDCAPlans() {
     const currentYear = today.getFullYear();
     const currentMonthKey = `${currentYear}-${String(currentMonth).padStart(2, '0')}`;
     
-    const plans = JSON.parse(localStorage.getItem('dcaPlans') || '[]');
+    const plans = JSON.parse(playerStorage.getItem('dcaPlans') || '[]');
     const enabledPlans = plans.filter(p => p.enabled);
 
     const promptedKey = 'dcaMonthlyPrompted';
-    const promptedMap = JSON.parse(localStorage.getItem(promptedKey) || '{}');
+    const promptedMap = JSON.parse(playerStorage.getItem(promptedKey) || '{}');
     if (!promptedMap[currentMonthKey]) promptedMap[currentMonthKey] = {};
     
     enabledPlans.forEach(plan => {
@@ -847,7 +847,7 @@ function checkAndExecuteDCAPlans() {
                 }
                 if (planId) {
                     promptedMap[currentMonthKey][planId] = true;
-                    localStorage.setItem(promptedKey, JSON.stringify(promptedMap));
+                    playerStorage.setItem(promptedKey, JSON.stringify(promptedMap));
                 }
 
                 // 提示用戶執行定期定額
@@ -869,14 +869,14 @@ function checkAndExecuteDCAPlans() {
 
 // 獲取所有帳戶
 function getAccounts() {
-    return JSON.parse(localStorage.getItem('accounts') || '[]');
+    return JSON.parse(playerStorage.getItem('accounts') || '[]');
 }
 
 // 保存帳戶列表
 function saveAccounts(accounts) {
     const payload = JSON.stringify(accounts);
     try {
-        localStorage.setItem('accounts', payload);
+        playerStorage.setItem('accounts', payload);
         return true;
     } catch (error) {
         if (!(error && error.name === 'QuotaExceededError')) throw error;
@@ -889,7 +889,7 @@ function saveAccounts(accounts) {
         });
 
         try {
-            localStorage.setItem('accounts', JSON.stringify(compactAccounts));
+            playerStorage.setItem('accounts', JSON.stringify(compactAccounts));
             if (typeof showNotification === 'function') {
                 showNotification('儲存空間不足，已自動移除帳戶圖片後儲存', 'error');
             }
@@ -944,7 +944,7 @@ function calculateAccountBalance(accountId) {
     const account = getAccounts().find(a => a.id === accountId);
     if (!account) return 0;
     
-    const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     let balance = account.initialBalance || 0;
     
     records.forEach(record => {
@@ -1368,7 +1368,7 @@ function showAccountDetail(accountId) {
     const initialBalance = account.initialBalance || 0;
     
     // 獲取相關交易記錄
-    const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     const accountRecords = records.filter(r => r.account === accountId);
     
     // 統計數據
@@ -1676,7 +1676,7 @@ function selectEmoji(emoji, type) {
 
 // 載入已保存的圖片表情
 function loadImageEmojis(container) {
-    const savedEmojis = JSON.parse(localStorage.getItem('imageEmojis') || '[]');
+    const savedEmojis = JSON.parse(playerStorage.getItem('imageEmojis') || '[]');
     savedEmojis.forEach((emojiData, index) => {
         const emojiBtn = document.createElement('button');
         emojiBtn.className = 'emoji-item image-emoji-item';
@@ -1700,19 +1700,22 @@ function uploadImageEmoji(container) {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = (event) => {
-                // 直接使用原始圖片，不進行裁切
-                const imageData = event.target.result;
-                
+            reader.onload = async (event) => {
+                // 表情只需小圖：壓縮到 256px，避免原始照片（數 MB）佔滿手機儲存空間
+                let imageData = event.target.result;
+                if (typeof compressImage === 'function') {
+                    try { imageData = await compressImage(imageData, 256, 256, 0.75); } catch (_) {}
+                }
+
                 // 保存圖片表情
-                const savedEmojis = JSON.parse(localStorage.getItem('imageEmojis') || '[]');
+                const savedEmojis = JSON.parse(playerStorage.getItem('imageEmojis') || '[]');
                 const emojiData = {
                     id: Date.now().toString(),
                     url: imageData,
                     createdAt: new Date().toISOString()
                 };
                 savedEmojis.push(emojiData);
-                localStorage.setItem('imageEmojis', JSON.stringify(savedEmojis));
+                playerStorage.setItem('imageEmojis', JSON.stringify(savedEmojis));
                 
                 // 添加到表情容器
                 if (container) {
@@ -1744,12 +1747,12 @@ function uploadImageEmoji(container) {
 
 // 獲取成員列表
 function getMembers() {
-    return JSON.parse(localStorage.getItem('members') || '[]');
+    return JSON.parse(playerStorage.getItem('members') || '[]');
 }
 
 // 保存成員列表
 function saveMembers(members) {
-    localStorage.setItem('members', JSON.stringify(members));
+    playerStorage.setItem('members', JSON.stringify(members));
 }
 
 // 顯示成員選擇模態框
@@ -1994,7 +1997,7 @@ function initAccountImageUpload() {
         openFilePickerCompat(imageInput);
     };
     
-    // 文件選擇 - 上傳時先壓縮，避免 localStorage 爆容量
+    // 文件選擇 - 上傳時先壓縮，避免 playerStorage 爆容量
     imageInput.onchange = async (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -2112,24 +2115,24 @@ class WishlistSavingsManager {
 
     // 載入想買的東西數據
     loadWishlistData() {
-        const data = localStorage.getItem('wishlistData');
+        const data = playerStorage.getItem('wishlistData');
         return data ? JSON.parse(data) : [];
     }
 
     // 載入存錢目標數據
     loadSavingsData() {
-        const data = localStorage.getItem('savingsData');
+        const data = playerStorage.getItem('savingsData');
         return data ? JSON.parse(data) : [];
     }
 
     // 保存想買的東西數據
     saveWishlistData() {
-        localStorage.setItem('wishlistData', JSON.stringify(this.wishlistData));
+        playerStorage.setItem('wishlistData', JSON.stringify(this.wishlistData));
     }
 
     // 保存存錢目標數據
     saveSavingsData() {
-        localStorage.setItem('savingsData', JSON.stringify(this.savingsData));
+        playerStorage.setItem('savingsData', JSON.stringify(this.savingsData));
     }
 
     // 新增想買的東西項目
@@ -2510,11 +2513,7 @@ function saveSavingsGoal() {
 }
 
 // 關閉想買的東西表單
-function closeWishlistForm() {
-    const modal = document.getElementById('wishlistModal');
-    closeModal(modal);
-    wishlistSavingsManager.currentEditingItem = null;
-}
+
 
 // 關閉存錢目標表單
 function closeSavingsForm() {
@@ -2648,7 +2647,7 @@ function initWishlistSavingsPage() {
 }
 
 // 在頁面載入時初始化
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('playerappready', () => {
     initWishlistSavingsPage();
 });
 
@@ -2656,8 +2655,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 上傳完整數據到 Google Sheet
 function uploadAllDataToGoogleSheet() {
-    const uploadUrl = localStorage.getItem('googleSheetUploadUrl');
-    const uploadKey = localStorage.getItem('googleCloudBackupKey');
+    const uploadUrl = playerStorage.getItem('googleSheetUploadUrl');
+    const uploadKey = playerStorage.getItem('googleCloudBackupKey');
     
     if (!uploadUrl) {
         alert('請先設定 Google Sheet 上傳 URL');
@@ -2909,7 +2908,7 @@ function tryJSONPStyle(uploadUrl, uploadData) {
 
 // 保存備份歷史
 function saveBackupHistory(status, message) {
-    const history = JSON.parse(localStorage.getItem('backupHistory') || '[]');
+    const history = JSON.parse(playerStorage.getItem('backupHistory') || '[]');
     history.unshift({
         timestamp: new Date().toISOString(),
         status: status,
@@ -2922,7 +2921,7 @@ function saveBackupHistory(status, message) {
         history.splice(50);
     }
     
-    localStorage.setItem('backupHistory', JSON.stringify(history));
+    playerStorage.setItem('backupHistory', JSON.stringify(history));
 }
 
 // 顯示替代方案
@@ -3075,8 +3074,8 @@ function retryUpload() {
 
 // 檢查 Google Script 設定
 function checkGoogleScriptSettings() {
-    const currentUrl = localStorage.getItem('googleSheetUploadUrl');
-    const currentKey = localStorage.getItem('googleCloudBackupKey');
+    const currentUrl = playerStorage.getItem('googleSheetUploadUrl');
+    const currentKey = playerStorage.getItem('googleCloudBackupKey');
     
     let message = '📋 目前設定狀態：\n\n';
     message += `Google Sheet URL：${currentUrl ? '已設定' : '未設定'}\n`;
@@ -3117,8 +3116,8 @@ function closeFallbackModal() {
 
 // 刪除 Google Sheet 中的所有數據
 function deleteAllDataFromGoogleSheet() {
-    const uploadUrl = localStorage.getItem('googleSheetUploadUrl');
-    const uploadKey = localStorage.getItem('googleCloudBackupKey');
+    const uploadUrl = playerStorage.getItem('googleSheetUploadUrl');
+    const uploadKey = playerStorage.getItem('googleCloudBackupKey');
     
     if (!uploadUrl) {
         alert('請先設定 Google Sheet 上傳 URL');
@@ -3287,28 +3286,28 @@ function collectAllData() {
         
         // 分類設定
         categories: {
-            expense: JSON.parse(localStorage.getItem('expenseCategories') || '[]'),
-            income: JSON.parse(localStorage.getItem('incomeCategories') || '[]')
+            expense: JSON.parse(playerStorage.getItem('expenseCategories') || '[]'),
+            income: JSON.parse(playerStorage.getItem('incomeCategories') || '[]')
         },
         
         // 帳戶設定
-        accounts: JSON.parse(localStorage.getItem('accounts') || '[]'),
+        accounts: JSON.parse(playerStorage.getItem('accounts') || '[]'),
         
         // 設定資料
         settings: {
-            theme: localStorage.getItem('theme') || 'default',
-            fontSize: localStorage.getItem('fontSize') || 'medium',
-            currency: localStorage.getItem('currency') || 'NT$'
+            theme: playerStorage.getItem('theme') || 'default',
+            fontSize: playerStorage.getItem('fontSize') || 'medium',
+            currency: playerStorage.getItem('currency') || 'NT$'
         },
         
         // 分期規則
-        installmentRules: JSON.parse(localStorage.getItem('installmentRules') || '[]'),
+        installmentRules: JSON.parse(playerStorage.getItem('installmentRules') || '[]'),
         
         // 常用項目
-        frequentItems: JSON.parse(localStorage.getItem('frequentItems') || '[]'),
+        frequentItems: JSON.parse(playerStorage.getItem('frequentItems') || '[]'),
         
         // 備份歷史
-        backupHistory: JSON.parse(localStorage.getItem('backupHistory') || '[]'),
+        backupHistory: JSON.parse(playerStorage.getItem('backupHistory') || '[]'),
         localStorageRaw: typeof snapshotAllLocalStorage === 'function' ? snapshotAllLocalStorage() : {}
     };
 }
@@ -3316,11 +3315,11 @@ function collectAllData() {
 // 獲取所有記帳記錄
 function getAllRecords() {
     const allRecords = [];
-    const monthKeys = Object.keys(localStorage).filter(key => key.match(/^\d{4}-\d{2}$/));
+    const monthKeys = Object.keys(playerStorage).filter(key => key.match(/^\d{4}-\d{2}$/));
     
     monthKeys.forEach(monthKey => {
         try {
-            const monthData = JSON.parse(localStorage.getItem(monthKey) || '{}');
+            const monthData = JSON.parse(playerStorage.getItem(monthKey) || '{}');
             if (monthData.records && Array.isArray(monthData.records)) {
                 allRecords.push(...monthData.records.map(record => ({
                     ...record,

@@ -1,6 +1,6 @@
 // 每月摘要頁面導航邏輯
 (function() {
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('playerappready', function() {
         // 返回按鈕處理（nav 點擊由 initBottomNav 統一處理）
         const monthlySummaryBackBtn = document.getElementById('monthlySummaryBackBtn');
         if (monthlySummaryBackBtn) {

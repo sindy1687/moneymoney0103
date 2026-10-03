@@ -16,7 +16,7 @@
     };
 
     // 從主題列表中移除小森主題
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('playerappready', function() {
         setTimeout(function() {
             if (typeof themeConfig !== 'undefined' && themeConfig.themes) {
                 themeConfig.themes = themeConfig.themes.filter(function(theme) {
@@ -27,7 +27,7 @@
     });
 
     // 隱藏理財顧問相關的 UI 元素
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('playerappready', function() {
         setTimeout(function() {
             // 隱藏歷史記錄中的理財顧問按鈕
             const advisorBtns = document.querySelectorAll('.history-advisor-btn');

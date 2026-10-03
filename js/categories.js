@@ -152,7 +152,7 @@ const categories = allCategories;
 
 // 獲取分類啟用狀態
 function getCategoryEnabledState() {
-    const savedState = JSON.parse(localStorage.getItem('categoryEnabledState') || '{}');
+    const savedState = JSON.parse(playerStorage.getItem('categoryEnabledState') || '{}');
     const state = {};
     
     // 初始化所有分類的啟用狀態（默認全部啟用）
@@ -169,7 +169,7 @@ function getCategoryEnabledState() {
 
 // 保存分類啟用狀態
 function saveCategoryEnabledState(state) {
-    localStorage.setItem('categoryEnabledState', JSON.stringify(state));
+    playerStorage.setItem('categoryEnabledState', JSON.stringify(state));
 }
 
 // 切換分類啟用狀態
@@ -195,7 +195,7 @@ function getEnabledCategories(type = null) {
 
 // 載入自定義分類
 function loadCustomCategories() {
-    const savedCategories = JSON.parse(localStorage.getItem('customCategories') || '[]');
+    const savedCategories = JSON.parse(playerStorage.getItem('customCategories') || '[]');
     console.log('📥 載入自定義分類:', savedCategories.length, '個');
     
     // 將自定義分類添加到allCategories（如果還不存在）

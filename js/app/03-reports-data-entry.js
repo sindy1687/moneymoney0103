@@ -4,9 +4,9 @@
 function showAnnualReport() {
     const currentYear = new Date().getFullYear();
     // 獲取記帳記錄
-    const accountingRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const accountingRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     // 獲取投資記錄
-    const investmentRecords = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+    const investmentRecords = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
     // 過濾當年的記錄
     const yearRecords = accountingRecords.filter(record => {
         const recordDate = new Date(record.date);
@@ -171,38 +171,43 @@ function exportAnnualReport(year, data) {
 }
 
 // 備份資料（包含所有資料）
-function backupData() {
+async function backupData() {
     try {
-        // 收集所有 localStorage 中的資料
+        // 收集所有 playerStorage 中的資料
         const data = {
             // 記帳相關
-            accountingRecords: JSON.parse(localStorage.getItem('accountingRecords') || '[]'),
-            categoryBudgets: JSON.parse(localStorage.getItem('categoryBudgets') || '{}'),
-            categoryEnabledState: JSON.parse(localStorage.getItem('categoryEnabledState') || '{}'),
-            dailyBudgetTracking: JSON.parse(localStorage.getItem('dailyBudgetTracking') || '{}'),
-            customCategories: JSON.parse(localStorage.getItem('customCategories') || '[]'),
-            categoryCustomIcons: JSON.parse(localStorage.getItem('categoryCustomIcons') || '{}'),
+            accountingRecords: JSON.parse(playerStorage.getItem('accountingRecords') || '[]'),
+            categoryBudgets: JSON.parse(playerStorage.getItem('categoryBudgets') || '{}'),
+            categoryEnabledState: JSON.parse(playerStorage.getItem('categoryEnabledState') || '{}'),
+            dailyBudgetTracking: JSON.parse(playerStorage.getItem('dailyBudgetTracking') || '{}'),
+            customCategories: JSON.parse(playerStorage.getItem('customCategories') || '[]'),
+            categoryCustomIcons: JSON.parse(playerStorage.getItem('categoryCustomIcons') || '{}'),
             // 投資相關
-            investmentRecords: JSON.parse(localStorage.getItem('investmentRecords') || '[]'),
-            dcaPlans: JSON.parse(localStorage.getItem('dcaPlans') || '[]'),
-            stockCurrentPrices: JSON.parse(localStorage.getItem('stockCurrentPrices') || '{}'),
-            installmentRules: JSON.parse(localStorage.getItem('installmentRules') || '[]'),
+            investmentRecords: JSON.parse(playerStorage.getItem('investmentRecords') || '[]'),
+            dcaPlans: JSON.parse(playerStorage.getItem('dcaPlans') || '[]'),
+            stockCurrentPrices: JSON.parse(playerStorage.getItem('stockCurrentPrices') || '{}'),
+            installmentRules: JSON.parse(playerStorage.getItem('installmentRules') || '[]'),
             // 帳戶相關
-            accounts: JSON.parse(localStorage.getItem('accounts') || '[]'),
+            accounts: JSON.parse(playerStorage.getItem('accounts') || '[]'),
             // 表情和圖標
-            imageEmojis: JSON.parse(localStorage.getItem('imageEmojis') || '[]'),
+            imageEmojis: JSON.parse(playerStorage.getItem('imageEmojis') || '[]'),
             // 成員
-            members: JSON.parse(localStorage.getItem('members') || '[]'),
+            members: JSON.parse(playerStorage.getItem('members') || '[]'),
             // 設定
-            theme: localStorage.getItem('theme') || 'default',
-            fontSize: localStorage.getItem('fontSize') || 'medium',
-            customTheme: JSON.parse(localStorage.getItem('customTheme') || '{}'),
+            theme: playerStorage.getItem('theme') || 'default',
+            fontSize: playerStorage.getItem('fontSize') || 'medium',
+            customTheme: JSON.parse(playerStorage.getItem('customTheme') || '{}'),
             // 備份資訊
             backupDate: new Date().toISOString(),
-            backupVersion: '1.0',
+            backupVersion: '1.1',
+            localStorageSnapshot: Object.fromEntries(
+                Object.keys(playerStorage).map(key => [key, playerStorage.getItem(key)])
+            ),
             appName: '記帳本'
         };
-        const dataStr = JSON.stringify(data, null, 2);
+        // Export a single raw snapshot; legacy fields above are only for statistics.
+        const payload = { appName: data.appName, backupVersion: '1.2', backupDate: data.backupDate, localStorageSnapshot: data.localStorageSnapshot };
+        const dataStr = JSON.stringify(payload);
         const sizeInMB = new Blob([dataStr]).size / (1024 * 1024);
         const stats = {
             accountingRecords: data.accountingRecords.length,
@@ -220,7 +225,7 @@ function backupData() {
         if (typeof downloadJsonFileCompat === 'function' && typeof isMobileUploadEnvironment === 'function' && isMobileUploadEnvironment()) {
             const now = new Date();
             const dateStr = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}`;
-            downloadJsonFileCompat(data, `backup_${dateStr}.json`);
+            await downloadJsonFileCompat(payload, `backup_${dateStr}.json`);
             alert(`備份檔案已產生。\n\n${statsMessage}`);
             return;
         }
@@ -234,7 +239,7 @@ function backupData() {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
         alert(`資料備份成功！\n\n${statsMessage}\n\n檔案已下載到您的下載資料夾。\n\n您可以在其他設備上使用「還原資料」功能來匯入此備份檔案。`);
     } catch (error) {
         console.error('備份失敗:', error);
@@ -267,12 +272,22 @@ function restoreData() {
                 await applyBackupDataPayload(data);
             } catch (error) {
                 console.error('還原失敗:', error);
-                alert('還原失敗，請確認檔案格式正確。');
+                const quota = error.name === 'QuotaExceededError' || error.name === 'NS_ERROR_DOM_QUOTA_REACHED';
+                alert(quota
+                    ? '還原失敗：此網站的儲存空間不足，並非 JSON 格式錯誤。請保留備份檔，勿清除網站資料；可先在電腦還原並縮減圖片後重新備份。'
+                    : '還原失敗：' + (error.message || '請確認檔案是有效的 JSON 備份。'));
+            } finally {
+                input.remove();
             }
         };
+        reader.onerror = () => {
+            alert('讀取檔案失敗。若檔案位於 iCloud，請先在「檔案」App 下載到此 iPhone，再重新選取。');
+            input.remove();
+        };
+        reader.onabort = () => { input.remove(); };
         reader.readAsText(file);
-        setTimeout(() => input.remove(), 1000);
     });
+    input.addEventListener('cancel', () => input.remove(), { once: true });
     openFilePickerCompat(input);
 }
 
@@ -331,7 +346,7 @@ function importInvestmentData() {
                     return;
                 }
                 // 獲取現有記錄
-                let existingRecords = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+                let existingRecords = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
                 let importedCount = 0;
                 let skippedCount = 0;
                 // 解析每一行資料
@@ -419,7 +434,7 @@ function importInvestmentData() {
                     importedCount++;
                 }
                 // 保存記錄
-                localStorage.setItem('investmentRecords', JSON.stringify(existingRecords));
+                playerStorage.setItem('investmentRecords', JSON.stringify(existingRecords));
                 // 顯示結果
                 let message = `匯入完成！\n\n成功匯入：${importedCount} 筆記錄`;
                 if (skippedCount > 0) {
@@ -444,8 +459,8 @@ function importInvestmentData() {
 // 匯出資料
 function exportData() {
     try {
-        const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
-        const investmentRecords = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+        const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
+        const investmentRecords = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
         if (records.length === 0 && investmentRecords.length === 0) {
             alert('目前沒有資料可以匯出。');
             return;
@@ -527,7 +542,7 @@ function importData() {
                     return;
                 }
                 // 獲取現有記錄
-                let existingRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+                let existingRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
                 let importedCount = 0;
                 let skippedCount = 0;
                 // 解析每一行資料
@@ -568,7 +583,7 @@ function importData() {
                     importedCount++;
                 }
                 // 保存記錄
-                localStorage.setItem('accountingRecords', JSON.stringify(existingRecords));
+                playerStorage.setItem('accountingRecords', JSON.stringify(existingRecords));
                 // 顯示結果
                 let message = `匯入完成！\n\n成功匯入：${importedCount} 筆記錄`;
                 if (skippedCount > 0) {
@@ -657,12 +672,12 @@ function applyFontSize(fontSize) {
     root.style.setProperty('--font-xxl', `${Math.round(fontSize * 1.5)}px`); // 24/16
     root.style.setProperty('--font-xxxl', `${Math.round(fontSize * 2)}px`); // 32/16
     document.body.style.fontSize = `${fontSize}px`;
-    localStorage.setItem('fontSize', fontSize.toString());
+    playerStorage.setItem('fontSize', fontSize.toString());
 }
 
 // 獲取當前字體大小
 function getCurrentFontSize() {
-    const saved = localStorage.getItem('fontSize');
+    const saved = playerStorage.getItem('fontSize');
     return saved ? parseInt(saved) : 16; // 預設 16px
 }
 
@@ -845,7 +860,7 @@ function showFontSizeSelector() {
 }
 
 // 頁面載入時初始化
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('playerappready', () => {
     // 載入股票名稱映射表
     loadStockNames();
 
@@ -942,7 +957,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 檢查每日開啟對話
     setTimeout(() => {
-        const allRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        const allRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
         if (typeof checkDailyOpenDialog === 'function') checkDailyOpenDialog(allRecords);
         if (typeof checkMonthlyDialogs === 'function') checkMonthlyDialogs(allRecords);
         if (typeof checkMonthlySummaryDialog === 'function') checkMonthlySummaryDialog(allRecords);
@@ -952,7 +967,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 定時檢查無記帳提醒（每小時一次）
     setInterval(() => {
-        const allRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        const allRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
         if (typeof checkNoEntryTodayDialog === 'function') checkNoEntryTodayDialog(allRecords);
     }, 3600000);
     

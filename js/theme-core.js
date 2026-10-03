@@ -3,15 +3,15 @@
 // 獲取當前主題
 function getCurrentTheme() {
     // 優先使用 selectedTheme，如果沒有則使用舊的 theme 鍵值以保持向後兼容
-    return localStorage.getItem('selectedTheme') || localStorage.getItem('theme') || 'blue';
+    return playerStorage.getItem('selectedTheme') || playerStorage.getItem('theme') || 'blue';
 }
 
 // 應用主題
 function applyTheme(themeId) {
     const root = document.documentElement;
     root.setAttribute('data-theme', themeId);
-    localStorage.setItem('selectedTheme', themeId);
-    localStorage.setItem('theme', themeId); // 保持向後兼容
+    playerStorage.setItem('selectedTheme', themeId);
+    playerStorage.setItem('theme', themeId); // 保持向後兼容
     root.style.removeProperty('--bg-white');
     
     // 自動應用主題背景圖片
@@ -194,11 +194,11 @@ function restoreButtonIcons() {
 
 // 自訂主題功能
 function getCustomTheme() {
-    return JSON.parse(localStorage.getItem('customTheme') || '{}');
+    return JSON.parse(playerStorage.getItem('customTheme') || '{}');
 }
 
 function saveCustomTheme(theme) {
-    localStorage.setItem('customTheme', JSON.stringify(theme));
+    playerStorage.setItem('customTheme', JSON.stringify(theme));
 }
 
 function applyCustomTheme() {

@@ -1,6 +1,6 @@
 // ========== 存儲相關工具函數 ==========
 
-// 壓縮圖片函數（減少 localStorage 使用量）
+// 壓縮圖片函數（減少 playerStorage 使用量）
 // 針對大量圖示優化：更小的尺寸和更低的品質
 function compressImage(dataUrl, maxWidth = 150, maxHeight = 150, quality = 0.6) {
     return new Promise((resolve, reject) => {
@@ -36,23 +36,21 @@ function compressImage(dataUrl, maxWidth = 150, maxHeight = 150, quality = 0.6) 
     });
 }
 
-// 安全地保存到 localStorage（帶錯誤處理）
+// 安全地保存到 playerStorage（帶錯誤處理）
 function safeSetItem(key, value) {
     try {
         const jsonString = JSON.stringify(value);
         const sizeInMB = new Blob([jsonString]).size / (1024 * 1024);
         
-        // 檢查大小（localStorage 通常限制為 5-10MB）
-        if (sizeInMB > 4) {
-            throw new Error(`數據太大 (${sizeInMB.toFixed(2)}MB)，無法保存。請刪除一些舊的分類圖標。`);
-        }
+        // 檢查大小（playerStorage 通常限制為 5-10MB）
+        // IndexedDB handles the actual device quota; do not impose localStorage's old cap.
         
-        localStorage.setItem(key, jsonString);
+        playerStorage.setItem(key, jsonString);
         return true;
     } catch (e) {
         if (e.name === 'QuotaExceededError' || e.message.includes('太大')) {
-            console.error('localStorage 配額已滿:', e);
-            alert('存儲空間不足！\n\n請嘗試：\n1. 刪除一些不使用的分類圖標\n2. 使用較小的圖片\n3. 清除瀏覽器緩存');
+            console.error('playerStorage 配額已滿:', e);
+            alert('此網站的儲存空間不足，本次資料未儲存。\n請先匯出備份，再到「設定 → 🧹 儲存空間」壓縮過大的照片。\n請勿清除網站資料，以免遺失尚未備份的帳本。');
             return false;
         }
         throw e;
@@ -91,7 +89,7 @@ async function compressAllIcons(customIcons) {
 
 // 獲取存儲空間使用情況
 function getStorageInfo() {
-    const customIcons = JSON.parse(localStorage.getItem('categoryCustomIcons') || '{}');
+    const customIcons = JSON.parse(playerStorage.getItem('categoryCustomIcons') || '{}');
     const iconCount = Object.keys(customIcons).length;
     let totalSize = 0;
     let imageCount = 0;
@@ -106,11 +104,11 @@ function getStorageInfo() {
     const sizeInKB = totalSize / 1024;
     const sizeInMB = sizeInKB / 1024;
     
-    // 計算所有 localStorage 的使用情況
+    // 計算所有 playerStorage 的使用情況
     let totalStorageSize = 0;
-    for (let key in localStorage) {
-        if (localStorage.hasOwnProperty(key)) {
-            totalStorageSize += localStorage[key].length + key.length;
+    for (let key in playerStorage) {
+        if (playerStorage.hasOwnProperty(key)) {
+            totalStorageSize += playerStorage[key].length + key.length;
         }
     }
     const totalStorageMB = totalStorageSize / (1024 * 1024);

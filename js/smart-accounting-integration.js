@@ -257,7 +257,7 @@ class SmartAccountingManager {
     // 載入使用者修正
     loadUserCorrections() {
         try {
-            this.userCorrections = JSON.parse(localStorage.getItem('smartAccountingCorrections') || '[]');
+            this.userCorrections = JSON.parse(playerStorage.getItem('smartAccountingCorrections') || '[]');
         } catch (error) {
             console.error('載入使用者修正失敗:', error);
             this.userCorrections = [];
@@ -267,7 +267,7 @@ class SmartAccountingManager {
     // 儲存使用者修正
     saveUserCorrections() {
         try {
-            localStorage.setItem('smartAccountingCorrections', JSON.stringify(this.userCorrections));
+            playerStorage.setItem('smartAccountingCorrections', JSON.stringify(this.userCorrections));
         } catch (error) {
             console.error('儲存使用者修正失敗:', error);
         }
@@ -395,7 +395,7 @@ class SmartAccountingManager {
         if (typeof SmartAccounting === 'undefined') return;
         
         try {
-            const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+            const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
             const analysis = SmartAccounting.analyzeSpendingPattern(records, 'monthly');
             
             if (analysis) {
@@ -531,7 +531,7 @@ class SmartAccountingManager {
 const smartAccountingManager = new SmartAccountingManager();
 
 // 當頁面載入完成時初始化
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('playerappready', function() {
     // 確保智慧記帳模組已載入
     if (typeof SmartAccounting !== 'undefined') {
         smartAccountingManager.init();

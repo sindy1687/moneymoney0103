@@ -70,7 +70,7 @@ function loadAutoTransferPlans() {
     const container = document.getElementById('autoTransferListContainer');
     if (!container) return;
     
-    const plans = JSON.parse(localStorage.getItem('autoTransferPlans') || '[]');
+    const plans = JSON.parse(playerStorage.getItem('autoTransferPlans') || '[]');
     
     if (plans.length === 0) {
         container.innerHTML = `
@@ -150,7 +150,7 @@ function bindTransferItemEvents() {
 
 // 顯示自動轉帳設定頁面
 function showAutoTransferSetupPage(planId = null) {
-    const plans = JSON.parse(localStorage.getItem('autoTransferPlans') || '[]');
+    const plans = JSON.parse(playerStorage.getItem('autoTransferPlans') || '[]');
     const plan = planId ? plans.find(p => p.id === planId) : null;
     const accounts = getAccounts();
     
@@ -317,7 +317,7 @@ function saveAutoTransferPlan(planId = null) {
     }
     
     // 載入現有計劃
-    const plans = JSON.parse(localStorage.getItem('autoTransferPlans') || '[]');
+    const plans = JSON.parse(playerStorage.getItem('autoTransferPlans') || '[]');
     
     if (planId) {
         // 編輯現有計劃
@@ -354,7 +354,7 @@ function saveAutoTransferPlan(planId = null) {
     }
     
     // 儲存
-    localStorage.setItem('autoTransferPlans', JSON.stringify(plans));
+    playerStorage.setItem('autoTransferPlans', JSON.stringify(plans));
     
     // 關閉設定頁面並重新載入列表
     closeAutoTransferSetupPage();
@@ -366,13 +366,13 @@ function saveAutoTransferPlan(planId = null) {
 
 // 切換轉帳計劃啟用狀態
 function toggleTransferPlan(planId) {
-    const plans = JSON.parse(localStorage.getItem('autoTransferPlans') || '[]');
+    const plans = JSON.parse(playerStorage.getItem('autoTransferPlans') || '[]');
     const planIndex = plans.findIndex(p => p.id === planId);
     
     if (planIndex !== -1) {
         plans[planIndex].enabled = !plans[planIndex].enabled;
         plans[planIndex].updatedAt = new Date().toISOString();
-        localStorage.setItem('autoTransferPlans', JSON.stringify(plans));
+        playerStorage.setItem('autoTransferPlans', JSON.stringify(plans));
         loadAutoTransferPlans();
     }
 }
@@ -383,9 +383,9 @@ function deleteTransferPlan(planId) {
         return;
     }
     
-    const plans = JSON.parse(localStorage.getItem('autoTransferPlans') || '[]');
+    const plans = JSON.parse(playerStorage.getItem('autoTransferPlans') || '[]');
     const filteredPlans = plans.filter(p => p.id !== planId);
-    localStorage.setItem('autoTransferPlans', JSON.stringify(filteredPlans));
+    playerStorage.setItem('autoTransferPlans', JSON.stringify(filteredPlans));
     
     loadAutoTransferPlans();
 }
@@ -404,11 +404,11 @@ function checkAndExecuteAutoTransferPlans() {
     const currentYear = today.getFullYear();
     const currentMonthKey = `${currentYear}-${String(currentMonth).padStart(2, '0')}`;
     
-    const plans = JSON.parse(localStorage.getItem('autoTransferPlans') || '[]');
+    const plans = JSON.parse(playerStorage.getItem('autoTransferPlans') || '[]');
     const enabledPlans = plans.filter(p => p.enabled);
     
     const promptedKey = 'autoTransferMonthlyPrompted';
-    const promptedMap = JSON.parse(localStorage.getItem(promptedKey) || '{}');
+    const promptedMap = JSON.parse(playerStorage.getItem(promptedKey) || '{}');
     if (!promptedMap[currentMonthKey]) promptedMap[currentMonthKey] = {};
     
     enabledPlans.forEach(plan => {
@@ -428,7 +428,7 @@ function checkAndExecuteAutoTransferPlans() {
                 }
                 if (planId) {
                     promptedMap[currentMonthKey][planId] = true;
-                    localStorage.setItem(promptedKey, JSON.stringify(promptedMap));
+                    playerStorage.setItem(promptedKey, JSON.stringify(promptedMap));
                 }
                 
                 // 提示用戶執行轉帳
@@ -464,17 +464,17 @@ function executeAutoTransfer(plan) {
     };
     
     // 保存到記帳記錄
-    const accountingRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const accountingRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     accountingRecords.push(transferRecord);
-    localStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
+    playerStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
     
     // 更新轉帳計劃執行記錄
-    const plans = JSON.parse(localStorage.getItem('autoTransferPlans') || '[]');
+    const plans = JSON.parse(playerStorage.getItem('autoTransferPlans') || '[]');
     const planIndex = plans.findIndex(p => p.id === plan.id);
     if (planIndex !== -1) {
         plans[planIndex].lastExecuted = new Date().toISOString();
         plans[planIndex].executedCount = (plans[planIndex].executedCount || 0) + 1;
-        localStorage.setItem('autoTransferPlans', JSON.stringify(plans));
+        playerStorage.setItem('autoTransferPlans', JSON.stringify(plans));
     }
     
     // 顯示成功訊息
@@ -487,7 +487,7 @@ function executeAutoTransfer(plan) {
 }
 
 // 在頁面載入時檢查自動轉帳計劃
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('playerappready', () => {
     // 延遲檢查，確保其他初始化完成
     setTimeout(() => {
         checkAndExecuteAutoTransferPlans();
@@ -495,7 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // 擴展設置頁面事件處理
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('playerappready', () => {
     // 監聽設置頁面的點擊事件
     const observer = new MutationObserver(() => {
         const settingsItems = document.querySelectorAll('.settings-item');

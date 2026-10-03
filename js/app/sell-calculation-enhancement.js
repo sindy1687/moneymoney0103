@@ -3,7 +3,7 @@
 // 此檔案保留舊版相容綁定（舊版 #sellForm 用），不影響新版賣出頁面
 
 (function() {
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('playerappready', function() {
         const sellStockCode = document.getElementById('sellStockCode');
         const sellPrice = document.getElementById('sellPrice');
         const sellShares = document.getElementById('sellShares');

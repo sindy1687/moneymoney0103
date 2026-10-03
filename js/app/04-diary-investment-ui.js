@@ -278,7 +278,7 @@ function handleEntryEditSave() {
 
     let records = [];
     try {
-        records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     } catch (error) {
         console.error('無法解析記帳記錄：', error);
         alert('讀取記帳記錄時發生錯誤');
@@ -327,7 +327,7 @@ function handleEntryEditSave() {
     }
 
     records[recordIndex] = updatedRecord;
-    localStorage.setItem('accountingRecords', JSON.stringify(records));
+    playerStorage.setItem('accountingRecords', JSON.stringify(records));
 
     currentEntryDetailRecord = { ...updatedRecord };
     showEntryDetail(updatedRecord);
@@ -373,8 +373,8 @@ function handleTransactionClick(e) {
     
     if (!date || !amount) return;
     
-    // 從 localStorage 獲取完整記錄
-    const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    // 從 playerStorage 獲取完整記錄
+    const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     const record = records.find(r => 
         r.date === date && 
         r.amount === amount && 
@@ -523,7 +523,7 @@ function initButtonDragAndDrop() {
                 investmentActions.insertBefore(draggedBtn, btn);
             }
             
-            // 保存新的順序到 localStorage
+            // 保存新的順序到 playerStorage
             saveButtonOrder();
             
             // 播放音效
@@ -541,7 +541,7 @@ function saveButtonOrder() {
     const order = buttons.map(btn => btn.id);
     
     try {
-        localStorage.setItem('investmentButtonOrder', JSON.stringify(order));
+        playerStorage.setItem('investmentButtonOrder', JSON.stringify(order));
     } catch (error) {
         console.error('保存按鈕順序失敗:', error);
     }
@@ -553,7 +553,7 @@ function loadButtonOrder() {
     if (!investmentActions) return;
     
     try {
-        const savedOrder = localStorage.getItem('investmentButtonOrder');
+        const savedOrder = playerStorage.getItem('investmentButtonOrder');
         if (!savedOrder) return;
         
         const order = JSON.parse(savedOrder);
@@ -891,7 +891,7 @@ function showStockDetailPage(stockCode) {
                     pnlEl.className = `metric-value-large pnl ${unrealizedPnl >= 0 ? 'positive' : 'negative'}`;
                 }
                 
-                // 保存當前價格到 localStorage（標記為手動輸入）
+                // 保存當前價格到 playerStorage（標記為手動輸入）
                 if (currentPrice && currentPrice > 0) {
                     saveStockCurrentPrice(stockCode, currentPrice, true); // true = 手動輸入
                     // 更新投資總覽
@@ -935,7 +935,7 @@ function initRecordTabs() {
 
 // 更新個股記錄列表
 function updateStockRecords(stockCode) {
-    const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
     const stockRecords = records.filter(r => r.stockCode === stockCode);
     
     // 買入記錄（按時間排序，越晚買的越前面）
@@ -1292,7 +1292,7 @@ function createRecordCard(record) {
 
 // 刪除投資記錄
 function deleteInvestmentRecord(recordId) {
-    let records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+    let records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
     
     // 嘗試多種方式匹配記錄ID
     const recordIdStr = String(recordId);
@@ -1383,14 +1383,14 @@ function deleteInvestmentRecord(recordId) {
     // 如果刪除的是定期定額記錄，減少該計劃的執行次數
     if (record.isDCA && record.dcaPlanId) {
         try {
-            const dcaPlans = JSON.parse(localStorage.getItem('dcaPlans') || '[]');
+            const dcaPlans = JSON.parse(playerStorage.getItem('dcaPlans') || '[]');
             const planIndex = dcaPlans.findIndex(p => p.id === record.dcaPlanId);
             if (planIndex !== -1) {
                 const plan = dcaPlans[planIndex];
                 const currentCount = parseInt(plan.executedCount, 10) || 0;
                 if (currentCount > 0) {
                     dcaPlans[planIndex].executedCount = currentCount - 1;
-                    localStorage.setItem('dcaPlans', JSON.stringify(dcaPlans));
+                    playerStorage.setItem('dcaPlans', JSON.stringify(dcaPlans));
                     console.log(`定期定額計劃 ${plan.stockCode} 執行次數已減少為 ${currentCount - 1}`);
                     
                     // 更新定期定額列表顯示
@@ -1404,10 +1404,10 @@ function deleteInvestmentRecord(recordId) {
         }
     }
     
-    // 保存到 localStorage
+    // 保存到 playerStorage
     try {
         // 先確保投資記錄一定能成功刪除與保存
-        localStorage.setItem('investmentRecords', JSON.stringify(records));
+        playerStorage.setItem('investmentRecords', JSON.stringify(records));
         console.log('記錄已刪除，ID:', recordIdStr);
 
         // 再嘗試刪除記帳本中關聯的「轉帳」紀錄（買入才會建立 linkedInvestment 轉帳）
@@ -1425,7 +1425,7 @@ function deleteInvestmentRecord(recordId) {
             if (deletedInvestmentIds.length > 0) {
                 let accountingRecords;
                 try {
-                    accountingRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+                    accountingRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
                     if (!Array.isArray(accountingRecords)) accountingRecords = [];
                 } catch (e) {
                     accountingRecords = [];
@@ -1440,7 +1440,7 @@ function deleteInvestmentRecord(recordId) {
                     return !deletedInvestmentIds.includes(invId);
                 });
                 if (accountingRecords.length !== beforeLen) {
-                    localStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
+                    playerStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
                 }
 
                 // 若記帳本頁面有開著，刷新顯示（避免刷新報錯導致整個刪除失敗）
@@ -1491,7 +1491,7 @@ function deleteInvestmentRecord(recordId) {
 // 編輯投資記錄
 function editInvestmentRecord(recordId) {
     console.log('編輯記錄，ID:', recordId, '類型:', typeof recordId);
-    const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
     console.log('所有記錄數量:', records.length);
     
     // 嘗試多種方式匹配記錄ID（統一轉換為字符串比較）
@@ -1662,7 +1662,7 @@ function showEditBuyRecordModal(record) {
         
         // 更新記錄
         try {
-        const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+        const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
             // 使用多種方式匹配記錄ID
             const recordId = record.timestamp || record.id;
             const recordIdStr = String(recordId);
@@ -1694,9 +1694,9 @@ function showEditBuyRecordModal(record) {
                 
                 records[index] = updatedRecord;
                 
-                // 嘗試保存到 localStorage
+                // 嘗試保存到 playerStorage
                 try {
-            localStorage.setItem('investmentRecords', JSON.stringify(records));
+            playerStorage.setItem('investmentRecords', JSON.stringify(records));
             
                     // 立即更新顯示，不使用延遲
                     const oldStockCode = record.stockCode;
@@ -1730,7 +1730,7 @@ function showEditBuyRecordModal(record) {
             document.body.removeChild(modal);
             alert('記錄已更新！');
                 } catch (storageError) {
-                    console.error('localStorage 保存失敗:', storageError);
+                    console.error('playerStorage 保存失敗:', storageError);
                     if (storageError.name === 'QuotaExceededError') {
                         alert('存儲空間不足，無法保存記錄。請刪除一些舊記錄後再試。');
                     } else {
@@ -1888,7 +1888,7 @@ function showEditSellRecordModal(record) {
         
         // 更新記錄
         try {
-        const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+        const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
             // 使用多種方式匹配記錄ID
             const recordId = record.timestamp || record.id;
             const recordIdStr = String(recordId);
@@ -1921,9 +1921,9 @@ function showEditSellRecordModal(record) {
                 
                 records[index] = updatedRecord;
                 
-                // 嘗試保存到 localStorage
+                // 嘗試保存到 playerStorage
                 try {
-            localStorage.setItem('investmentRecords', JSON.stringify(records));
+            playerStorage.setItem('investmentRecords', JSON.stringify(records));
             
                     // 立即更新顯示，不使用延遲
                     const oldStockCode = record.stockCode;
@@ -1957,7 +1957,7 @@ function showEditSellRecordModal(record) {
             document.body.removeChild(modal);
             alert('記錄已更新！');
                 } catch (storageError) {
-                    console.error('localStorage 保存失敗:', storageError);
+                    console.error('playerStorage 保存失敗:', storageError);
                     if (storageError.name === 'QuotaExceededError') {
                         alert('存儲空間不足，無法保存記錄。請刪除一些舊記錄後再試。');
                     } else {
@@ -2133,7 +2133,7 @@ function showEditDividendRecordModal(record) {
         
         // 更新記錄
         try {
-        const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+        const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
             // 使用多種方式匹配記錄ID
             const recordId = record.timestamp || record.id;
             const recordIdStr = String(recordId);
@@ -2238,7 +2238,7 @@ function showEditDividendRecordModal(record) {
                                     
                                     // 創建或更新記帳本轉帳記錄
                                     try {
-                                        let accountingRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+                                        let accountingRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
                                         const transferIndex = accountingRecords.findIndex(ar => 
                                             ar.linkedInvestment === true && 
                                             ar.investmentRecordId === buyRecord.timestamp
@@ -2263,7 +2263,7 @@ function showEditDividendRecordModal(record) {
                                             accountingRecords.push(transferRecord);
                                         }
                                         
-                                        localStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
+                                        playerStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
                                         console.log('已更新股利再投入轉帳記錄');
                                     } catch (e) {
                                         console.warn('更新股利再投入轉帳記錄失敗:', e);
@@ -2273,7 +2273,7 @@ function showEditDividendRecordModal(record) {
                                     
                                     // 創建新的記帳本轉帳記錄
                                     try {
-                                        let accountingRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+                                        let accountingRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
                                         const transferRecord = {
                                             type: 'transfer',
                                             category: '股票再投入',
@@ -2287,7 +2287,7 @@ function showEditDividendRecordModal(record) {
                                             timestamp: buyRecord.timestamp
                                         };
                                         accountingRecords.push(transferRecord);
-                                        localStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
+                                        playerStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
                                         console.log('已創建股利再投入轉帳記錄');
                                     } catch (e) {
                                         console.warn('創建股利再投入轉帳記錄失敗:', e);
@@ -2298,7 +2298,7 @@ function showEditDividendRecordModal(record) {
                                 if (linkedBuyIndexes.length > 0) {
                                     // 刪除關聯的記帳本轉帳記錄
                                     try {
-                                        const accountingRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+                                        const accountingRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
                                         const deletedInvestmentIds = linkedBuyIndexes.map(i => {
                                             const invRecord = records[i];
                                             return invRecord ? (invRecord.timestamp || invRecord.id) : null;
@@ -2310,7 +2310,7 @@ function showEditDividendRecordModal(record) {
                                                 const invId = ar.investmentRecordId != null ? String(ar.investmentRecordId) : '';
                                                 return !deletedInvestmentIds.includes(invId);
                                             });
-                                            localStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
+                                            playerStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
                                             console.log('已刪除關聯的股利再投入轉帳記錄');
                                         }
                                     } catch (e) {
@@ -2326,7 +2326,7 @@ function showEditDividendRecordModal(record) {
                             if (linkedBuyIndexes.length > 0) {
                                 // 刪除關聯的記帳本轉帳記錄
                                 try {
-                                    const accountingRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+                                    const accountingRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
                                     const deletedInvestmentIds = linkedBuyIndexes.map(i => {
                                         const invRecord = records[i];
                                         return invRecord ? (invRecord.timestamp || invRecord.id) : null;
@@ -2338,7 +2338,7 @@ function showEditDividendRecordModal(record) {
                                             const invId = ar.investmentRecordId != null ? String(ar.investmentRecordId) : '';
                                             return !deletedInvestmentIds.includes(invId);
                                         });
-                                        localStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
+                                        playerStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
                                         console.log('已刪除關聯的股利再投入轉帳記錄');
                                     }
                                 } catch (e) {
@@ -2353,9 +2353,9 @@ function showEditDividendRecordModal(record) {
                     console.error('同步股利再投入買入記錄失敗:', syncError);
                 }
                 
-                // 嘗試保存到 localStorage
+                // 嘗試保存到 playerStorage
                 try {
-            localStorage.setItem('investmentRecords', JSON.stringify(records));
+            playerStorage.setItem('investmentRecords', JSON.stringify(records));
             
                     // 立即更新顯示，不使用延遲
                     const oldStockCode = record.stockCode;
@@ -2389,7 +2389,7 @@ function showEditDividendRecordModal(record) {
             document.body.removeChild(modal);
             alert('記錄已更新！');
                 } catch (storageError) {
-                    console.error('localStorage 保存失敗:', storageError);
+                    console.error('playerStorage 保存失敗:', storageError);
                     if (storageError.name === 'QuotaExceededError') {
                         alert('存儲空間不足，無法保存記錄。請刪除一些舊記錄後再試。');
                     } else {
@@ -3000,7 +3000,7 @@ function updateInvestmentDisplay() {
 }
 
 // 初始化快捷鍵
-function initQuickActions() {
+function initInvestmentQuickActions() {
     document.querySelectorAll('.quick-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const shares = parseInt(btn.dataset.shares);
@@ -3123,9 +3123,9 @@ function saveInvestmentRecord(type) {
     }
     
     // 保存記錄
-    let records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+    let records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
     records.push(record);
-    localStorage.setItem('investmentRecords', JSON.stringify(records));
+    playerStorage.setItem('investmentRecords', JSON.stringify(records));
     
     // 賣出：自動在記帳本中記錄收入
     if (type === 'sell') {
@@ -3141,9 +3141,9 @@ function saveInvestmentRecord(type) {
                 investmentRecordId: record.timestamp,
                 timestamp: new Date().toISOString()
             };
-            let accountingRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+            let accountingRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
             accountingRecords.push(accountingRecord);
-            localStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
+            playerStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
             if (typeof updateLedgerSummary === 'function') updateLedgerSummary(accountingRecords);
             if (typeof displayLedgerTransactions === 'function') displayLedgerTransactions(accountingRecords);
         } catch (e) {
@@ -3158,7 +3158,7 @@ function saveInvestmentRecord(type) {
 
         const selectedAccountId = (typeof getSelectedAccount === 'function' ? getSelectedAccount()?.id : null) || '';
         const accounts = (typeof getAccounts === 'function' ? getAccounts() : []) || [];
-        const configuredSettlementAccountId = localStorage.getItem('investmentSettlementAccountId') || '';
+        const configuredSettlementAccountId = playerStorage.getItem('investmentSettlementAccountId') || '';
         let settlementAccountId = configuredSettlementAccountId;
         if (!settlementAccountId) {
             const candidate = accounts.find(a => {
@@ -3185,9 +3185,9 @@ function saveInvestmentRecord(type) {
         };
 
         // 保存到記帳記錄
-        let accountingRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        let accountingRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
         accountingRecords.push(accountingRecord);
-        localStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
+        playerStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
 
         // 更新記帳本顯示（如果記帳本頁面已初始化）
         if (typeof updateLedgerSummary === 'function') {
@@ -3643,8 +3643,8 @@ function saveDividendRecord() {
         timestamp: new Date().toISOString()
     };
     
-    // 保存到 localStorage
-    let records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+    // 保存到 playerStorage
+    let records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
     records.push(record);
     
     // 如果是現金股利且選擇再投入，自動創建買入記錄
@@ -3693,7 +3693,7 @@ function saveDividendRecord() {
                 
                 // 創建記帳本轉帳記錄（從現金帳戶轉到投資帳戶）
                 try {
-                    const accountingRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+                    const accountingRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
                     const transferRecord = {
                         type: 'transfer',
                         category: '股票再投入', // 轉帳不顯示分類
@@ -3707,7 +3707,7 @@ function saveDividendRecord() {
                         timestamp: new Date().toISOString()
                     };
                     accountingRecords.push(transferRecord);
-                    localStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
+                    playerStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
                     console.log('已創建股利再投入轉帳記錄');
                 } catch (e) {
                     console.warn('創建股利再投入轉帳記錄失敗:', e);
@@ -3720,14 +3720,14 @@ function saveDividendRecord() {
         }
     }
     
-    localStorage.setItem('investmentRecords', JSON.stringify(records));
+    playerStorage.setItem('investmentRecords', JSON.stringify(records));
     
     // 播放入帳音效（股息入帳）
     playIncomeSound();
     
     // 觸發小森對話系統（股息收入）
     // 創建一個記帳記錄格式的對象用於觸發對話
-    const accountingRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const accountingRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     const dividendAccountingRecord = {
         type: 'income',
         category: '股息',
@@ -3784,10 +3784,7 @@ function saveDividendRecord() {
 }
 
 // 計算投資手續費
-function calculateInvestmentFee(totalAmount) {
-    // 手續費為總金額的0.1425%，最低20元
-    return Math.max(Math.round(totalAmount * 0.001425), 20);
-}
+
 
 // 顯示股息頁面
 function showDividendPage() {
@@ -3836,7 +3833,7 @@ function showDividendPage() {
 
 // 更新股息頁面
 function updateDividendPage() {
-    const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth() + 1;
     
@@ -3881,7 +3878,7 @@ function updateDividendPage() {
 
 // 更新股息月曆
 function updateDividendCalendar() {
-    const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
     const currentYear = new Date().getFullYear();
     const dividendRecords = records.filter(r => r.type === 'dividend' && r.dividendType === 'cash');
     
@@ -3931,7 +3928,7 @@ function updateDividendCalendar() {
 
 // 更新年股息統計
 function updateDividendYearStats() {
-    const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
     const dividendRecords = records.filter(r => r.type === 'dividend' && r.dividendType === 'cash');
     
     // 按年份統計
@@ -4003,7 +4000,7 @@ function updateDividendYearStats() {
 
 // 更新股息記錄列表
 function updateDividendRecordsList() {
-    const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
     const dividendRecords = records.filter(r => r.type === 'dividend').sort((a, b) => 
         new Date(b.date) - new Date(a.date)
     );
@@ -4115,3 +4112,5 @@ function showSuccessAnimation() {
 // ========== 定期定額管理功能 ==========
 
 // 定期定額計劃數據結構
+
+document.addEventListener('playerappready', initInvestmentQuickActions);

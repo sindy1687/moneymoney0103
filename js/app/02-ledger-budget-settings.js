@@ -246,7 +246,7 @@ function initMonthlyPlannerPage() {
 
     const load = () => {
         try {
-            const raw = localStorage.getItem(storageKey);
+            const raw = playerStorage.getItem(storageKey);
             if (!raw) return;
             const data = JSON.parse(raw);
             if (!data || data.monthKey !== monthKey) return;
@@ -289,7 +289,7 @@ function initMonthlyPlannerPage() {
             }
 
             try {
-                const savedCustomCategories = JSON.parse(localStorage.getItem('customCategories') || '[]');
+                const savedCustomCategories = JSON.parse(playerStorage.getItem('customCategories') || '[]');
                 const duplicate = Array.isArray(savedCustomCategories)
                     ? savedCustomCategories.some((c) => c && c.name === name && c.type === 'expense')
                     : false;
@@ -297,7 +297,7 @@ function initMonthlyPlannerPage() {
                 if (!duplicate) {
                     const newCategory = { name, icon: '💰', type: 'expense' };
                     const next = Array.isArray(savedCustomCategories) ? [...savedCustomCategories, newCategory] : [newCategory];
-                    localStorage.setItem('customCategories', JSON.stringify(next));
+                    playerStorage.setItem('customCategories', JSON.stringify(next));
 
                     if (Array.isArray(window.allCategories)) {
                         window.allCategories.push(newCategory);
@@ -317,7 +317,7 @@ function initMonthlyPlannerPage() {
 
         const syncFixedItemsToBudgets = () => {
             try {
-                const budgets = JSON.parse(localStorage.getItem('categoryBudgets') || '{}');
+                const budgets = JSON.parse(playerStorage.getItem('categoryBudgets') || '{}');
                 const nextBudgets = budgets && typeof budgets === 'object' ? { ...budgets } : {};
 
                 const fixedItems = Array.isArray(state.items.fixed) ? state.items.fixed : [];
@@ -336,10 +336,10 @@ function initMonthlyPlannerPage() {
                     syncedNames.push(name);
                 });
 
-                localStorage.setItem('categoryBudgets', JSON.stringify(nextBudgets));
+                playerStorage.setItem('categoryBudgets', JSON.stringify(nextBudgets));
 
                 if (syncedNames.length) {
-                    localStorage.setItem(`monthlyPlannerBudgetSync:${monthKey}`, JSON.stringify({
+                    playerStorage.setItem(`monthlyPlannerBudgetSync:${monthKey}`, JSON.stringify({
                         monthKey,
                         categories: syncedNames,
                         updatedAt: Date.now()
@@ -365,7 +365,7 @@ function initMonthlyPlannerPage() {
             if (!ok) return;
         } else {
             try {
-                localStorage.setItem(storageKey, raw);
+                playerStorage.setItem(storageKey, raw);
             } catch (e) {
                 return;
             }
@@ -623,7 +623,7 @@ function initMonthlyPlannerPage() {
 
     const loadSavingGoals = () => {
         try {
-            const raw = localStorage.getItem(savingGoalsKey);
+            const raw = playerStorage.getItem(savingGoalsKey);
             const data = raw ? JSON.parse(raw) : [];
             savingGoals = Array.isArray(data) ? data : [];
         } catch (e) {
@@ -633,7 +633,7 @@ function initMonthlyPlannerPage() {
 
     const saveSavingGoals = () => {
         try {
-            localStorage.setItem(savingGoalsKey, JSON.stringify(savingGoals));
+            playerStorage.setItem(savingGoalsKey, JSON.stringify(savingGoals));
         } catch (e) {
         }
     };
@@ -846,7 +846,7 @@ function updateLedgerTitle() {
 
 // 初始化記帳本頁面
 function initLedger() {
-    const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     const ledgerList = document.getElementById('ledgerList');
     
     if (!ledgerList) return;
@@ -900,7 +900,7 @@ function initSearchAndFilters() {
     
     // 初始化分類選單
     if (filterCategory) {
-        const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
         const categories = new Set();
         records.forEach(r => {
             if (r.category) {
@@ -918,7 +918,7 @@ function initSearchAndFilters() {
     
     // 綁定篩選事件
     const applyFilters = () => {
-        const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
         const currentType = window.ledgerType || 'expense';
         let filteredRecords = filterRecordsByType(records, currentType);
         
@@ -1093,7 +1093,7 @@ function updateLedgerSummary(records, type = null) {
     // 兼容：部分呼叫點會不帶 records 參數
     if (!Array.isArray(records)) {
         try {
-            const stored = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+            const stored = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
             records = Array.isArray(stored) ? stored : [];
         } catch (e) {
             records = [];
@@ -1130,7 +1130,7 @@ function updateLedgerSummary(records, type = null) {
     });
     
     // 計算月預算（從所有分類預算中加總）
-    const budgets = JSON.parse(localStorage.getItem('categoryBudgets') || '{}');
+    const budgets = JSON.parse(playerStorage.getItem('categoryBudgets') || '{}');
     let totalBudget = 0;
     Object.keys(budgets).forEach(categoryId => {
         totalBudget += budgets[categoryId];
@@ -1174,7 +1174,7 @@ function updateLedgerSummary(records, type = null) {
 
 // 計算並更新當天支出
 function updateDailyExpense() {
-    const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     const today = new Date();
     const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
     
@@ -1277,7 +1277,7 @@ function displayLedgerTransactions(records, showAll = false) {
             if (isTransfer && (!displayCategory || displayCategory === '')) {
                 if (record.linkedInvestment === true && record.investmentRecordId) {
                     try {
-                        const inv = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+                        const inv = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
                         const matched = inv.find(r => (r.timestamp || r.id) === record.investmentRecordId);
                         if (matched && matched.stockCode) {
                             displayCategory = matched.stockName
@@ -1466,7 +1466,7 @@ function displayLedgerTransactions(records, showAll = false) {
                 try {
                     const images = JSON.parse(imagesData);
                     // 找到對應的記錄並顯示詳情
-                    const records = JSON.parse(localStorage.getItem('records') || '[]');
+                    const records = JSON.parse(playerStorage.getItem('records') || '[]');
                     const record = records.find(r => r.timestamp === timestamp);
                     if (record) {
                         showEntryDetail(record);
@@ -1507,7 +1507,7 @@ function showHistoryRecords(records) {
     modal.style.cssText = modalStyle;
     
     // 獲取保存的背景圖片
-    const savedBackground = localStorage.getItem('historyBackground') || '';
+    const savedBackground = playerStorage.getItem('historyBackground') || '';
     
     modal.innerHTML = `
         <div class="history-modal-content" id="historyModalContent">
@@ -1602,7 +1602,7 @@ function showHistoryRecords(records) {
         if (!historyList) return;
         
         // 重新讀取最新記錄（確保是最新的）
-        const allRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        const allRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
         const currentType = window.ledgerType || 'expense';
         let filteredRecords = filterRecordsByType(allRecords, currentType);
 
@@ -1794,7 +1794,7 @@ function showHistoryRecords(records) {
                 // 先刪除記錄
                 deleteTransaction(btn);
                 
-                // 延遲重新渲染，確保 localStorage 已更新
+                // 延遲重新渲染，確保 playerStorage 已更新
                 setTimeout(() => {
                     renderHistoryRecords();
                 }, 100);
@@ -1885,12 +1885,12 @@ function showHistoryBackgroundSelector(modalContent) {
     ];
     
     // 獲取自訂背景
-    const customBackgrounds = JSON.parse(localStorage.getItem('customHistoryBackgrounds') || '[]');
+    const customBackgrounds = JSON.parse(playerStorage.getItem('customHistoryBackgrounds') || '[]');
     customBackgrounds.forEach((bg, index) => {
         backgroundOptions.push({ url: bg.url, name: bg.name || `自訂背景 ${index + 1}`, isCustom: true, id: bg.id || `custom-${index}` });
     });
     
-    const savedBackground = localStorage.getItem('historyBackground') || '';
+    const savedBackground = playerStorage.getItem('historyBackground') || '';
     
     // 創建隱藏的文件輸入
     const fileInput = document.createElement('input');
@@ -1900,8 +1900,8 @@ function showHistoryBackgroundSelector(modalContent) {
     document.body.appendChild(fileInput);
     
     const renderBackgroundOptions = () => {
-        const savedBackground = localStorage.getItem('historyBackground') || '';
-        const customBackgrounds = JSON.parse(localStorage.getItem('customHistoryBackgrounds') || '[]');
+        const savedBackground = playerStorage.getItem('historyBackground') || '';
+        const customBackgrounds = JSON.parse(playerStorage.getItem('customHistoryBackgrounds') || '[]');
         const allOptions = [
             ...backgroundOptions.filter(opt => !opt.isCustom),
             ...customBackgrounds.map((bg, index) => ({ url: bg.url, name: bg.name || `自訂背景 ${index + 1}`, isCustom: true, id: bg.id || `custom-${index}` }))
@@ -1994,7 +1994,7 @@ function showHistoryBackgroundSelector(modalContent) {
                     }
                     
                     // 保存到自訂背景列表
-                    const customBackgrounds = JSON.parse(localStorage.getItem('customHistoryBackgrounds') || '[]');
+                    const customBackgrounds = JSON.parse(playerStorage.getItem('customHistoryBackgrounds') || '[]');
                     const newBackground = {
                         id: 'custom-' + Date.now(),
                         url: imageData,
@@ -2004,7 +2004,7 @@ function showHistoryBackgroundSelector(modalContent) {
                         compressed: imageData !== event.target.result
                     };
                     customBackgrounds.push(newBackground);
-                    localStorage.setItem('customHistoryBackgrounds', JSON.stringify(customBackgrounds));
+                    playerStorage.setItem('customHistoryBackgrounds', JSON.stringify(customBackgrounds));
                     
                     // 移除進度提示
                     document.body.removeChild(progressMsg);
@@ -2012,7 +2012,7 @@ function showHistoryBackgroundSelector(modalContent) {
                     // 重新渲染背景選項
                     const grid = backgroundModal.querySelector('.background-options-grid');
                     if (grid) {
-                        const savedBackground = localStorage.getItem('historyBackground') || '';
+                        const savedBackground = playerStorage.getItem('historyBackground') || '';
                         const allOptions = [
                             ...backgroundOptions.filter(opt => !opt.isCustom),
                             ...customBackgrounds.map((bg, index) => ({ url: bg.url, name: bg.name || `自訂背景 ${index + 1}`, isCustom: true, id: bg.id || `custom-${index}` }))
@@ -2061,7 +2061,7 @@ function showHistoryBackgroundSelector(modalContent) {
                 }
                 
                 const url = option.getAttribute('data-url');
-                localStorage.setItem('historyBackground', url);
+                playerStorage.setItem('historyBackground', url);
                 
                 // 更新當前顯示的背景
                 if (url) {
@@ -2094,14 +2094,14 @@ function showHistoryBackgroundSelector(modalContent) {
                 
                 if (confirm('確定要刪除這個自訂背景嗎？')) {
                     // 從列表中移除
-                    const customBackgrounds = JSON.parse(localStorage.getItem('customHistoryBackgrounds') || '[]');
+                    const customBackgrounds = JSON.parse(playerStorage.getItem('customHistoryBackgrounds') || '[]');
                     const filtered = customBackgrounds.filter(bg => bg.id !== id);
-                    localStorage.setItem('customHistoryBackgrounds', JSON.stringify(filtered));
+                    playerStorage.setItem('customHistoryBackgrounds', JSON.stringify(filtered));
                     
                     // 如果刪除的是當前使用的背景，清除背景
-                    const currentBackground = localStorage.getItem('historyBackground') || '';
+                    const currentBackground = playerStorage.getItem('historyBackground') || '';
                     if (currentBackground === url) {
-                        localStorage.setItem('historyBackground', '');
+                        playerStorage.setItem('historyBackground', '');
                         modalContent.style.backgroundImage = 'none';
                         modalContent.classList.remove('has-background');
                     }
@@ -2109,7 +2109,7 @@ function showHistoryBackgroundSelector(modalContent) {
                     // 重新渲染
                     const grid = backgroundModal.querySelector('.background-options-grid');
                     if (grid) {
-                        const savedBackground = localStorage.getItem('historyBackground') || '';
+                        const savedBackground = playerStorage.getItem('historyBackground') || '';
                         const allOptions = [
                             ...backgroundOptions.filter(opt => !opt.isCustom),
                             ...filtered.map((bg, index) => ({ url: bg.url, name: bg.name || `自訂背景 ${index + 1}`, isCustom: true, id: bg.id || `custom-${index}` }))
@@ -2186,7 +2186,7 @@ function deleteTransaction(btn) {
         return;
     }
     
-    const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     
     // 獲取記錄的識別信息
     const timestamp = btn.dataset.recordTimestamp;
@@ -2207,14 +2207,14 @@ function deleteTransaction(btn) {
     });
     
     // 保存更新後的記錄
-    localStorage.setItem('accountingRecords', JSON.stringify(filteredRecords));
+    playerStorage.setItem('accountingRecords', JSON.stringify(filteredRecords));
     
     // 更新顯示
     if (typeof initLedger === 'function') {
         initLedger();
     } else {
         // 如果initLedger不存在，直接更新
-        const updatedRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        const updatedRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
         if (typeof updateLedgerSummary === 'function') {
             updateLedgerSummary(updatedRecords);
         }
@@ -2238,7 +2238,7 @@ function deleteTransaction(btn) {
 // 獲取分類圖標（簡化版）
 function getCategoryIcon(category) {
     // 檢查是否有自定義圖片圖標
-    const customIcons = JSON.parse(localStorage.getItem('categoryCustomIcons') || '{}');
+    const customIcons = JSON.parse(playerStorage.getItem('categoryCustomIcons') || '{}');
     const customIconValue = customIcons[category]?.value;
     if (customIcons[category] && customIcons[category].type === 'image' && isLikelyImageSrc(customIconValue)) {
         return `<img src="${customIconValue}" alt="${category}" class="transaction-emoji-image" onerror="this.outerHTML='📦'">`;
@@ -2398,7 +2398,7 @@ function analyzeTrends(records) {
 // 分析預算
 function analyzeBudget(records) {
     // 獲取預算設定
-    const budgets = JSON.parse(localStorage.getItem('budgets') || '[]');
+    const budgets = JSON.parse(playerStorage.getItem('budgets') || '[]');
     
     if (budgets.length === 0) {
         return `📋 您還沒有設定預算。\n\n建議為主要支出分類設定預算，這樣可以更好地控制支出。\n\n可以在「設置」中設定預算。`;
@@ -2833,86 +2833,10 @@ function getGeneralResponse(userMessage, records) {
 }
 
 // 刪除交易記錄
-function deleteTransaction(btn) {
-    // 確認刪除
-    if (!confirm('確定要刪除這筆交易記錄嗎？此操作無法復原。')) {
-        return;
-    }
-    
-    const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
-    
-    // 獲取記錄的識別信息
-    const timestamp = btn.dataset.recordTimestamp;
-    const date = btn.dataset.recordDate;
-    const amount = parseFloat(btn.dataset.recordAmount);
-    const category = btn.dataset.recordCategory;
-    
-    // 找到並刪除對應的記錄（使用多個字段匹配以確保準確性）
-    const filteredRecords = records.filter(record => {
-        // 如果有timestamp，優先使用timestamp匹配
-        if (timestamp && record.timestamp) {
-            return record.timestamp !== timestamp;
-        }
-        // 否則使用多個字段組合匹配
-        return !(record.date === date && 
-                 record.amount === amount && 
-                 (record.category || '') === category);
-    });
-    
-    // 保存更新後的記錄
-    localStorage.setItem('accountingRecords', JSON.stringify(filteredRecords));
-    
-    // 更新顯示
-    if (typeof initLedger === 'function') {
-        initLedger();
-    } else {
-        // 如果initLedger不存在，直接更新
-        const updatedRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
-        if (typeof updateLedgerSummary === 'function') {
-            updateLedgerSummary(updatedRecords);
-        }
-        if (typeof displayLedgerTransactions === 'function') {
-            displayLedgerTransactions(updatedRecords);
-        }
-    }
-    
-    // 顯示成功訊息
-    const successMsg = document.createElement('div');
-    successMsg.textContent = '已刪除交易記錄';
-    successMsg.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0, 0, 0, 0.8); color: white; padding: 16px 24px; border-radius: 12px; z-index: 10001; font-size: 16px;';
-    document.body.appendChild(successMsg);
-    setTimeout(() => {
-        if (document.body.contains(successMsg)) {
-            document.body.removeChild(successMsg);
-        }
-    }, 1500);
-}
+
 
  // 獲取分類圖標（簡化版）
-function getCategoryIcon(category) {
-    // 檢查是否有自定義圖片圖標
-    const customIcons = JSON.parse(localStorage.getItem('categoryCustomIcons') || '{}');
-    const customIconValue = customIcons[category]?.value;
-    if (customIcons[category] && customIcons[category].type === 'image' && isLikelyImageSrc(customIconValue)) {
-        return `<img src="${customIconValue}" alt="${category}" class="transaction-emoji-image">`;
-    }
-    
-    // 查找分類的默認圖標
-    const categoryData = allCategories.find(cat => cat.name === category);
-    if (categoryData) {
-        return categoryData.icon;
-    }
-    
-    const iconMap = {
-        '飲食': '🍔',
-        '交通': '🚇',
-        '娛樂': '🎮',
-        '醫療': '🏥',
-        '卡費': '💳',
-        '投資': '📈'
-    };
-    return iconMap[category] || '📦';
-}
+
 
  // 初始化圖表頁面
 function initChart() {
@@ -2963,7 +2887,7 @@ function updateMonthCompareChart() {
     if (!canvas) return;
 
     const insightEl = document.getElementById('monthCompareInsight');
-    const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     const thisMonthKey = getSelectedMonthKey();
     const lastMonthKey = addMonthsToKey(thisMonthKey, -1);
 
@@ -3119,7 +3043,7 @@ function updatePieChart() {
 
     const insightEl = document.getElementById('pieChartInsight');
     
-    const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     const currentMonth = getSelectedMonthKey();
     
     // 過濾本月支出記錄
@@ -3211,7 +3135,7 @@ function updateBarChart() {
 
     const insightEl = document.getElementById('barChartInsight');
     
-    const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     const currentMonth = getSelectedMonthKey();
     
     // 過濾本月支出記錄
@@ -3326,7 +3250,7 @@ function updateLineChart() {
 
     const insightEl = document.getElementById('lineChartInsight');
     
-    const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     
     // 過濾支出記錄
     const expenseRecords = records.filter(record => record.type === 'expense');
@@ -3610,8 +3534,8 @@ function getCategoryUsedAmount(categoryName, records) {
 
 // 顯示預算設定對話框（美化版）
 function showBudgetSettingDialog(categoryName) {
-    const budgets = JSON.parse(localStorage.getItem('categoryBudgets') || '{}');
-    const dailyTrackingState = JSON.parse(localStorage.getItem('dailyBudgetTracking') || '{}');
+    const budgets = JSON.parse(playerStorage.getItem('categoryBudgets') || '{}');
+    const dailyTrackingState = JSON.parse(playerStorage.getItem('dailyBudgetTracking') || '{}');
     const currentBudget = budgets[categoryName] || 0;
     const isCurrentlyTracking = dailyTrackingState[categoryName] === true;
     
@@ -3769,8 +3693,8 @@ function showBudgetSettingDialog(categoryName) {
             }
     }
     
-    localStorage.setItem('categoryBudgets', JSON.stringify(budgets));
-        localStorage.setItem('dailyBudgetTracking', JSON.stringify(dailyTrackingState));
+    playerStorage.setItem('categoryBudgets', JSON.stringify(budgets));
+        playerStorage.setItem('dailyBudgetTracking', JSON.stringify(dailyTrackingState));
         
         // 關閉模態框
         if (document.body.contains(budgetModal)) {
@@ -3798,8 +3722,8 @@ function initBudget() {
     // 自動套用下月預算（如果有的話）
     applyNextMonthBudgets();
     
-    const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
-    const budgets = JSON.parse(localStorage.getItem('categoryBudgets') || '{}');
+    const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
+    const budgets = JSON.parse(playerStorage.getItem('categoryBudgets') || '{}');
     
     // 計算總預算
     let totalBudget = 0;
@@ -3891,7 +3815,7 @@ function initBudget() {
                 }
                 
                 // 為所有開啟每日追蹤的分類添加查看詳細追蹤按鈕
-                const dailyTrackingState = JSON.parse(localStorage.getItem('dailyBudgetTracking') || '{}');
+                const dailyTrackingState = JSON.parse(playerStorage.getItem('dailyBudgetTracking') || '{}');
                 const isDailyTrackingEnabled = dailyTrackingState[category.name] === true;
                 let dailyBudgetButton = '';
                 if (isDailyTrackingEnabled) {
@@ -4085,8 +4009,8 @@ function showBudgetPage() {
 
 // 初始化每日預算追蹤頁面
 function initDailyBudgetPage(categoryName = '生活費') {
-    const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
-    const budgets = JSON.parse(localStorage.getItem('categoryBudgets') || '{}');
+    const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
+    const budgets = JSON.parse(playerStorage.getItem('categoryBudgets') || '{}');
     const budget = budgets[categoryName] || 0;
     
     // 更新頁面標題
@@ -4248,7 +4172,7 @@ function initDailyBudgetPage(categoryName = '生活費') {
 
 // 顯示某一天的詳細記錄
 function showDailyDetail(categoryName, day, year, month) {
-    const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     
     // 獲取當天的所有該分類記錄
@@ -4425,10 +4349,10 @@ function showDailyDetail(categoryName, day, year, month) {
                     isNextMonthBill: isNextMonthBill // 標記是否為下月帳單
                 };
                 
-                // 保存到 localStorage
-                let allRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+                // 保存到 playerStorage
+                let allRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
                 allRecords.push(record);
-                localStorage.setItem('accountingRecords', JSON.stringify(allRecords));
+                playerStorage.setItem('accountingRecords', JSON.stringify(allRecords));
                 
                 // 更新帳戶顯示
                 if (typeof updateAccountDisplay === 'function') {
@@ -4476,7 +4400,7 @@ function showDailyDetail(categoryName, day, year, month) {
 
 // 顯示下個月預約扣款明細
 function showNextMonthBills(categoryName) {
-    const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     const now = new Date();
     const nextMonthDate = new Date(now.getFullYear(), now.getMonth() + 1, 1);
     const nextMonthYear = nextMonthDate.getFullYear();
@@ -4500,7 +4424,7 @@ function showNextMonthBills(categoryName) {
     
     // 檢查是否已設定下月預算
     const budgetKey = `${nextMonthYear}-${nextMonthNum + 1}`;
-    const nextMonthBudgets = JSON.parse(localStorage.getItem('nextMonthBudgets') || '{}');
+    const nextMonthBudgets = JSON.parse(playerStorage.getItem('nextMonthBudgets') || '{}');
     const hasSetBudget = nextMonthBudgets[budgetKey] && nextMonthBudgets[budgetKey][categoryName];
     const setBudgetAmount = hasSetBudget ? nextMonthBudgets[budgetKey][categoryName].amount : null;
     
@@ -4634,7 +4558,7 @@ function renderNextMonthBillsPage(categoryName) {
     const container = document.getElementById('nextMonthBillsPageContent');
     if (!container) return;
 
-    const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     const now = new Date();
     const nextMonthDate = new Date(now.getFullYear(), now.getMonth() + 1, 1);
     const nextMonthYear = nextMonthDate.getFullYear();
@@ -4827,7 +4751,7 @@ function closeNextMonthBillsPage() {
 }
 
 function showNextMonthBillDetail(recordId, categoryName, parentModal) {
-    const allRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const allRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     const record = allRecords.find(r => (r.timestamp || r.id) === recordId);
     if (!record) {
         alert('找不到該記錄');
@@ -4891,7 +4815,7 @@ function showNextMonthBillDetail(recordId, categoryName, parentModal) {
 }
 
 function showNextMonthBillDeleteOnlyModal(recordId, categoryName, parentModal) {
-    const allRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const allRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     const record = allRecords.find(r => (r.timestamp || r.id) === recordId);
     if (!record) {
         alert('找不到該記錄');
@@ -4948,7 +4872,7 @@ function showNextMonthBillDeleteOnlyModal(recordId, categoryName, parentModal) {
 
 // 編輯下月卡費記錄
 function editNextMonthBill(recordId, categoryName, parentModal) {
-    let allRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    let allRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     const recordIndex = allRecords.findIndex(r => (r.timestamp || r.id) === recordId);
     
     if (recordIndex === -1) {
@@ -4986,7 +4910,7 @@ function editNextMonthBill(recordId, categoryName, parentModal) {
         allRecords[recordIndex].note = newNote ? `(下月帳單) ${newNote}` : '(下月帳單)';
     }
     
-    localStorage.setItem('accountingRecords', JSON.stringify(allRecords));
+    playerStorage.setItem('accountingRecords', JSON.stringify(allRecords));
     
     // 更新顯示
     if (typeof updateAccountDisplay === 'function') {
@@ -5018,7 +4942,7 @@ function editNextMonthBill(recordId, categoryName, parentModal) {
 
 // 刪除下月卡費記錄
 function deleteNextMonthBill(recordId, categoryName, parentModal) {
-    let allRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    let allRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     const recordIndex = allRecords.findIndex(r => (r.timestamp || r.id) === recordId);
     
     if (recordIndex === -1) {
@@ -5036,7 +4960,7 @@ function deleteNextMonthBill(recordId, categoryName, parentModal) {
     
     // 刪除記錄
     allRecords.splice(recordIndex, 1);
-    localStorage.setItem('accountingRecords', JSON.stringify(allRecords));
+    playerStorage.setItem('accountingRecords', JSON.stringify(allRecords));
     
     // 更新顯示
     if (typeof updateAccountDisplay === 'function') {
@@ -5056,7 +4980,7 @@ function deleteNextMonthBill(recordId, categoryName, parentModal) {
         document.body.removeChild(parentModal);
 
         // 檢查是否還有下月記錄
-        const remainingRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        const remainingRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
         const now = new Date();
         const nextMonthDate = new Date(now.getFullYear(), now.getMonth() + 1, 1);
         const hasNextMonthBills = remainingRecords.some(r => {
@@ -5111,7 +5035,7 @@ function setNextMonthBudget(categoryName, nextYear, nextMonth, currentTotal, par
     }
     
     // 獲取或創建下月預算資料
-    let nextMonthBudgets = JSON.parse(localStorage.getItem('nextMonthBudgets') || '{}');
+    let nextMonthBudgets = JSON.parse(playerStorage.getItem('nextMonthBudgets') || '{}');
     const budgetKey = `${nextYear}-${nextMonth + 1}`;
     
     if (!nextMonthBudgets[budgetKey]) {
@@ -5126,7 +5050,7 @@ function setNextMonthBudget(categoryName, nextYear, nextMonth, currentTotal, par
         month: nextMonth + 1
     };
     
-    localStorage.setItem('nextMonthBudgets', JSON.stringify(nextMonthBudgets));
+    playerStorage.setItem('nextMonthBudgets', JSON.stringify(nextMonthBudgets));
     
     // 檢查是否已經到了下個月，如果是則立即套用
     const now = new Date();
@@ -5135,9 +5059,9 @@ function setNextMonthBudget(categoryName, nextYear, nextMonth, currentTotal, par
     
     if (nextYear === currentYear && (nextMonth + 1) === currentMonth) {
         // 已經是下個月了，立即套用預算
-        let categoryBudgets = JSON.parse(localStorage.getItem('categoryBudgets') || '{}');
+        let categoryBudgets = JSON.parse(playerStorage.getItem('categoryBudgets') || '{}');
         categoryBudgets[categoryName] = budget;
-        localStorage.setItem('categoryBudgets', JSON.stringify(categoryBudgets));
+        playerStorage.setItem('categoryBudgets', JSON.stringify(categoryBudgets));
         
         // 更新預算頁面顯示
         if (typeof initBudget === 'function') {
@@ -5163,10 +5087,10 @@ function applyNextMonthBudgets() {
     const currentMonth = now.getMonth() + 1;
     const budgetKey = `${currentYear}-${currentMonth}`;
     
-    let nextMonthBudgets = JSON.parse(localStorage.getItem('nextMonthBudgets') || '{}');
+    let nextMonthBudgets = JSON.parse(playerStorage.getItem('nextMonthBudgets') || '{}');
     
     if (nextMonthBudgets[budgetKey]) {
-        let categoryBudgets = JSON.parse(localStorage.getItem('categoryBudgets') || '{}');
+        let categoryBudgets = JSON.parse(playerStorage.getItem('categoryBudgets') || '{}');
         let hasChanges = false;
         
         for (const [categoryName, budgetInfo] of Object.entries(nextMonthBudgets[budgetKey])) {
@@ -5175,11 +5099,11 @@ function applyNextMonthBudgets() {
         }
         
         if (hasChanges) {
-            localStorage.setItem('categoryBudgets', JSON.stringify(categoryBudgets));
+            playerStorage.setItem('categoryBudgets', JSON.stringify(categoryBudgets));
             
             // 清除已套用的下月預算
             delete nextMonthBudgets[budgetKey];
-            localStorage.setItem('nextMonthBudgets', JSON.stringify(nextMonthBudgets));
+            playerStorage.setItem('nextMonthBudgets', JSON.stringify(nextMonthBudgets));
             
             // 更新預算頁面顯示
             if (typeof initBudget === 'function') {
@@ -5198,7 +5122,7 @@ function showAddBudgetDialog() {
     // 使用 getEnabledCategories(null) 獲取所有啟用的分類，不分類型
     let allAvailableCategories = getEnabledCategories(null);
     
-    const budgets = JSON.parse(localStorage.getItem('categoryBudgets') || '{}');
+    const budgets = JSON.parse(playerStorage.getItem('categoryBudgets') || '{}');
     
     // 創建模態框
     const modal = document.createElement('div');
@@ -5361,7 +5285,7 @@ function renderCategoryManageList() {
     
     // 顯示所有分類，不分類型，統一顯示
     // 獲取自定義圖標
-    const customIcons = JSON.parse(localStorage.getItem('categoryCustomIcons') || '{}');
+    const customIcons = JSON.parse(playerStorage.getItem('categoryCustomIcons') || '{}');
     
     let html = '';
     
@@ -5664,12 +5588,12 @@ function showAddCategoryDialog(type = 'expense') {
         
         console.log('📝 創建新分類:', newCategory);
         
-        // 1. 保存到localStorage
-        const savedCategories = JSON.parse(localStorage.getItem('customCategories') || '[]');
+        // 1. 保存到playerStorage
+        const savedCategories = JSON.parse(playerStorage.getItem('customCategories') || '[]');
         savedCategories.push(newCategory);
-        localStorage.setItem('customCategories', JSON.stringify(savedCategories));
+        playerStorage.setItem('customCategories', JSON.stringify(savedCategories));
         
-        console.log('✓ 保存新分類到 localStorage:', newCategory);
+        console.log('✓ 保存新分類到 playerStorage:', newCategory);
         
         // 2. 添加到分類列表（記憶體中）
         allCategories.push(newCategory);
@@ -5775,6 +5699,14 @@ function initSettingsPage() {
             ]
         },
         {
+            title: '📁 雲端資料夾（JSON 檔）',
+            items: [
+                { icon: '☁️', title: '上傳到 Google Drive', description: '所有資料轉成 JSON 傳到雲端資料夾', action: 'uploadJsonToGoogleDrive', accent: 'linear-gradient(135deg, #a8edea, #fed6e3)', iconGradient: 'linear-gradient(135deg, #667eea, #764ba2)' },
+                { icon: '📂', title: '開啟備份資料夾', description: (typeof playerCloudLastUploadText === 'function' && playerCloudLastUploadText()) || '查看已上傳的 JSON 備份檔', action: 'openCloudBackupFolder', accent: 'linear-gradient(135deg, #e0c3fc, #8ec5fc)', iconGradient: 'linear-gradient(135deg, #868f96, #596164)' },
+                { icon: '🧹', title: '儲存空間', description: '查看佔用、壓縮過大的照片（手機空間不足時使用）', action: 'storageManager', accent: 'linear-gradient(135deg, #fbc2eb, #a6c1ee)', iconGradient: 'linear-gradient(135deg, #f093fb, #f5576c)' }
+            ]
+        },
+        {
             title: '💾 本機備份',
             items: [
                 { icon: '💾', title: '備份', description: '匯出本機資料檔', action: 'backup', accent: 'linear-gradient(135deg, #fddb92, #d1fdff)', iconGradient: 'linear-gradient(135deg, #fddb92, #d1fdff)' },
@@ -5863,6 +5795,12 @@ function initSettingsPage() {
                 uploadRecordsByAccountToGoogleSheet();
             } else if (action === 'uploadIncomeExpenseCategorySummaryToGoogleSheet') {
                 uploadIncomeExpenseCategorySummaryToGoogleSheet();
+            } else if (action === 'uploadJsonToGoogleDrive') {
+                if (typeof uploadPlayerJsonToCloud === 'function') uploadPlayerJsonToCloud('google');
+            } else if (action === 'openCloudBackupFolder') {
+                if (typeof openPlayerCloudFolder === 'function') openPlayerCloudFolder();
+            } else if (action === 'storageManager') {
+                if (typeof showStorageManager === 'function') showStorageManager();
             } else if (action === 'creator') {
                 showCreatorInfo();
             } else if (action === 'theme') {
@@ -5888,11 +5826,11 @@ function showWishlistSavingsPage() {
 }
 
 function getInstallmentRules() {
-    return JSON.parse(localStorage.getItem('installmentRules') || '[]');
+    return JSON.parse(playerStorage.getItem('installmentRules') || '[]');
 }
 
 function setInstallmentRules(rules) {
-    localStorage.setItem('installmentRules', JSON.stringify(rules));
+    playerStorage.setItem('installmentRules', JSON.stringify(rules));
 }
 
 function normalizeMonthKey(monthKey) {
@@ -5904,7 +5842,7 @@ function normalizeMonthKey(monthKey) {
 }
 
 function getInstallmentPaidPeriods(ruleId) {
-    const allRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+    const allRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
     const set = new Set();
     allRecords.forEach(r => {
         if (r && r.installmentRuleId === ruleId && Number.isFinite(r.installmentPeriodNumber)) {
@@ -6259,7 +6197,7 @@ function checkAndGenerateInstallments() {
         const rules = getInstallmentRules();
         if (!rules.length) return;
 
-        let accountingRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        let accountingRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
 
         const existingIndex = new Set();
         accountingRecords.forEach(r => {
@@ -6331,7 +6269,7 @@ function checkAndGenerateInstallments() {
         });
 
         if (mutated) {
-            localStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
+            playerStorage.setItem('accountingRecords', JSON.stringify(accountingRecords));
             const ledgerPage = document.getElementById('pageLedger');
             if (ledgerPage && ledgerPage.style.display !== 'none' && typeof initLedger === 'function') {
                 initLedger();

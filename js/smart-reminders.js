@@ -53,10 +53,8 @@ class SmartReminderSystem {
     
     // 監聽記帳記錄
     observeAccountingRecords() {
-        // 監聽 localStorage 變錄變化
-        const originalSetItem = localStorage.setItem;
-        localStorage.setItem = function(key, value) {
-            originalSetItem.call(this, key, value);
+        // 監聽 playerStorage 變錄變化
+        playerStorage.subscribe(function(key) {
             
             if (key === 'accountingRecords') {
                 setTimeout(() => {
@@ -65,14 +63,12 @@ class SmartReminderSystem {
                     }
                 }, 100);
             }
-        };
+        });
     }
     
     // 監聽投資記錄
     observeInvestmentRecords() {
-        const originalSetItem = localStorage.setItem;
-        localStorage.setItem = function(key, value) {
-            originalSetItem.call(this, key, value);
+        playerStorage.subscribe(function(key) {
             
             if (key === 'investmentRecords') {
                 setTimeout(() => {
@@ -81,19 +77,19 @@ class SmartReminderSystem {
                     }
                 }, 100);
             }
-        };
+        });
     }
     
     // 處理記帳記錄變化
     handleAccountingRecordChange() {
-        const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
         this.analyzeConsumptionPattern(records);
         this.checkConsumptionAlerts(records);
     }
     
     // 處理投資記錄變化
     handleInvestmentRecordChange() {
-        const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+        const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
         this.analyzeInvestmentOpportunities(records);
         this.checkInvestmentAlerts(records);
     }
@@ -590,13 +586,13 @@ class SmartReminderSystem {
     
     // 執行每週消費檢查
     performWeeklyConsumptionCheck() {
-        const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
         this.analyzeConsumptionPattern(records);
     }
     
     // 執行每月投資檢查
     performMonthlyInvestmentCheck() {
-        const records = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+        const records = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
         this.analyzeInvestmentOpportunities(records);
     }
     
@@ -711,7 +707,7 @@ class SmartReminderSystem {
     getCashPosition() {
         try {
             // 從實際帳戶餘額計算現金位置
-            const accounts = JSON.parse(localStorage.getItem('accounts') || '[]');
+            const accounts = JSON.parse(playerStorage.getItem('accounts') || '[]');
             let totalCash = 0;
             
             accounts.forEach(account => {
@@ -731,14 +727,14 @@ class SmartReminderSystem {
     getDailyBudget() {
         try {
             // 從預算設定中獲取
-            const budgetSettings = JSON.parse(localStorage.getItem('budgetSettings') || '{}');
+            const budgetSettings = JSON.parse(playerStorage.getItem('budgetSettings') || '{}');
             
             if (budgetSettings.monthlyBudget) {
                 return budgetSettings.monthlyBudget / 30;
             }
             
             // 如果沒有設定預算，根據歷史消費計算建議預算
-            const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+            const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
             if (records.length > 0) {
                 const lastMonth = new Date();
                 lastMonth.setMonth(lastMonth.getMonth() - 1);
@@ -764,7 +760,7 @@ class SmartReminderSystem {
     getBills() {
         try {
             // 從實際帳單設定中獲取
-            const bills = JSON.parse(localStorage.getItem('bills') || '[]');
+            const bills = JSON.parse(playerStorage.getItem('bills') || '[]');
             
             if (bills.length > 0) {
                 return bills.filter(bill => !bill.paid); // 只返回未支付的帳單
@@ -840,7 +836,7 @@ class SmartReminderSystem {
     }
     
     getMonthlySpendingSummary() {
-        const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
         const monthMap = {};
         const now = new Date();
         const currentKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
@@ -908,8 +904,8 @@ class SmartReminderSystem {
             </div>
         `).join('');
         
-        // 產生完整每月摘要卡片 HTML（直接從 localStorage 讀取，確保資料正確）
-        const _rawRecords = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        // 產生完整每月摘要卡片 HTML（直接從 playerStorage 讀取，確保資料正確）
+        const _rawRecords = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
         const _monthMap = {};
         _rawRecords.forEach(r => {
             const d = new Date(r.date);
@@ -1230,7 +1226,7 @@ class SmartReminderSystem {
     // 載入設定
     loadSettings() {
         try {
-            const saved = localStorage.getItem('smartReminderSettings');
+            const saved = playerStorage.getItem('smartReminderSettings');
             if (saved) {
                 this.settings = { ...this.settings, ...JSON.parse(saved) };
             }
@@ -1242,7 +1238,7 @@ class SmartReminderSystem {
     // 保存設定
     saveSettings() {
         try {
-            localStorage.setItem('smartReminderSettings', JSON.stringify(this.settings));
+            playerStorage.setItem('smartReminderSettings', JSON.stringify(this.settings));
         } catch (error) {
             console.error('保存提醒設定失敗:', error);
         }
@@ -1251,7 +1247,7 @@ class SmartReminderSystem {
     // 載入提醒
     loadReminders() {
         try {
-            const saved = localStorage.getItem('smartReminders');
+            const saved = playerStorage.getItem('smartReminders');
             if (saved) {
                 this.reminders = JSON.parse(saved);
             }
@@ -1264,7 +1260,7 @@ class SmartReminderSystem {
     // 保存提醒
     saveReminders() {
         try {
-            localStorage.setItem('smartReminders', JSON.stringify(this.reminders));
+            playerStorage.setItem('smartReminders', JSON.stringify(this.reminders));
         } catch (error) {
             console.error('保存提醒失敗:', error);
         }
@@ -1295,11 +1291,11 @@ class SmartReminderSystem {
         this.checkBillReminders();
         
         // 檢查今日消費
-        const records = JSON.parse(localStorage.getItem('accountingRecords') || '[]');
+        const records = JSON.parse(playerStorage.getItem('accountingRecords') || '[]');
         this.checkConsumptionAlerts(records);
         
         // 檢查投資機會
-        const investmentRecords = JSON.parse(localStorage.getItem('investmentRecords') || '[]');
+        const investmentRecords = JSON.parse(playerStorage.getItem('investmentRecords') || '[]');
         this.checkInvestmentAlerts(investmentRecords);
         
         // 檢查長期未記帳
@@ -1332,7 +1328,7 @@ class SmartReminderSystem {
 const smartReminderSystem = new SmartReminderSystem();
 
 // 當頁面載入完成時初始化
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('playerappready', function() {
     smartReminderSystem.init();
     
     // 延遲執行主動檢查，確保其他系統已載入

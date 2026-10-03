@@ -43,7 +43,7 @@ class PerformanceOptimizer {
 
     observePerformanceMetrics() {
         if ('performance' in window) {
-            window.addEventListener('load', () => {
+            document.addEventListener('playerappready', () => {
                 const navigation = performance.getEntriesByType('navigation')[0];
                 this.performanceMetrics.pageLoadTime = navigation.loadEventEnd - navigation.loadEventStart;
                 this.performanceMetrics.domContentLoaded = navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart;
@@ -70,13 +70,12 @@ class PerformanceOptimizer {
         try {
             const keys = ['accountingRecords', 'investmentRecords', 'categories', 'settings'];
             keys.forEach(key => {
-                const data = localStorage.getItem(key);
+                const data = playerStorage.getItem(key);
                 if (data) {
                     try {
                         JSON.parse(data);
                     } catch (e) {
-                        console.warn(`⚠️ 數據 ${key} 損壞，正在清理...`);
-                        localStorage.removeItem(key);
+                        console.warn(`⚠️ 數據 ${key} 無法解析，保留原始資料供備份與修復。`);
                     }
                 }
             });
@@ -87,16 +86,16 @@ class PerformanceOptimizer {
 
     cleanupCache() {
         try {
-            const cacheKeys = Object.keys(localStorage);
+            const cacheKeys = Object.keys(playerStorage);
             const now = Date.now();
             
             cacheKeys.forEach(key => {
                 if (key.startsWith('cache_')) {
-                    const item = localStorage.getItem(key);
+                    const item = playerStorage.getItem(key);
                     if (item) {
                         const data = JSON.parse(item);
                         if (data.expiry && data.expiry < now) {
-                            localStorage.removeItem(key);
+                            playerStorage.removeItem(key);
                         }
                     }
                 }
@@ -129,11 +128,11 @@ class PerformanceOptimizer {
 
     performStorageCleanup() {
         try {
-            const logs = JSON.parse(localStorage.getItem('logs') || '[]');
+            const logs = JSON.parse(playerStorage.getItem('logs') || '[]');
             const filteredLogs = logs.filter(log => 
                 Date.now() - new Date(log.timestamp).getTime() < 7 * 24 * 60 * 60 * 1000
             );
-            localStorage.setItem('logs', JSON.stringify(filteredLogs));
+            playerStorage.setItem('logs', JSON.stringify(filteredLogs));
             this.cleanupCache();
             console.log('🧹 存儲清理完成');
         } catch (error) {
@@ -163,7 +162,7 @@ class PerformanceOptimizer {
 
 const performanceOptimizer = new PerformanceOptimizer();
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('playerappready', function() {
     performanceOptimizer.init();
 });
 
