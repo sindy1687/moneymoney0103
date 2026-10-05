@@ -4,7 +4,7 @@
 
 上傳的 JSON 內含 `localStorageSnapshot`（完整 localStorage 快照，含動態月份、規劃、圖片、帳戶與偏好），格式與「本機備份」相同，可在另一台設備用「設定 → 還原」直接匯入。屬於單一裝置的連線設定（上傳金鑰、Sheet 網址等）不會寫進 JSON。檔名為「帳本名稱_上傳日期時間.json」，例如 `Sindy的帳本_2026-10-03_14-30-05.json`。
 
-`cloud-upload-config.js` 的 `autoUpload` 設為 `'google'` 時，資料有變更會自動備份（最小間隔 `autoUploadMinutes` 分鐘），設 `''` 可關閉。
+只有玩家在設定頁按上傳時才會上傳，沒有自動上傳。
 
 同一個服務也提供股價代查：網站以 `GET ?twse=tse_0050.tw|otc_0050.tw` 透過服務查詢證交所／櫃買報價（瀏覽器無法直接跨網域呼叫證交所，公開 CORS 代理常失效）。只接受股票代碼格式，不是通用代理。
 
@@ -19,8 +19,8 @@
 
 ## 檔案
 
-- `cloud-upload-config.js`：管理者連線設定（serviceUrl、autoUpload、folders）。
-- `js/player-cloud-upload.js`：玩家端收集、上傳、自動備份與通知。
+- `cloud-upload-config.js`：管理者連線設定（serviceUrl、folders）。
+- `js/player-cloud-upload.js`：玩家端收集、上傳與通知。
 - `cloud-upload-service.gs`：Google Drive 寫入服務與證交所股價代查。
 
 ## 官方參考

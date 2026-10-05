@@ -32,27 +32,35 @@ test('writes are coalesced, removed keys stay removed and backup enumeration see
     await store.flush(); assert.equal(store.getItem('x'), '2'); assert.equal(store.length, 1); assert.equal(store.x,'2');
     assert.equal(changed.length,4); await store.close();
 });
-test('stale tabs cannot overwrite another tab and keep uncommitted data for emergency export', async () => {
+test('a stale tab keeps the other tab\'s changes and saves its own on top instead of failing', async () => {
     const indexedDB = new IDBFactory();
-    const first = await createPlayerStorage({ indexedDB, legacy: legacy() });
+    const first = await createPlayerStorage({ indexedDB, legacy: legacy({ old: 'x' }) });
     const second = await createPlayerStorage({ indexedDB, legacy: legacy() });
-    first.setItem('accounts','new'); await first.flush();
-    second.setItem('accounts','stale'); await assert.rejects(second.flush(), /另一個分頁/);
-    assert.equal(second.getItem('accounts'), 'stale'); assert.equal(second.hasPending(), true);
-    const check = await createPlayerStorage({ indexedDB, legacy: legacy() }); assert.equal(check.getItem('accounts'),'new'); await check.close(); await first.close();
+    let errors = 0; const third = await createPlayerStorage({ indexedDB, legacy: legacy(), onState: s => { if (s.state === 'error') errors++; } });
+    first.setItem('accounts','from-first'); first.removeItem('old'); await first.flush();
+    second.setItem('theme','from-second'); await second.flush();
+    third.setItem('accounts','from-third'); await third.flush();
+    assert.equal(errors, 0); assert.equal(third.hasPending(), false);
+    // 本頁畫面也看得到其他分頁的修改
+    assert.equal(third.getItem('theme'), 'from-second'); assert.equal(third.getItem('old'), null);
+    const check = await createPlayerStorage({ indexedDB, legacy: legacy() });
+    assert.equal(check.getItem('theme'), 'from-second'); assert.equal(check.getItem('accounts'), 'from-third'); assert.equal(check.getItem('old'), null);
+    // 再存一次也不會衝突
+    second.setItem('theme','again'); await second.flush(); assert.equal(second.getItem('accounts'), 'from-third');
+    await check.close(); await first.close(); await second.close(); await third.close();
 });
 test('restore validates before mutation and commits multiple keys together', async () => {
     const store = await createPlayerStorage({ indexedDB: new IDBFactory(), legacy: legacy({ theme: 'old' }) });
     await assert.rejects(store.restore({ theme: {} }), /格式錯誤/); assert.equal(store.getItem('theme'),'old');
     await store.restore({ theme: 'new', planner_202610: '{"items":[]}' }); assert.equal(store.getItem('theme'),'new'); await store.close();
 });
-test('failed restore transaction leaves previous persisted state intact', async () => {
+test('restore in a stale tab still applies the backup on top of newer saves', async () => {
     const indexedDB = new IDBFactory(), a = await createPlayerStorage({ indexedDB, legacy: legacy({ theme: 'old' }) });
     const b = await createPlayerStorage({ indexedDB, legacy: legacy() });
-    b.setItem('theme','newer'); await b.flush();
-    await assert.rejects(a.restore({ theme:'wrong', accounts:'wrong' }), /另一個分頁/);
-    assert.equal(a.getItem('theme'),'old'); assert.equal(a.getItem('accounts'),null);
-    const check = await createPlayerStorage({ indexedDB, legacy: legacy() }); assert.equal(check.getItem('theme'),'newer'); assert.equal(check.getItem('accounts'),null);
+    b.setItem('theme','newer'); b.setItem('planner','kept'); await b.flush();
+    await a.restore({ theme:'restored', accounts:'restored' });
+    const check = await createPlayerStorage({ indexedDB, legacy: legacy() });
+    assert.equal(check.getItem('theme'),'restored'); assert.equal(check.getItem('accounts'),'restored'); assert.equal(check.getItem('planner'),'kept');
     await check.close(); await a.close(); await b.close();
 });
 test('after migration old diagnostic-page values cannot replace real player data', async () => {

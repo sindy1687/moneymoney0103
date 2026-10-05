@@ -3,10 +3,16 @@ const PLAYER_GOOGLE_FOLDER = '1i9RoqIzX7C6UyfeHz3sEF-9f-EJwsMv0';
 
 // GET：?twse=... 代查股價；其他情況只做連線檢查。
 // 沒有 doGet 時 Apps Script 回傳無 CORS 標頭的 HTML 錯誤頁，瀏覽器會顯示 CORS 錯誤。
+// 任何錯誤（證交所逾時、回傳非 JSON 的維護頁…）都要回 JSON；未捕捉的錯誤會讓 Apps Script
+// 回傳無 CORS 標頭的錯誤頁，瀏覽器只會看到 CORS 錯誤。
 function doGet(event) {
-    const exCh = event && event.parameter && event.parameter.twse;
-    if (exCh) return playerResponse(playerTwseQuote(exCh));
-    return playerResponse({ success: true, service: 'player-cloud-upload' });
+    try {
+        const exCh = event && event.parameter && event.parameter.twse;
+        if (exCh) return playerResponse(playerTwseQuote(exCh));
+        return playerResponse({ success: true, service: 'player-cloud-upload' });
+    } catch (error) {
+        return playerResponse({ success: false, message: '報價查詢失敗：' + (error && error.message || error) });
+    }
 }
 
 // 只代查臺灣證交所/櫃買 MIS 報價（瀏覽器無法直接跨網域呼叫，公開 CORS 代理常失效），不是通用代理。

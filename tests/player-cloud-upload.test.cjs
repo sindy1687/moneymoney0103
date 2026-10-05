@@ -40,38 +40,9 @@ test('uploads go to Google Drive only; removed OneDrive provider sends nothing',
     assert.deepEqual(seen, ['google']);
     assert.match(c.elements.get('playerCloudStatus').textContent, /已上傳到 Google Drive/);
 });
-test('auto upload runs at most once per day, and only when data changed', async () => {
-    let calls = 0;
-    const c = client(async (url, options) => { calls++; const body = JSON.parse(options.body);
-        return { ok: true, json: async () => ({ success: true, provider: body.provider, fileName: body.fileName, fileId: 'f', size: Buffer.byteLength(body.content), sha256: body.sha256 }) }; });
-    c.context.window.PLAYER_CLOUD_UPLOAD.autoUpload = 'google';
-    await c.autoTick(); assert.equal(calls, 1);
-    assert.match(c.elements.get('playerCloudStatus').textContent, /已自動上傳到 Google Drive/);
-    // 同一天資料再變更也不再上傳
-    c.context.localStorage.setItem('accountingRecords', '[{"amount":99}]');
-    await c.autoTick(); assert.equal(calls, 1);
-});
-test('auto upload resumes the next day when data changed, but not when unchanged', async () => {
-    let calls = 0;
-    const c = client(async (url, options) => { calls++; const body = JSON.parse(options.body);
-        return { ok: true, json: async () => ({ success: true, provider: body.provider, fileName: body.fileName, fileId: 'f', size: Buffer.byteLength(body.content), sha256: body.sha256 }) }; });
-    c.context.window.PLAYER_CLOUD_UPLOAD.autoUpload = 'google';
-    const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-    c.context.localStorage.setItem('playerCloudLastUpload', JSON.stringify({ provider: 'google', fileName: 'x.json', at: yesterday }));
-    await c.autoTick(); assert.equal(calls, 1, 'new day with changed data uploads');
-    // 隔天但資料沒變更：不上傳
-    c.context.localStorage.setItem('playerCloudLastUpload', JSON.stringify({ provider: 'google', fileName: 'x.json', at: yesterday }));
-    const fresh = client(async () => { calls++; });
-    fresh.context.window.PLAYER_CLOUD_UPLOAD.autoUpload = 'google';
-    fresh.context.localStorage.setItem('playerCloudLastUpload', JSON.stringify({ provider: 'google', fileName: 'x.json', at: yesterday }));
-    fresh.context.localStorage.setItem('playerCloudLastUploadHash', c.context.localStorage.getItem('playerCloudLastUploadHash'));
-    await fresh.autoTick(); assert.equal(calls, 1, 'unchanged data is not re-uploaded');
-});
-test('auto upload stays silent without service', async () => {
-    let calls = 0; const c = client(() => calls++, '');
-    c.context.window.PLAYER_CLOUD_UPLOAD.autoUpload = 'google';
-    c.context.localStorage.removeItem('playerCloudUploadKey');
-    await c.autoTick(); assert.equal(calls, 0);
+test('nothing uploads automatically when the app starts', () => {
+    let calls = 0; const c = client(async () => { calls++; });
+    assert.equal(c.autoTick, undefined); assert.equal(calls, 0);
 });
 test('missing service does not claim success or send data', async () => {
     let calls = 0; const c = client(() => calls++, ''); await c.upload('google');
@@ -81,16 +52,14 @@ test('wrong size, provider, or failed service is never reported as success', asy
     const c = client(async () => ({ ok: true, json: async () => ({ success: true, provider: 'wrong', size: 0 }) }));
     await c.upload('google'); assert.match(c.elements.get('playerCloudStatus').textContent, /上傳未完成/);
 });
-test('full local quota cannot turn verified cloud upload into failure or cause duplicate automatic uploads', async () => {
+test('full local quota cannot turn verified cloud upload into failure', async () => {
     let calls = 0;
     const c = client(async (url, options) => {
         calls++; const body = JSON.parse(options.body);
         return { ok: true, json: async () => ({ success: true, provider: body.provider, fileName: body.fileName, fileId: 'f', size: Buffer.byteLength(body.content), sha256: body.sha256 }) };
     });
     c.context.localStorage.setItem = () => { throw Object.assign(new Error('full'), { name: 'QuotaExceededError' }); };
-    c.context.window.PLAYER_CLOUD_UPLOAD.autoUpload = 'google';
-    assert.equal(await c.upload('google'), true);
-    await c.autoTick(); assert.equal(calls, 1);
+    assert.equal(await c.upload('google'), true); assert.equal(calls, 1);
     assert.match(c.elements.get('playerCloudStatus').textContent, /已上傳到 Google Drive/);
 });
 test('unreadable service response explains deployment failure', async () => {
@@ -109,6 +78,17 @@ test('restore full snapshot preserves dynamic keys and rolls back a failed write
     localStorage.setItem = (key, value) => { if (value === 'too-large') throw new Error('quota'); set(key,value); };
     await assert.rejects(ctx.applyBackupDataPayload({ localStorageSnapshot: { theme: 'bad', image: 'too-large' } }), /quota/);
     assert.equal(localStorage.getItem('theme'), 'new'); assert.equal(localStorage.getItem('image'), null); assert.equal(reloads,1);
+});
+test('quote lookup failures still return JSON so the browser never sees a CORS error page', () => {
+    const server = fs.readFileSync(path.join(__dirname, '../cloud-upload-service.gs'), 'utf8');
+    const context = { CacheService: { getScriptCache: () => ({ get: () => null, put() {} }) },
+        UrlFetchApp: { fetch: () => ({ getResponseCode: () => 200, getContentText: () => '<html>系統維護中</html>' }) },
+        ContentService: { MimeType: { JSON:'json' }, createTextOutput: text => ({ setMimeType: () => JSON.parse(text) }) } };
+    vm.createContext(context); vm.runInContext(server, context);
+    const result = context.doGet({ parameter: { twse: 'tse_2330.tw|otc_2330.tw' } });
+    assert.equal(result.success, false); assert.match(result.message, /報價查詢失敗/);
+    context.UrlFetchApp.fetch = () => { throw new Error('Timeout'); };
+    assert.equal(context.doGet({ parameter: { twse: 'tse_0050.tw' } }).success, false);
 });
 test('server rejects unauthorized requests before cloud writes', () => {
     const server = fs.readFileSync(path.join(__dirname, '../cloud-upload-service.gs'), 'utf8');

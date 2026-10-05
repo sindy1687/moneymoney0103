@@ -14,9 +14,14 @@
     <link rel="stylesheet" href="css/theme-system.css">
     <link rel="stylesheet" href="searchHistory.css">
     <link rel="stylesheet" href="css/smart-accounting.css">
-    <link rel="stylesheet" href="css/smart-reminders.css">
+
     <!-- 文字可讀性修正：必須最後載入 -->
     <link rel="stylesheet" href="css/readability-fixes.css">
+    <!-- 字體大小連動：全站文字跟著「設定 → 字體大小」縮放 -->
+    <script src="js/font-scale.js?v=20261004"></script>
+    <!-- 所有按鈕跟著主題背景圖的顏色（色票由 tools/build-theme-button-palette.ps1 產生） -->
+    <script src="js/theme-button-palette.js?v=20261004f"></script>
+    <script src="js/theme-button-colors.js?v=20261004f"></script>
 
     <!-- defer：不阻擋首次畫面；app-bootstrap.js 會等它載入後才啟動程式 -->
     <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -400,7 +405,7 @@
         <div class="ledger-header">
             <button class="search-btn" id="searchBtn">🔍</button>
             <h2 class="ledger-title">默認帳本</h2>
-            <button class="ai-housekeeper-btn smart-reminders-btn" id="aiHousekeeperBtn" title="AI管家">🤖 AI管家</button>
+
         </div>
 
         <!-- 搜索框 -->
@@ -2056,31 +2061,30 @@
     <script type="application/x-player-script" data-src="js/storage.js"></script>
     <script type="application/x-player-script" data-src="js/storage-manager.js"></script>
     <script type="application/x-player-script" data-src="js/advisor-chat.js"></script>
-    <script type="application/x-player-script" data-src="js/theme.js"></script>
+    <script type="application/x-player-script" data-src="js/theme.js?v=20261004f"></script>
     <script type="application/x-player-script" data-src="js/autoTransfer.js"></script>
     <!-- 智慧記帳功能 -->
     <script type="application/x-player-script" data-src="js/smart-accounting.js"></script>
     <!-- 智慧記帳整合功能 -->
-    <script type="application/x-player-script" data-src="js/smart-accounting-integration.js"></script>
-    <!-- 智慧提醒系統 -->
-    <script type="application/x-player-script" data-src="js/smart-reminders.js"></script>
+    <script type="application/x-player-script" data-src="js/smart-accounting-integration.js?v=20261004"></script>
+
     <!-- 性能優化器 -->
     <script type="application/x-player-script" data-src="js/performance-optimizer-simple.js"></script>
     <!-- 蝴蝶忍、可愛粉彩主題的文字顏色修正（取代原本 7 個 *_fix.js） -->
     <script type="application/x-player-script" data-src="js/theme-text-fixes.js"></script>
 
-    <script type="application/x-player-script" data-src="cloud-upload-config.js"></script>
-    <script type="application/x-player-script" data-src="js/player-cloud-upload.js"></script>
+    <script type="application/x-player-script" data-src="cloud-upload-config.js?v=20261004"></script>
+    <script type="application/x-player-script" data-src="js/player-cloud-upload.js?v=20261004"></script>
     <!-- 主腳本（保留其他功能） -->
-    <script type="application/x-player-script" data-src="js/app/01-core-input-investment.js?v=20251227_1"></script>
+    <script type="application/x-player-script" data-src="js/app/01-core-input-investment.js?v=20261004f"></script>
     <script type="application/x-player-script" data-src="js/app/sell-calculation-enhancement.js"></script>
     <script type="application/x-player-script" data-src="js/disable-mori-features.js"></script>
     <script type="application/x-player-script" data-src="js/app/monthly-summary.js"></script>
     <script type="application/x-player-script" data-src="js/app/monthly-summary-nav.js"></script>
-    <script type="application/x-player-script" data-src="js/app/02-ledger-budget-settings.js?v=20251227_1"></script>
-    <script type="application/x-player-script" data-src="js/app/03-reports-data-entry.js?v=20251227_1"></script>
+    <script type="application/x-player-script" data-src="js/app/02-ledger-budget-settings.js?v=20261004e"></script>
+    <script type="application/x-player-script" data-src="js/app/03-reports-data-entry.js?v=20261004e"></script>
     <script type="application/x-player-script" data-src="js/app/04-diary-investment-ui.js?v=20251227_1"></script>
-    <script type="application/x-player-script" data-src="js/app/05-dca-accounts-upload.js?v=20251227_1"></script>
+    <script type="application/x-player-script" data-src="js/app/05-dca-accounts-upload.js?v=20261004e"></script>
     <script type="application/x-player-script" data-src="searchHistoryInit.js" data-script-type="module"></script>
     
     <!-- 自動修復投資卡片背景圖片 -->
@@ -2166,8 +2170,8 @@
             }, 1000);
         });
     </script>
-<script src="js/theme-css-loader.js"></script>
-<script src="js/player-storage.js"></script>
-<script src="js/app-bootstrap.js"></script>
+<script src="js/theme-css-loader.js?v=20261004f"></script>
+<script src="js/player-storage.js?v=20261004d"></script>
+<script src="js/app-bootstrap.js?v=20261004d"></script>
 </body>
 </html>
