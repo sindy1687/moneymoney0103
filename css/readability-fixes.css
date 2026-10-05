@@ -1459,6 +1459,169 @@
     color: var(--text-secondary) !important; -webkit-text-fill-color: var(--text-secondary); text-shadow: none !important;
 }
 
+:root[data-theme="pink"] div.ledger-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.ledger-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="pink"] div#summaryMonth.summary-month:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #8a4767 !important; -webkit-text-fill-color: #8a4767 !important;
+}
+
+:root[data-theme="pink"] div.investment-page-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.page-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #d13486 !important; -webkit-text-fill-color: #d13486 !important;
+}
+
+:root[data-theme="blue"] div.ledger-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.ledger-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #325c8b !important; -webkit-text-fill-color: #325c8b !important;
+}
+
+:root[data-theme="blue"] div#summaryMonth.summary-month:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #345f90 !important; -webkit-text-fill-color: #345f90 !important;
+}
+
+:root[data-theme="blue"] div.investment-page-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.page-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #3473bd !important; -webkit-text-fill-color: #3473bd !important;
+}
+
+:root[data-theme="green"] div.ledger-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.ledger-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #326534 !important; -webkit-text-fill-color: #326534 !important;
+}
+
+:root[data-theme="green"] div#summaryMonth.summary-month:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #346936 !important; -webkit-text-fill-color: #346936 !important;
+}
+
+:root[data-theme="green"] div.investment-page-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.page-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #37863b !important; -webkit-text-fill-color: #37863b !important;
+}
+
+:root[data-theme="purple"] div.ledger-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.ledger-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #792987 !important; -webkit-text-fill-color: #792987 !important;
+}
+
+:root[data-theme="purple"] div#summaryMonth.summary-month:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #7d2a8a !important; -webkit-text-fill-color: #7d2a8a !important;
+}
+
+:root[data-theme="orange"] div.ledger-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.ledger-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #85530a !important; -webkit-text-fill-color: #85530a !important;
+}
+
+:root[data-theme="orange"] div#summaryMonth.summary-month:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #8a560a !important; -webkit-text-fill-color: #8a560a !important;
+}
+
+:root[data-theme="orange"] div.investment-page-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.page-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #b46300 !important; -webkit-text-fill-color: #b46300 !important;
+}
+
+:root[data-theme="cyan"] div.ledger-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.ledger-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="cyan"] div#summaryMonth.summary-month:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #0a6874 !important; -webkit-text-fill-color: #0a6874 !important;
+}
+
+:root[data-theme="cyan"] div.investment-page-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.page-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #008190 !important; -webkit-text-fill-color: #008190 !important;
+}
+
+:root[data-theme="red"] div.ledger-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.ledger-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #8e3432 !important; -webkit-text-fill-color: #8e3432 !important;
+}
+
+:root[data-theme="red"] div#summaryMonth.summary-month:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #933534 !important; -webkit-text-fill-color: #933534 !important;
+}
+
+:root[data-theme="yellow"] div.ledger-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.ledger-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #746218 !important; -webkit-text-fill-color: #746218 !important;
+}
+
+:root[data-theme="yellow"] div#summaryMonth.summary-month:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #796719 !important; -webkit-text-fill-color: #796719 !important;
+}
+
+:root[data-theme="yellow"] div.investment-page-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.page-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #a5771b !important; -webkit-text-fill-color: #a5771b !important;
+}
+
+:root[data-theme="indigo"] div.ledger-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.ledger-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #3c4262 !important; -webkit-text-fill-color: #3c4262 !important;
+}
+
+:root[data-theme="indigo"] div#summaryMonth.summary-month:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #3f4566 !important; -webkit-text-fill-color: #3f4566 !important;
+}
+
+:root[data-theme="teal"] div.ledger-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.ledger-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="teal"] div#summaryMonth.summary-month:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #2d645e !important; -webkit-text-fill-color: #2d645e !important;
+}
+
+:root[data-theme="teal"] div.investment-page-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.page-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #108075 !important; -webkit-text-fill-color: #108075 !important;
+}
+
+:root[data-theme="dreamyGalaxy"] div.investment-page-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.page-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #7f707e !important; -webkit-text-fill-color: #7f707e !important; text-shadow: none !important;
+}
+
+:root[data-theme="dreamyGalaxy"] div.section-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h3.section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamyGalaxy"] div#chartExpensePage.chart-page.chart-page--active:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h3.chart-section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #6b626b !important; -webkit-text-fill-color: #6b626b !important; text-shadow: none !important;
+}
+
+:root[data-theme="dreamyGalaxy"] div.chart-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.chart-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="dreamyGalaxy"] div.settings-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.settings-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #7b717c !important; -webkit-text-fill-color: #7b717c !important; text-shadow: none !important;
+}
+
+:root[data-theme="dreamyGalaxy"] div.chart-section:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h3.chart-section-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #776d77 !important; -webkit-text-fill-color: #776d77 !important; text-shadow: none !important;
+}
+
+:root[data-theme="star"] div.ledger-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.ledger-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #a99cf9 !important; -webkit-text-fill-color: #a99cf9 !important;
+}
+
+:root[data-theme="star"] div#summaryMonth.summary-month:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #a497f8 !important; -webkit-text-fill-color: #a497f8 !important;
+}
+
+:root[data-theme="star"] div.investment-page-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.page-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #887cea !important; -webkit-text-fill-color: #887cea !important;
+}
+
+:root[data-theme="aurora"] div.ledger-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.ledger-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #122738 !important; -webkit-text-fill-color: #122738 !important;
+}
+
+:root[data-theme="aurora"] div#summaryMonth.summary-month:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #0d1c28 !important; -webkit-text-fill-color: #0d1c28 !important;
+}
+
+:root[data-theme="aurora"] div.investment-page-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.page-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #004156 !important; -webkit-text-fill-color: #004156 !important;
+}
+
+:root[data-theme="neon"] div.ledger-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.ledger-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="neon"] div#summaryMonth.summary-month:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #d0bcfa !important; -webkit-text-fill-color: #d0bcfa !important;
+}
+
+:root[data-theme="neon"] div.investment-page-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.page-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #b697e9 !important; -webkit-text-fill-color: #b697e9 !important;
+}
+
+:root[data-theme="midnight"] div.ledger-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.ledger-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative),
+:root[data-theme="midnight"] div#summaryMonth.summary-month:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #989ff8 !important; -webkit-text-fill-color: #989ff8 !important;
+}
+
+:root[data-theme="midnight"] div.investment-page-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.page-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #7e7bef !important; -webkit-text-fill-color: #7e7bef !important;
+}
+
+:root[data-theme="shinchan"] div.investment-page-header:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) > h2.page-title:not(.active):not(.over-budget):not(.over):not(.positive):not(.negative) {
+    color: #947602 !important; -webkit-text-fill-color: #947602 !important; text-shadow: none !important;
+}
+
 /* ==== 人工指定 ==== */
 :root[data-theme="serpentEyes"] #aiHousekeeperBtn,
 :root[data-theme="serpentEyes"] #investmentBuyBtn,
@@ -1483,4 +1646,11 @@
 :root[data-theme="cuteCats"] #investmentDCABtn {
     color: #fff !important;
     -webkit-text-fill-color: #fff;
+}
+
+/* 蝴蝶忍：頁首是圖片底，紫色漸層字看不清楚，改白字加陰影 */
+:root[data-theme="shinobu"] .ledger-title,
+:root[data-theme="shinobu"] #summaryMonth {
+    -webkit-text-fill-color: #fff !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7) !important;
 }
