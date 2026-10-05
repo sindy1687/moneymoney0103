@@ -165,9 +165,6 @@ class SmartReminderSystem {
     
     // 檢查投資警報
     checkInvestmentAlerts(records) {
-        // 檢查投資組合再平衡
-        this.checkRebalancingNeeds(records);
-        
         // 檢查投資機會
         this.analyzeInvestmentOpportunities(records);
     }
@@ -265,22 +262,8 @@ class SmartReminderSystem {
     
     // 顯示通知
     showNotification(reminder) {
-        // 檢查瀏覽器支援
-        if (!('Notification' in window)) {
-            console.log('瀏覽器不支援通知功能');
-            return;
-        }
-        
-        // 請求通知權限
-        if (Notification.permission === 'default') {
-            Notification.requestPermission().then(permission => {
-                if (permission === 'granted') {
-                    this.displayNotification(reminder);
-                }
-            });
-        } else if (Notification.permission === 'granted') {
-            this.displayNotification(reminder);
-        }
+        // 已停用所有智慧提醒彈窗
+        return;
     }
     
     // 顯示瀏覽器通知
@@ -526,6 +509,18 @@ class SmartReminderSystem {
         }
     }
     
+    // 瀏覽器的 setTimeout 最多約 24.8 天，超過會溢位變成「立刻執行」，
+    // 造成無限迴圈不停新增提醒、不停儲存。超過上限時分段等待。
+    scheduleAt(time, callback) {
+        const MAX_DELAY = 24 * 24 * 60 * 60 * 1000;
+        const wait = Math.max(0, time - Date.now());
+        if (wait > MAX_DELAY) {
+            setTimeout(() => this.scheduleAt(time, callback), MAX_DELAY);
+        } else {
+            setTimeout(callback, wait);
+        }
+    }
+
     // 排程提醒
     scheduleReminders() {
         // 每天檢查帳單提醒
@@ -545,12 +540,10 @@ class SmartReminderSystem {
         tomorrow.setDate(tomorrow.getDate() + 1);
         tomorrow.setHours(9, 0, 0, 0);
         
-        const timeUntilTomorrow = tomorrow - now;
-        
-        setTimeout(() => {
+        this.scheduleAt(tomorrow.getTime(), () => {
             this.checkBillReminders();
             this.scheduleDailyBillCheck(); // 遞迴排程
-        }, timeUntilTomorrow);
+        });
     }
     
     // 每週消費檢查
@@ -560,12 +553,10 @@ class SmartReminderSystem {
         nextWeek.setDate(nextWeek.getDate() + 7);
         nextWeek.setHours(10, 0, 0, 0);
         
-        const timeUntilNextWeek = nextWeek - now;
-        
-        setTimeout(() => {
+        this.scheduleAt(nextWeek.getTime(), () => {
             this.performWeeklyConsumptionCheck();
             this.scheduleWeeklyConsumptionCheck(); // 遞迴排程
-        }, timeUntilNextWeek);
+        });
     }
     
     // 每月投資檢查
@@ -576,12 +567,10 @@ class SmartReminderSystem {
         nextMonth.setDate(1);
         nextMonth.setHours(10, 0, 0, 0);
         
-        const timeUntilNextMonth = nextMonth - now;
-        
-        setTimeout(() => {
+        this.scheduleAt(nextMonth.getTime(), () => {
             this.performMonthlyInvestmentCheck();
             this.scheduleMonthlyInvestmentCheck(); // 遞迴排程
-        }, timeUntilNextMonth);
+        });
     }
     
     // 執行每週消費檢查

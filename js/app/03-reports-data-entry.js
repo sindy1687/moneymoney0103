@@ -1,4 +1,4 @@
-﻿// ========== 年度報告功能 ==========
+// ========== 年度報告功能 ==========
 
 // 顯示年度報告
 function showAnnualReport() {
@@ -658,27 +658,20 @@ function showCreatorInfo() {
 }
 
 // 應用字體大小
+// 以 16px 為標準，全站文字依比例縮放（js/font-scale.js）
+function setFontScaleFor(fontSize) {
+    if (typeof setFontScale === 'function') setFontScale(fontSize / 16);
+}
+
 function applyFontSize(fontSize) {
-    const root = document.documentElement;
-    // 設置基礎字體大小變數
-    root.style.setProperty('--base-font-size', `${fontSize}px`);
-    root.style.setProperty('--font-base', `${fontSize}px`);
-    // 根據基礎字體大小計算其他字體大小
-    root.style.setProperty('--font-xs', `${Math.round(fontSize * 0.6875)}px`); // 11/16
-    root.style.setProperty('--font-sm', `${Math.round(fontSize * 0.75)}px`); // 12/16
-    root.style.setProperty('--font-md', `${Math.round(fontSize * 0.875)}px`); // 14/16
-    root.style.setProperty('--font-lg', `${Math.round(fontSize * 1.125)}px`); // 18/16
-    root.style.setProperty('--font-xl', `${Math.round(fontSize * 1.25)}px`); // 20/16
-    root.style.setProperty('--font-xxl', `${Math.round(fontSize * 1.5)}px`); // 24/16
-    root.style.setProperty('--font-xxxl', `${Math.round(fontSize * 2)}px`); // 32/16
-    document.body.style.fontSize = `${fontSize}px`;
+    setFontScaleFor(fontSize);
     playerStorage.setItem('fontSize', fontSize.toString());
 }
 
 // 獲取當前字體大小
 function getCurrentFontSize() {
-    const saved = playerStorage.getItem('fontSize');
-    return saved ? parseInt(saved) : 16; // 預設 16px
+    const saved = parseInt(playerStorage.getItem('fontSize'));
+    return saved >= 12 && saved <= 24 ? saved : 16; // 預設 16px（舊版存的 'medium' 等也視為預設）
 }
 
 // 初始化字體大小
@@ -773,19 +766,7 @@ function showFontSizeSelector() {
     // 保存原始字體大小（用於取消時恢復）
     const originalSize = getCurrentFontSize();
     // 臨時應用字體大小（僅用於預覽，不保存）
-    const applyFontSizePreview = (size) => {
-        const root = document.documentElement;
-        root.style.setProperty('--base-font-size', `${size}px`);
-        root.style.setProperty('--font-base', `${size}px`);
-        root.style.setProperty('--font-xs', `${Math.round(size * 0.6875)}px`);
-        root.style.setProperty('--font-sm', `${Math.round(size * 0.75)}px`);
-        root.style.setProperty('--font-md', `${Math.round(size * 0.875)}px`);
-        root.style.setProperty('--font-lg', `${Math.round(size * 1.125)}px`);
-        root.style.setProperty('--font-xl', `${Math.round(size * 1.25)}px`);
-        root.style.setProperty('--font-xxl', `${Math.round(size * 1.5)}px`);
-        root.style.setProperty('--font-xxxl', `${Math.round(size * 2)}px`);
-        document.body.style.fontSize = `${size}px`;
-    };
+    const applyFontSizePreview = setFontScaleFor;
     // 更新預覽
     const updatePreview = (size) => {
         valueDisplay.textContent = `${size}px`;
@@ -879,7 +860,7 @@ document.addEventListener('playerappready', () => {
     initTabSwitching();
     
     // 初始化分類網格（根據當前的 accountingType）
-    const activeTabBtn = document.querySelector('.tab-btn.active');
+    const activeTabBtn = document.querySelector('.tab-section .tab-btn.active');
     const tabType = activeTabBtn ? activeTabBtn.dataset.tab : 'recommended';
     initCategoryGrid(tabType, null); // 顯示所有分類
     
@@ -1050,7 +1031,7 @@ document.addEventListener('playerappready', () => {
                     const isVisible = pageInput.style.display !== 'none';
                     if (isVisible) {
                         initHeaderTabs();
-                        const activeTabBtn = document.querySelector('.tab-btn.active');
+                        const activeTabBtn = document.querySelector('.tab-section .tab-btn.active');
                         const tabType = activeTabBtn ? activeTabBtn.dataset.tab : 'recommended';
                         const recordType = window.accountingType || 'expense';
                         initCategoryGrid(tabType, recordType);
@@ -1086,7 +1067,7 @@ document.addEventListener('playerappready', () => {
                 if (headerSection) headerSection.style.display = 'none';
                 initHeaderTabs();
                 initTabSwitching();
-                const activeTabBtn = document.querySelector('.tab-btn.active');
+                const activeTabBtn = document.querySelector('.tab-section .tab-btn.active');
                 const tabType = activeTabBtn ? activeTabBtn.dataset.tab : 'recommended';
                 console.log('打開記帳輸入頁面，tab:', tabType);
                 initCategoryGrid(tabType, null); // 顯示所有分類

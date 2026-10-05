@@ -1,6 +1,7 @@
 /* IndexedDB persistence with a synchronous view for the existing UI.
    Call flush() before announcing a save/restore or leaving the page.
-   Transactions are revision-checked: stale tabs never overwrite newer saves. */
+   Transactions are revision-checked: a stale tab first loads the newer saves,
+   then writes only the keys it changed on top (same key: the later save wins). */
 (function (root) {
     'use strict';
     async function createPlayerStorage({ indexedDB, legacy, name = 'money-player-data-v1', onState = () => {} }) {
@@ -67,22 +68,36 @@
                     const batch = pending;
                     pending = new Map();
                     try {
+                        let base = revision, fresh = null;
                         await new Promise((resolve, reject) => {
                             const tx = db.transaction(['values', 'meta'], 'readwrite');
-                            let conflict;
+                            const values = tx.objectStore('values');
+                            const write = () => {
+                                batch.forEach((value, key) => value === null ? values.delete(key) : values.put(value, key));
+                                tx.objectStore('meta').put({ revision: base + 1, migrated: true }, 'state');
+                            };
                             const read = tx.objectStore('meta').get('state');
                             read.onsuccess = () => {
-                                if (read.result.revision !== revision) {
-                                    conflict = new Error('另一個分頁已更新帳本。請先匯出本頁未儲存資料，再關閉本頁並重新開啟，避免覆蓋。');
-                                    tx.abort(); return;
-                                }
-                                batch.forEach((value, key) => value === null ? tx.objectStore('values').delete(key) : tx.objectStore('values').put(value, key));
-                                tx.objectStore('meta').put({ revision: revision + 1, migrated: true }, 'state');
+                                if (read.result.revision === revision) { write(); return; }
+                                // 另一個分頁已存過：先讀入它的資料，再把本頁的修改寫在上面（同一筆資料以本頁為準）
+                                base = read.result.revision;
+                                const keys = values.getAllKeys(), contents = values.getAll();
+                                contents.onsuccess = () => {
+                                    fresh = new Map(keys.result.map((key, index) => [key, contents.result[index]]));
+                                    write();
+                                };
                             };
                             tx.oncomplete = resolve;
-                            tx.onabort = () => reject(conflict || tx.error || new Error('資料儲存未完成'));
+                            tx.onabort = () => reject(tx.error || new Error('資料儲存未完成'));
                         });
-                        revision++;
+                        revision = base + 1;
+                        if (fresh) {
+                            // 本頁畫面改用合併後的資料；本頁尚未寫入的修改保留
+                            const own = key => batch.has(key) || pending.has(key);
+                            for (const key of [...view.keys()]) if (!own(key) && !fresh.has(key)) view.delete(key);
+                            fresh.forEach((value, key) => { if (!own(key)) view.set(key, value); });
+                            changed(null);
+                        }
                     } catch (error) {
                         batch.forEach((value, key) => { if (!pending.has(key)) pending.set(key, value); });
                         failure = error;

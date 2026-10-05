@@ -111,25 +111,6 @@ var themes = window.AppThemes || [
         category: 'basic'
     },
     {
-        id: 'dreamyGalaxy',
-        name: '夢幻星河',
-        icon: '🌌',
-        buttonIcon: '✨',
-        preview: 'url("https://i.pinimg.com/736x/2a/20/38/2a2038686a48d048cc0b21e4f2ba44a5.jpg") center/cover',
-        color: '#B19CD9',
-        category: 'cosmic',
-        backgroundImage: 'https://i.pinimg.com/736x/2a/20/38/2a2038686a48d048cc0b21e4f2ba44a5.jpg',
-        investmentCardImage: 'https://i.pinimg.com/736x/2a/20/38/2a2038686a48d048cc0b21e4f2ba44a5.jpg',
-        accountingCardImage: 'https://i.pinimg.com/736x/2a/20/38/2a2038686a48d048cc0b21e4f2ba44a5.jpg',
-        walletBudgetCardImage: 'https://i.pinimg.com/736x/2a/20/38/2a2038686a48d048cc0b21e4f2ba44a5.jpg',
-        monthlyPlanningCardImage: 'https://i.pinimg.com/736x/2a/20/38/2a2038686a48d048cc0b21e4f2ba44a5.jpg',
-        investmentSettingsCardImage: 'https://i.pinimg.com/736x/2a/20/38/2a2038686a48d048cc0b21e4f2ba44a5.jpg',
-        holdingCardImage: 'https://i.pinimg.com/736x/2a/20/38/2a2038686a48d048cc0b21e4f2ba44a5.jpg',
-        buyingCardImage: 'https://i.pinimg.com/736x/2a/20/38/2a2038686a48d048cc0b21e4f2ba44a5.jpg',
-        sellingCardImage: 'https://i.pinimg.com/736x/2a/20/38/2a2038686a48d048cc0b21e4f2ba44a5.jpg',
-        dividendCardImage: 'https://i.pinimg.com/736x/2a/20/38/2a2038686a48d048cc0b21e4f2ba44a5.jpg'
-    },
-    {
         id: 'mandalaNoirBloom',
         name: '曼陀羅黑金',
         icon: '🪷',
@@ -148,60 +129,6 @@ var themes = window.AppThemes || [
         buyingCardImage: 'https://i.pinimg.com/1200x/b9/81/2a/b9812ad57a6a2115ebfd25638ecc2ce5.jpg',
         sellingCardImage: 'https://i.pinimg.com/1200x/b9/81/2a/b9812ad57a6a2115ebfd25638ecc2ce5.jpg',
         dividendCardImage: 'https://i.pinimg.com/1200x/b9/81/2a/b9812ad57a6a2115ebfd25638ecc2ce5.jpg'
-    },
-    {
-        id: 'star',
-        name: '星空主題',
-        icon: '✨',
-        buttonIcon: '✨',
-        preview: 'linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%)',
-        color: '#8b7cf6',
-        category: 'cosmic'
-    },
-    {
-        id: 'aurora',
-        name: '極光主題',
-        icon: '🌈',
-        buttonIcon: '🌈',
-        preview: 'linear-gradient(135deg, #071a52 0%, #0b8457 50%, #7c3aed 100%)',
-        color: '#00d4ff',
-        category: 'cosmic'
-    },
-    {
-        id: 'firefly',
-        name: '螢火蟲主題',
-        icon: '✨',
-        buttonIcon: '✨',
-        preview: 'linear-gradient(135deg, #0b1020 0%, #1a2b3f 100%)',
-        color: '#facc15',
-        category: 'cosmic'
-    },
-    {
-        id: 'neon',
-        name: '霓虹波動',
-        icon: '🟣',
-        buttonIcon: '🟣',
-        preview: 'linear-gradient(135deg, #0b1020 0%, #1f1147 50%, #00d4ff 100%)',
-        color: '#7c3aed',
-        category: 'cosmic'
-    },
-    {
-        id: 'midnight',
-        name: '午夜深色',
-        icon: '🌙',
-        buttonIcon: '🌙',
-        preview: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
-        color: '#6366f1',
-        category: 'cosmic'
-    },
-    {
-        id: 'space',
-        name: '星際宇航',
-        icon: '🚀',
-        buttonIcon: '🛸',
-        preview: 'linear-gradient(135deg, #001428 0%, #002850 60%, #8a2be2 100%)',
-        color: '#00d4ff',
-        category: 'cosmic'
     },
     {
         id: 'totoro',
@@ -439,16 +366,6 @@ var themes = window.AppThemes || [
         buyingCardImage: 'https://i.pinimg.com/1200x/ce/51/ad/ce51ad70ef8ce24f13090a3dc913b0f6.jpg',
         sellingCardImage: 'https://i.pinimg.com/1200x/ce/51/ad/ce51ad70ef8ce24f13090a3dc913b0f6.jpg',
         dividendCardImage: 'https://i.pinimg.com/1200x/ce/51/ad/ce51ad70ef8ce24f13090a3dc913b0f6.jpg'
-    },
-    {
-        id: 'emeraldPrince',
-        name: '翡翠王子',
-        icon: '👑',
-        buttonIcon: '🗡️',
-        preview: 'url("https://i.pinimg.com/736x/55/40/2f/55402fb6bcf0c65c832636ad5504499f.jpg") center/cover',
-        color: '#2E8B57',
-        category: 'fantasy',
-        backgroundImage: 'https://i.pinimg.com/736x/55/40/2f/55402fb6bcf0c65c832636ad5504499f.jpg'
     },
     {
         id: 'cuteCats',
@@ -782,25 +699,6 @@ var themes = window.AppThemes || [
         dividendCardImage: 'https://i.pinimg.com/736x/26/c9/c0/26c9c0297b0cad3dfa8d6d5c41ccfc18.jpg'
     },
     {
-        id: 'spacegold',
-        name: '太空金彩',
-        icon: '🚀',
-        buttonIcon: '🪐',
-        preview: 'url("https://i.pinimg.com/736x/eb/33/27/eb3327b7caa47a87c1f4cee99344892e.jpg") center/cover',
-        color: '#FFD700',
-        category: 'cosmic',
-        backgroundImage: 'https://i.pinimg.com/736x/eb/33/27/eb3327b7caa47a87c1f4cee99344892e.jpg',
-        investmentCardImage: 'https://i.pinimg.com/736x/85/74/68/857468da4307fa5dc160ad691a91203b.jpg',
-        accountingCardImage: 'https://i.pinimg.com/736x/eb/33/27/eb3327b7caa47a87c1f4cee99344892e.jpg',
-        walletBudgetCardImage: 'https://i.pinimg.com/736x/eb/33/27/eb3327b7caa47a87c1f4cee99344892e.jpg',
-        monthlyPlanningCardImage: 'https://i.pinimg.com/736x/85/74/68/857468da4307fa5dc160ad691a91203b.jpg',
-        investmentSettingsCardImage: 'https://i.pinimg.com/736x/eb/33/27/eb3327b7caa47a87c1f4cee99344892e.jpg',
-        holdingCardImage: 'https://i.pinimg.com/736x/eb/33/27/eb3327b7caa47a87c1f4cee99344892e.jpg',
-        buyingCardImage: 'https://i.pinimg.com/736x/eb/33/27/eb3327b7caa47a87c1f4cee99344892e.jpg',
-        sellingCardImage: 'https://i.pinimg.com/736x/eb/33/27/eb3327b7caa47a87c1f4cee99344892e.jpg',
-        dividendCardImage: 'https://i.pinimg.com/736x/eb/33/27/eb3327b7caa47a87c1f4cee99344892e.jpg'
-    },
-    {
         id: 'attractGold',
         name: '吸金紅金',
         icon: '🪙',
@@ -899,15 +797,6 @@ var themes = window.AppThemes || [
         dividendCardImage: 'https://i.pinimg.com/1200x/ba/24/9a/ba249a3cc3f9f317683f78c240ff0686.jpg'
     },
     {
-        id: 'nightglowSeasons',
-        name: '夜光四季',
-        icon: '🌃',
-        buttonIcon: '✨',
-        preview: 'linear-gradient(135deg, #0a1929 0%, #1e3a5f 25%, #2e5266 50%, #1a365d 75%, #0f172a 100%)',
-        color: '#64ffda',
-        category: 'cosmic'
-    },
-    {
         id: 'mori',
         name: '小森主題',
         icon: '🍃',
@@ -945,26 +834,6 @@ var themes = window.AppThemes || [
         buyingCardImage: 'https://i.pinimg.com/736x/74/18/41/741841fb6bb929097d201539a5be65d8.jpg',
         sellingCardImage: 'https://i.pinimg.com/736x/74/18/41/741841fb6bb929097d201539a5be65d8.jpg',
         dividendCardImage: 'https://i.pinimg.com/736x/74/18/41/741841fb6bb929097d201539a5be65d8.jpg'
-    },
-    {
-        id: 'starry-blue-purple',
-        name: '星空藍紫',
-        icon: '🌌',
-        buttonIcon: '✨',
-        preview: 'url("https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg") center/cover',
-        color: '#6B5B95',
-        category: 'cosmic',
-        cssBackground: true,
-        backgroundImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
-        investmentCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
-        accountingCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
-        walletBudgetCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
-        monthlyPlanningCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
-        investmentSettingsCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
-        holdingCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
-        buyingCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
-        sellingCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg',
-        dividendCardImage: 'https://i.pinimg.com/736x/44/58/fb/4458fb96bbac2d206bc5b4678ccbb125.jpg'
     },
     {
         id: 'soft-lavender',
@@ -1385,11 +1254,6 @@ const themeCategories = {
         icon: '🐾',
         description: '可愛、萌系、粉彩主題',
         animation: 'cuteAnimation'
-    },
-    cosmic: {
-        name: '星空暗夜',
-        icon: '🌌',
-        description: '星空、極光、深色護眼主題'
     },
     fantasy: {
         name: '奇幻風格',
@@ -1888,14 +1752,6 @@ function updateThemeButtons(themeId) {
             navLedger: '📜',
             navWallet: '💎',
             navInvestment: '🛡️',
-            navChart: '🏰',
-            navSettings: '⚔️'
-        },
-                emeraldPrince: {
-            fab: '👑',
-            navLedger: '📜',
-            navWallet: '💎',
-            navInvestment: '🗡️',
             navChart: '🏰',
             navSettings: '⚔️'
         },

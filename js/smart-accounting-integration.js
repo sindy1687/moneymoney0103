@@ -22,22 +22,8 @@ class SmartAccountingManager {
     
     // 綁定事件
     bindEvents() {
-        // 監聽金額輸入
-        const amountInput = document.getElementById('amount');
-        if (amountInput) {
-            amountInput.addEventListener('input', () => {
-                this.handleAmountChange();
-            });
-        }
-        
-        // 監聽描述輸入
-        const descriptionInput = document.getElementById('description');
-        if (descriptionInput) {
-            descriptionInput.addEventListener('input', () => {
-                this.handleDescriptionChange();
-            });
-        }
-        
+        // 智慧建議（按鈕與輸入時自動跳出的分類建議）已移除
+
         // 監聽分類選擇
         const categorySelect = document.getElementById('category');
         if (categorySelect) {
@@ -65,31 +51,8 @@ class SmartAccountingManager {
                 }
             });
         }
-        
-        // 監聽智慧建議按鈕
-        this.addSuggestionButton();
     }
-    
-    // 處理金額變化
-    handleAmountChange() {
-        const amount = parseFloat(document.getElementById('amount')?.value || 0);
-        const description = document.getElementById('description')?.value || '';
-        
-        if (amount > 0 && description) {
-            this.showCategorySuggestion(amount, description);
-        }
-    }
-    
-    // 處理描述變化
-    handleDescriptionChange() {
-        const amount = parseFloat(document.getElementById('amount')?.value || 0);
-        const description = document.getElementById('description')?.value || '';
-        
-        if (amount > 0 && description) {
-            this.showCategorySuggestion(amount, description);
-        }
-    }
-    
+
     // 處理分類變化
     handleCategoryChange() {
         const selectedCategory = document.getElementById('category')?.value;
@@ -105,95 +68,6 @@ class SmartAccountingManager {
     handleRecordSubmit() {
         // 在提交記錄時學習使用者偏好
         this.learnFromRecord();
-    }
-    
-    // 顯示分類建議
-    showCategorySuggestion(amount, description) {
-        if (typeof SmartAccounting === 'undefined') return;
-        
-        const suggestion = SmartAccounting.suggestCategory(amount, description);
-        if (!suggestion || suggestion.confidence < 70) return;
-        
-        const categorySelect = document.getElementById('category');
-        if (!categorySelect) return;
-        
-        // 如果當前沒有選擇分類，或信心度很高，則自動建議
-        if (!categorySelect.value || suggestion.confidence > 85) {
-            categorySelect.value = suggestion.primary;
-            this.showSuggestionBanner(suggestion);
-        }
-        
-        // 顯示建議提示
-        this.showSuggestionTooltip(suggestion);
-    }
-    
-    // 顯示建議橫幅
-    showSuggestionBanner(suggestion) {
-        // 移除現有的建議橫幅
-        const existingBanner = document.querySelector('.smart-suggestion-banner');
-        if (existingBanner) {
-            existingBanner.remove();
-        }
-        
-        const banner = document.createElement('div');
-        banner.className = 'smart-suggestion-banner';
-        banner.innerHTML = `
-            <div class="suggestion-content">
-                <span class="suggestion-icon">🤖</span>
-                <span class="suggestion-text">建議分類: ${suggestion.primary} (信心度: ${suggestion.confidence}%)</span>
-                <button class="suggestion-accept" onclick="this.parentElement.parentElement.remove()">接受</button>
-                <button class="suggestion-dismiss" onclick="this.parentElement.parentElement.remove()">忽略</button>
-            </div>
-        `;
-        
-        // 插入到表單上方
-        const form = document.getElementById('recordForm');
-        if (form) {
-            form.parentNode.insertBefore(banner, form);
-        }
-        
-        // 自動移除
-        setTimeout(() => {
-            if (banner.parentNode) {
-                banner.remove();
-            }
-        }, 5000);
-    }
-    
-    // 顯示建議提示
-    showSuggestionTooltip(suggestion) {
-        const categorySelect = document.getElementById('category');
-        if (!categorySelect) return;
-        
-        // 移除現有提示
-        const existingTooltip = document.querySelector('.category-suggestion-tooltip');
-        if (existingTooltip) {
-            existingTooltip.remove();
-        }
-        
-        const tooltip = document.createElement('div');
-        tooltip.className = 'category-suggestion-tooltip';
-        tooltip.innerHTML = `
-            <div class="tooltip-content">
-                <div class="tooltip-title">🤖 智慧建議</div>
-                <div class="tooltip-suggestion">${suggestion.primary} (${suggestion.confidence}%)</div>
-                ${suggestion.alternatives.length > 0 ? `
-                    <div class="tooltip-alternatives">其他: ${suggestion.alternatives.join(', ')}</div>
-                ` : ''}
-            </div>
-        `;
-        
-        categorySelect.parentNode.appendChild(tooltip);
-        
-        // 點擊其他地方時移除
-        setTimeout(() => {
-            document.addEventListener('click', function removeTooltip(e) {
-                if (!tooltip.contains(e.target)) {
-                    tooltip.remove();
-                    document.removeEventListener('click', removeTooltip);
-                }
-            });
-        }, 100);
     }
     
     // 記錄使用者修正
@@ -271,123 +145,6 @@ class SmartAccountingManager {
         } catch (error) {
             console.error('儲存使用者修正失敗:', error);
         }
-    }
-    
-    // 新增建議按鈕
-    addSuggestionButton() {
-        const categorySection = document.querySelector('.category-section');
-        if (!categorySection) return;
-        
-        // 檢查是否已經有建議按鈕
-        if (categorySection.querySelector('.smart-suggestion-btn')) return;
-        
-        const button = document.createElement('button');
-        button.className = 'smart-suggestion-btn';
-        button.innerHTML = '🤖 智慧建議';
-        button.onclick = () => {
-            this.showSmartSuggestions();
-        };
-        
-        categorySection.appendChild(button);
-    }
-    
-    // 顯示智慧建議面板
-    showSmartSuggestions() {
-        const amount = parseFloat(document.getElementById('amount')?.value || 0);
-        const description = document.getElementById('description')?.value || '';
-        
-        if (amount === 0 || !description) {
-            alert('請先輸入金額和描述');
-            return;
-        }
-        
-        if (typeof SmartAccounting === 'undefined') {
-            alert('智慧記帳功能未載入');
-            return;
-        }
-        
-        const suggestion = SmartAccounting.suggestCategory(amount, description);
-        if (!suggestion) {
-            alert('無法提供分類建議');
-            return;
-        }
-        
-        // 顯示建議對話框
-        this.showSuggestionDialog(suggestion);
-    }
-    
-    // 顯示建議對話框
-    showSuggestionDialog(suggestion) {
-        // 移除現有對話框
-        const existingDialog = document.querySelector('.smart-suggestion-dialog');
-        if (existingDialog) {
-            existingDialog.remove();
-        }
-        
-        const dialog = document.createElement('div');
-        dialog.className = 'smart-suggestion-dialog';
-        dialog.innerHTML = `
-            <div class="dialog-overlay"></div>
-            <div class="dialog-content">
-                <div class="dialog-header">
-                    <h3>🤖 智慧分類建議</h3>
-                    <button class="dialog-close" onclick="this.closest('.smart-suggestion-dialog').remove()">✕</button>
-                </div>
-                <div class="dialog-body">
-                    <div class="suggestion-main">
-                        <div class="suggestion-category">${suggestion.primary}</div>
-                        <div class="suggestion-confidence">信心度: ${suggestion.confidence}%</div>
-                        <div class="suggestion-factors">
-                            ${suggestion.factors.map(factor => `<div class="factor">${factor}</div>`).join('')}
-                        </div>
-                    </div>
-                    ${suggestion.alternatives.length > 0 ? `
-                        <div class="suggestion-alternatives">
-                            <h4>其他可能分類:</h4>
-                            ${suggestion.alternatives.map(alt => `
-                                <button class="alt-category-btn" onclick="smartAccountingManager.applySuggestion('${alt}')">${alt}</button>
-                            `).join('')}
-                        </div>
-                    ` : ''}
-                </div>
-                <div class="dialog-actions">
-                    <button class="btn-accept" onclick="smartAccountingManager.applySuggestion('${suggestion.primary}')">採納建議</button>
-                    <button class="btn-dismiss" onclick="this.closest('.smart-suggestion-dialog').remove()">忽略</button>
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(dialog);
-    }
-    
-    // 應用建議
-    applySuggestion(category) {
-        const categorySelect = document.getElementById('category');
-        if (categorySelect) {
-            categorySelect.value = category;
-        }
-        
-        // 移除對話框
-        const dialog = document.querySelector('.smart-suggestion-dialog');
-        if (dialog) {
-            dialog.remove();
-        }
-        
-        // 顯示確認訊息
-        this.showConfirmation(`已採納建議分類: ${category}`);
-    }
-    
-    // 顯示確認訊息
-    showConfirmation(message) {
-        const confirmation = document.createElement('div');
-        confirmation.className = 'smart-confirmation';
-        confirmation.textContent = message;
-        
-        document.body.appendChild(confirmation);
-        
-        setTimeout(() => {
-            confirmation.remove();
-        }, 2000);
     }
     
     // 分析支出模式

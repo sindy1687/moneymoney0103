@@ -2573,8 +2573,8 @@ function deleteSavingsGoal(id) {
 }
 
 function switchTab(tabName) {
-    // 更新選項卡按鈕狀態
-    document.querySelectorAll('.tab-btn').forEach(btn => {
+    // 更新選項卡按鈕狀態（只動願望清單自己的分頁，不要動記帳頁的 推薦/全部/更多）
+    document.querySelectorAll('.wishlist-savings-tabs .tab-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.tab === tabName);
     });
     

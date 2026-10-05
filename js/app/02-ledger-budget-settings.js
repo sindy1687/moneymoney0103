@@ -5360,7 +5360,7 @@ function renderCategoryManageList() {
             // 重新初始化分類網格（如果記帳輸入頁面可見）
             const pageInput = document.getElementById('pageInput');
             if (pageInput && pageInput.style.display !== 'none') {
-                const activeTab = document.querySelector('.tab-btn.active');
+                const activeTab = document.querySelector('.tab-section .tab-btn.active');
                 const tabType = activeTab ? activeTab.dataset.tab : 'recommended';
                 initCategoryGrid(tabType, null); // 顯示所有分類
             }
@@ -5622,7 +5622,7 @@ function showAddCategoryDialog(type = 'expense') {
             loadCustomCategories();
             
             // 獲取當前的 tab
-            const activeTab = document.querySelector('.tab-btn.active');
+            const activeTab = document.querySelector('.tab-section .tab-btn.active');
             const currentTabType = activeTab ? activeTab.dataset.tab : 'more';
             
             console.log('當前 tab:', currentTabType);

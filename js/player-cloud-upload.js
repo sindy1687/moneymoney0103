@@ -5,8 +5,6 @@
 
     const HASH_KEY = 'playerCloudLastUploadHash';
     const LAST_UPLOAD_KEY = 'playerCloudLastUpload';
-    const CHECK_MS = 60 * 1000;
-    const RETRY_MS = 60 * 60 * 1000;
     const MAX_BYTES = 40 * 1024 * 1024;
 
     // 屬於「這台裝置」的連線設定，不屬於玩家存檔，不會寫進上傳的 JSON
@@ -20,10 +18,7 @@
     ]);
 
     let uploading = false;
-    let nextAutoAt = 0;
-    let lastUploadDay = '';
     const uploadedHashes = {};
-    let checking = false;
 
     function config() { return window.PLAYER_CLOUD_UPLOAD || {}; }
     function folders() { return config().folders || {}; }
@@ -85,16 +80,16 @@
         }
     }
 
-    async function uploadPlayerJsonToCloud(provider, auto = false) {
+    async function uploadPlayerJsonToCloud(provider) {
         const target = folders()[provider];
         if (uploading || !target) return false;
         const url = serviceUrl();
         if (!url) {
-            if (!auto) notify('尚未上傳：雲端上傳服務尚未設定，請管理者確認 cloud-upload-config.js。', 'error');
+            notify('尚未上傳：雲端上傳服務尚未設定，請管理者確認 cloud-upload-config.js。', 'error');
             return false;
         }
         uploading = true;
-        const progressShown = !auto && typeof showUploadProgress === 'function';
+        const progressShown = typeof showUploadProgress === 'function';
         try {
             const backup = collectPlayerBackup();
             const content = JSON.stringify(backup);
@@ -132,12 +127,11 @@
                 if (hash) playerStorage.setItem(HASH_KEY, JSON.stringify(uploadedHashes));
                 playerStorage.setItem(LAST_UPLOAD_KEY, JSON.stringify({ provider, fileName, at: new Date().toISOString() }));
             } catch (_) { /* Keep session state; never remove player data to save metadata. */ }
-            lastUploadDay = localDay(new Date());
-            notify(`已${auto ? '自動' : ''}上傳到 ${target.name}：${fileName}。可在另一台設備用「設定 → 還原」匯入此 JSON。`, 'success');
+            notify(`已上傳到 ${target.name}：${fileName}。可在另一台設備用「設定 → 還原」匯入此 JSON。`, 'success');
             return true;
         } catch (error) {
             const timedOut = error && (error.name === 'TimeoutError' || error.name === 'AbortError');
-            notify(`${auto ? '自動備份' : '上傳'}未完成：${timedOut ? '連線逾時，請先查看雲端資料夾是否已有檔案，再重試。' : (error.message || error)}`, 'error');
+            notify(`上傳未完成：${timedOut ? '連線逾時，請先查看雲端資料夾是否已有檔案，再重試。' : (error.message || error)}`, 'error');
             return false;
         } finally {
             if (progressShown && typeof hideUploadProgress === 'function') hideUploadProgress();
@@ -165,58 +159,12 @@
         }
     }
 
-    // 本地日期 YYYY-MM-DD（以手機時區判斷「今天」）
-    function localDay(date) {
-        const p = n => String(n).padStart(2, '0');
-        return `${date.getFullYear()}-${p(date.getMonth() + 1)}-${p(date.getDate())}`;
-    }
-
-    // 今天是否已上傳過（自動或手動都算）；寫入失敗時以記憶體中的紀錄為準
-    function uploadedToday() {
-        const today = localDay(new Date());
-        if (lastUploadDay === today) return true;
-        try {
-            const info = JSON.parse(playerStorage.getItem(LAST_UPLOAD_KEY) || 'null');
-            return !!(info && info.at && localDay(new Date(info.at)) === today);
-        } catch (_) {
-            return false;
-        }
-    }
-
-    // 自動備份：一天最多一次，且只有資料有變更才上傳；失敗時一小時後再試
-    async function autoTick() {
-        const provider = config().autoUpload;
-        if (!provider || !folders()[provider] || uploading || checking || Date.now() < nextAutoAt) return;
-        if (typeof document !== 'undefined' && document.hidden) return;
-        if (!serviceUrl() || uploadedToday()) return;
-        checking = true;
-        try {
-            const hash = await snapshotHash(collectPlayerBackup().localStorageSnapshot);
-            let previous = uploadedHashes[provider];
-            if (!previous) {
-                try { previous = JSON.parse(playerStorage.getItem(HASH_KEY) || '{}')[provider]; } catch (_) {}
-            }
-            if (hash && hash === previous) return;
-            if (!await uploadPlayerJsonToCloud(provider, true)) nextAutoAt = Date.now() + RETRY_MS;
-        } catch (_) {
-            nextAutoAt = Date.now() + RETRY_MS;
-        } finally { checking = false; }
-    }
-
     window.uploadPlayerJsonToCloud = uploadPlayerJsonToCloud;
     window.openPlayerCloudFolder = openPlayerCloudFolder;
     window.playerCloudLastUploadText = lastUploadText;
     window.collectPlayerBackup = collectPlayerBackup;
 
-    if (typeof document !== 'undefined') {
-        document.addEventListener('playerappready', () => {
-            if (typeof setInterval === 'function') {
-                setInterval(autoTick, CHECK_MS);
-                autoTick();
-            }
-        });
-    }
     if (typeof module !== 'undefined' && module.exports) {
-        module.exports = { collectPlayerBackup, uploadPlayerJsonToCloud, openPlayerCloudFolder, autoTick };
+        module.exports = { collectPlayerBackup, uploadPlayerJsonToCloud, openPlayerCloudFolder };
     }
 })();
